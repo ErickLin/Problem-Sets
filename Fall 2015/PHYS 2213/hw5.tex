@@ -1,0 +1,262 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, fancyhdr, gensymb, physics, siunitx}
+\usepackage[margin=1in]{geometry}
+\pagestyle{fancy}
+\rhead{Erick Lin}
+\allowdisplaybreaks
+
+\begin{document}
+
+\section*{PHYS 2213B - HW5}
+
+\begin{enumerate}
+    \item
+        The three-dimensional time-independent Schr\"odinger equation is given by
+        \begin{align*}
+            -\frac{\hbar^2}{2m} \left( \frac{\partial^2 \psi}{\partial x^2} + \frac{\partial^2 \psi}{\partial y^2} + \frac{\partial^2 \psi}{\partial z^2} \right) + V \psi = E \psi.
+        \end{align*}
+        Inside the box, $V = 0$ so the equation becomes
+        \begin{align}
+            -\frac{\hbar^2}{2m} \left( \frac{\partial^2 \psi}{\partial x^2} + \frac{\partial^2 \psi}{\partial y^2} + \frac{\partial^2 \psi}{\partial z^2} \right) = E \psi.
+        \end{align}
+        The solution to the differential equation has the form
+        \begin{align*}
+            \psi(x, y, z) = A \sin(k_1 x) \sin(k_2 y) \sin(k_3 z)
+        \end{align*}
+        where $A$, $k_1$, $k_2$, and $k_3$ are constants to be determined. Applying the boundary condition that $\psi = 0$ at $x = L_1$ yields
+        \begin{gather*}
+            0 = A \sin(k_1 L_1) \sin(k_2 y) \sin(k_3 z) \\
+            \sin(k_1 L_1) = 0
+        \end{gather*}
+        which requires that $k_1 L_1 = n_1 \pi$ where $n_1 \in \mathbb{N}$. Likewise, applying the boundary condition that $\psi = 0$ at $y = L_2$ yields $k_2 L_2 = n_2 \pi$ where $n_2 \in \mathbb{N}$, and applying the boundary condition that $\psi = 0$ at $z = L_3$ yields $k_3 L_3 = n_3 \pi$ where $n_3 \in \mathbb{N}$. Then we have
+        \begin{align}
+            \psi(x, y, z) = A \sin(\frac{n_1 \pi}{L_1} x) \sin(\frac{n_2 \pi}{L_2} y) \sin(\frac{n_3 \pi}{L_3} z).
+        \end{align}
+        Normalizing the wave function,
+        \begin{gather*}
+            \int_{-\infty}^\infty \int_{-\infty}^\infty \int_{-\infty}^\infty \psi^*(x, y, z) \psi(x, y, z) dx dy dz = 1 \\
+            \int_0^{L_3} \int_0^{L_2} \int_0^{L_1} A^2 \sin^2 \left( \frac{n_1 \pi}{L_1} x \right) \sin^2 \left( \frac{n_2 \pi}{L_2} y \right) \sin^2 \left( \frac{n_3 \pi}{L_3} z \right) dx dy dz = 1 \\
+            A^2 \int_0^{L_1} A^2 \sin^2 \left( \frac{n_1 \pi}{L_1} x \right) dx \int_0^{L_2} \sin^2 \left( \frac{n_2 \pi}{L_2} y \right) dy \int_0^{L_3} \sin^2 \left( \frac{n_3 \pi}{L_3} z \right) dz = 1 \\
+            A^2 \left( \frac{L_1}{2} \right) \left( \frac{L_2}{2} \right) \left( \frac{L_3}{2} \right) = 1 \\
+            A = \frac{2 \sqrt{2}}{\sqrt{L_1 L_2 L_3}}.
+        \end{gather*}
+        Taking the partial derivatives of (2),
+        \begin{align*}
+            \frac{\partial^2 \psi}{\partial x^2} = -k_1^2 \psi \qquad \frac{\partial^2 \psi}{\partial y^2} = -k_2^2 \psi \qquad \frac{\partial^2 \psi}{\partial z^2} = -k_3^2 \psi
+        \end{align*}
+        and substituting into (1),
+        \begin{align*}
+            E &= \frac{\hbar^2}{2m} (k_1^2 + k_2^2 + k_3^2) \\
+            &= \frac{\pi^2 \hbar^2}{2m} \left( \frac{n_1^2}{L_1^2} + \frac{n_2^2}{L_2^2} + \frac{n_3^2}{L_3^2} \right)
+        \end{align*}
+
+        \iffalse
+        Because the Hamiltonian is the sum of three terms with separate independent variables, the solution to the differential equation has the form
+        \begin{align*}
+            \psi = f(x) g(y) h(z)
+        \end{align*}
+        so (1) can be separated into the three terms
+        \begin{align*}
+            \frac{-\hbar^2}{2m} \left( \frac{\partial^2 f(x)}{\partial x^2} \right) &= E_x f(x) \\
+            \frac{-\hbar^2}{2m} \left( \frac{\partial^2 g(y)}{\partial y^2} \right) &= E_y g(y) \\
+            \frac{-\hbar^2}{2m} \left( \frac{\partial^2 h(z)}{\partial z^2} \right) &= E_z h(z)
+        \end{align*}
+        where $E_x + E_y + E_z = E$. The solutions for the terms have the forms
+        \begin{align*}
+            f(x) &= 
+        \end{align*}
+        \fi
+ 
+    \item
+        \begin{enumerate}
+            \item
+                The one-dimensional time-independent Schr\"odinger equation is given by
+                \begin{align*}
+                    -\frac{\hbar^2}{2m} \frac{d^2 \psi}{dx^2} + V \psi = E \psi.
+                \end{align*}
+                Outside the well, $V = V_0$ so
+                \begin{align*}
+                    -\frac{\hbar^2}{2m} \frac{d^2 \psi}{dx^2} + V_0 \psi = E \psi.
+                \end{align*}
+                Inside the well, $V = 0$ so
+                \begin{align*}
+                    -\frac{\hbar^2}{2m} \frac{d^2 \psi}{dx^2} = E \psi.
+                \end{align*}
+
+            \item
+                Let I and III denote the regions to the left and right of the well, and II denote the region inside the well. Outside the well, the wave equation becomes
+                \begin{align*}
+                    \frac{d^2 \psi}{dx^2} = \alpha^2 \psi
+                \end{align*}
+                where $\alpha^2 = 2m(V_0 - E) / \hbar^2$. The solution to this differential equation takes the form
+                \begin{align*}
+                    \psi(x) = Ae^{\alpha x} + Be^{-\alpha x};
+                \end{align*}
+                however, in region I only the first term is preserved because the second term diverges as ${x \to {-\infty}}$. Likewise, in region II only the second term is preserved because the first term diverges as $x \to \infty$. Then
+                \begin{align*}
+                    \psi_\text{I}(x) = Ae^{\alpha x}
+                \end{align*}
+                in region I and
+                \begin{align*}
+                    \psi_\text{III}(x) = Be^{-\alpha x}
+                \end{align*}
+                in region III. \par
+                Inside the well, the wave equation becomes
+                \begin{align*}
+                    \frac{d^2 \psi}{dx^2} = -k^2 \psi
+                \end{align*}
+                where $k^2 = 2mE / \hbar^2$. This time, the solution takes the form
+                \begin{align*}
+                    \psi_\text{II}(x) &= C\sin{kx} + D\cos{kx}.
+                \end{align*}
+
+            \item
+                The wave function must be continuous and differentiable at the boundary points $x = 0$ and $x = L$. Then
+                \begin{gather*}
+                    \psi_\text{I}(0) = \psi_\text{II}(0) \\
+                    Ae^0 = C\sin0 + D\cos0 \\
+                    A = D, \\
+                    \psi_\text{I}'(0) = \psi_\text{II}'(0) \\
+                    A \alpha e^0 = C k \cos0 - D k \sin0 \\
+                    A \alpha = C k, \\
+                    \psi_\text{II}(L) = \psi_\text{III}(L) \\
+                    C\sin{kL} + D\cos{kL} = Be^{-\alpha L} \\
+                    \frac{A \alpha}{k} \sin{kL} + A \cos{kL} = Be^{-\alpha L},
+                \end{gather*}
+                and writing the coefficients in terms of $A$, the solutions from part (b) become
+                \begin{align*}
+                    \psi_\text{I}(x) &= Ae^{\alpha x} \\
+                    \psi_\text{II}(x) &= \frac{A \alpha}{k} \sin{kx} + A\cos{kx} \\
+                    \psi_\text{III}(x) &= \left( \frac{A \alpha}{k} \sin{kL} + A \cos{kL} \right) e^{\alpha (L - x)}.
+                \end{align*}
+
+            \item
+                The last boundary condition is
+                \begin{gather*}
+                    \psi_\text{II}'(L) = \psi_\text{III}'(L) \\
+                    Ck\cos{kL} - Dk\sin{kL} = -B\alpha e^{-\alpha L} \\
+                    A\alpha \cos{kL} - Ak\sin{kL} = -\alpha \left( \frac{A\alpha}{k} \sin{kL} + A \cos{kL} \right) \\
+                    2\alpha \cos{kL} = \left( k - \frac{\alpha^2}{k} \right) \sin{kL},
+                \end{gather*}
+                which expresses a relation between the wave numbers $\alpha$ and $k$. Note that the wave numbers are themselves expressed in terms of $E$ and $V_0$.
+        \end{enumerate}
+
+    \item
+        \begin{enumerate}
+            \item
+                From
+                \begin{align*}
+                    1 &= \int_{-\infty}^\infty A^2 (1 - 2\alpha x^2)^2 e^{-\alpha x^2} dx \\
+                    1 &= A^2 \left( \int_{-\infty}^\infty e^{-\alpha x^2} dx - 4\alpha \int_{-\infty}^\infty x^2 e^{-\alpha x^2} dx + 4\alpha^2 \int_{-\infty}^\infty x^4 e^{-\alpha x^2} dx \right) \\
+                    1 &= A^2 \biggl( \left[ \frac{1}{2} \sqrt{ \frac{\pi}{\alpha}} \erf \left( \sqrt{\alpha} \right) \right]_{-\infty}^\infty - 4\alpha \left[ \frac{\sqrt{\pi} \erf(\sqrt{\alpha} x)}{4 \alpha^{3/2}} - \frac{xe^{-\alpha x^2}}{2 \alpha} \right]_{-\infty}^\infty \\
+                    &\qquad + 4\alpha^2 \left[ \frac{3 \sqrt{\pi} \erf(\sqrt{\alpha} x)}{8 \alpha^{5/2}} - \frac{xe^{-\alpha x^2} (2 \alpha x^2 + 3)}{4 \alpha^2} \right]_{-\infty}^\infty \biggr) \\
+                    1 &= 2 \sqrt{\frac{\pi}{\alpha}} A^2 \\
+                    A &= \frac{\sqrt{2}}{2} \left( \frac{\alpha}{\pi} \right)^{1/4},
+                \end{align*}
+                the wave function is $\psi = \frac{\sqrt{2}}{2} \left( \frac{\alpha}{\pi} \right)^{1/4} (1 - 2\alpha x^2) e^{-\alpha x^2 / 2}$.
+
+            \item
+                For a simple harmonic oscillator, $V(x) = \kappa x^2 / 2$ where $\kappa$ is the spring constant. Since
+                \begin{align*}
+                    \frac{d \psi}{dx} &= \frac{\sqrt{2}}{2} \left( \frac{\alpha}{\pi} \right)^{1/4} \left[ \alpha x e^{-\alpha x^2 / 2} (2 \alpha x^2 - 5) \right] \\
+                    \frac{d^2 \psi}{dx^2} &= \frac{\sqrt{2}}{2} \left( \frac{\alpha}{\pi} \right)^{1/4} \left[ \alpha e^{-\alpha x^2 / 2} (2 \alpha^2 x^4 - 11 \alpha x^2 + 5) \right]
+                \end{align*}
+                the Schr\"odinger equation becomes
+                \begin{gather*}
+                    -\frac{\hbar^2}{2m} \frac{d^2 \psi}{dx^2} + \frac{\kappa x^2}{2} \psi = E \psi \\
+                    E = -\frac{\hbar^2}{2m} \frac{1}{\psi} \frac{d^2 \psi}{dx^2} + \frac{\kappa x^2}{2} \\
+                    E = -\frac{\hbar^2}{2m} \alpha(5 - x^2) + \frac{\kappa x^2}{2}.
+                \end{gather*}
+                At $x = 0$, the above equation becomes
+                \begin{align*}
+                    E &= -\frac{5 \alpha \hbar^2}{2m} = -\frac{5 \sqrt{\frac{m \kappa}{\hbar^2}} \hbar^2}{2m} = -\frac{5 \sqrt{\frac{m (\omega^2 m)}{\hbar^2}} \hbar^2}{2m} = \frac{5 \hbar \omega}{2}.
+                \end{align*}
+
+            \item
+                \begin{align*}
+                    \langle x \rangle &= \int_{-\infty}^\infty x \psi^* \psi dx \\
+                    &= \frac{1}{2} \sqrt{\frac{\alpha}{\pi}} \int_{-\infty}^\infty x (1 - 2\alpha x^2)^2 e^{-\alpha x^2} dx \\
+                    &= \frac{1}{2} \sqrt{\frac{\alpha}{\pi}} \left[ -\frac{e^{-\alpha x^2} (4 \alpha^2 x^4 + 4 \alpha x^2 + 5)}{2 \alpha} \right]_{-\infty}^\infty \\
+                    &= 0 \\
+                    \langle x^2 \rangle &= \int_{-\infty}^\infty x^2 \psi^* \psi dx \\
+                    &= \frac{1}{2} \sqrt{\frac{\alpha}{\pi}} \int_{-\infty}^\infty x^2 (1 - 2\alpha x^2)^2 e^{-\alpha x^2} dx \\
+                    &= \frac{1}{2} \sqrt{\frac{\alpha}{\pi}} \left[ \frac{5 \sqrt{\pi} \erf\left( \sqrt{a} x \right)}{2 \alpha^{3/2}} + e^{-\alpha x^2} \left( -2 \alpha x^5 - 3x^3 - \frac{5x}{\alpha} \right) \right]_{-\infty}^\infty \\
+                    &= \frac{1}{2} \sqrt{\frac{\alpha}{\pi}} \left[ \frac{5 \sqrt{\pi}}{2 \alpha^{3/2}} + 0 + \frac{5 \sqrt{\pi}}{2 \alpha^{3/2}} - 0 \right] \\
+                    &= \frac{5}{2 \alpha}
+                \end{align*}
+        \end{enumerate}
+
+    \item
+        \begin{enumerate}
+            \item
+                The formula for transmission probability of a particle for a potential barrier with $E < V_0$ is given by
+                \begin{align*}
+                    p_T = \left[ 1 + \frac{V_0^2 \sinh^2(\kappa L)}{4E(V_0 - E)} \right]^{-1} = \left[ 1 + \frac{V_0^2 \sinh^2(\frac{\sqrt{2m(V_0 - E)}}{\hbar} L)}{4E(V_0 - E)} \right]^{-1}.
+                \end{align*}
+                If $m = \SI{6.645}{\kg}$ then
+                \begin{align*}
+                    p_T &\approx 0.098.
+                \end{align*}
+
+            \item
+                By setting $V_1 = 2V_0$, the probability becomes
+                \begin{align*}
+                    p_T = \left[ 1 + \frac{V_1^2 \sinh^2(\frac{\sqrt{2m(V_1 - E)}}{\hbar} L)}{4E(V_1 - E)} \right]^{-1} \approx 0.026.
+                \end{align*}
+                
+            \item
+                By setting $L' = 2L$, the probability becomes
+                \begin{align*}
+                    p_T = \left[ 1 + \frac{V_0^2 \sinh^2(\frac{\sqrt{2m(V_0 - E)}}{\hbar} L')}{4E(V_0 - E)} \right]^{-1} \approx 0.026.
+                \end{align*}
+
+            \item
+                Both properties influence the probability to the same extent. In a scanning tunneling microscope, increasing the tunneling gap and decreasing the voltage both decrease the transmission probability of electrons and hence the current. Furthermore, doubling the tunneling gap and doubling the voltage produce the same change in probability. When the microscope is used, a higher transmission probability leads to a higher resolution.
+        \end{enumerate}
+
+    \item
+        \begin{enumerate}
+            \item
+                If $k$ is the Boltzmann constant, then the average kinetic energy of the proton in terms of the temperature $T$ is given by
+                \begin{align*}
+                    KE_{avg} &= \frac{3}{2} kT \approx \SI{2.5e-19}{\J} \approx \SI{1.6}{\eV}.
+                \end{align*}
+
+            \item
+                The potential energy is primarily the electrostatic potential energy. The potential energy is the highest at the surface of the nucleus with
+                \begin{align*}
+                    V_0 = \frac{1}{4 \pi \varepsilon_0} \frac{(6e) (e)}{r} \approx \SI{5.0e-13}{\J} \approx \SI{8.1e4}{\eV}
+                \end{align*}
+                
+            \item
+                The wave number and wavelength are given by
+                \begin{align*}
+                    \kappa &= \frac{\sqrt{2m(V_0 - E)}}{\hbar} \approx \SI{2.5e22}{\per\meter} \\
+                    \lambda &= \frac{2 \pi}{\kappa} \approx \SI{2.5e-22}{m}
+                \end{align*}
+
+            \item
+                Note that $L$ is twice the radius of the nucleus. Then
+                \begin{align*}
+                    p_T = \left[ 1 + \frac{V_0^2 \sinh^2(\kappa L)}{4E(V_0 - E)} \right]^{-1} \approx 0.0
+                \end{align*}
+        \end{enumerate}
+
+    \item[Q1.]
+        (e)
+
+    \item[Q2.]
+        (e)
+
+    \item[Q3.]
+        (a)
+
+    \item[Q4.]
+        (b)
+
+    \item[Q5.]
+        (b)
+\end{enumerate}
+
+\end{document}

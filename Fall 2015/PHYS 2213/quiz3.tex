@@ -1,0 +1,68 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsmath, fancyhdr, siunitx}
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{PHYS 2213B - Quiz 3 Corrections}
+
+\begin{enumerate}
+    \item
+        Given that $V(x, t) = V(x)$, the form of the Schr\"odinger equation that depends on both position and time is given by
+        \begin{align}
+            i\hbar \frac{\partial \Psi(x, t)}{\partial t} = -\frac{\hbar^2}{2m} \frac{\partial^2 \Psi(x, t)}{\partial x^2} + V(x) \Psi(x, t).
+        \end{align}
+        If we separate the time and position dependences, the solution takes the form
+        \begin{align}
+            \Psi(x, t) = \psi(x) f(t)
+        \end{align}
+        where $\psi$ and $f$ are functions are position and time respectively, and (1) becomes
+        \begin{align*}
+            i \hbar \psi(x) \frac{\partial f(t)}{\partial t} = -\frac{\hbar^2}{2m} f(t) \frac{\partial^2 \psi(x)}{\partial x^2} + V(x) \psi(x) f(t).
+        \end{align*}
+        Dividing by (2) yields
+        \begin{align*}
+            i \hbar \frac{1}{f(t)} \frac{\partial f(t)}{\partial t} = -\frac{\hbar^2}{2m} \frac{1}{\psi(x)} \frac{\partial^2 \psi(x)}{\partial x^2} + V(x).
+        \end{align*}
+        Now that $x$ and $t$ are separated, we can write
+        \begin{gather}
+            i \hbar \frac{1}{f(t)} \frac{\partial f(t)}{\partial t} = C \\
+            -\frac{\hbar^2}{2m} \frac{1}{\psi(x)} \frac{\partial^2 \psi(x)}{\partial x^2} + V(x) = C
+        \end{gather}
+        for some constant $C$. Integrating (3) yields
+        \begin{align*}
+            f(t) = e^{-iCt/\hbar} = e^{-i \omega t}
+        \end{align*}
+        because the expression also gives the time dependence of a harmonic oscillator with angular frequency $\omega = C / \hbar$. Substituting into (2) gives
+        \begin{align*}
+            \Psi(x, t) = \psi(x) e^{-i \omega t}.
+        \end{align*}
+        Then the expectation of $x$ is given by
+        \begin{align*}
+            \langle x \rangle &= \frac{ \int_{-\infty}^\infty \overline{\Psi(x, t)} x \Psi(x, t) dx }{ \int_{-\infty}^\infty \overline{\Psi(x, t)} \Psi(x, t) dx } \\
+            &= \frac{ \int_{-\infty}^\infty x[\psi(x) e^{i \omega t}][\psi(x) e^{-i \omega t}] dx }{ \int_{-\infty}^\infty [\psi(x) e^{i \omega t}][\psi(x) e^{-i \omega t}] dx } \\
+            &= \frac{ \int_{-\infty}^\infty x \psi^2(x) dx }{\int_{-\infty}^\infty \psi^2(x) dx},
+        \end{align*}
+        which can now be seen to be independent of $t$.
+
+    \item
+        The radial probability density for electrons at $n = 3$ and $l = 2$ is
+        \begin{align*}
+            P_{3, 2}(r) &= r^2 |R_{3, 2}(r)|^2 \\
+            &= r^2 \left( \frac{4r^2}{81 \sqrt{30} a_0^{7/2}} e^{-r/(3a_0)} \right)^2 \\
+            &= \frac{8r^6}{98415 a_0^7} e^{-2r/(3a_0)}
+        \end{align*}
+        where $a_0 = 4 \pi \varepsilon_0 \hbar^2 / (\mu e^2)$ and $\mu$ is the harmonic mean of the masses of the electron and nucleus of the hydrogen atom. Because $P_{3, 2}(r)$ is a function that is concave up for all points in its domain, the probability attains a maximum at $dP_{3, 2}(r) / dr = 0$. Then we have
+        \begin{gather*}
+            \frac{d}{dr} \left( \frac{8r^6}{98415 a_0^7} e^{-2r/(3a_0)} \right) = 0 \\
+            \frac{16r^5}{32805 a_0^7} e^{-2r/(3a_0)} - \frac{16r^6}{295245 a_0^8} e^{-2r/(3a_0)} = 0 \\
+            \frac{16r^5}{295245 a_0^8} e^{-2r/(3a_0)} (9a_0 - r) = 0 \\
+            r = 9a_0 = \frac{36 \pi \varepsilon_0 \hbar^2}{\mu e^2}.
+        \end{gather*}
+        Because the Bohr radius for a hydrogen atom is given by $r_n = n^2 a_0$, we have that for $n = 3$, the Bohr radius $r_3 = 9 a_0$, matches the radius at which the predicted radial probability density is at its maximum.
+
+\end{enumerate}
+
+\end{document}

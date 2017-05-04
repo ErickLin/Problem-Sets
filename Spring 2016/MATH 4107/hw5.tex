@@ -1,0 +1,361 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amsthm, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\newcommand{\im}{\text{im}\,}
+
+\begin{document}
+
+\section*{MATH 4107 - HW5 Solutions}
+
+\subsection*{2.10}
+\begin{enumerate}
+    \item[5.]
+        \boldmath
+        \textbf{With reference to the homomorphism $S_4 \to S_3$ described by the map from $S_4$ to the group of permutations of the set $\{ \Pi_1, \Pi_2, \Pi_3 \}$, where
+        \begin{align*}
+            \Pi_1 : \{ 1, 2 \} \cup \{ 3, 4 \}, \ \Pi_2 : \{ 1, 3 \} \cup \{ 2, 4 \}, \ \Pi_3 : \{ 1, 4 \} \cup \{ 2, 3 \},
+        \end{align*}
+        determine the six subgroups of $S_4$ that contain $K$.} \par
+        \unboldmath
+        Since $\varphi$ is an isomorphism which is surjective, from the correspondence theorem, each subgroup $\mathcal{H}$ of $S_3$ corresponds to its inverse image $\varphi^{-1}(\mathcal{H})$, which is a subgroup of $S_4$ that contains the kernel $K$. We know that
+        \begin{gather*}
+            K = \{ (), (1\ 2)(3\ 4), (1\ 3)(2\ 4), (1\ 4)(2\ 3) \},
+        \end{gather*}
+        and that the subgroups of $S_3$ are
+        \begin{gather*}
+            \{ () \}, \ \{ (), (\Pi_1\ \Pi_2) \}, \ \{ (), (\Pi_1\ \Pi_3) \}, \ \{ (), (\Pi_2\ \Pi_3), \}, \\
+            \{ (), (\Pi_1\ \Pi_2\ \Pi_3), (\Pi_1\ \Pi_3\ \Pi_2) \}, \\
+            \{ (), (\Pi_1\ \Pi_2), (\Pi_1\ \Pi_3), (\Pi_2\ \Pi_3), (\Pi_1\ \Pi_2\ \Pi_3), (\Pi_1\ \Pi_3\ \Pi_2) \} = S_3.
+        \end{gather*}
+        The permutation $(\Pi_1, \Pi_2)$ acts on $S_4$ as any one of the following permutations (that is not in $K$):
+        \begin{gather*}
+            (1\ 4) \quad (2\ 3) \quad (1\ 2\ 4\ 3) \quad (1\ 3\ 4\ 2).
+        \end{gather*}
+        $(\Pi_1, \Pi_3)$ acts on $S_4$ as any one of the following permutations:
+        \begin{gather*}
+            (1\ 3) \quad (2\ 4) \quad (1\ 2\ 3\ 4) \quad (1\ 4\ 3\ 2).
+        \end{gather*}
+        $(\Pi_2, \Pi_3)$ acts on $S_4$ as any one of the following permutations:
+        \begin{gather*}
+            (1\ 2) \quad (3\ 4) \quad (1\ 3\ 2\ 4) \quad (1\ 4\ 2\ 3).
+        \end{gather*}
+        $(\Pi_1, \Pi_2, \Pi_3)$ acts on $S_4$ as any one of the following permutations:
+        \begin{gather*}
+            (1\ 2\ 4) \quad (1\ 3\ 2) \quad (1\ 4\ 3) \quad (2\ 3\ 4).
+        \end{gather*}
+        $(\Pi_1, \Pi_3, \Pi_2)$ acts on $S_4$ as any one of the following permutations:
+        \begin{gather*}
+            (1\ 2\ 3) \quad (1\ 3\ 4) \quad (1\ 4\ 2) \quad (2\ 4\ 3).
+        \end{gather*}
+        In conclusion, the subgroups of $S_4$ containing $K$ corresponding to the subgroups of $S_3$ are
+        \begin{gather*}
+            K, \\
+            K \cup \{ (1\ 4), (2\ 3), (1\ 2\ 4\ 3), (1\ 3\ 4\ 2) \}, \\
+            K \cup \{ (1\ 3), (2\ 4), (1\ 2\ 3\ 4), (1\ 4\ 3\ 2) \}, \\
+            K \cup \{ (1\ 2), (3\ 4), (1\ 3\ 2\ 4), (1\ 4\ 2\ 3) \}, \\
+            K \cup \{ (1\ 2\ 4), (1\ 3\ 2), (1\ 4\ 3), (2\ 3\ 4), (1\ 2\ 3), (1\ 3\ 4), (1\ 4\ 2), (2\ 4\ 3) \}, \\
+            S_4.
+        \end{gather*}
+\end{enumerate}
+
+\subsection*{2.11}
+\begin{enumerate}
+    \item[2.]
+        \boldmath
+        \textbf{What does Proposition 2.11.4 tell us when, with the usual notation for the symmetric group $S_3$, $K$ and $H$ are the subgroups $\langle y \rangle$ and $\langle x \rangle$?} \par
+        \unboldmath
+        Let $f : H \times K \to G$ denote the multiplication map defined by $f(h, k) = hk$.
+        \begin{enumerate}
+            \item
+                Since $\langle x \rangle \cap \langle y \rangle = \{ e \}$, $f$ is injective.
+
+            \item
+                Since $x^2y \neq yx^2$ and $xy \neq yx$, $f$ is not a homomorphism.
+
+            \item
+                \iffalse
+                For the reasons in (b), $\langle x \rangle$ and $\langle y \rangle$ do not commute with elements of and are hence not normal subgroups of $S_3$, so $\langle x \rangle \langle y \rangle$ is not a subgroup of $S_3$.
+                \fi
+                Since $[ S_3 : \langle x \rangle ] = 2$, $\langle x \rangle \trianglelefteq S_3$, so $\langle x \rangle \langle y \rangle \leq S_3$. 
+
+            \item
+                \iffalse
+                Since $\langle x \rangle$ and $\langle y \rangle$ are not normal subgroups of $S_3$, $f$ is not an isomorphism.
+                \fi
+                For the reasons in (b), $K$ is not normal, so $f$ is not an isomorphism.
+        \end{enumerate}
+
+    \item[3.]
+        \boldmath
+        \textbf{Prove that the product of two infinite cyclic groups is not infinite cyclic.} \par
+        \unboldmath
+        Let $\langle x \rangle$ and $\langle y \rangle$ denote two infinite cyclic groups. The product
+        \begin{align*}
+            \langle x \rangle \times \langle y \rangle = \{ (x^a, y^b) : a, b \in \mathbb{Z} \}
+        \end{align*}
+        is not cyclic because the elements $(x, e)$ and $(e, y)$ both cannot be represented as powers of any other element in $\langle x \rangle \times \langle y \rangle$, and a cyclic group cannot have more than one generator.
+
+    \item[4.]
+        \boldmath
+        \textbf{In each of the following cases, determine whether or not $G$ is isomorphic to the product group $H \times K$.} \par
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{$G = \mathbb{R}^\times$, $H = \{ \pm 1 \}$, $K = \{ x \in \mathbb{R}^\times : x > 0 \}$.} \par
+                \unboldmath
+                Yes, $H \cap K = \{ 1 \}$, $H$ and $K$ are normal since the real numbers commute with one another, and if we let $f : H \times K \to G$ be the product map, then
+                \begin{align*}
+                    f(H \times K) &= \{ x \in \mathbb{R}^\times : x > 0 \} \cup \{ -x : x \in \mathbb{R}^\times, x > 0 \} \\
+                    &= \{ x \in \mathbb{R}^\times : x \neq 0 \} = G,
+                \end{align*}
+                so $f$ is an isomorphism.
+
+            \item
+                \boldmath
+                \textbf{$G = \{ \text{invertible upper triangular } 2 \times 2 \text{ matrices} \}, \\
+                H = \{ \text{invertible diagonal matrices} \}, \\
+                K = \{ \text{upper triangular matrices with diagonal entries 1} \}$.} \par
+                \unboldmath
+                \iffalse
+                Yes, if we let $f : H \times K \to G$ be the product map, then
+                \begin{align*}
+                    f(H \times K) &= \left\{
+                        \left[ \begin{array}{cc}
+                                a & 0 \\
+                                0 & b
+                        \end{array} \right]
+                        \left[ \begin{array}{cc}
+                                1 & c \\
+                                0 & 1
+                        \end{array} \right]
+                        : a, b, c \in \mathbb{C}, a \neq 0, b \neq 0
+                    \right\} \\
+                    &= \left\{
+                        \left[ \begin{array}{cc}
+                                a & ac \\
+                                0 & b
+                        \end{array} \right]
+                        : a, b, c \in \mathbb{C}, a \neq 0, b \neq 0
+                    \right\} = G,
+                \end{align*}
+                so $f$ is an isomorphism.
+                \fi
+                No, since $K$ is not normal in $G$.
+
+            \item
+                \boldmath
+                \textbf{$G = \mathbb{C}^\times, H = \{ z \in \mathbb{C}^\times : |z| = 1 \}, K = \{ x \in \mathbb{R}^\times : x > 0 \}$.} \par
+                \unboldmath
+                Yes, $H \cap K = \{ 1 \}$, $H$ and $K$ are normal since the complex numbers commute with one another, and if we let $f : H \times K \to G$ be the product map, then
+                \begin{align*}
+                    f(H \times K) &= \{ re^{i\theta} : r \in \mathbb{R}^\times, r > 0, 0 \leq \theta < 2\pi \} = G,
+                \end{align*}
+                so $f$ is an isomorphism.
+        \end{enumerate}
+        \unboldmath
+
+    \item[9.]
+        \boldmath
+        \textbf{Let $H$ and $K$ be subgroups of a group $G$. Prove that the product set $HK$ is a subgroup of $G$ if and only if $HK = KH$.} \par
+        \unboldmath
+        ($\Rightarrow$) For any element $hk \in HK$ where $h \in H$, $k \in K$, $(hk)^{-1} = k^{-1} h^{-1} \in HK$ since $HK$ is a subgroup of $G$. Since $k^{-1} \in K$ and $h^{-1} \in H$, $k^{-1} h^{-1} \in KH$ as well, by its definition, so $HK \subset KH$. By a similar argument starting with an element $kh \in KH$, $KH \subset HK$. Therefore, $HK = KH$. \par
+        ($\Leftarrow$) Because $H$ and $K$ are subgroups of the same group $G$, they share the same identity element $e$. \par
+        For any $hk \in HK$, $ehk = (eh)k = hk = h(ke) = hke$, so $e$ is also the identity element in $HK$. $(hk)^{-1} = k^{-1} h^{-1} \in KH$ by its definition, and since $KH = HK$, $(hk)^{-1} \in HK$ as well. \par
+        Finally, for any elements $h_1 k_1$, $h_2 k_2 \in HK$, the product $k_1 h_2 \in KH$ by its definition, and since $KH = HK$, $k_1 h_2 = h_3 k_3$ for some $h_3 \in H, k_3 \in K$. Then the product $h_1 k_1 h_2 k_2 = h_1 h_3 k_3 k_2 \in HK$ since $H$ and $K$ are closed under multiplication.
+\end{enumerate}
+
+\subsection*{2.12}
+\begin{enumerate}
+    \item[1.]
+        \boldmath
+        \textbf{Show that if a subgroup $H$ of a group $G$ is not normal, there are left cosets $aH$ and $bH$ whose product is not a coset.} \par
+        \unboldmath
+        We will prove the contrapositive statement. Suppose that for all $a, b \in G$, $aHbH = cH$ for some $c \in G$, so that the product of the cosets is a coset of $H$. Using left multiplication, $HbH = a^{-1} cH$. Since $b \in HbH = a^{-1} cH$, $bH = a^{-1} cH$ by the properties of cosets. Using left multiplication, $abH = cH$, so we have $aHbH = abH \Rightarrow HbH = bH \Rightarrow Hb \subset bH$. Since $b$ is arbitrary and the number of left and right cosets in $G$ are the same, $Hb = bH$, and thus $H$ is normal.
+
+    \item[2.]
+        \boldmath
+        \textbf{In the general linear group $GL_3(\mathbb{R})$, consider the subsets
+        \begin{align*}
+            H = \left[ \begin{array}{ccc}
+                    1 & * & * \\
+                    0 & 1 & * \\
+                    0 & 0 & 1
+            \end{array} \right]
+            ,\ \text{and}\ 
+            K = \left[ \begin{array}{ccc}
+                    1 & 0 & * \\
+                    0 & 1 & 0 \\
+                    0 & 0 & 1
+            \end{array} \right]
+        \end{align*}
+        where $*$ represents an arbitrary real number. Show that $H$ is a subgroup of $GL_3$, that $K$ is a normal subgroup of $H$, and identity the quotient group $H/K$. Determine the center of $H$.} \par
+        \unboldmath
+        $HI_3 = I_3H$ where $I_3$ is the identity element in $GL_3$, so $I_3$ is the identity element of $H$. Any element in $H$ is invertible since it is an upper triangular matrix with nonzero diagonal elements, and its inverse has the reciprocals of the diagonal elements which are $1$, so the inverse is in $H$. Finally, the product of any two upper triangular matrices with $1$s along the diagonals is also an upper triangular matrix with $1$s along its diagonal. \par
+        Similarly, $I_3$ is the identity element in $K$, and any element $\left[ \begin{array}{ccc} 1 & 0 & a \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{array} \right]$ in $K$ is invertible, with its inverse $\left[ \begin{array}{ccc} 1 & 0 & -a \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{array} \right]$ in $K$. Also, the product of any two elements in $K$ is an element in $K$, with the matrix element in the upper right corner being the sum of the matrix elements in the corresponding positions. $K$ is normal because the conjugate
+        \begin{align*}
+            \left[ \begin{array}{ccc}
+                    1 & b & c \\
+                    0 & 1 & d \\
+                    0 & 0 & 1
+            \end{array} \right]
+            \left[ \begin{array}{ccc}
+                    1 & 0 & a \\
+                    0 & 1 & 0 \\
+                    0 & 0 & 1
+            \end{array} \right]
+            \left[ \begin{array}{ccc}
+                    1 & -b & bc - d \\
+                    0 & 1 & -d \\
+                    0 & 0 & 1
+            \end{array} \right]
+            =
+            \left[ \begin{array}{ccc}
+                    1 & 0 & a + bc - d \\
+                    0 & 1 & 0 \\
+                    0 & 0 & 1
+            \end{array} \right] \in K.
+        \end{align*}
+        The quotient group $H/K$ is the set of cosets
+        \begin{align*}
+            \left[ \begin{array}{ccc}
+                    1 & 0 & a \\
+                    0 & 1 & 0 \\
+                    0 & 0 & 1
+            \end{array} \right]
+            \left[ \begin{array}{ccc}
+                    1 & b & c \\
+                    0 & 1 & d \\
+                    0 & 0 & 1
+            \end{array} \right]
+            =
+            \left[ \begin{array}{ccc}
+                    1 & b & a + c \\
+                    0 & 1 & d \\
+                    0 & 0 & 1
+            \end{array} \right] \forall a.
+        \end{align*}
+        The center of $H$ can be found by multiplying any element of the center with any arbitary matrix in $H$:
+        \begin{align*}
+            \left[ \begin{array}{ccc}
+                    1 & a & b \\
+                    0 & 1 & c \\
+                    0 & 0 & 1
+            \end{array} \right]
+            \left[ \begin{array}{ccc}
+                    1 & d & e \\
+                    0 & 1 & f \\
+                    0 & 0 & 1
+            \end{array} \right]
+            = \left[ \begin{array}{ccc}
+                    1 & a + d & b + af + e \\
+                    0 & 1 & c + f \\
+                    0 & 0 & 1
+            \end{array} \right] \\
+            \left[ \begin{array}{ccc}
+                    1 & d & e \\
+                    0 & 1 & f \\
+                    0 & 0 & 1
+            \end{array} \right]
+            \left[ \begin{array}{ccc}
+                    1 & a & b \\
+                    0 & 1 & c \\
+                    0 & 0 & 1
+            \end{array} \right]
+            = \left[ \begin{array}{ccc}
+                    1 & a + d & b + cd + e \\
+                    0 & 1 & c + f \\
+                    0 & 0 & 1
+            \end{array} \right];
+        \end{align*}
+        the only way for this to be true for all matrices in $H$ is if $a = c = 0$ and hence the top right element is $b + e$ in both multiplications. Thus the center of $H$ of $K$.
+\end{enumerate}
+
+\subsection*{Not in text:}
+\begin{enumerate}
+    \item
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{List all subgroups of $\mathbb{Z}$ containing $24\mathbb{Z}$.} \par
+                \unboldmath
+                We use the fact that $n\mathbb{Z} \leq m\mathbb{Z}$ implies $m | n$ and vice versa; hence the subgroups are $\mathbb{Z}, 2\mathbb{Z}, 3\mathbb{Z}, 4\mathbb{Z}, 6\mathbb{Z}, 8\mathbb{Z}, 12\mathbb{Z}, 24\mathbb{Z}$.
+
+            \item
+                \boldmath
+                \textbf{List all subgroups of $\mathbb{Z}/24\mathbb{Z}$.} \par
+                \unboldmath
+                We recall that if $m | n$, then $\langle x^{n/m} \rangle$ is a unique subgroup of order $m$; hence the subgroups are $\langle \overline{1} \rangle, \langle \overline{2} \rangle, \langle \overline{3} \rangle, \langle \overline{4} \rangle, \langle \overline{6} \rangle, \langle \overline{8} \rangle, \langle \overline{12} \rangle, \langle \overline{0} \rangle$.
+
+            \item
+                \boldmath
+                \textbf{Determine which subgroups in (a) and (b) correspond to each other under the homomorphism $\pi : \mathbb{Z} \to \mathbb{Z}/24\mathbb{Z}$ defined by $\pi(x) = \overline{x}$.} \par
+                \unboldmath
+                Using the correspondence theorem, it can be observed that each subgroup in (a) corresponds to the respective subgroup in (b). For example, $\pi(24\mathbb{Z}) = \{ \pi(0), \pi(24), \cdots \} = \{ \overline{0} \} = \langle \overline{0} \rangle$.
+        \end{enumerate}
+
+    \item
+        \boldmath
+        \textbf{Use the first isomorphism theorem to identify the following quotient groups. In other words, what common group is the quotient isomorphic to?}
+        \unboldmath
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{$\mathbb{R}^\times/\{\pm 1\}$} \par
+                \unboldmath
+                Let $\varphi : \mathbb{R}^\times \to \mathbb{R}_{>0}$ defined by $\varphi(x) = |x|$. We can confirm that $\ker(\varphi) = \{ \pm 1 \}$, and thus by the first isomorphism theorem the quotient is isomorphic to $\mathbb{R}_{>0}$.
+
+            \item
+                \boldmath
+                \textbf{$\mathbb{C}^\times/S^1$ where $S^1 = \{ e^{2\pi it} \mid t \in \mathbb{R} \}$} \par
+                \unboldmath
+                Let $\varphi : \mathbb{C}^\times \to \mathbb{R}_{>0}$ defined by $\varphi(x) = |x|$. We can confirm that $\ker(\varphi) = S^1$, and thus the quotient is isomorphic to $\mathbb{R}_{>0}$. 
+
+            \item
+                \boldmath
+                \textbf{$\mathbb{R}^+/2\pi \mathbb{Z}$} \par
+                \unboldmath
+                Let $\varphi : \mathbb{R} \to S^1$ defined by $\varphi(t) = e^{it}$. We can confirm that $\ker(\varphi) = 2\pi\mathbb{Z}$, and thus the quotient is isomorphic to $S^1$. 
+
+            \item
+                \boldmath
+                \textbf{$\mathbb{C}^\times / \langle e^{2\pi i/n} \rangle$} \par
+                \unboldmath
+                Let $\varphi : \mathbb{C}^\times \to \mathbb{C}^\times$ defined by $\varphi(z) = z^n$. We can confirm that $\ker(\varphi) = \langle e^{2\pi i/n} \rangle$, and thus the quotient is isomorphic to $\mathbb{C}^\times$. 
+
+            \item
+                \boldmath
+                \textbf{$S_4 / \{ 1, (1\ 2)(3\ 4), (1\ 3)(2\ 4), (1\ 4)(2\ 3) \}$} \par
+                \unboldmath
+                The homomorphism is that given in Exercise 2.10.5, and from the first isomorphism theorem, the quotient is isomorphic to $S_3$.
+
+            \item
+                \boldmath
+                \textbf{$G/H$ where
+                    \begin{align*}
+                        G = \left\{
+                            \left[ \begin{array}{cc}
+                                    a & b \\
+                                    0 & c
+                            \end{array} \right]
+                            \in GL_2(\mathbb{R})
+                        \right\}
+                        \quad
+                        H = \left\{
+                            \left[ \begin{array}{cc}
+                                    1 & b \\
+                                    0 & 1
+                            \end{array} \right]
+                            \in GL_2(\mathbb{R})
+                        \right\}
+                    \end{align*}
+                }
+                \unboldmath
+                Let the homomorphism $\varphi$ be the function that sends a matrix in $G$ to the same matrix, except with $b$ replaced by $0$. Then we can confirm that all matrices in $H$ with $b$ replaced by $0$ are $I_2$, so $\ker(\varphi) = H$, and thus the quotient is isomorphic to the set of diagonal matrices with elements in $\mathbb{R}$.
+        \end{enumerate}
+\end{enumerate}
+\end{document}

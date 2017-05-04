@@ -1,0 +1,358 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage{amsmath}
+\allowdisplaybreaks
+\usepackage{amssymb}
+\usepackage{bm}
+
+\begin{document}
+	\section*{MATH 2406 - HW4 Solutions}
+	
+	\subsection*{4.12}
+	\begin{enumerate}
+		\setcounter{enumi}{6}
+		\item (a) $N(T) = 1$, $T(V) = 2$
+		\begin{align*}
+			T(4\vec{i}) - T(\vec{j}) + T(\vec{k}) &= 4T(\vec{i}) - T(\vec{j}) + T(\vec{k}) \\
+			&= 4(0, 0) - (1, 1) + (1, -1) \\
+			&= (0, -2) \\
+		\end{align*}
+		(b)
+		\begin{gather*}
+		T \left[ \begin{array}{ccc}
+		1 & 0 & 0 \\
+		0 & 1 & 0 \\
+		0 & 0 & 1 \end{array} \right]
+		= \left[ \begin{array}{ccc}
+		0 & 1 & 1 \\
+		0 & 1 & -1 \\
+		\end{array} \right] \\
+		T = \left[ \begin{array}{ccc}
+		0 & 1 & 1 \\
+		0 & 1 & -1 \end{array} \right]
+		\end{gather*}
+		(c)
+		\begin{gather*}
+		\left[ \begin{array}{c}
+		0 \\
+		0 \end{array} \right] = 0\vec{w_1} + 0\vec{w_2} \\
+		\left[ \begin{array}{c}
+		1 \\
+		1 \end{array} \right] = 1\vec{w_1} + 0\vec{w_2} \\
+		\left[ \begin{array}{c}
+		1 \\
+		-1 \end{array} \right] = 3\vec{w_1} - 2\vec{w_2} \\
+		T = \left[ \begin{array}{ccc}
+		0 & 1 & 3 \\
+		0 & 0 & -2 \end{array} \right]
+		\end{gather*}
+		(d) Let $\vec{w_1} = \left[ \begin{array}{cc}
+		1 & 1 \end{array} \right]^T$ and $\vec{w_2} = \left[ \begin{array}{ccc}
+		1 & 2 \end{array} \right]^T$. Then
+		\begin{gather*}
+		\left[ \begin{array}{ccc}
+		0 & 1 & 1 \\
+		0 & 1 & -1 \end{array} \right]
+		\left[ \begin{array}{ccc}
+		\vec{e_1} & \vec{e_2} & \vec{e_3} \end{array} \right]
+		= \left[ \begin{array}{ccc}
+		\vec{w_1} & \vec{w_2} \end{array} \right]
+		\left[ \begin{array}{ccc}
+		1 & 0 & 0 \\
+		0 & 1 & 0 \end{array} \right]
+		= \left[ \begin{array}{ccc}
+		1 & 1 & 0 \\
+		1 & 2 & 0 \end{array} \right].
+		\end{gather*}
+		From inspection,  $\vec{e_1} = \left[ \begin{array}{ccc}
+		0 & 1 & 0 \end{array} \right]^T$, $\vec{e_2} = \left[ \begin{array}{ccc}
+		0 & 3/2 & -1/2 \end{array} \right]^T$, $\vec{e_3} = \left[ \begin{array}{ccc}
+		1 & 0 & 0 \end{array} \right]^T$ are valid.
+		
+		\setcounter{enumi}{19}
+		\item $V = \left[ \begin{array}{c}
+		\frac{1}{6}x^3 \\
+		\frac{1}{2}x^2 \\
+		x \\
+		1 \end{array} \right]$, 
+		$V = \left[ \begin{array}{c}
+		x^2 \\
+		x \end{array} \right]$
+		
+		\subsection*{4.16}
+		\setcounter{enumi}{5}
+		\item $A^2 = AA = \left[ \begin{array}{cc}
+		1 & 1 \\
+		0 & 1 \end{array} \right]
+		\left[ \begin{array}{cc}
+		1 & 1 \\
+		0 & 1 \end{array} \right]
+		= \left[ \begin{array}{cc}
+		1 & 2 \\
+		0 & 1 \end{array} \right]$ \\
+		If $A^n = \left[ \begin{array}{cc}
+		a_n & b_n \\
+		c_n & d_n \end{array} \right]$,
+		$A^{n + 1}$ can be written as
+		\[ \left[ \begin{array}{cc}
+		a_{n + 1} & b_{n + 1} \\
+		c_{n + 1} & d_{n + 1} \end{array} \right]
+		= A\left[ \begin{array}{cc}
+		a_n & b_n \\
+		c_n & d_n \end{array} \right]
+		= \left[ \begin{array}{cc}
+		1 & 1 \\
+		0 & 1 \end{array} \right]
+		\left[ \begin{array}{cc}
+		a_n & b_n \\
+		c_n & d_n \end{array} \right]
+		= \left[ \begin{array}{cc}
+		a_n + c_n & b_n + d_n \\
+		c_n & d_n \end{array} \right]
+		\]
+		Then $a_{n + 1} = a_n + c_n$, $b_{n + 1} = b_n + d_n$, $c_{n + 1} = c_n$, and $d_{n + 1} = d_n$. \\
+		Since $a_1 = 1$, $b_1 = 1$, $c_1 = 0$, and $d_1 = 1$, we have that \\
+		$c_n = 0$, $a_n = 1$, $d_n = 1$, and $b_n = b_1 + (n - 1) = n$ for all $n$. Then
+		\[ A^n = \left[ \begin{array}{cc}
+		1 & n \\
+		0 & 1 \end{array} \right]. \]
+		
+		\setcounter{enumi}{7}
+		\item $A^2 = AA = \left[ \begin{array}{ccc}
+		1 & 1 & 1 \\
+		0 & 1 & 1 \\
+		0 & 0 & 1 \end{array} \right]
+		\left[ \begin{array}{ccc}
+		1 & 1 & 1 \\
+		0 & 1 & 1 \\
+		0 & 0 & 1 \end{array} \right]
+		= \left[ \begin{array}{ccc}
+		1 & 2 & 3 \\
+		0 & 1 & 2 \\
+		0 & 0 & 1 \end{array} \right]$ \\
+		
+		$A^3 = AA^2 = \left[ \begin{array}{ccc}
+		1 & 1 & 1 \\
+		0 & 1 & 1 \\
+		0 & 0 & 1 \end{array} \right]
+		\left[ \begin{array}{ccc}
+		1 & 2 & 3 \\
+		0 & 1 & 2 \\
+		0 & 0 & 1 \end{array} \right]
+		= \left[ \begin{array}{ccc}
+		1 & 3 & 6 \\
+		0 & 1 & 3 \\
+		0 & 0 & 1 \end{array} \right]$ \\
+		
+		$A^4 = AA^3 = \left[ \begin{array}{ccc}
+		1 & 1 & 1 \\
+		0 & 1 & 1 \\
+		0 & 0 & 1 \end{array} \right]
+		\left[ \begin{array}{ccc}
+		1 & 3 & 6 \\
+		0 & 1 & 3 \\
+		0 & 0 & 1 \end{array} \right]
+		= \left[ \begin{array}{ccc}
+		1 & 4 & 10 \\
+		0 & 1 & 4 \\
+		0 & 0 & 1 \end{array} \right]$ \\
+		Assume that $A^n = \left[ \begin{array}{ccc}
+		1 & n & \frac{n(n + 1)}{2} \\
+		0 & 1 & n \\
+		0 & 0 & 1 \end{array} \right]$, which holds true for the base cases, holds for all positive integral $n$. \\
+		Induction step:
+		\begin{align*}
+		A^{n + 1} &= AA^n \\
+		&= \left[ \begin{array}{ccc}
+		1 & 1 & 1 \\
+		0 & 1 & 1 \\
+		0 & 0 & 1 \end{array} \right]
+		\left[ \begin{array}{ccc}
+		1 & n & \frac{n(n + 1)}{2} \\
+		0 & 1 & n \\
+		0 & 0 & 1 \end{array} \right] \\
+		&= \left[ \begin{array}{ccc}
+		1 & n + 1 & \frac{(n + 1)(n + 2)}{2} \\
+		0 & 1 & n + 1 \\
+		0 & 0 & 1 \end{array} \right]
+		\end{align*}
+		The formula holds true for $n + 1$, so it holds for all $n$.
+		
+		\setcounter{enumi}{13}
+		\item (a)
+		\begin{gather*}
+		A + B = \left[ \begin{array}{cc}
+		2 & -1 \\
+		1 & 4 \end{array} \right] \\
+		A^2 = \left[ \begin{array}{cc}
+		1 & -3 \\
+		0 & 4 \end{array} \right] \\
+		AB = \left[ \begin{array}{cc}
+		0 & -2 \\
+		2 & 4 \end{array} \right] \\
+		B^2 = \left[ \begin{array}{cc}
+		1 & 0 \\
+		3 & 4 \end{array} \right] \\
+		A - B = \left[ \begin{array}{cc}
+		0 & -1 \\
+		-1 & 0 \end{array} \right] \\
+		(A + B)^2 = \left[ \begin{array}{cc}
+		3 & -6 \\
+		6 & 15 \end{array} \right]
+		\neq \left[ \begin{array}{cc}
+		2 & -7 \\
+		7 & 16 \end{array} \right] = A^2 + 2AB + B^2 \\
+		(A + B)(A - B) = \left[ \begin{array}{cc}
+		1 & -2 \\
+		-4 & -1 \end{array} \right]
+		\neq \left[ \begin{array}{cc}
+		0 & -1 \\
+		-3 & -2 \end{array} \right] = A^2 - B^2 \\
+		\end{gather*}
+		(b)
+		\begin{gather*}
+		(A + B)^2 = A^2 + AB + BA + B^2 \\
+		(A - B)^2 = A^2 - AB + BA - B^2
+		\end{gather*}
+		(c) Those which have $AB = BA$.
+		
+		\item (a) True:
+		\begin{align*}
+		A^2 - AB + BA - B^2 &= A^2 + AB + BA + B^2 \\
+		2B^2 &= -2AB \\
+		B &= -A \\
+		\Rightarrow A^2B = A^2(-A) &= -A^3 = (-A)A^2 = BA^2
+		\end{align*}
+		(b) False; if $A = \left[ \begin{array}{cc}
+		0 & 1 \\
+		1 & 0 \end{array} \right]$, then
+		$A^2 = \left[ \begin{array}{cc}
+		1 & 0 \\
+		0 & 1 \end{array} \right] = I$.
+		
+		\subsection*{4.20}
+		\setcounter{enumi}{4}
+		\item \begin{align*}
+		&\left[ \begin{array}{cccc}
+		3 & -2 & 5 & 1 \\
+		1 & 1 & -3 & 2 \\
+		6 & 1 & -4 & 3 \end{array} \right]
+		\left[ \begin{array}{c}
+		x \\
+		y \\
+		z \\
+		u \end{array} \right]
+		= \left[ \begin{array}{c}
+		1 \\
+		2 \\
+		7 \end{array} \right] \\
+		\Rightarrow &\left[ \begin{array}{cccc}
+		1 & -2/3 & 5/3 & 1/3 \\
+		0 & 5/3 & -14/3 & 5/3 \\
+		0 & 5 & -14 & 1 \end{array} \right]
+		\left[ \begin{array}{c}
+		x \\
+		y \\
+		z \\
+		u \end{array} \right]
+		= \left[ \begin{array}{c}
+		1/3 \\
+		5/3 \\
+		5 \end{array} \right] \\
+		\Rightarrow &\left[ \begin{array}{cccc}
+		1 & 0 & -1/5 & 0 \\
+		0 & 1 & -14/5 & 0 \\
+		0 & 0 & 0 & 1 \end{array} \right]
+		\left[ \begin{array}{c}
+		x \\
+		y \\
+		z \\
+		u \end{array} \right]
+		= \left[ \begin{array}{c}
+		1 \\
+		1 \\
+		0 \end{array} \right] \\
+		\end{align*}
+		It can be seen that $u = 0$ is the necessary condition while $x$, $y$, and $z$ can vary. If $z$ is fixed at $0$, then $x = 1$ and $y = 1$, so a particular solution is $\left[ \begin{array}{cccc} 1 & 1 & 0 & 0 \end{array} \right]^T$. A basis for the one-dimensional nullspace is a nontrivial assignment to the variables that produces the zero vector; one such assignment is $\left[ \begin{array}{cccc} 1 & 14 & 5 & 0 \end{array} \right]^T$. Then the general solution is $\left[ \begin{array}{cccc} 1 & 1 & 0 & 0 \end{array} \right]^T + t\left[ \begin{array}{cccc} 1 & 14 & 5 & 0 \end{array} \right]^T$.
+		
+		\setcounter{enumi}{8}
+		\item
+		\begin{align*}
+		&\left[ \begin{array}{cccc}
+		1 & 1 & 2 \\
+		2 & -1 & 3 \\
+		5 & -1 & a \end{array} \right]
+		\left[ \begin{array}{c}
+		x \\
+		y \\
+		z \end{array} \right]
+		= \left[ \begin{array}{c}
+		2 \\
+		2 \\
+		6 \end{array} \right] \\
+		\Rightarrow &\left[ \begin{array}{cccc}
+		1 & 1 & 2 \\
+		0 & -3 & -1 \\
+		0 & -6 & a - 10 \end{array} \right]
+		\left[ \begin{array}{c}
+		x \\
+		y \\
+		z \end{array} \right]
+		= \left[ \begin{array}{c}
+		2 \\
+		-2 \\
+		-4 \end{array} \right] \\
+		\Rightarrow &\left[ \begin{array}{cccc}
+		1 & 0 & 5/3 \\
+		0 & 1 & 1/3 \\
+		0 & 0 & a - 8 \end{array} \right]
+		\left[ \begin{array}{c}
+		x \\
+		y \\
+		z \end{array} \right]
+		= \left[ \begin{array}{c}
+		4/3 \\
+		2/3 \\
+		0 \end{array} \right]
+		\end{align*}
+		If $a \neq 8$, then the system has an upper triangular matrix, which is guaranteed to be singular and have a unique solution. The general solution, following the same procedure as in Exercise 6, is $\left[ \begin{array}{ccc} \frac{4}{3} & \frac{2}{3} & 0 \end{array} \right]^T + t\left[ \begin{array}{ccc} -5 & -1 & 3 \end{array} \right]^T$.
+		
+		\setcounter{enumi}{15}
+		\item Use Gaussian elimination on the left matrix:
+		\begin{align*}
+		&\left[ \begin{array}{cccccc}
+		0 & 1 & 0 & 0 & 0 & 0 \\
+		2 & 0 & 2 & 0 & 0 & 0 \\
+		0 & 3 & 0 & 1 & 0 & 0 \\
+		0 & 0 & 1 & 0 & 2 & 0 \\
+		0 & 0 & 0 & 3 & 0 & 1 \\
+		0 & 0 & 0 & 0 & 2 & 0
+		\end{array} \right]
+		\left[ \begin{array}{cccccc}
+		1 & 0 & 0 & 0 & 0 & 0 \\
+		0 & 1 & 0 & 0 & 0 & 0 \\
+		0 & 0 & 1 & 0 & 0 & 0 \\
+		0 & 0 & 0 & 1 & 0 & 0 \\
+		0 & 0 & 0 & 0 & 1 & 0 \\
+		0 & 0 & 0 & 0 & 0 & 1
+		\end{array} \right] \\
+		\Rightarrow &\left[ \begin{array}{cccccc}
+		1 & 0 & 0 & 0 & 0 & 0 \\
+		0 & 1 & 0 & 0 & 0 & 0 \\
+		0 & 0 & 1 & 0 & 0 & 0 \\
+		0 & 0 & 0 & 1 & 0 & 0 \\
+		0 & 0 & 0 & 0 & 1 & 0 \\
+		0 & 0 & 0 & 0 & 0 & 1
+		\end{array} \right]
+		\left[ \begin{array}{cccccc}
+		0 & 1/2 & 0 & -1 & 0 & 1 \\
+		1 & 0 & 0 & 0 & 0 & 0 \\
+		0 & 0 & 0 & 1 & 0 & -1 \\
+		-3 & 0 & 1 & 0 & 0 & 0 \\
+		0 & 0 & 0 & 0 & 0 & 1/2 \\
+		9 & 0 & -3 & 0 & 1 & 0
+		\end{array} \right]
+		\end{align*}
+		The inverse is the matrix on the right.
+	\end{enumerate}
+\end{document}

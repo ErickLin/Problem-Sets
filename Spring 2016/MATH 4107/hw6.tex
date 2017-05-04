@@ -1,0 +1,109 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amsthm, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\newcommand{\im}{\text{im}\,}
+
+\begin{document}
+
+\section*{MATH 4107 - HW6 Solutions}
+
+\subsection*{6.7}
+\begin{enumerate}
+    \item[1.]
+        \boldmath
+        \textbf{Let $G = D_4$ be the dihedral group of symmetries of the square.} \par
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{What is the stabilizer of a vertex? of an edge?} \par
+                \unboldmath
+                Vertex: the identity action, and reflection about the diagonal that contains the vertex \par
+                Edge: the identity action, and reflection about one of the axes (the vertical axis if the edge is horizontal, the horizontal axis if the edge is vertical)
+
+            \item
+                \boldmath
+                \textbf{$G$ operates on the set of two elements consisting of the diagonal lines. What is the stabilizer of a diagonal?} \par
+                \unboldmath
+                The identity action, $180^\circ$ rotation, reflection about either diagonal
+        \end{enumerate}
+        \unboldmath
+
+    \item[6.]
+        \boldmath
+        \textbf{Let $G$ be the group of symmetries of an equilateral triangular prism $P$, including the orientation-reversing symmetries. Determine the stabilizer of one of the rectangular faces of $P$ and the order of the group.} \par
+        \unboldmath
+        Since the number of permutations of the triangular faces is $2! = 2$ and the number of permutations of the rectangular faces is $3! = 6$ and each set is the stabilizer of the other, from the orbit-stabilizer theorem, $|G| = 2 \times 6 = 12$. The stabilizer of a rectangular face $A$ includes all the combinations of permuting the triangular faces and the other two rectangular faces for a total of $2! \times 2! = 4$ elements; the elements themselves turn out to be the identity action, a horizontal reflection, a vertical reflection, and a composition of both reflections, all with respect to $A$.
+
+    \item[8.]
+        \boldmath
+        \textbf{Decompose the set $\mathbb{C}^{2 \times 2}$ of $2 \times 2$ complex matrices into orbits for the following operations of $GL_2(\mathbb{C})$: (a) left multiplication, (b) conjugation.} \par
+        \unboldmath
+        \begin{enumerate}
+            \item
+                The matrix of all zeros is the only matrix of rank $0$, and forms its own orbit. $GL_2(\mathbb{C})$, the set of matrices of rank 2, forms another orbit. Since elementary matrices form a subset of $GL_2(\mathbb{C})$, any matrix is in the same orbit as its reduced row echelon form, so among the matrices of rank $1$, the reduced row echelon form representatives
+                \begin{align*}
+                    \left[ \begin{array}{cc}
+                            1 & x \\
+                            0 & 0
+                    \end{array} \right]
+                    \text{ and }
+                    \left[ \begin{array}{cc}
+                            0 & 1 \\
+                            0 & 0
+                    \end{array} \right]
+                \end{align*}
+                for $x \in \mathbb{C}$ each have their own orbits.
+
+            \item
+                Two matrices are in the same orbit if one can be produced by conjugating the other by some matrix in $GL_2(\mathbb{C})$. Any matrix is in the same orbit as its Jordan canonical form, which is determined by its eigenvalues, so any unordered pair of eigenvalues in $\mathbb{C}$ is associated with its own orbit. If the eigenvalues are equal, then there are two orbits with representatives of the forms
+                \begin{align*}
+                    \left[ \begin{array}{cc}
+                            \lambda & 1 \\
+                            0 & \lambda
+                    \end{array} \right]
+                    \text{ and }
+                    \left[ \begin{array}{cc}
+                            \lambda & 0 \\
+                            0 & \lambda
+                    \end{array} \right],
+                \end{align*}
+                while if the eigenvalues are not equal, then the orbit representative is of the form
+                \begin{align*}
+                    \left[ \begin{array}{cc}
+                            \lambda_1 & 0 \\
+                            0 & \lambda_2
+                    \end{array} \right].
+                \end{align*}
+        \end{enumerate}
+\end{enumerate}
+
+\subsection*{6.8}
+\begin{enumerate}
+    \item[2.]
+        \boldmath
+        \textbf{What is the stabilizer of the coset $[aH]$ for the operation of $G$ on $G/H$?} \par
+        \unboldmath
+        The stabilizer is $aHa^{-1}$, since
+        \begin{align*}
+            (aHa^{-1})(aH) = aHH = aH.
+        \end{align*}
+        We know that the stabilizer is of order $|H|$ by the counting formula, since the size of the orbit is the number of cosets.
+
+    \item[3.]
+        \boldmath
+        \textbf{Exhibit the bijective map $\epsilon : G/H \to O_s$ defined by $[aH] \rightsquigarrow as$ explicitly, when $G$ is the dihedral group $D_4$, $s$ is an element of the set $S$ of vertices of a square, and $H$ and $O_s$ are the stabilizer and orbit of $s$, respectively.} \par
+        \unboldmath
+        Let $x$, $y$, $z$ denote the vertices directly clockwise, opposite, and counterclockwise from $s$. We know that the orbit of $s$ is $\{ s, x, y, z\}$, and
+        \begin{gather*}
+            \{ \text{identity action}, \text{reflection across diagonal containing } s\} \rightsquigarrow s \\
+            \{ \text{rotation } 90^\circ \text{ clockwise}, \text{reflection across vertical/horizontal axis} \} \rightsquigarrow x \\
+            \{ \text{rotation } 180^\circ \text{ clockwise}, \text{reflection across other diagonal} \} \rightsquigarrow y \\
+            \{ \text{rotation } 270^\circ \text{ clockwise}, \text{reflection across horizontal/vertical axis} \} \rightsquigarrow z.
+        \end{gather*}
+\end{enumerate}
+\end{document}

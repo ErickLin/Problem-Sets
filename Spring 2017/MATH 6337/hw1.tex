@@ -1,0 +1,83 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr, graphicx}
+\usepackage[margin=1in, includehead, includefoot, heightrounded]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\newcommand*\dist{\mathop{\!\mathrm{d}}}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\begin{document}
+
+\section*{MATH 6337 -- HW1 Solutions}
+\begin{enumerate}
+    \item[0.1.20.]
+        \boldmath\textbf{Assume $\{x_n\}_{n \in \mathbb{N}}$ is a Cauchy sequence in a metric space $X$, and there exists a subsequence $\{x_{n_k}\}_{k \in \mathbb{N}}$ that converges to $x \in X$. Prove that $x_n \to X$.
+        }\unboldmath \par
+        Let $\epsilon > 0$. Because $\{x_{n_k}\}_{k \in \mathbb{N}}$ converges to $x$, there exists $N_1 \in \mathbb{N}$ such that for all $k \geq N_1$,
+        \begin{align*}
+            \dist(x_{n_k}, x) < \frac{\epsilon}{2}.
+        \end{align*}
+        Additionally, because $\{x_n\}_{n \in \mathbb{N}}$ is Cauchy, there exists $N_2 \in \mathbb{N}$ such that for all $m, n \geq N_2$,
+        \begin{align*}
+            \dist(x_m, x_n) < \frac{\epsilon}{2}.
+        \end{align*}
+        Now let $N = \max\{ N_1, N_2 \}$, and choose $k \geq N$. We have by the triangle inequality that for any $m \geq N$,
+        \begin{align*}
+            \dist(x_m, x) \leq \dist(x_m, x_{n_k}) + \dist(x_{n_k}, x) < \dist(x_m, x_{n_k}) + \frac{\epsilon}{2}.
+        \end{align*}
+        Lastly, since $n_k \geq k \geq N \geq N_2$, the first term also becomes $\epsilon/2$, yielding the desired result that $\dist(x_m, x) < \epsilon$. Hence, the sequence converges to $x$.
+
+    \item[0.1.21.]
+        \boldmath\textbf{Given a sequence $\{x_n\}_{n \in \mathbb{N}}$ in a metric space $X$, prove the following statements.
+        }\unboldmath \par
+        \begin{enumerate}[label=(\alph*)]
+            \item
+                \boldmath\textbf{If $\dist(x_n, x_{n + 1}) < 2^{-n}$ for every $n \in \mathbb{N}$, then $\{x_n\}_{n \in \mathbb{N}}$ is Cauchy (and therefore converges if $X$ is complete).
+                }\unboldmath \par
+                Let $\epsilon > 0$. If we set $N > 1 - \log_2 \epsilon$, then for all $m, n \geq N$ (suppose $m \leq n$ without loss of generality), we have that
+                \begin{align*}
+                    \dist(x_m, x_n) \leq \sum_{i = m}^{n - 1} d(x_i, x_{i + 1}) < \sum_{i = m}^{n - 1} 2^{-i} < 2^{-(m - 1)} \leq 2^{-(N - 1)} < \epsilon.
+                \end{align*}
+
+            \item
+                \sloppy
+                \boldmath\textbf{If $\{x_n\}_{n \in \mathbb{N}}$ is Cauchy, then there exists a subsequence $\{x_{n_k}\}_{k \in \mathbb{N}}$ such that $\dist(x_{n_k}, x_{n_{k + 1}}) < 2^{-k}$ for each $k \in \mathbb{N}$.
+                }\unboldmath \par
+                %Since $\{x_n\}_{n \in \mathbb{N}}$ is Cauchy, there exist $N_1, N_2 \in \mathbb{N}$ such that for all $m, n \geq N_1$, $\dist(x_m, x_n) < 2^{-1}$, and for all $m, n \geq N_2$, $\dist(x_m, x_n) < 2^{-2}$. Thus, if we take $n_1 \geq N_1$ and $n_2 \geq \max\{ n_1, N_2 \}$, then it satisfies the above property for $k = 1$.
+                Since $\{x_n\}_{n \in \mathbb{N}}$ is Cauchy, there exists $N_1 \in \mathbb{N}$ such that for all $m, n \geq N_1$, $\dist(x_m, x_n) < 2^{-1}$, so we can take $n_1 \geq N_1$ as the first element of a subsequence. Similarly, there exists $N_2 \in \mathbb{N}$ such that for all $m, n \geq N_2$, $\dist(x_m, x_n) < 2^{-2}$, so we can take $n_2 \geq \max\{n_1, N_2\}$. We can see that $d(x_{n_1}, x_{n_2}) < 2^{-1}$, satisfying the desired property for $k = 1$. \par
+                We can construct the rest of the subsequence inductively, assuming
+                \begin{itemize}
+                    \item
+                        that the first $k$ elements have been chosen in a way such that the desired property is satisfied for $1, 2, \cdots, k - 1$, and
+                    \item
+                        that $n_k \geq N_k$ where $d(x_m, x_n) < 2^{-k}$ for all $m, n \geq N_k$.
+                \end{itemize}
+                Since there exists $N_{k + 1} \in \mathbb{N}$ such that for all $m, n \geq N_{k + 1}$, $d(x_m, x_n) < 2^{-(k + 1)}$, we can take $n_{k + 1} \geq \max\{ n_k, N_{k + 1} \}$, maintaining both of the assumed invariants. \par
+                The resulting subsequence $\{ x_{n_k} \}_{k \in \mathbb{N}}$ therefore satisfies the desired property for all $k \in \mathbb{N}$.
+        \end{enumerate}
+
+    \setcounter{enumi}{2}
+    \item
+        \boldmath\textbf{Prove that any sequence in a compact metric space has a convergent subsequence.
+        }\unboldmath \par
+        Let $X$ be a compact metric space containing sequence $\{x_n\}_{n \in \mathbb{N}}$, and let $C$ be the closure of the set consisting of the elements $x_n$. If $C$ is finite, then $\{x_n\}_{n \in \mathbb{N}}$ has a constant subsequence, so we assume otherwise. Assume for the purpose of contradiction that for all $x \in C$, there exists $r_x > 0$ such that $B_{r_x}(x) \cap C = \{x\}$. Since $X \setminus C$ is open, $\{ B_{r_x}(x) : x \in C \} \cup (X \setminus C)$ is an open cover of $X$ without a finite subcover because each $x \in C$ is covered by exactly one set in the cover, contradicting the fact that $X$ is compact. We conclude that there exists $x \in C$ such that for all $r_x > 0$, $B_{r_x}(x)$ contains infinitely many elements in $C$ and hence (being an open ball) infinitely many $x_n$. In particular, we can choose some $x_{n_k} \in B_{1/k}(x)$ for all $k \in \mathbb{N}$, resulting in a convergent subsequence $\{ x_{n_k} \}_{k \in \mathbb{N}}$. %For any $\epsilon > 0$, any cover of $X$ by open balls of radius $\epsilon$ has a finite subcover, and by the pigeonhole principle, one of the balls in this subcover must contain an infinite number of elements in $\{x_n\}$.
+
+    \item
+        \boldmath\textbf{Prove that every compact metric space is complete.
+        }\unboldmath \par
+        Combining the propositions of Exercises 1 and 3 yields the result that any Cauchy sequence in a compact metric space converges. %: if $\{x_n\}_{n \in \mathbb{N}}$ is a Cauchy sequence with subsequence $\{x_{n_k}\}_{k \in \mathbb{N}} \to x$, meaning that for any $\epsilon > 0$ there exists $N_1, N_2 \in \mathbb{N}$ such that $\dist(x_{n_k}, x) < \epsilon$ for all $k \geq N$, then
+
+    \item[0.2.11.]
+        \boldmath\textbf{Let $Y$ be a subspace of a Banach space $X$, and let the norm on $Y$ be the norm on $X$ restricted to the set $Y$. Prove that $Y$ is a Banach space with respect to this norm if and only if $Y$ is a closed subset of $X$.
+        }\unboldmath \par
+        ($\Rightarrow$) If $x \in \overline{Y}$, there exists a sequence $\{y_n\}_{n \in \mathbb{N}}$ in $Y$ that converges to $x$, and is hence Cauchy. Because $Y$ is complete, $\{y_n\}_{n \in \mathbb{N}}$ converges to a point in $Y$, which must be $x$ due to the uniqueness of limits in any Hausdorff space (such as metric spaces). We have shown that any arbitrary limit point of $Y$ is contained in $Y$, so $Y$ is closed. \par
+        ($\Leftarrow$) Any Cauchy sequence $\{y_n\}_{n \in \mathbb{N}}$ in $Y \subset X$ converges to a point $y \in X$, since $X$ is complete. But then $y$ is a limit point of $Y$, and hence $y \in Y$. Thus, $Y$ is a complete normed vector space.
+
+\end{enumerate}
+
+\end{document}

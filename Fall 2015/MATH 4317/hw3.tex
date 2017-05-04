@@ -1,0 +1,206 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, enumitem, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+    \section*{MATH 4317 - HW3 Solutions}
+    \subsection*{III. Metric Spaces}
+    \begin{enumerate}
+        \item[18)]
+            The definitions can also be written
+            \begin{align*}
+                \limsup_{n \to \infty} a_n &= \lim_{n \to \infty} \sup_{k \geq n} a_k \\
+                \liminf_{n \to \infty} a_n &= \lim_{n \to \infty} \inf_{k \geq n} a_k.
+            \end{align*}
+            Because $\{a_k\}_{k \geq n} \supset \{a_{k}\}_{k \geq n + 1}$ (the former set begins with $a_n$ while the latter begins with $a_{n + 1}$), $\sup_{k \geq n} a_k \geq \sup_{k \geq n + 1} a_k$ and $\inf_{k \geq n} a_k \leq \inf_{k \geq n + 1} a_k$, and therefore $\sup_{k \geq n} a_k - \inf_{k \geq n} a_k \geq \sup_{k \geq n + 1} a_k - \inf_{k \geq n + 1} a_k$. Since $\{a_k\}_{k \geq n}$ is bounded, by the monotone convergence theorem
+            \begin{align*}
+                \lim_{n \to \infty} \sup_{k \geq n} a_k = c \hspace{1cm} \lim_{n \to \infty} \inf_{k \geq n} a_k = b \hspace{1cm} \lim_{n \to \infty}(\sup_{k \geq n} a_k - \inf_{k \geq n} a_k) = c - b
+            \end{align*}
+            exist (furthermore, $c = \inf_{n} \sup_{k \geq n} a_k$ and $b = \sup_{n} \inf_{k \geq n} a_k$). The quantity on the right is $c - b$ from the algebraic limit theorem. From the limit definition, for all $\varepsilon > 0$, there exists $N \in \mathbb{N}$ such that
+            \begin{gather*}
+                |(\sup_{k \geq n} a_k - \inf_{k \geq n} a_k) - \lim_{n \to \infty}(\sup_{k \geq n} a_k - \inf_{k \geq n} a_k)| \leq \varepsilon \\
+                (\sup_{k \geq n} a_k - \inf_{k \geq n} a_k) - \lim_{n \to \infty}(\sup_{k \geq n} a_k - \inf_{k \geq n} a_k) \leq \varepsilon \\
+                (\sup_{k \geq n} a_k - \inf_{k \geq n} a_k) - \varepsilon \leq c - b
+            \end{gather*}
+            for all $n \geq N$. If we take $N$ large enough such that $\varepsilon \leq \sup_{k \geq n} a_k - \inf_{k \geq n} a_k$, then we have
+            \begin{align*}
+                c - b \geq (\sup_{k \geq n} a_k - \inf_{k \geq n} a_k) - \varepsilon \geq 0
+            \end{align*}
+            and $b \leq c$ as a result. \par
+            ($\Rightarrow$) From the definition of upper and lower bounds, $\inf_{k \geq n} a_k \leq a_n \leq \sup_{k \geq n} a_k$ for all $n$. If $\lim_{n \to \infty} \inf_{k \geq n} a_k = \lim_{n \to \infty} \sup_{k \geq n} a_k$, then by the Squeeze Theorem $\{a_n\}$ converges to the same value. \par
+            ($\Leftarrow$) For all $\varepsilon > 0, n \in \mathbb{N}$,
+            \begin{gather*}
+                0 \leq \sup_{k \geq n} a_k - a_n < \frac{\varepsilon}{2} \\
+                0 \leq a_n - \inf_{k \geq n} a_k < \frac{\varepsilon}{2}.
+            \end{gather*}
+            If $\lim_{n \to \infty} a_n = a$, then for all $\varepsilon > 0$ there exists $N \in \mathbb{N}$ such that
+            \begin{align*}
+                |a_n - a| < \frac{\varepsilon}{2}
+            \end{align*}
+            for all $n > N$. From the Triangle Inequality,
+            \begin{gather*}
+                |\sup_{k \geq n} a_k - a| \leq |\sup_{k \geq n} a_k - a_n| + |a_n - a| < \varepsilon \\
+                |\inf_{k \geq n} a_k - a| \leq |\inf_{k \geq n} a_k - a_n| + |a_n - a| < \varepsilon
+            \end{gather*}
+            for all $n > N$ which shows that $\lim_{n \to \infty} \sup_{k \geq n} a_k = \lim_{n \to \infty} \inf_{k \geq n} a_k = a$.
+
+        \item[22)]
+            \begin{enumerate}
+                \item
+                    \begin{enumerate}[label=(\arabic*)]
+                        \item
+                            $d(p, q) = \lVert p - q \rVert \geq 0$
+                        \item
+                            ($\Rightarrow$) $\lVert p - q \rVert = 0 \Rightarrow p - q = 0 \Rightarrow p = q$ \\
+                            ($\Leftarrow$) $d(p, p) = \lVert p - p \rVert = \lVert 0 \rVert = 0$
+                        \item
+                            $d(p, q) = \lVert p - q \rVert = \lVert (-1)(q - p) \rVert = |{-1}| \lVert q - p \rVert = \lVert q - p \rVert = d(q, p)$
+                        \item
+                            $d(p, r) = \lVert p - r \rVert = \lVert (p - q) + (q - r) \rVert \leq \lVert p - q \rVert + \lVert q - r \rVert = d(p, q) + d(q, r)$
+                    \end{enumerate}
+
+                \item
+                    \begin{enumerate}[label=(\roman*)]
+                        \item
+                            $\lVert (x_1, \cdots, x_n) \rVert = \sqrt{x_1^2 + \cdots + x_n^2} \geq 0$ since $x_i \in \mathbb{R} \; \forall i$
+                        \item
+                            ($\Rightarrow$) $\sqrt{x_1^2 + \cdots + x_n^2} = 0 \Rightarrow x_i^2 = 0 \Rightarrow x_i = 0 \Rightarrow (x_1, \cdots, x_n) = (0, \cdots, 0)$
+                            ($\Leftarrow$) $(x_1, \cdots, x_n) = (0, \cdots, 0) \Rightarrow \sqrt{x_1^2 + \cdots + x_n^2} = \lVert (x_1, \cdots, x_n) \rVert = 0$
+                        \item
+                            $\lVert c(x_1, \cdots, x_n) \rVert = \lVert (cx_1, \cdots, cx_n) \rVert = \sqrt{(cx_1)^2 + \cdots + (cx_n)^2} = \\
+                            |c| \sqrt{x_1^2 + \cdots + x_n^2} = |c| \lVert (x_1, \cdots, x_n) \rVert$
+                        \item
+                            $\lVert (x_1, \cdots, x_n) + (y_1, \cdots, y_n) \rVert = \lVert (x_1 + y_1, \cdots, x_n + y_n) \rVert = \\
+                            \sqrt{(x_1 + y_1)^2 + \cdots + (x_n + y_n)^2} \leq \sqrt{x_1^2 + \cdots + x_n^2} + \sqrt{y_1^2 + \cdots + y_n^2} = \\
+                            \lVert(x_1, \cdots, x_n)\rVert + \lVert(y_1, \cdots, y_n)\rVert$ from the Cauchy-Schwarz Inequality
+                    \end{enumerate}
+
+                \item
+                    \begin{enumerate}[label=(\roman*)]
+                        \item
+                            If $z = x + iy$, then $|z| = \sqrt{x^2 + y^2} \geq 0$ (from property (a))
+                        \item
+                            ($\Rightarrow$) $\sqrt{x^2 + y^2} = 0 \Rightarrow x = 0, y = 0 \Rightarrow z = 0 + 0i \Rightarrow z = 0$ \\
+                            ($\Leftarrow$) $z = 0 \Rightarrow x = 0, y = 0 \Rightarrow \sqrt{x^2 + y^2} = |x + iy| = |z| = 0$
+                        \item
+                            $|cz| = |c||z|$ (from property (c))
+                        \item
+                            $|z + w| \leq |z| + |w|$ (from property (b))
+                    \end{enumerate}
+
+                \item
+                    \begin{enumerate}[label=(\roman*)]
+                        \item
+                            $\lVert(x_1, \cdots, x_n)\rVert = |x_1| + \cdots + |x_n| \geq 0$
+                        \item
+                            ($\Rightarrow$) $|x_1| + \cdots + |x_n| = 0 \Rightarrow x_i = 0 \; \forall i \Rightarrow (x_1, \cdots x_n) = 0$ \\
+                            ($\Leftarrow$) $(x_1, \cdots, x_n) = 0 \Rightarrow |x_1| + \cdots + |x_n| = 0 \Rightarrow \lVert(x_1, \cdots, x_n)\rVert = 0$
+                        \item
+                            $\lVert c(x_1, \cdots, x_n) \rVert = \lVert (cx_1, \cdots, cx_n) \rVert = |cx_1| + \cdots + |cx_n| = \\
+                            |c|(|x_1| + \cdots + |x_n|) = |c| \lVert (x_1, \cdots, x_n) \rVert$
+                        \item
+                            $\lVert (x_1, \cdots, x_n) + (y_1, \cdots, y_n) \rVert = \lVert(x_1 + y_1, \cdots, x_n + y_n)\rVert = |x_1 + y_1| + \cdots + |x_n + y_n| \leq |x_1| + |y_1| + \cdots + |x_n| + |y_n| = \lVert(x_1, \cdots, x_n)\rVert + \lVert(y_1, \cdots, y_n)\rVert$
+                    \end{enumerate}
+
+                \item
+                    \begin{enumerate}[label=(\roman*)]
+                        \item
+                            $\lVert(x_1, \cdots, x_n)\rVert = \max\{|x_1|, \cdots, |x_n|\} \geq 0$ since $|x_i| \geq 0 \; \forall i$
+                        \item
+                            ($\Rightarrow$) $\max\{|x_1|, \cdots, |x_n|\} = 0 \Rightarrow x_i = 0 \; \forall i \Rightarrow (x_1, \cdots, x_n) = 0$ \\
+                            ($\Leftarrow$) $(x_1, \cdots, x_n) = 0 \Rightarrow |x_i| = 0 \; \forall i \Rightarrow \max\{|x_1|, \cdots, |x_n|\} = \\
+                            \lVert(x_1, \cdots, x_n)\rVert = 0$
+                        \item
+                            $\lVert c(x_1, \cdots, x_n) \rVert = \lVert(cx_1, \cdots, cx_n)\rVert = \max\{|cx_1|, \cdots, |cx_n|\} \\
+                            = \max\{|c||x_1|, \cdots, |c||x_n|\} = |c| \max\{|x_1|, \cdots, |x_n|\} = |c| \lVert(x_1, \cdots, x_n)\rVert$
+                        \item
+                            $\lVert (x_1, \cdots, x_n) + (y_1, \cdots, y_n) \rVert = \lVert (x_1 + y_1, \cdots, x_n + y_n) \rVert = \max\{|x_1 + y_1|, \cdots, |x_n + y_n|\} \leq \max\{|x_1| + |y_1|, \cdots, |x_n| + |y_n|\} \leq \max\{|x_1|, \cdots, |x_n|\} + \max\{|y_1|, \cdots, |y_n|\} = \lVert(x_1, \cdots, x_n)\rVert + \lVert(y_1, \cdots, y_n)\rVert$
+                    \end{enumerate}
+            \end{enumerate}
+
+        \item[24)]
+            Assume there exists a complete subspace $S$ of a metric space $E$ that is not closed. Then $\mathcal{C}S$ is not open, and consequently there exists a point $p$ in $\mathcal{C}S$ such that for all $\varepsilon > 0$, there exists a point $q'$ in $S$ with $d(p, q') < \varepsilon$. For each $n \geq 1$, let $\varepsilon = 1 / n$ and choose $q_n$ such that $d(p, q_n) < \varepsilon / 2$ for each $n$. $\{q_n\}$ is a Cauchy sequence because there exists $N \in \mathbb{N}$ such that $d(q_m, q_n) \leq d(q_m, p) + d(p, q_n) < \varepsilon / 2 + \varepsilon / 2 = \varepsilon$ for all $m, n \geq N$. Because $S$ is complete, $\{q_n\}$ then converges to a limit $q \in S$. However, $\lim_{n \to \infty} d(p, q_n) = \lim_{n \to \infty} 1 / n = 0$ by construction and because distance is a continuous function,
+            \begin{align*}
+                \lim_{n \to \infty} d(p, q_n) = d(p, \lim_{n \to \infty} q_n) = d(p, q) = 0
+            \end{align*}
+            and $p = q$. However, this is a contradiction because $p$ and $q$ are contained in complementary sets. Therefore, the assumption is false and all complete subspaces of metric spaces are closed.
+
+        \item[26)]
+            The set of cluster points is $\{\frac{1}{k}\} \cup \{0\}$ for $k \geq 1$. For any $k$, the open ball of center $\frac{1}{k}$ and radius $\varepsilon > 0$
+            \begin{align*}
+                \{ x \in \mathbb{R} : \left| \frac{1}{k} - x \right| < \varepsilon \}
+            \end{align*}
+            contains an infinite number of points $x = \frac{1}{m} + \frac{1}{n}$ of the given subset that have $m = k$ and $n > 1 / (\frac{1}{k} - \frac{1}{m} + \varepsilon) = \frac{1}{\varepsilon}$. Also, the open ball of center $0$ and radius $\varepsilon > 0$
+            \begin{align*}
+                \{ x \in \mathbb{R} : |x| < \varepsilon \}
+            \end{align*}
+            contains an infinite number of points $x = \frac{1}{m} + \frac{1}{n}$ of the given subset if we take $m > \frac{2}{\varepsilon}$ and $n > \frac{2}{\varepsilon}$. \par
+            Inversely, for any point $y \neq \frac{1}{k}$ for $k \geq 1$, the open ball of center $y$ and radius $\varepsilon > 0$
+            \begin{align*}
+                \{ x \in \mathbb{R} : \left| y - x \right| < \varepsilon \}
+            \end{align*}
+            contains only finitely many points $x = \frac{1}{m} + \frac{1}{n}$ of the subset, because regardless of the value of $m$, $|y - \frac{1}{m}| > 0$, and when $\varepsilon < \left| y - \frac{1}{m} \right| $, the distance $|y - x| = \left| y - (\frac{1}{m} + \frac{1}{n}) \right| = \left| y - \frac{1}{m} - \frac{1}{n} \right| > \varepsilon$ when either $m < \frac{1}{y}$ (and thereby $\left| y - \frac{1}{m} - \frac{1}{n} \right| > \left| y - \frac{1}{m} \right|$) or $n > \frac{1}{y - 1/m + \varepsilon}$.
+
+        \item[32)]
+            Because a compact subset of a metric space is closed, a union of a finite number of compact subsets is closed. \par
+            Now let $S_1, \cdots, S_n$ be bounded subsets of a metric space. Then for each $S_i$, there exists a point $p_i$ such that $S_i$ is contained in a closed ball of center $p_i$ and some radius $r_i$. Without loss of generality, take $p = p_1$ and let $r = \max\{r_1, \cdots, r_n\} + \max_i\{d(p, p_i)\}$. If $x \in S_i$ for some $i$, then
+            \begin{align*}
+                d(x, p) \leq d(x, p_i) + d(p_i, p) \leq r_i + d(p_i, p) \leq r
+            \end{align*}
+            which shows that $x$ is contained in the closed ball of center $p$ and radius $r$. Then $S_1, \cdots, S_n$ are contained in the same closed ball and $\cup_{i = 1}^n S_i$ is bounded. In addition, because a compact subset of a metric space is bounded, a union of a finite number of compact subsets is bounded as well. \par
+            In conclusion, a union of a finite number of compact subsets of a metric space is closed and bounded, and therefore compact because any closed bounded subset of a metric space is compact.
+
+        \item[37)]
+            ((i) $\Rightarrow$ (ii)) If $E$ is compact, then every sequence has a convergent subsequence. This satisfies the definition of sequentially compact. \par
+            ((ii) $\Rightarrow$ (iii)) Suppose that $E$ is not totally bounded, so there exists $\varepsilon > 0$ such that no finite union of closed balls of radius $\varepsilon$ equals $E$. This means that for any finite set of points $\{x_1, \cdots, x_n\}$, there is a point $x \in E$ not contained in $\cup_{i = 1}^n B_\varepsilon(x_i)$, so $d(x, x_i) > \varepsilon$. Using this fact and induction, an infinite sequence $\{ y_i \}$ of points can be constructed in a way such that $d(y_i, y_j) > \varepsilon$ whenever $i \neq j$. Because this sequence has no convergent subsequence, $E$ is not sequentially compact. \par
+            If $E$ is sequentially compact, then every sequence, including every Cauchy sequence, has a convergent subsequence. Because any Cauchy sequence with a convergent subsequence is itself convergent, $E$ is complete. \par
+            ((iii) $\Rightarrow$ (i))
+            Let $\{ p_n \}_{n = 1}^\infty$ be a sequence in $E$. Because $E$ is totally bounded, it is the union of a finite number of closed balls of radius $\frac{1}{2k}$ for all $k \in \mathbb{N}^+$. Start with $k = 1$. Of the closed balls of radius $\frac{1}{2}$, at least one contains an infinite number of terms of $\{ p_i \}$ which form a subsequence $\{ p_i^{(1)} \}$. For $k = 2$, at least one of the closed balls of radius $\frac{1}{4}$ contains an infinite number of terms of $\{ p_i^{(1)} \}$ which form a subsequence $\{ p_i^{(2)} \}$ (because $\{ p_i^{(1)} \}$ is covered by a finite number of the closed balls of radius $\frac{1}{4}$). Proceeding inductively, we have that $\{ p_i^{(k)} \}$ is a subsequence of $\{ p_i^{(k - 1)} \}$ that has an infinite number of terms contained in one of the closed balls of radius $\frac{1}{2k}$ whose union covers $E$. Let $q^{(k)}$ be the center of this closed ball. Then from the Triangle Inequality,
+            \begin{align*}
+                d(p_i^{(k)}, p_j^{(k)}) \leq d(p_i^{(k)}, q^{(k)}) + d(q^{(k)}, p_j^{(k)}) \leq \frac{1}{2k} + \frac{1}{2k} = \frac{1}{k}
+            \end{align*}
+            for all $i, j \in \mathbb{N}^+$. Now, if we form a new sequence $\{ p_k^{(k)} \}$ by taking the $k$th element from every subsequence $\{ p_i^{(k)} \}$, $\{ p_k^{(k)} \}$ is a subsequence of the original sequence $\{ p_i \}$ with the property that for all $\varepsilon > 0$, we can take $N > \frac{1}{\varepsilon}$ so that for all $m, n \geq N$, $p_m^{(m)}$ and $p_n^{(n)}$ are both contained in $\{ p_n^{(N)} \}$, thereby guaranteeing that
+            \begin{align*}
+                d(p_m^{(m)}, p_n^{(n)}) \leq \frac{1}{N} < \varepsilon.
+            \end{align*}
+            Therefore, $\{ p_k^{(k)} \}$ is a Cauchy subsequence of $\{ p_n \}$, and is convergent because $E$ is complete. Because $\{ p_n \}$ was arbitary, every sequence in $E$ has a convergent subsequence.
+            \iffalse
+            A closed ball is bounded because it is contained in itself. If $E$ is totally bounded, then for any radius $\varepsilon > 0$, $E$ is the union of a finite number of closed balls of radius $\varepsilon$, which are bounded sets. A union of a finite number of closed subsets is closed, and from (32), a union of a finite number of bounded subsets is bounded. Then $E$ is closed and bounded, and therefore compact.
+            \fi
+    \end{enumerate}
+
+    \subsection*{IV. Continuous Functions}
+    \begin{enumerate}
+        \item[1)]
+            \begin{enumerate}
+                \item
+                    For any $\varepsilon > 0$, $x \in \mathbb{R}$ and a particular $x_0 \in \mathbb{R}$, $|f(x) - f(x_0)| < \varepsilon$ whenever $|x - x_0| < \min\{\varepsilon, |x_0|\}$. Therefore, $f$ is continuous if $\delta = \min\{\varepsilon, |x_0|\}$.
+                \item
+                    For any $\varepsilon > 0$, $x \in \mathbb{R}$ and a particular $x_0 \in \mathbb{R}$, $|f(x) - f(x_0)| < \varepsilon$ whenever $|x - x_0| < \frac{\varepsilon}{2}$ (since $-1 \leq \sin \frac{1}{x} \leq 1$), so $f$ is continuous.
+                \item
+                    Let $\varepsilon < 1$ and $x_0 = 0$. For all $\delta > 0$, there exists $x \in \mathbb{R}$ such that $|x - x_0| < \delta$ but $|f(x) - f(x_0)| = |x^2 - 1| > \varepsilon$. Then $f$ is discontinuous at $x = 0$.
+                \item
+                    Because $\mathbb{Q}$ and $\mathbb{R} \backslash \mathbb{Q}$ are both dense in $\mathbb{R}$, the following are true. Let $x_0 = \frac{p}{q} \in \mathbb{Q}$ and $\varepsilon < \frac{1}{q}$. For all $\delta > 0$, there exists $x \in \mathbb{R} \backslash \mathbb{Q} \subset \mathbb{R}$ such that $|x - x_0| < \delta$ but $|f(x) - f(x_0)| = |0 - \frac{1}{q}| > \varepsilon$. \par
+                    Otherwise, take $x_0 \in \mathbb{R} \backslash \mathbb{Q}$ and some $\varepsilon > 0$, and let
+                    \begin{align*}
+                        S &= \left\{ \frac{p}{q} : p \in \mathbb{Z}, q \in \mathbb{Z}^+, q \leq \frac{1}{\varepsilon}, 0 \leq p \leq q \right\}.
+                    \end{align*}
+                    S is a finite set of $[0, 1]$, and elements of $S$ divide $[0, 1]$ into subintervals, one of which contains $x_0$ and is here denoted by $I$. Let $\delta > 0$ such that $B_\delta(x_0) \subset I$. Then for all $x \in B_\delta(x_0)$ such that $x \in \mathbb{R} \setminus Q$, $|f(x) - f(x_0)| = 0$; furthermore, if instead $x \in Q$, then $x \in S$ by the above definition and $|f(x) - f(x_0)| < \varepsilon$. We can conclude then that $f$ is continuous at $x_0$.
+                    \iffalse
+                    then for all $\delta > 0$, there exists $x = \frac{p}{q} \in \mathbb{Q}$ such that $|x - x_0| < \delta$ but $|f(x) - f(x_0)| = |\frac{1}{q} - 0| > \varepsilon$. Then $f$ is discontinuous at every point in the real numbers. 
+                    \fi
+            \end{enumerate}
+
+        \item[2)]
+            Let $p_0 \in f^{-1}(S)$. Then $f(p_0) \in S$, and since $S$ is closed, it contains the closed ball $B_\varepsilon(f(p_0)) \in E'$ for some $\varepsilon > 0$. Since $f$ is continuous at $p_0$, there exists $\delta > 0$ such that if $p \in E$ and $d(p, p_0) \leq \delta$, then $d'(f(p), f(p_0)) \leq \varepsilon$. In other words, if $p \in B_\delta(p_0)$, then $f(p) \in B_\varepsilon(f(p_0))$ so $f(p) \in S$. This shows that $f^{-1}(S)$ contains $B_\delta(p_0)$, and because $p_0$ was arbitrary, $f^{-1}(S)$ is thereby open. \par
+            Because $\{q \in E' : q \leq 0\}$, $\{q \in E' : q = 0\}$, and $\{q \in E' : q \geq 0\}$ are all closed subsets of $E'$, it follows that the given sets (which are the respective inverse mappings) are closed subsets of $E$.
+
+        \item[4)]
+            Let $y \in U$ and $\varepsilon > 0$. Since $f$ is onto, there exist points $x$, $z \in U$ such that $f(x) = f(y) - \varepsilon$ and $f(z) = f(y) + \varepsilon$, and $x < y < z$ because $f$ is strictly increasing. If we take $\delta = \min\{y - x, z - y\}$, then for all $w \in U$, $|y - w| < \delta$ implies that $|f(y) - f(w)| < \varepsilon$, which shows that $f$ is continuous. \par
+            Because $f$ is onto, $f^{-1}$ is defined for all values of $V$. Let $y \in V$ and $\varepsilon > 0$. Then there exist points $x$, $z \in V$ such that $f^{-1}(x) = f^{-1}(y) - \varepsilon$ and $f^{-1}(z) = f^{-1}(y) + \varepsilon$, and $x < y < z$ because the fact that $f$ is strictly increasing implies that $f^{-1}$ is strictly increasing. If we take $\delta = \min\{y - x, z - y\}$, then for all $w \in V$, $|y - w| < \delta$ implies that $|f^{-1}(y) - f^{-1}(w)| < \varepsilon$, which shows that $f^{-1}$ is continuous. \par
+    \end{enumerate}
+\end{document}

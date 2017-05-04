@@ -1,0 +1,204 @@
+\documentclass[12pt]{article}
+
+%Packages Used%
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{amsfonts,setspace}
+\usepackage{fullpage}
+%\usepackage[pdftex,pagebackref,hypertexnames=false, colorlinks, citecolor=black, linkcolor=blue, urlcolor=red]{hyperref}
+\usepackage{comment}
+\usepackage{enumitem}
+\usepackage[margin=1in]{geometry}
+
+
+\setlength{\abovedisplayskip}{3mm}
+\setlength{\belowdisplayskip}{3mm}
+\setlength{\abovedisplayshortskip}{0mm}
+\setlength{\belowdisplayshortskip}{2mm}
+\setlength{\baselineskip}{12pt}
+\setlength{\normalbaselineskip}{12pt}
+
+\setlength\parindent{0pt} % paragraph indentation
+
+\newcommand{\blank}{\underline{~~~~~~~~~}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\kk}{\mathbf{k}}
+\newcommand{\cP}{\mathcal{P}}
+
+\newcommand{\bu}{\mathbf{u}}
+\newcommand{\bv}{\mathbf{v}}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\by}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\bc}{\mathbf{c}}
+\newcommand{\bp}{\mathbf{p}}
+\newcommand{\bq}{\mathbf{q}}
+\newcommand{\be}{\mathbf{e}}
+\newcommand{\bzero}{\mathbf{0}}
+\DeclareMathOperator{\Nul}{Nul}
+\DeclareMathOperator{\Mod}{mod}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\tr}{tr}
+
+\renewcommand{\And}{\wedge}
+\newcommand{\Or}{\vee}
+\newcommand{\Implies}{\Rightarrow}
+\newcommand{\Not}{\sim}
+
+
+
+\normalbaselines
+\pagestyle{empty}
+\raggedbottom
+\begin{document}
+
+\noindent
+\textbf{Name: Erick Lin} \smallskip  \\
+\textbf{Collaborators:} \smallskip \\ %%% List anyone with whom you discussed the problems
+\textbf{Outside resources:} \smallskip \\ %%% List all resources used OTHER than the textbook, lecture notes, quizzes, worksheets, and previous homework assignments.
+
+\begin{center}
+{
+Math 4108, Algebra II \\
+HW 7 --- Due April 12, 2017 (Wednesday)
+}
+\end{center}
+
+Do the following problems from Lang's Undergraduate Algebra, 3rd edition.\\
+V,\S3. 2, 3.\\
+V,\S4. 2, 7, 9, 13, 18, 19, 20, 21.\\
+V,\S5. 2, 3, 4, 5.
+\subsection*{V,\S3.}
+\begin{enumerate}
+    \item[2.]
+        $\dim\Hom_K(V, W) = mn$. By Theorem 3.2, $\Hom_K(V, W)$ is isomorphic to the space of $m \times n$ matrices.
+
+    \item[3.]
+        \begin{enumerate}
+            \item
+                If $z_1, z_2 \in Z$, then $z_1 z_2 x = z_1 x z_2 = x z_1 z_2$ and $(z_1 - z_2)x = z_1 x - z_2 x = x z_1 - x z_2 = x(z_1 - z_2)$, so $Z$ is closed under multiplication and subtraction. Furthermore, $0 z_1 = 0 = z_1 0$, so $Z$ contains the additive identity $0$ of $R$. Thus, $Z$ is a subring of $R$.
+            \item
+                We know that for all $A \in R$, $IA = AI$, so $(cI)A = A(cI)$. Conversely, %any matrix with off-diagonal elements fails to commute with its transpose, and any diagonal matrix whose elements along the diagonal are not all equal fails to commute with any matrix $A$ with $a_{1, n}$ as the sole nonzero entry.
+                if $A$ is in the center and $E_{ij}$ defines the matrix with $e_{i, j} = 1$ as the sole nonzero entry, then the equations
+                \begin{align*}
+                    E_{ii}A = AE_{ii}
+                \end{align*}
+                for $1 \leq i \leq n$ imply that $A$ is diagonal, and the equations
+                \begin{align*}
+                    E_{ij}A = AE_{ij}
+                \end{align*}
+                for $1 \leq i, j \leq n$ imply that $a_{ii} = a_{jj}$ for all $i, j$. Thus, $A = cI$ for some $c \in K$.
+        \end{enumerate}
+\end{enumerate}
+\subsection*{V,\S4.}
+\begin{enumerate}
+    \item[2.]
+        Let $\varphi(f) = f(1)$. If $f, g \in \Hom_R(R, M)$, then $\varphi(f + g) = (f + g)(1) = f(1) + g(1) = \varphi(f) + \varphi(g)$, and $\varphi$ is a homomorphism. Furthermore, $\varphi$ is injective, i.e., any module homomorphism $f : R \to M$ over $R$ is determined uniquely by where $f$ sends the multiplicative identity $1$, because for any $r \in R$, $f(r) = f(r \cdot 1) = rf(1)$. Lastly, $\varphi$ is surjective because for any $m \in M$, if we define $f : R \to M$ by $f(r) = rm$, then $f(1) = m$, and for any $r \in R$ and $v, w \in M$, $f(rv + w) = (rv + w)m = rvm + wm = rf(v) + f(w)$, so $f \in \Hom_R(R, M)$.
+
+    \item[7.]
+        As a submodule of $F$, $\im f$ must be either $0$ or $F$, and as a submodule of $E$, $\ker f$ must be either $0$ or $E$. If $\im f = 0$, then we know that $\ker f = E$ and $f = 0$. If $\im f = F$ (meaning $f$ is surjective), then $\ker f \neq E$ so $\ker f = 0$ (meaning $f$ is injective) and hence $f$ is a bijective homomorphism (e.g. an isomorphism).
+
+    \item[9.]
+        Since we know that every element $v \in E$ has a unique expression of the form $v = x_1 v_1 + \cdots + x_n v_n$ with $x_i \in R$, we can define a function $f : E \to F$ by $f(v) = x_1 w_1 + \cdots + x_n w_n$, which satisfies $f(v_i) = w_i$ for all $i$. Then $f$ is an $R$-module homomorphism because for any $r \in R$, $v' = x_1' v_1 + \cdots + x_n' v_n$ with $x_i' \in R$,
+        \begin{align*}
+            f(rv + v') &= f[(rx_1 + x_1')v_1 + \cdots + (rx_n + x_n')v_n] \\
+            &= (rx_1 + x_1')w_1 + \cdots + (rx_n + x_n')w_n \\
+            &= r(x_1 w_1 + \cdots + x_n w_n) + (x_1' w_1 + \cdots + x_n' w_n) \\
+            &= rf(v) + f(v').
+        \end{align*}
+        On the other hand, if $f : E \to F$ is any homomorphism satisfying $f(v_i) = w_i$ for $i = 1, \cdots, n$, then $f(v) = x_1 w_1 + \cdots + x_n w_n \in F$ by the definition of a module. In other words, $f(v)$ is determined for all $v$, so there is only one such $f$.
+
+    \item[13.]
+        Under addition, $\Hom_R(E, F)$ is closed because for any $R$-module homomorphisms $f, g : E \to F$, $r \in R$, and $v, w \in E$,
+        \begin{align*}
+            (f + g)(rv + w)
+            &= f(rv + w) + g(rv + w) = r(f(v) + g(v)) + f(w) + g(w) \\
+            &= r(f + g)(v) + (f + g)(w);
+        \end{align*}
+        and associative because $(f + g) + h = f + (g + h)$ for any functions (including $R$-module homomorphisms) $f, g, h : E \to F$. If $0$ denotes the zero homomorphism, then $f + 0 = 0 + f$, so $0$ is the identity element. Lastly, the inverse of $f$ is $-f$ because $f - f = -f + f = 0$, so $\Hom_R(E, F)$ is an additive group. \par
+        Define the map $R \times \Hom_R(E, F) \to \Hom_R(E, F)$ by $(rf)(v) = rf(v)$ for all $f \in \Hom_R(E, F)$ and $v \in E$. Then $rf \in \Hom_R(E, F)$ because for all $x \in R$,
+        \begin{align*}
+            (rf)(xv) &= rf(xv) = rxf(v) = xrf(v) = x(rf)(v)
+        \end{align*}
+        (which requires that $rx = xr$ for all $r, x \in R$, i.e., $R$ is commutative) and for all $w \in E$,
+        \begin{align*}
+            (rf)(v + w) = rf(v + w) = r(f(v) + f(w)) = rf(v) + rf(w) = (rf)(v) + (rf)(w).
+        \end{align*}
+        If $r, s \in R$ and $f, g \in \Hom_R(E, F)$, then $r(f + g) = rf + rg$, $(r + s)f = rf + sf$, $(rs)f = r(sf)$, and $ef = f$, so $\Hom_R(E, F)$ satisfies all the conditions of an $R$-module.
+
+    \item[18.]
+        We know that $V$, being a vector space, is an additive group. \par
+        Also, for any map $f : V \to V$ (including $f \in R$), $f(v) \in V$ (which we note implies $Rv \subset V$). \par
+        If $f, g \in R$ and $v, w \in V$, then $f(v + w) = f(v) + f(w)$, $(f + g)(v) = f(v) + g(v)$, $(f \circ g)(v) = f(g(v))$, and $\text{id}_V(v) = v$, so $V$ satisfies all the conditions of an $R$-module. \par
+        Let $\{ v_1, \cdots, v_n \}$ be a basis of $V$. Then any $v, w \in V$ such that $v, w \neq 0$ can be written as $v = x_1 v_1 + \cdots + x_n v_n$ and $w = y_1 v_1 + \cdots + y_n v_n$ where $x_1, \cdots, x_n, y_1, \cdots, y_n \in K$. Theorem 1.2 gives the existence of a unique $K$-linear map $f : V \to V$ (i.e., $f \in R$) that satisfies $f(v_i) = y_i v_i / x_i$ for all $i$, and by linearity,
+        \begin{align*}
+            f(v) = x_1 f(v_1) + \cdots + x_n f(v_n) = y_1 v_1 + \cdots + y_n v_n = w,
+        \end{align*}
+        which shows that $w \in Rv$, and since $w$ was arbitrary, $V \subset Rv$. Thus, $V = Rv$. \par
+        $Rv$ is a simple $R$-module because any submodule containing some element $rv \in Rv$ must by definition also contain $xrv$ for any $x \in R$, or in other words the set $Rrv = Rv$.
+
+    \item[19.]
+        Let $A$ be such a matrix, and let the coefficients of $B \in R$ be given by $b_{i, j}$. Then the coefficients of $BA$ are
+        $\begin{cases}
+            (ba)_{i, j} = \sum_{k = 1}^n b_{i, k} a_k, &j = 1 \\
+            0, &j \neq 1
+        \end{cases}$, so $BA$ is also of this form. \par
+        The set of matrices having components 0 except possibly on the $j$th column is also an ideal, because $A$ is such a matrix, then the coefficients of $BA$ are
+        \begin{align*}
+            \begin{cases}
+                (ba)_{i, j'} = \sum_{k = 1}^n b_{i, k} a_k, &j' = j \\
+                0, &j' \neq j
+            \end{cases}.
+        \end{align*}
+
+    \item[20.]
+        $A$ has some nonzero entry $a_{k', 1}$, so we can define $C$ by $c_{i, k'} = b_{i, 1} / a_{k', 1}$ and $c_{i, j} = 0$ for all $j \neq k'$. Then the entries of $CA$ are given by $(ca)_{i, 1} = \sum_{k = 1}^n c_{i, k} a_{k, 1} = c_{i, k'} a_{k', 1} = b_{i, 1}$ and $(ca)_{i, j} = 0$ for all $j \neq 1$, so $CA = B$.
+
+    \item[21.]
+        Let $A \in R$ such that $A \neq O$, and let $v_1 \in V$ such that $v_1 \neq 0$ and $Av_1 \neq 0$, completing $v_1$ to a basis $\{ v_1, \cdots, v_n \}$ of $V$. Because $Av_1 \neq 0$, the matrix of $A$ has a nonzero entry $a_{k', 1}$ in the first column. For each $i = 1, \cdots, n$, if we define the matrix (in the same basis) of $B_i \in R$ by its entries as $b_{1, i} = 1$ and $0$ everywhere else, then $B_i v_i = v_1$ and $B_i v_j = 0$ for all $j \neq i$. Furthermore, if $\{ w_1, \cdots, w_n \}$ are arbitrary elements of $V$, then defining the matrix of $C_i \in R$ by its entries as $c_{i', k'} = w_{i_{i'}} / a_{k', 1}$ (where $w_{i_{i'}}$ is the $(i')$th component of $w_i$) for $i' = 1, \cdots, n$ and $0$ everywhere else yields $C_i Av_1 = w_i$. \par
+        $F = C_1 A B_1 + \cdots + C_n A B_n$ is by definition contained in the two-sided ideal of $R$ generated by $A$, and $F(v_i) = 0 + \cdots + C_i Av_1 + \cdots + 0 = w_i$ for all $i = 1, \cdots, n$. Because the $w_i$ are arbitrary, $F$ can represent any $K$-linear map $V \to V$. In conclusion, the ideal generated by $A$ must be all of $R$, and so any two-sided ideal of $R$ other than $\{O\}$ must be $R$.
+
+\end{enumerate}
+\subsection*{V,\S5.}
+\begin{enumerate}
+    \item[2.]
+        The map $\overline{A} : V/W \to V/W$ defined by $\overline{A}(v + W) = Av + W$ is linear because for all $v_1, v_2 \in V$ and $x \in K$,
+        \begin{align*}
+            \overline{A}(x(v_1 + W) + (v_2 + W)) &= \overline{A}((xv_1 + v_2) + W) = A(xv_1 + v_2) + W \\
+            &= x(Av_1 + W) + (Av_2 + W) \\
+            &= x\overline{A}(v_1 + W) + \overline{A}(v_2 + W).
+        \end{align*}
+
+    \item[3.]
+        \begin{enumerate}
+            \item
+                The derivative of every generator of $W$ can be generated by $1, t, t^2, e^t, te^t$ (e.g. $D(te^t) = e^t + te^t$ is generated by $e^t$ and $te^t$), and since the derivative is linear, this is true for every element (not just generators) of $W$.
+            \item
+                For any $f \in V$ written as $f(t) = a_0 + a_1t + a_2t^2 + a_3e^t + a_4te^t + a_5t^2e^t$, $\overline{D}(f + W) = Df + W = a_5(te^t + t^2e^t) + W = a_5t^2e^t + W$ so $\overline{D}$ is the identity.
+        \end{enumerate}
+
+    \item[4.]
+        For any $f \in V$ written as $f(t) = a_0 + a_1t + a_2t^2 + \cdots + a_nt^n$, $\overline{D}(f + W) = Df + W = a_1 + 2a_2t^2 + \cdots + na_nt^{n - 1} + W = W$ so $\overline{D}$ is trivial.
+
+    \item[5.]
+        \begin{enumerate}
+            \item
+                Any $w \in W$ can be written uniquely as a linear combination of $v_1, \cdots, v_r$, and since $AW \subset W$, $Aw$ can as well. The components of $Aw$ for $i = r + 1, \cdots, n$ are given by $\sum_{k = 1}^n a_{i, k} x_k$, where $x_k$ are the coefficients of $w$. In order for these components to be $0$, we must have $a_{i, k} = 0$ for all $1 \leq k \leq r$ since these are the values for which it is possible that $x_k \neq 0$. Thus, the matrix of $A$ is exactly of the form shown.
+            \item
+                For any $v = x_1 v_1 + \cdots + x_n v_n$ with $Av = y_1 v_1 + \cdots + y_n v_n$, we have that $\overline{A}\overline{v} = Av + W = y_{r + 1} v_{r + 1} + \cdots + y_n v_n + W = y_{r + 1} \overline{v}_{r + 1} + \cdots + y_n \overline{v}_n$, whose coefficients match the last $n - r$ components of $Av$, which are in turn given by the product of the $M_2$ submatrix with the vector consisting of the last $n - r$ components of $v$. Because $v$ was arbitrary, $\overline{A}$ in the $\{ \overline{v}_{r + 1}, \cdots, \overline{v}_n \}$ basis must have the same matrix as $M_2$ in the $\{ v_{r + 1}, \cdots, v_n \}$ basis.
+        \end{enumerate}
+\end{enumerate}
+\end{document}

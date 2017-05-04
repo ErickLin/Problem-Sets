@@ -1,0 +1,196 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{amsfonts, amsmath, enumitem}
+
+\textheight=9.5in
+\textwidth=6.5in
+\topmargin=-.8in
+\headsep=0pt
+\oddsidemargin=0truecm
+\evensidemargin=0truecm
+\footskip=20pt
+\pretolerance=1600
+\tolerance=1600
+\hbadness=1600
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{problem}[theorem]{Problem}
+
+\begin{document}
+
+\title{
+}
+
+%\author{Assigned 1-13-16 , Due 1-19-16 (in class)
+%}
+
+
+\date{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author's definitions
+
+\newcommand{\DEF}[1]{{\em #1\/}}
+
+\newcommand\chic{\chi_c}
+\newcommand\C{\hbox{${\cal C}$}}
+\newcommand{\RR}{\mbox{$\mathbb R$}}
+\newcommand{\NN}{\mbox{$\mathbb N$}}
+\newcommand{\ZZ}{\mbox{$\mathbb Z$}}
+\newcommand{\eopf}{\raisebox{0.8ex}{\framebox{}}}
+\newcommand{\dist}{\hbox{\rm d}}
+\renewcommand\a{\alpha}
+\renewcommand\b{\beta}
+\renewcommand\c{\gamma}
+\renewcommand\d{\delta}
+\newcommand\D{\Delta}
+\newcommand{\directedchi}{\mbox{$\vec{\chi}$}}
+\newcommand{\directedE}{\mbox{$\vec{E}$}}
+\newcommand{\directedG}{\mbox{$\vec{G}$}}
+\newcommand{\directedK}{\mbox{$\vec{K}$}}
+
+\newenvironment{proof}%
+{\noindent{\bf Proof.}\ }%
+{\hfill\eopf\par\bigskip}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\maketitle
+
+\noindent{\bf  Last Name:} $Lin \quad$
+\noindent{\bf First Name:} $Erick \quad$
+\noindent{\bf Email:}          $elin42@gatech.edu$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 2, 1/29/16 Due 2/04/16 5pm Klaus 2138 $~~$Page 1/5}
+
+\bigskip
+
+\noindent{\bf Problem 1: Weighted Median (20 points)}\\
+For $n$ distinct elements $x_1, x_2 , \ldots , x_n $ with positive weights $w_1 , w_2 , \ldots , w_n$ such that 
+$\sum_{i=1}^n w_i = 1$, the {\em weighted median} is the element $x_k$ satisfying
+\begin{displaymath}
+\sum_{x_i < x_k} w_i \leq \frac{1}{2}~~~~~~~{\rm and}~~~~~~~~\sum_{x_i > x_k} w_i  \leq \frac{1}{2} ~.
+\end{displaymath}
+Show how to compute the weighted median of $n$ elements in $O (n)$ time
+using a linear-time median finding algorithm similar to KSelect.\\
+{\bf Answer:}\\
+Let $A$ denote the list of elements. We want the sums of the lesser elements and the sums of the greater elements to both be at most $1/2$, and the sum of all the elements is $1$, so we will give the algorithm on the arguments $A$, $1/2$, $1/2$, and $1$ as follows. First we find the median $x_m$ of $A$ using KSelect, and partition $A$ into three groups: $A_{(<)}$, whose elements are less than $x_m$; $A_{(=)}$, whose elements equal $x_m$; and $A_{(>)}$, whose elements are greater than $x_m$. Let $S_{(<)}$, $S_{(=)}$, and $S_{(>)}$ denote $\sum_{x_i < x_m} w_i$, $\sum_{x_i = x_m} w_i$, and $\sum_{x_i > x_m} w_i$, respectively. If $S_{(<)} \leq 1/2$ and $S_{(>)} \leq 1/2$, then $x_m$ satisfies the definition of a weighted median. Otherwise, at most one of $S_{(<)}$ and $S_{(>)}$ is greater than $1/2$, because if this were not the case, then
+\begin{align*}
+    \sum_{i = 1}^n w_i = \sum_{x_i < x_m} w_i + \sum_{x_i = x_m} w_i + \sum_{x_i > x_m} w_i > \frac{1}{2} + S_{(=)} + \frac{1}{2} > 1.
+\end{align*} \par
+If $S_{(<)} > 1/2$, then any prefix of $A$ whose sum of weights is at most $1/2$ is contained in $A_{(<)}$, so the weighted median is contained in $A_{(<)}$. We can then recursively call this entire algorithm on the arguments $A_{(<)}$, $1/2$, $1/2 - S_{(=)} - S_{(>)}$, and $1 - S_{(=)} - S_{(>)}$. The latter three arguments come from the following observations. First, all the elements less than the weighted median are contained in $A_{(<)}$ as well. Also, because the sum of the weights of the elements in $A$ greater than the weighted median is at most $1/2$, and all the elements of $A_{(=)}$ and $A_{(>)}$ are greater than the weighted median, the sum of the elements in $A_{(<)}$ greater than the weighted median is at most $1/2 - S_{(=)} - S_{(>)}$. Finally, the sum of the elements in $A_{(<)}$ is $|A| - S_{(=)} - S_{(>)}$. \par
+If $S_{(>)} > 1/2$, then any suffix of $A$ whose sum of weights is at most $1/2$ is contained in $A_{(>)}$, so the weighted median is contained in $A_{(>)}$. We can then recursively call this entire algorithm on the arguments $A_{(>)}$, $1/2 - S_{(<)} - S_{(=)}$, $1/2$, and $1 - S_{(<)} - S_{(=)}$. The latter three arguments are derived using similar reasoning as in the previous case. \par
+KSelect runs in $O(n)$ time. Partitioning the list element by element involves $n$ operations, and finding the cardinalities of the three partitions involves summing the weights, which also takes $n$ operations. The recursive call is done on a list of size $\lfloor{n/2}\rfloor$. In conclusion, the recurrence relation for the runtime of this algorithm is $T(n) \in O(n) + 2n + T(\lfloor{n/2}\rfloor)$, which reduces to $T(n) \in O(n)$ by the master theorem.
+
+\pagebreak
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 2, 1/29/16 Due 2/04/16 5pm Klaus 2138 $~~$Page 2/5}
+
+\bigskip
+\noindent{\bf Problem 2: Design of Recursive Algorithms, KSelect Application (20 points) }\\
+Suppose that you are given an array $A$ with $n$ distinct unsorted integer entries, where $n=2^m$ for some integer $m \geq 1$. 
+Let $S(1)$ be the set containing the smallest $n/2$ elements of $A$. 
+For example, if  $n=16=2^4$ and the array $A$ is $(     100, 40, 120, 20, 50, 30, 85, 80, 150, 200, 60, 70, 2,3, 101, 102                )$, 
+then $S(1)= \{  40, 20, 50, 30, 60, 70 ,2 ,3  \}$. 
+In general, for positive integer $k$ with $1\leq k \leq m$,
+let $S(k)$ be the set containing the smallest $n/2^k$ elements of $A$. 
+For example, if $n=16=2^4$ and the array $A$ is $(     100, 40, 120, 20, 50, 30, 85, 80, 150, 200, 60, 70, 2,3, 101, 102                )$, 
+$S(1) =  \{  40, 20, 50, 30, 60, 70 ,2 ,3  \}$, $S(2) =  \{   20, 30,2 ,3  \}$, $S(3) =  \{  2 ,3  \}$ 
+and $S(4) =  \{  2 \}$.\\
+Show that for any integer $m \geq 1$, if $n=2^m$, on input an array $A$ of     $n$ 
+ distinct unsorted integers, 
+the elements of \underline{all} the sets $S(k)$, for all $1\leq k \leq m$,
+can be identified and listed using $O(n)$ comparisons.\\
+{\bf Answer:}\\
+First, we use KSelect to find the lower median $x$ of $A$, which is the maximum element of $S(1)$. We can find the rest of the elements of $S(1)$ by comparing each element of $A$ with $x$ to see whether it is less than $x$. After listing the elements of $S(1)$, we can recursively run this entire algorithm on $S(1)$ to find the smallest $n/2^2$ elements of $S(1)$, which are also the smallest $n/2^2$ elements of $A$ because $S(1)$ contains the smallest $n/2$ elements of $A$. We can allow the recursion to continue until the input array has size $2$, when we list the smaller of the two elements. \par
+$n$ comparisons take place where $n$ is the size of the input array, so the recurrence relation is $T(n) = n + T(n/2)$, which reduces to $T(n) \in O(n)$ by the master theorem.
+
+\pagebreak
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 2, 1/29/16 Due 2/04/16 5pm Klaus 2138 $~~$Page 3/5}
+
+\bigskip
+\noindent{\bf Problem 3: KSelect, special input (20 points)}\\
+You are given two sorted lists, where each list is of size $n$.
+Give an $O(\log n  )$ algorithm that finds the $k$-th smallest element of the union of the two lists. \\
+{\bf Answer:}\\
+Let $A$ and $B$ denote the two lists, the combined size of which is $2n$. We can use KSelect to find the $\lceil k/2 \rceil$th elements of each of the two lists, which we will denote $x_{\lceil k/2 \rceil}$ and $y_{\lceil k/2 \rceil}$ respectively under 1-indexing. We will consider the cases where $k$ is even and where $k$ is odd separately. \par
+Assume $k$ is even, so that $\lceil k/2 \rceil = k/2$.
+\begin{itemize}
+    \item
+        If $x_{k/2} = y_{k/2}$, then we know that all the elements to the left in either $A$ or $B$ are smaller than the $k/2$th smallest elements of either $A$ or $B$ and, by extension, the $k$th smallest element of $A \cup B$. Since $2(k/2) = k$, $x_{k/2} = y_{k/2}$ is the $k$th smallest element of $A \cup B$.
+    \item
+        If $x_{k/2} < y_{k/2}$, then the order statistic of $x_{k/2}$ in $A \cup B$ is less than $k$ because fewer than $k/2$ elements in $B$ are less than $x_{k/2}$, and the order statistic of $y_{k/2}$ in $A \cup B$ is greater than or equal to $k$ because at least $k/2$ elements in $A$ are less than $y_{k/2}$. Thus, the $k$th smallest element of $A \cup B$ must be either in the subset of $A$ consisting of elements to the right of $x_{k/2}$, or in the subset of $B$ consisting of elements to the left of and including $y_{k/2}$.
+    \item
+        If $x_{k/2} > y_{k/2}$, then by similar reasoning, the $k$th smallest element of $A \cup B$ must be either in the subset of $A$ consisting of elements to the left of and including $x_{k/2}$, or in the subset of $B$ consisting of elements to the right of $y_{k/2}$.
+\end{itemize}
+Now assume $k$ is odd, so that $2\lceil k/2 \rceil = k + 1$. \par
+\begin{itemize}
+    \item
+        If $x_{\lceil k/2 \rceil} = y_{\lceil k/2 \rceil}$, then using the reasoning from the previous case, this is the $(k + 1)$st smallest element of $A \cup B$, and we can find the $k$th smallest element by comparing $x_{\lceil k/2 \rceil - 1} = y_{\lceil k/2 \rceil - 1}$ and returning the greater of the two.
+    \item
+        If $x_{\lceil k/2 \rceil} < y_{\lceil k/2 \rceil}$, then the order statistic of $x_{\lceil k/2 \rceil}$ in $A \cup B$ is less than $k + 1$ because fewer than $\lceil k/2 \rceil$ elements in $B$ are less than $x_{\lceil k/2 \rceil}$, and the order statistic of $y_{\lceil k/2 \rceil}$ in $A \cup B$ is greater or equal to $k + 1$ because at least $\lceil k/2 \rceil$ elements in $A$ are less than $y_{\lceil k/2 \rceil}$. Because $A$ is sorted, we can deduce that the order statistic of $x_{\lceil k/2 \rceil - 1}$ is less than $k$. Thus, the $k$th smallest element of $A \cup B$ must be either in the subset of $A$ consisting of elements including and to the right of $x_{\lceil k/2 \rceil}$, or in the subset of $B$ consisting of elements to the left of $y_{\lceil k/2 \rceil}$.
+    \item
+        If $x_{\lceil k/2 \rceil} > y_{\lceil k/2 \rceil}$, then by similar reasoning, the $k$th smallest element of $A \cup B$ must be either in the subset of $A$ consisting of elements to the left of $x_{\lceil k/2 \rceil}$, or in the subset of $B$ consisting of elements including and to the right of $y_{\lceil k/2 \rceil}$.
+\end{itemize}
+In all the above cases in which the algorithm does not terminate, the combined size of the restricted lists is half of the original combined size. Because the size of the smaller restricted list is $\lfloor x/2 \rfloor$ in all these cases, we can recursively run the entire algorithm again, using KSelect to find instead the $\lceil k/2^2 = k/4 \rceil$th elements of each of the restricted lists. Because the $k$th element of $A \cup B$ is contained in one of these restricted lists, the recursive call will eventually find this element. \par
+Each step requires a constant number $c$ of comparisons and divides the combined size of the input arrays in half, so the runtime is $T(n) = c \log_2(n) \in O(\log n)$.
+
+\pagebreak
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 2, 1/29/16 Due 2/04/16 5pm Klaus 2138 $~~$Page 4/5}
+
+\bigskip
+\noindent{\bf Problem 4: Majority Element (20 points)}\\
+An array of integers $A(1, \ldots , n)$ is said to have a {\em majority element} if and only if 
+more than half of its entries are the same. 
+Given an (unsorted) array, give an $O(n)$ algorithm that decides if the array has a majority element,
+and, if so, to find that element. \\
+{\bf Answer:}\\
+The majority element must always be the median, because by definition, the majority element has at least $\lfloor n/2 \rfloor$ elements that are less than or equal to itself, and at least $\lfloor n/2 \rfloor$ elements that are greater than or equal to itself. In fact, these $\lfloor n/2 \rfloor$ elements are equal to itself. \par
+We can then run KSelect to find the median of $A$ and compare this value with all of the elements of $A$, keeping a counter of how many of these elements are equal to the median. If, at the end, this counter is greater than $\lfloor n/2 \rfloor$, then the algorithm returns an affirmative result; otherwise, it returns a negatory result. \par
+The algorithm uses KSelect and requires at most $n$ comparisons, so the runtime is $O(n)$.
+
+\pagebreak
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 2, 1/29/16 Due 2/04/16 5pm Klaus 2138 $~~$Page 5/5}
+
+\bigskip
+\noindent{\bf Problem 5: The Dichotomy Between Short and Long Paths (20 points)}\\
+Let $G(V,E)$, $|V|=n$, be a directed graph in adjacency matrix representation, with weights $w_{ij}$ on its edges.
+The weights can be positive, negative or zero without any further restriction (ie $G$ might have a negative cycle.) 
+If  $i\rightarrow j \not\in E$ then $w_{ij}=\infty$.\\
+(a) Give a polynomial time algorithm that determines if $G$ has a negative cycle.\\ 
+(b) Let $G^\prime (V^\prime , E^\prime )$ be a directed graph in adjacency matrix representation, 
+with weights $w_{ij}=1$ if $i\rightarrow j \in E$, $w_{ij}=\infty$  if $i\rightarrow j \not\in E$,
+and $w_{ij}=0$ if $i=j$. 
+Say that $G^\prime$ is {\em Hamiltonian} if and only if $G^\prime$ has a simple path of length $(n-1)$, 
+ie consisting of $(n-1)$ edges. 
+Show that, if there is a polynomial time algorithm  ${\cal A}$ that solves all pairs shortest paths for $G^\prime$ 
+(without any restriction, ie $G^\prime$ may have negative cycles)
+then there is a polynomial time algorithm ${\cal B}$  that decides if $G^\prime$ is Hamiltonian
+(using ${\cal A}$  as a subroutine.)
+\underline{Note:} Deciding if a graph is Hamiltonian is a well known NP-complete problem, 
+so the reduction of part (b) suggests that ${\cal A}$ does not exist. In other words, the restriction that there is no negative cycle
+is essential in computing all pairs shortest paths. \\
+{\bf Answer:}\\
+\begin{enumerate}[label=\alph*.]
+    \item
+        We can apply the Floyd-Warshall algorithm to $G$. If, at any point, the minimum cost path from a vertex to itself becomes updated to a negative value, this signals that $G$ has a negative cycle, and the algorithm terminates with an affirmative result. Otherwise, if the algorithm completes successfully, then it returns a negatory result. Floyd-Warshall is guaranteed to find negative cycles for the same reason that it is guaranteed to find the minimum cost paths between all vertices in the absence of a negative cycle -- it relaxes the costs as long as it is possible to do so. The worst-case time complexity of Floyd-Warshall is $O(n^3)$.
+
+    \item
+        Let $G''$ be the modified graph of $G'$ in which all edges with weight $1$ has its weight replaced by $-1$. If we run $\mathcal{A}$ on $G''$, then a Hamiltonian path exists if and only if for some vertex $v \in G''$, the minimum cost path from $v$ to $v$ is $-(n - 1) = 1 - n$. This is true because a Hamiltonian path starting and ending at some vertex $v$ has $n - 1$ edges, so the sum of the weights along the path is $-(n - 1)$; also, a minimum cost path from $v$ to $v$ with cost $-(n - 1)$ determines a Hamiltonian path because it travels along $n - 1$ edges and avoids any cycles, and therefore it travels through all $n$ vertices. \par
+        The algorithm $\mathcal{B}$ creates $G''$ in $O(|V| + |E|)$ time, runs $\mathcal{A}$ in polynomial time, and examines the path from every vertex to itself in $O(|V|)$ time, for a resultant time complexity that is polynomial.
+\end{enumerate}
+
+\end{document}

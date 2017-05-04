@@ -1,0 +1,201 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr, mathtools, titlesec}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\lhead{}
+\rhead{Erick Lin}
+\titleformat{\subsection}{\normalfont\large\bfseries}{}{0em}{Problem \thesubsection}
+
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\DeclarePairedDelimiterX{\norm}[1]{\lVert}{\rVert}{#1}
+\DeclarePairedDelimiter \ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter \floor{\lfloor}{\rfloor}
+\DeclarePairedDelimiter \angleb{\langle}{\rangle}
+\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[subsection]
+
+\newcommand{\bs}{\boldsymbol}
+\newcommand{\transpose}{\mathsf{T}}
+
+\begin{document}
+\section*{CS 7545 -- HW2 Solutions}
+Collaborators: William Agnew and Saurabh Kumar
+\subsection{}
+    \boldmath\textbf{Consider a classifier in $\mathbb{R}^2$ which assigns value $1$ to a point if and only if it is inside a certain axis-aligned rectangle. Such a classifier is precisely defined as
+    \begin{align*}
+        h_{(a_1, b_1, a_2, b_2)}(x_1, x_2) = \begin{cases}
+            1 &\text{ if } a_1 \leq x_1 \leq b_1 \text{ and } a_2 \leq x_2 \leq b_2 \\
+            0 &\text{ otherwise}
+        \end{cases}.
+    \end{align*}
+    Consider the class of all axis-aligned rectangles in the plane
+    \begin{align*}
+        \mathcal{H}_{rec}^2 = \{ h_{(a_1, b_1, a_2, b_2)} : a_1 \leq b_1 \text{ and } a_2 \leq b_2 \}.
+    \end{align*}
+    }\unboldmath \par
+    \begin{itemize}
+        \item
+            \boldmath\textbf{Consider the algorithm that returns the smallest (in area) axis-rectangle enclosing all positive examples in the training set. Show that this algorithm $(\epsilon, \delta)$-PAC learns $\mathcal{H}_{rec}^2$.
+            }\unboldmath \par
+            Any algorithm that $(\epsilon, \delta)$-PAC learns $\mathcal{H}_{rec}^2$ must have classification error greater than $\epsilon$ with probability less than $\delta$, and furthermore, none of the $m$ samples are misclassified by the given algorithm because negative examples are unenclosed by a particular rectangle containing the one returned by the algorithm. \par
+            Assuming that the classification error is greater than $\epsilon$, let the number of samples be $m > \frac{1}{\epsilon} \ln\frac{1}{\delta} = -\frac{\ln\delta}{\epsilon}$ so that $e^{-m\epsilon} < \delta$. Using the fact from analysis that $(1 - \epsilon)^m < e^{-m\epsilon}$, we have overall that $(1 - \epsilon)^m < \delta$, which means that the the probability that none of the $m$ samples are misclassified is less than $\delta$. Therefore, in a number of samples and hence time polynomial in $\frac{1}{\epsilon}$ and $\frac{1}{\delta}$, the algorithm has classification error at most $\epsilon$ with probability at least $1 - \delta$.
+        \item
+            \boldmath\textbf{Let $\mathcal{H}_{rec}^d$ be the class of axis-aligned rectangles in $\mathbb{R}^d$. Prove that $\mathrm{VCdim}(\mathcal{H}_{rec}^d) = 2d$.
+            }\unboldmath \par
+            For $d = 1$, consider any set of two points given by their coordinates $p_1, n_1$ along the sole axis. The axis-aligned rectangles are in this case line segments, and it is easy to construct line segments that contain neither point (e.g. $h((p_1 + n_1)/2, (p_1 + n_1)/2)$), either point ($h(p_1, p_1)$ and $h(n_1, n_1)$), or both points ($h(p_1, n_1)$), so the set can be shattered by $\mathcal{H}_{rec}^1$ and $\mathrm{VCdim}(\mathcal{H}_{rec}^1) \geq 2$. \par
+            We show by induction that if $\mathrm{VCdim}(\mathcal{H}_{rec}^d) \geq 2d$, then $\mathrm{VCdim}(\mathcal{H}_{rec}^{d + 1}) \geq 2(d + 1)$. By the assumption, there exists a set $X_d$ of $2d$ points in $\mathbb{R}^d$ that can be shattered in $\mathbb{R}^d$. We show that the union of $X$ with any two points $(0, \cdots, 0, p_{d + 1})$, $(0, \cdots, 0, n_{d + 1})$ in $\mathbb{R}^{d + 1}$, one in the positive direction along the $(d + 1)$st axis and the other in the negative direction, can be shattered in $\mathbb{R}^{d + 1}$ as follows (call this union $X_{d + 1}$). Without loss of generality, consider a subset $S \subseteq X_{d + 1}$, all and only whose points we want to classify as $1$ (i.e., which we want to bound by an axis-aligned rectangle that does not contain any points in $X_{d + 1} \setminus S$). Since $X_d$ can be shattered, let $h_{(a_1, b_1, \cdots, a_d, b_d)} \in \mathcal{H}_{rec}^d$ be a classifier that classifies all and only the points in $S \cap X$ as $1$. Thus, we give a classifier in $\mathcal{H}_{rec}^{d + 1}$ which does the same for $S$ in each of the following cases:
+            \begin{itemize}
+                \item
+                    $h_{(a_1, b_1, \cdots, a_d, b_d, 0, 0)}$ if $(0, \cdots, 0, p_{d + 1}) \notin S$, $(0, \cdots, 0, n_{d + 1}) \notin S$,
+                \item
+                    $h_{(a_1, b_1, \cdots, a_d, b_d, p_{d + 1}, p_{d + 1})}$ if $(0, \cdots, 0, p_{d + 1}) \in S$, $(0, \cdots, 0, n_{d + 1}) \notin S$,
+                \item
+                    $h_{(a_1, b_1, \cdots, a_d, b_d, n_{d + 1}, n_{d + 1})}$ if $(0, \cdots, 0, p_{d + 1}) \notin S$, $(0, \cdots, 0, n_{d + 1}) \in S$,
+                \item
+                    $h_{(a_1, b_1, \cdots, a_d, b_d, n_{d + 1}, p_{d + 1})}$ if $(0, \cdots, 0, p_{d + 1}) \in S$, $(0, \cdots, 0, n_{d + 1}) \in S$.
+            \end{itemize}
+            Thus, $X_{d + 1}$ is a set of $2(d + 1)$ points can be shattered in $\mathbb{R}^{2d + 1}$. \par
+            Secondly, we show that for any $d$, $\mathrm{VCdim}(\mathcal{H}_{rec}^d) < 2d + 1$. We can observe by the pigeonhole principle that for any set of $2d + 1$ points in $\mathbb{R}^d$, there must exist some point $c$ without the unique highest or lowest value among the points in any coordinate, since there are $d$ axes. Let $D$ be the set of all points excluding $c$ that have either the highest or the lowest value among the points in some coordinate. Then if a classifier in $\mathcal{H}_{rec}^d$ classifies all points in $D$ as $1$, it must also by its definition classify $c$ as $1$, so the set of $2d + 1$ points cannot be shattered by $\mathcal{H}_{rec}^d$. Since this is true for all sets of $2d + 1$ points, we conclude that $\mathrm{VCdim}(\mathcal{H}_{rec}^d) = 2d$.
+    \end{itemize}
+
+\subsection{}
+    \boldmath\textbf{Let $\mathcal{H}$ be a set of classifiers with VC-dimension $d$. Let $\mathcal{F}_t$ be the set of classifiers obtained by taking a weighted majority vote of $t$ classifiers from $\mathcal{H}$. Prove that the VC-dimension of $\mathcal{F}_t$ is at most $O(dt \log(dt))$.
+    }\unboldmath \par
+    Let $\mathrm{VCdim}(\mathcal{F}_t) = k$, so that $\mathcal{F}_t$ can partition some set of $k$ points in all $2^k$ possible ways. To show an upper bound on $k$, we consider the cases $k \geq 16$ and $k < 16$ separately, noting that $\log_2(k) = \sqrt{k} = 4$ when $k = 16$, and that $\log_2(k)$ increases more slowly than $\sqrt{k}$ since its derivative is smaller. \par
+    By Sauer's lemma, $\mathcal{H}$ can partition any set of $k$ points in at most $k^d$ ways. Each hypothesis $f$ in $\mathcal{F}_t$ depends on the outputs of $t$ hypotheses in $\mathcal{H}$, giving $(k^d)^t$ combinations of partitions, so $f$ partitions the points in at most $k^{dt}$ ways, as each combination of partitions may yield a unique partition under the weighted majority vote. Thus,
+    \begin{align*}
+        2^k \leq k^{dt} \Leftrightarrow k \leq dt\log_2(k).
+    \end{align*}
+    This means that when $k \geq 16$, $k \leq dt\log_2(k) \leq dt\sqrt{k} \Rightarrow k \leq (dt)^2$, and substituting back into the first inequality gives $k \leq 2dt\log_2(dt) = O(dt\log(dt))$. \par
+    Otherwise, assuming $d \geq 2$ and $t \geq 2$, $2dt\log_2(dt) \geq 16$, so $k < 2dt\log_2(dt) = O(dt\log(dt))$. We have proven the bound in both cases.
+
+\subsection{}
+    \boldmath\textbf{Let $\mathcal{H}_1, \cdots, \mathcal{H}_r$ be hypothesis classes over domain set $\mathcal{X}$. Let $d = \max_i \mathrm{VCdim}(\mathcal{H}_i)$, and assume that $d \geq 3$ for simplicity. Prove that
+    }\unboldmath \par
+    \begin{itemize}
+        \item
+            \boldmath\textbf{$\mathrm{VCdim}(\cup_{i = 1}^r \mathcal{H}_i) \leq 4d\log(2d) + 2\log r$.
+            }\unboldmath \par
+            By Sauer's lemma, any hypothesis class $\mathcal{H}$ with $\mathrm{VCdim}(\mathcal{H}) \leq d$ can partition $m$ points in at most $m^d$ ways, so the union of $r$ such hypotheses can partition $m$ points in at most $rm^d$ ways. If $m = \mathrm{VCdim}(\cup_{i = 1}^r \mathcal{H}_i)$, then we know that $\cup_{i = 1}^r \mathcal{H}_i$ partitions some set of $m$ points in all possible ways, yielding the inequality
+            \begin{align} \label{eq:m}
+                2^m \leq rm^d \Leftrightarrow m \leq d\log m + \log r.
+            \end{align}
+            Now assume for the purpose of contradiction that $m > 4d\log(2d) + 2\log r$. First, we want to show that $m > 4d\log(2d)$ implies $m > d\log m$, an implication which by logic yields $4d\log(2d) \geq d\log m$. Note that for all $d \geq 3$, $(4d^3)^d > (\log(2d))^d$, so we have
+            \begin{gather*}
+                2^{2d} d^{3d} > (\log(2d))^d \\
+                2^{4d} d^{4d} > 4^d d^d (\log(2d))^d \\
+                (2d)^{4d} > (4d\log(2d))^d \\
+                4d\log(2d) > d\log(4d\log(2d)),
+            \end{gather*}
+            which can be restated as $m > d\log m$ when $m = 4d\log(2d)$. Because the left-hand side increases faster than the right-hand side (its derivative is greater) whenever $m > 4d\log(2d)$, it is indeed the case that $m > d\log m$ also whenever $m > 4d\log(2d)$. In summary, $4d\log(2d) \geq d\log m$. \par
+            It is also obvious that $2\log r > \log r$, and combining the two inequalities gives $4d\log(2d) + 2\log r > d\log m + \log r$. The assumption that $m$ is greater than the left-hand side and hence the right-hand side contradicts (\ref{eq:m}), so it must be false. Therefore, $m \leq 4d\log(2d) + 2\log r$.
+        \item
+            \boldmath\textbf{For $r = 2$, $\mathrm{VCdim}(\mathcal{H}_1 \cup \mathcal{H}_2) \leq 2d + 1$.
+            }\unboldmath \par
+            If we let $\pi_{\mathcal{H}}(m)$ be the maximum number of ways to partition any set of $m$ points using hypotheses in $\mathcal{H}$, then for $c > 1$, by Sauer's lemma,
+            \begin{align*}
+                \pi_{\mathcal{H}_i}(2d + c) &\leq \sum_{k = 0}^d \binom{2d + c}{k}
+                = 1 + \sum_{k = 1}^d \binom{2d + c}{k} \\
+                &= 1 + \sum_{k = 1}^d \binom{2d + c - 1}{k} + \sum_{k = 1}^d \binom{2d + c - 1}{k - 1} \\
+                &= 1 + \sum_{k = 1}^d \binom{2d + c - 1}{k} + \sum_{k = d + c}^{2d + c - 1} \binom{2d + c - 1}{k} \\
+                &\leq \sum_{k = 1}^d \binom{2d + c - 1}{k} + \sum_{k = d + 1}^{2d + c - 1} \binom{2d + c - 1}{k} \\
+                &= \sum_{k = 1}^{2d + c - 1} \binom{2d + c - 1}{k} = 2^{2d + c - 1} - 1
+            \end{align*}
+            for both $i = 1$ and $i = 2$. From the union bound,
+            \begin{align*}
+                \pi_{\mathcal{H}_1 \cup \mathcal{H}_2}(2d + c) \leq \pi_{\mathcal{H}_1}(2d + c) + \pi_{\mathcal{H}_2}(2d + c) \leq 2^{2d + c} - 2 < 2^{2d + c},
+            \end{align*}
+            which implies that $\mathrm{VCdim}(\mathcal{H}_1 \cup \mathcal{H}_2)$ cannot be $2d + c$ for any $c > 1$, and so it must be at most $2d + 1$.
+    \end{itemize}
+
+\subsection{}
+    \boldmath\textbf{Show that any decision list on $n$ Boolean variables is equivalent to a halfspace. For a decision list of length $k$, give a bound on the margin of the halfspace, and thereby bound the number of mistakes made by Perceptron and by Winnow in the worst case.
+    }\unboldmath \par
+    We will show this by induction on $k$, the length of a decision list. When $k = 1$, the form of an equivalent halfspace depends on the following cases of the decision list:
+    \begin{itemize}
+        \item
+            $``\text{output } 1" \Leftrightarrow w_1 > 0$ where $w_1$ is a constant at least $1$.
+        \item
+            $``\text{output } 0" \Leftrightarrow w_1 > 0$ where $w_1$ is a constant at most $-1$.
+    \end{itemize}
+    For all other $k$, the decision list is on $k - 1$ Boolean variables, say $x_1, x_2, \cdots, x_{k - 1}$. Assume for the purpose of induction that there exists a halfspace with weight vector $(w_2, \cdots, w_k)$ corresponding to the decision sublist on variables $x_2, \cdots, x_{k - 1}$. Then the form of a halfspace equivalent to the original decision list depends on the conditions on $x_1$ as follows:
+    \begin{itemize}
+        \item
+            $``\text{if } x_1 = 1 \text{ then output } 1 \text{, else} \cdots" \Leftrightarrow w_1 x_1 + w_2 x_2 + \cdots + w_k > 0$ where $w_1 > \sum_{i = 2}^k |w_i|$. \par
+            If $x_1 = 1$ then the threshold inequality holds as expected, and if $x_1 = 0$ the same inequality evaluates to the threshold inequality corresponding to the aforementioned decision sublist, so the output of the halfspace matches the output of the decision list on all inputs.
+        \item
+            $``\text{if } x_1 = 1 \text{ then output } 0 \text{, else} \cdots" \Leftrightarrow w_1 x_1 + w_2 x_2 + \cdots + w_k > 0$ where $w_1 < -\sum_{i = 2}^k |w_i|$. \par
+            If $x_1 = 1$ then the threshold inequality is false as expected, and the case if $x_1 = 0$ is the same as above, so the output of the halfspace again matches.
+        \item
+            $``\text{if } x_1 = 0 \text{ then output } 1 \text{, else} \cdots" \Leftrightarrow w_1 x_1 + w_2 x_2 + \cdots + w_k' > 0$ where $w > \sum_{i = 2}^k |w_i|$, $w_1 = -w$, and $w_k' = w_k + w$. \par
+            If $x_1 = 0$ then the $w$ term dominates so the threshold inequality holds as expected, and if $x_1 = 1$ then the $-w$ and $w$ terms cancel so the threshold inequality becomes as above. As before, the output of the halfspace is correct.
+        \item
+            $``\text{if } x_1 = 0 \text{ then output } 0 \text{, else} \cdots" \Leftrightarrow w_1 x_1 + w_2 x_2 + \cdots + w_k > 0$ where $w > \sum_{i = 2}^k |w_i|$, $w_1 = w$, and $w_k' = w_k - w$. \par
+            If $x_1 = 0$ then the $-w$ term dominates in terms of absolute value so the threshold inequality is false as expected, and if $x_1 = 1$ then the $w$ and $-w$ terms cancel so the threshold inequality becomes as above. We have shown that the output of the halfspace matches the expected output on all inputs in all cases.
+    \end{itemize}
+    Thus, the induction holds, in particular for $k = n + 1$ in which the decision list is on $n$ variables. \par
+    For finding a bound on the margin of the halfspace for a decision list of length $k$, consider the special case given by $\bs{w} = (w_1, w_2, \cdots, w_k)$ where $|w_i| = 2^{k - i}$ for all $1 \leq i \leq k$. This satisfies the conditions required of the $w_i$ since $|w_i| = 2^{k - i} > 2^{k - 1} - 1 = \sum_{j = i + 1}^k 2^{k - j} = \sum_{j = i + 1}^k |w_j|$. Additionally, this property combined with the presenceof the constant term $|w_k| = 1$ implies that the left-hand side of the halfspace is at least $1$ in terms of absolute value, so the margin of this halfspace is at least $1$. Therefore, the upper bounds on the number of mistakes made by the Perceptron and Winnow algorithms are respectively
+    \begin{align*}
+        O \left( \frac{\norm{w}_2^2 \norm{X}_2^2}{\gamma^2} \right) &= O \left( \frac{(\sum_{i = 0}^{k - 1} 2^{2i})(\sum_{i = 1}^{k - 1} 1^2)}{1^2} \right) = O(k2^{2k}) \quad \text{and} \\
+        O \left( \frac{\norm{w}_2^2 \norm{X}_\infty^2 \log(k \norm{w}_1)}{\gamma^2} \right) &= O \left( \frac{(\sum_{i = 0}^{k - 1} 2^{2i})(1^2) \log(k \sum_{i = 0}^{k - 1} |2^i|)}{1^2} \right) \\
+        &= O(2^{2k}\log(k2^k)) = O(k2^{2k}\log k)
+    \end{align*}
+    where $X$ is the vector of boolean variables.
+
+\subsection{}
+    \boldmath\textbf{Show that Randomized Weighted Majority when used by a row-player in a 2-player zero-sum game (one player maximizing, the other minimizing), with the column player using only the best response, converges to a Nash equilibrium. Bound the number of steps for the row and column players' payoffs to get within $\epsilon$, assuming that all payoffs are in $[0, 1]$.
+    }\unboldmath \par
+
+\subsection{}
+    \boldmath\textbf{Give an algorithm to PAC-learn the parity of a set of $d$ linear threshold functions in $\mathbb{R}^n$; the time and sample complexity of the algorithm should be polynomial for any fixed $d$.
+    }\unboldmath \par
+    Suppose we have a set of $d$ linear threshold functions that map points in $\mathbb{R}^n$ to the labels $-1$ or $1$ (if the labels are $0$ and $1$, then we can compose each function with the function that maps $0$ to $-1$ and $1$ to $1$), and let $\bs{w}_1, \bs{w}_2, \cdots, \bs{w}_d$ be the weight vectors pertaining to these linear threshold functions. Then for any point $\bs{x} \in \mathbb{R}^n$, the sign of the left-hand side of the inequality
+    \begin{align*}
+        (\bs{w}_1 \cdot \bs{x})(\bs{w}_2 \cdot \bs{x}) \cdots (\bs{w}_d \cdot \bs{x}) > 0
+    \end{align*}
+    matches the product of the signs of the thresholds pertaining to the $d$ linear threshold functions, which is also their parity ($1$ or $-1$). The above inequality is a threshold because it can be written as
+    \begin{align*}
+        \prod_{i = 1}^d \sum_{j = 1}^n w_{i, j} x_j = \sum_{1 \leq i_1, \cdots, i_d \leq n} \prod_{j = 1}^n w_{j, i_j} x_{i_j}
+    \end{align*}
+    where $w_{i, j}$ is the $j$th component of $\bs{w}_i$. If we define, for all $1 \leq i_1, \cdots, i_d \leq n$, $\bs{w}$ by its components taking the form $\prod_{j = 1}^n w_{j, i_j}$ and $\phi(\bs{x})$ by its components taking the form $\prod_{j = 1}^n x_{i_j}$ (meaning each vector has $n^d$ components), then the threshold can also be written
+    \begin{align*}
+        \bs{w} \cdot \phi(\bs{x}) > 0,
+    \end{align*}
+    so the corresponding linear threshold function can be PAC-learned using SVM in polynomial time and sample complexity (by Corollary 6.23 \cite{blum}). \par
+    Furthermore, the polynomial kernel for $\phi$ is given by $k(\bs{x}, \bs{y}) = (\bs{x} \cdot \bs{y})^d$ since
+    \begin{align*}
+        (\bs{x} \cdot \bs{y})^d = \sum_{1 \leq i_1, \cdots, i_d \leq n} \prod_{j = 1}^n x_{i_j} y_{i_j} = \phi(\bs{x}) \cdot \phi(\bs{y}),
+    \end{align*}
+    and using this representation of $\phi(\bs{x}) \cdot \phi(\bs{y})$ reduces the computation time from $O(n^d)$ to $O(n)$. Hence, kernel SVM can be applied to solve the same problem in even less time.
+
+\subsection{}
+    \boldmath\textbf{Let $S = \{(x_1, y_1), \cdots, (x_n, y_n)\}$ be a labeled sample of $n$ points in $\mathbb{R}^n$ with $\bs{x}_i = ((-1)^i, \cdots, (-1)^i, (-1)^{i + 1}, 0, \cdots, 0)$ and $y_i = (-1)^{i + 1}$. Show that the Perceptron algorithm makes $\Omega(2^n)$ updates before finding a separating hyperplane, regardless of the order in which it receives the points.
+    }\unboldmath \par
+    If we let $M_i$ be the number of mistakes made by the Perceptron algorithm on example $\bs{x}_i$, and let $\bs{w} = (w_1, \cdots, w_n)$ be the vector pertaining to the separating hyperplane that it finds, then since $\bs{w} = \sum_{i = 1}^n M_i \bs{x}_i y_i$ ($\bs{w}$ is initially $\vec{0}$ and on each mistake it is incremented by $\bs{x}_i y_i$) and
+    \begin{align*}
+        \bs{x}_i y_i = (\underbrace{-1, -1, \cdots, -1}_{\text{first } i - 1 \text{ components}}, 1, 0, \cdots, 0)
+    \end{align*}
+    for all $1 \leq i \leq n$, we have that
+    \begin{align} \label{eq:w_i}
+        w_i = \begin{cases}
+            M_i - \sum_{j = i + 1}^n M_j \text{ if } 1 \leq i \leq n - 1, \\
+            M_n \text{ if } i = n
+        \end{cases}.
+    \end{align}
+    The Perceptron algorithm finds $\bs{w}$ such that $\bs{w} \cdot \bs{x}_i \geq 0$ when $y_i = 1$ and $\bs{w} \cdot \bs{x}_i < 0$ when $y_i = -1$, so we have
+    \begin{align*}
+        &\bs{w} \cdot \bs{x}_1 = (w_1, w_2, \cdots, w_n) \cdot (1, 0, \cdots, 0) = w_1 \geq 0 \\
+        &\bs{w} \cdot \bs{x}_2 = (w_1, w_2, \cdots, w_n) \cdot (1, -1, 0, \cdots, 0) = w_1 - w_2 < 0 \Rightarrow w_2 > w_1 > 0 \\
+        &\bs{w} \cdot \bs{x}_3 = (w_1, w_2, \cdots, w_n) \cdot (-1, -1, 1, 0, \cdots, 0) = w_3 - w_1 - w_2 \geq 0 \Rightarrow w_3 > 0
+    \end{align*}
+    and continuing by induction, $w_i > 0$ for all $2 \leq i \leq n$. In particular, $M_n = w_n > 0$. Note also that $\bs{w}$ must have integer coordinates since the Perceptron algorithm changes each coordinate by $-1$, $0$, or $1$ (the coordinates of $\bs{x}_i y_i$) at each iteration, so we have further that $M_n = w_n \geq 1$. \par
+    Combining (\ref{eq:w_i}) with the above observations and using induction on $k$ gives $M_{n - k} > 2^{k - 1} M_n \geq 2^{k - 1}$ for all $1 \leq k \leq n - 1$, so in particular, $M_1 \geq 2^{n - 2} = \Omega(2^n)$. Because the Perceptron algorithm makes at least $M_1$ mistakes, we conclude that the desired quantity is $\Omega(2^n)$.
+
+\bibliographystyle{acm}
+\bibliography{references}
+
+\end{document}

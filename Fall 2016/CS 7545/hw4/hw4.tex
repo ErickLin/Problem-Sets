@@ -1,0 +1,96 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr, mathtools, titlesec}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\lhead{}
+\rhead{Erick Lin}
+\titleformat{\subsection}{\normalfont\large\bfseries}{}{0em}{Problem \thesubsection}
+
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\DeclarePairedDelimiterX{\norm}[1]{\lVert}{\rVert}{#1}
+\DeclarePairedDelimiter \ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter \floor{\lfloor}{\rfloor}
+\DeclarePairedDelimiter \angleb{\langle}{\rangle}
+\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[subsection]
+
+\newcommand{\bs}{\boldsymbol}
+\newcommand{\transpose}{\mathsf{T}}
+
+\begin{document}
+\section*{CS 7545 -- HW4 Solutions}
+\subsection{}
+\iffalse
+    The weights are all initially $1$, which means that if the number of experts is $n$, then the sum of the weights of all experts is initially $n$. Let $F = \max\{ \frac{1}{P}, R \}$. On each mistake, since at least half of the experts have their weights decreased to a factor $P$ of their original values, and the remaining experts, which are at most half, have their weights increased to a factor $R$ of their original values, the sum of the weights increases by a factor of at most $\frac{P}{2} \cdot \frac{R}{2} = \frac{PR}{4} \leq \frac{R}{4} \leq \frac{F}{4}$. Thus, if $M$ is the number of mistakes made by the algorithm, then the final sum of weights is at most $n \left( \frac{F}{4} \right)^M$. \par
+    On the other hand, if the best expert makes $m$ mistakes, then since its weight is lowered at most as many times as it makes a mistake (with the bound achieved when all of its mistakes coincide with the algorithm's mistakes), its final weight is at least $P^m = \left( \frac{1}{1/P} \right)^m \geq \left( \frac{1}{F} \right)^m$. \par
+    We also know that the weight of the best expert is less than the sum of all the weights at all times. Combining the inequalities, we have that
+    \begin{gather*}
+        \left( \frac{1}{F} \right)^m < n \left( \frac{F}{4} \right)^M \\
+        \Leftrightarrow m\log_F \left( \frac{1}{F} \right) < \log_F n + M(\log_F F - \log_F 4) \\
+        \Leftrightarrow m + \log_F n > M(\log_F 4 - 1) \\
+        \Leftrightarrow M < \frac{m + \log_F n}{\log_F 4 - 1},
+    \end{gather*}
+\fi
+The weights are all initially $1$, which means that if the number of experts is $n$, then the sum of the weights of all experts is initially $n$. On each mistake, since at least half of the experts have their weights decreased to a factor $P$ of their original values, and the remaining experts, which are at most half, have their weights increased to a factor $R$ of their original values, the sum of the weights increases by a factor of at most $\frac{P}{2} \cdot \frac{R}{2} = \frac{PR}{4}$. Thus, if $M$ is the number of mistakes made by the algorithm, then the final sum of weights is at most $n \left( \frac{PR}{4} \right)^M$. \par
+On the other hand, if the best expert makes $m$ mistakes, then since its weight is lowered at most as many times as it makes a mistake (with the bound achieved when all of its mistakes coincide with the algorithm's mistakes), its final weight is at least $P^m$. \par
+We also know that weight of the best expert is less than the sum of all the weights. Combining the inequalities, we have that
+\begin{gather*}
+    P^m < n \left( \frac{PR}{4} \right)^M \\
+    \Leftrightarrow m\log_{1/P}P < \log_{1/P} n + M(\log_{1/P}P + \log_{1/P}R - \log_{1/P}4) \\
+    \Leftrightarrow m > -\log_{1/P} n + M(1 - \log_{1/P}R + \log_{1/P}4) \\
+    \Leftrightarrow M < \frac{m + \log_{1/P} n}{1 - \log_{1/P}R + \log_{1/P}4},
+\end{gather*}
+which gives a valid mistake bound whenever $n$, $P$, and $R$ are such that the right-hand side is positive.
+
+\subsection{}
+If $k_1$, $k_2$ are kernels, then they can be written as
+\begin{align*}
+    k_1(x, y) &= \phi_1(x) \cdot \phi_1(y), \quad \phi_1 = (\phi_{1, 1}, \phi_{1, 2}, \cdots, \phi_{1, m}) \\
+    k_2(x, y) &= \phi_2(x) \cdot \phi_2(y), \quad \phi_2 = (\phi_{2, 1}, \phi_{2, 2}, \cdots, \phi_{2, n})
+\end{align*}
+for some $m$, $n$.
+\begin{enumerate}[label=(\alph*)]
+    \item
+        If $\phi_+ = (\phi_{1, 1}, \phi_{1, 2}, \cdots, \phi_{1, m}, \phi_{2, 1}, \phi_{2, 2}, \cdots, \phi_{2, n})$ and $\phi_{+, i}$ denotes the $i$th component of $\phi_+$, then
+        \begin{align*}
+            (k_1 + k_2)(x, y) &= k_1(x, y) + k_2(x, y) \\
+            &= \sum_{i = 1}^m \phi_{1, i}(x) \phi_{1, i}(y) + \sum_{i = 1}^n \phi_{2, i}(x) \phi_{2, i}(y) \\
+            &= \sum_{i = 1}^{m + n} \phi_{+, i}(x) \phi_{+, i}(y) \\
+            &= \phi_+(x) \cdot \phi_+(y)
+        \end{align*}
+        so $k_1 + k_2$ is a kernel.
+    \item
+        If $\phi_\times(z)$ is an $mn$-dimensional vector such that $\phi_{\times, ij}(z) = \phi_{1, i}(z) \phi_{2, j}(z)$, then
+        \begin{align*}
+            k_1 k_2(x, y) &= k_1(x, y) k_2(x, y) \\
+            &= \left( \sum_{i = 1}^m \phi_{1, i}(x) \phi_{1, i}(y) \right) \left( \sum_{i = 1}^n \phi_{2, i}(x) \phi_{2, i}(y) \right) \\
+            &= \sum_{i = 1}^m \sum_{j = 1}^n \phi_{1, i}(x) \phi_{1, i}(y) \phi_{2, j}(x) \phi_{2, j}(y) \\
+            &= \sum_{i = 1}^{m} \sum_{j = 1}^n \phi_{\times, ij}(x) \phi_{\times, ij}(y) \\
+            &= \phi_\times(x) \cdot \phi_\times(y),
+        \end{align*}
+        so $k_1 k_2$ is a kernel.
+    \item
+        If $e(z)$ is the function that extends $z$ by an additional component with the value $1$, then it is easy to see that $e(x) \cdot e(y) = x \cdot y + 1$. Thus, if $d$ is a positive integer,
+        \begin{align*}
+            (1 + x \cdot y)^d = (e(x) \cdot e(y))^d = \bigotimes_{i = 1}^d e(x) \cdot \bigotimes_{i = 1}^d e(y)
+        \end{align*}
+        where $\otimes$ denotes the tensor product, so $(1 + x \cdot y)^d$ is a kernel.
+    \item
+        First, $f(x) k_1(x, y) f(y)$ is a kernel for any function $f$, because it can be written as $f(x) f(y) \phi_1(x) \cdot \phi_1(y) = [f(x) \phi_1(x)] \cdot [f(y) \phi_1(y)] = (f \circ \phi_1)(x) \cdot (f \circ \phi_1)(y)$. \par
+        Furthermore, $e^{cx \cdot y}$ is a kernel for any real scalar $c$ due to the fact that it is an infinite sum of polynomials in terms of the trivial kernel $x \cdot y$, and using parts (a) and (b). \par
+        Therefore, $e^{\norm{x - y}^2} = e^{(x - y) \cdot (x - y)} = e^{\norm{x}} e^{-2x \cdot y} e^{\norm{y}}$ is a kernel using the facts above.
+    \item
+        For any $d$ not a positive integer, $(x \cdot y)^d$ is not a kernel because it does not satisfy Mercer's condition \cite{kernel}.
+\end{enumerate}
+
+\subsection{}
+If the true Gaussians are concentric (i.e., having the same mean), then with high probability, each estimated Gaussian will initially be assigned a different point as its center. After the first iteration, the samples become separated into the two Gaussians by a line, and after any number of iterations, samples on different sides of the line remain mostly assigned to different estimated Gaussians, regardless of their distance from the true mean which actually dictates from which true Gaussian each sample was generated.
+
+\bibliographystyle{acm}
+\bibliography{references}
+
+\end{document}

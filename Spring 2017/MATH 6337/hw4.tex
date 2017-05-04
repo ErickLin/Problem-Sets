@@ -1,0 +1,79 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr, graphicx}
+\usepackage[margin=1in, includehead, includefoot, heightrounded]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\newcommand*\dist{\mathop{\!\mathrm{d}}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\DeclareMathOperator*{\esssup}{ess\,sup}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\begin{document}
+
+\section*{MATH 6337 -- HW4 Solutions}
+\begin{enumerate}
+    \item[1.2.33.]
+        \boldmath\textbf{Assume that $\{E_n\}_{n \in \mathbb{N}}$ is a sequence of measurable subsets of $\mathbb{R}^d$ such that $|E_m \cap E_n| = 0$ whenever $m \neq n$. Prove that $|\bigcup E_n| = \sum |E_n|$.
+        }\unboldmath \par
+        %We can rewrite $\bigcup E_n$ as $\bigcup F_n$ where $F_n = E_n \setminus \bigcup_{m \neq n} E_m$. The part that is removed is a countable union of sets of measure zero, so $|F_n| = |E_n|$ for all $n \in \mathbb{N}$. The result then follows from countable additivity.
+        The set
+        \begin{align*}
+            Z = \bigcup_{m, n = 1}^\infty (E_m \cap E_n)
+        \end{align*}
+        has measure zero by countable subadditivity and the sets $E_n \setminus Z$ are disjoint measurable sets, so by countable additivity (Theorem 1.2.16),
+        \begin{align*}
+            \left| \bigcup E_n \right| = \left| \bigcup (E_n \setminus Z) \right| = \sum|E_n \setminus Z| = \sum|E_n|.
+        \end{align*}
+
+    \item[1.2.35.]
+        \boldmath\textbf{Let $E \subseteq \mathbb{R}^m$ and $F \subseteq \mathbb{R}^n$ be measurable sets. Assume that $\mathbf{P}(x, y)$ is a statement that is either true or false for each pair $(x, y) \in E \times F$. Suppose that
+        \begin{center}
+            for every $x \in E$, $\mathbf{P}(x, y)$ is true for a.e. $y \in F$.
+        \end{center}
+        Must it be true then that
+        \begin{center}
+            for a.e. $y \in F$, $\mathbf{P}(x, y)$ is true for every $x \in E$?
+        \end{center}
+        }\unboldmath \par
+        %A counterexample in the case when $|E| > |F|$ is given by $\mathbf{P}$ where for each $y \in F$, there exists exactly one $x \in E$ such that $\mathbf{P}(x, y)$ is false.
+        A counterexample is given by the statement $x \neq y$ in the space $[0, 1] \times [0, 1]$.
+
+    \item[1.2.38.]
+        \boldmath\textbf{Let $E$ be a measurable subset of $\mathbb{R}^d$. Show that if $A \subseteq \mathbb{R}^d$ and $E \cap A = \emptyset$, then $|E \cup A|_e = |E| + |A|_e$.
+        }\unboldmath \par
+        Carath\'eodory's Criterion (Theorem 1.2.23) implies that
+        \begin{align*}
+            |E \cup A|_e = |(E \cup A) \cap E|_e + |(E \cup A) \setminus E|_e = |E|_e +  |A \setminus (E \cap A)|_e = |E| + |A|_e.
+        \end{align*}
+
+    \item[1.2.43.]
+        \boldmath\textbf{Let $E$ be a measurable subset of $\mathbb{R}^d$ such that $|E| < \infty$. Suppose that $A, B$ are disjoint subsets of $E$ and $E = A \cup B$. Show that
+        \begin{center}
+            $A$ and $B$ are measurable $\Longleftrightarrow$ $|E| = |A|_e + |B|_e$.
+        \end{center}
+        }\unboldmath \par
+        ($\Rightarrow$) This follows from countable additivity. \par
+        ($\Leftarrow$) Lemma 1.2.20 implies that there exist $G_\delta$-sets $H_1 \supseteq A, H_2 \supseteq B$ such that $|A|_e = |H_1|, |B|_e = |H_2|$. Then
+        \begin{align*}
+            E \setminus H_1 \subseteq B \subseteq H_2
+        \end{align*}
+        and hence
+        \begin{align*}
+            |H_2 \setminus B|_e \leq |H_2 \setminus (E \setminus H_1)| &= |H_2| - |E \setminus H_1| \\
+            &= |H_2| - |E| + |H_1| = |B|_e - |E| + |A|_e = 0.
+        \end{align*}
+        Since $H_2$ and $H_2 \setminus B$ are measurable, $B$ is measurable due to the closure of $\mathcal{L}$ under relative complements (Corollary 1.2.13). A similar argument can be used to show that $A$ is measurable.
+
+    \item[1.2.44.]
+        \boldmath\textbf{Exhibit a set $E$ and a function $f : E \to \mathbb{R}$ that is continuous on the set $E$, yet $\esssup|f(x)| \neq \sup|f(x)|$.
+        }\unboldmath \par
+        %If $E$ has measure zero, then for any constant function $f = c$, $\esssup|f(x)| = -\infty$ while $\sup|f(x)| = |c|$.
+        Let $E = \mathbb{Z}$ (any function on $\mathbb{Z}$ is continuous) and $f(n) = |n|$. Then $\esssup|f(x)| = 0$ (because $E$ has measure zero) but $\sup|f(x)| = \infty$.
+\end{enumerate}
+
+\end{document}

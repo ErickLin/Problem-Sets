@@ -1,0 +1,220 @@
+\documentclass[12pt]{article}
+
+%Packages Used%
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{amsfonts,setspace}
+\usepackage{fullpage}
+%\usepackage[pdftex,pagebackref,hypertexnames=false, colorlinks, citecolor=black, linkcolor=blue, urlcolor=red]{hyperref}
+\usepackage{comment}
+\usepackage{enumitem}
+\usepackage[margin=1in]{geometry}
+
+
+\setlength{\abovedisplayskip}{3mm}
+\setlength{\belowdisplayskip}{3mm}
+\setlength{\abovedisplayshortskip}{0mm}
+\setlength{\belowdisplayshortskip}{2mm}
+\setlength{\baselineskip}{12pt}
+\setlength{\normalbaselineskip}{12pt}
+
+\newcommand{\blank}{\underline{~~~~~~~~~}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\kk}{\mathbf{k}}
+\newcommand{\cP}{\mathcal{P}}
+
+\newcommand{\bu}{\mathbf{u}}
+\newcommand{\bv}{\mathbf{v}}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\by}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\bc}{\mathbf{c}}
+\newcommand{\bp}{\mathbf{p}}
+\newcommand{\bq}{\mathbf{q}}
+\newcommand{\be}{\mathbf{e}}
+\newcommand{\bzero}{\mathbf{0}}
+\DeclareMathOperator{\Nul}{Nul}
+\DeclareMathOperator{\Mod}{mod}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\tr}{tr}
+
+\renewcommand{\And}{\wedge}
+\newcommand{\Or}{\vee}
+\newcommand{\Implies}{\Rightarrow}
+\newcommand{\Not}{\sim}
+
+
+
+\normalbaselines
+\pagestyle{empty}
+\raggedbottom
+\begin{document}
+
+\noindent
+\textbf{Name: Erick Lin} \smallskip  \\
+\textbf{Collaborators: Yihan Zhou, Tomonari Feehan} \smallskip \\ %%% List anyone with whom you discussed the problems
+\textbf{Outside resources: Coursera Intro to Galois Theory} \smallskip \\ %%% List all resources used OTHER than the textbook, lecture notes, quizzes, worksheets, and previous homework assignments.
+
+\begin{center}
+{
+Math 4108, Algebra II \\
+HW 4 --- Due on March 3, 2017 (Friday)
+}
+\end{center}
+
+\noindent Read and think about the problems in Chapters 7 of the textbook (Howie).  Turn in the following problems.  The first two problems were on HW3.  You don't have to turn it in again if you did already last time.
+
+\begin{enumerate}
+    \item
+        \begin{enumerate}
+            \item
+                In $GF(p^n)$ show that the Frobenius automorphism $\varphi: a \mapsto a^p$ has order $n$. \par
+                $\varphi^n$, defined as the composition of $n$ $\varphi$'s, takes $a$ to $a^{p^n}$. Since the group $GF(p^n)^\times = GF(p^n) \setminus \{0\}$ is of order $p^n - 1$, $a^{p^n} = a$ for all $a \in GF(p^n)^\times$, %and there exists $a \in GF(p^n)^\times$ such that $a^m \neq a$ for any $m < p^n$. Thus, for all $a \in GF(p^n)^\times$, $\varphi^n(a) = a^{p^n} = a$ and $\varphi^m(a) = a^{p^m} \neq a$ for any $m < n$; lastly, $\varphi^n(0) = 0^{p^n} = 0$ also. In conclusion, $\varphi$ has order $n$.
+                and so $\ord{\varphi} \mid n$, implying that $\ord{\varphi} \leq n$. \par
+                Let $m = \ord{\varphi}$. Since $a^{p^m} = a$ for all $a \in GF(p^n)^\times$ and $a = 0$, $a^{p^m} - a$ has $p^n$ roots, implying that $p^m \geq p^n$, and so $\ord{\varphi} \geq n$. In conclusion, $m = n$.
+            \item
+                Prove that the group of automorphisms of $GF(p^n)$ is cyclic with order $n$. \par
+                %Since $GF(p^n)^\times$ is a cyclic group of order $p^n - 1$, any automorphism $\psi$ of $GF(p^n)$ maps $a \mapsto a^m$ for some $m$.
+                We know that $GF(p^n) = [GF(p)](\alpha)$ where $\alpha$ is a root of an irreducible polynomial $f$ of degree $n$ over $GF(p)$, and any automorphism of $GF(p^n)$ takes $\alpha$ to another root of $f$. Then there are no more than $n$ automorphisms because $f$ has no more than $n$ roots. More specifically, the number must be exactly $n$ because the Frobenius automorphism is of order $n$, and so it cyclically generates the group of automorphisms.
+        \end{enumerate}
+
+    \item
+        Prove that if $p$ is prime, then the Galois group of $\QQ(\omega)$ over $\QQ$ is cyclic of order $p-1$, where $\omega = e^\frac{2 \pi i}{p}$. (Optional: generalize to the non-prime case.) \par
+        By Theorem 7.9, an automorphism of $\QQ(\omega)$ must take $\omega$ to another root of $x^p - 1$, but to be in the Galois group, it must fix the root $1$. Thus, there are $p - 1$ choices of automorphisms given by $\varphi_k : \omega \mapsto \omega^k$ for all $k = 1, 2, \cdots, p - 1$, %The map $\varphi : \omega \mapsto \omega^k$ for any integer $k > 1$ is of order $p - 1$ and hence generates the Galois group, so it is in turn cyclic.
+        so $\{ \varphi_1, \varphi_2, \cdots, \varphi_{p - 1} \} = \{ \varphi_1, \varphi_1^2, \cdots, \varphi_1^{p - 1} \} \cong \mathbb{Z}_p^\times$ is a cyclic subgroup of the Galois group of order $p - 1$. But then this must be the Galois group itself, because $|\Gal(\QQ(\omega) : \QQ)| \leq [\QQ(\omega) : \QQ] = p - 1$. \par
+        In general, when $p$ is not necessarily prime, an automorphism of $\QQ(\omega)$ must take $\omega$ to another root of $x^p - 1$ of order $p$, so there are $\varphi(p)$ choices of automorphisms where $\varphi$ is the Euler totient function. We have that $|\Gal(\QQ(\omega) : \QQ)| \cong \mathbb{Z}_p^*$, which is in general not a cyclic subgroup.
+
+    \item
+        Let $L$ be the splitting field of a separable polynomial over a field $K$.  Prove that the number of fields between $K$ and $L$ is finite. \par
+        %http://math.stackexchange.com/questions/522976/number-of-intermediate-field-of-a-finite-separable-extension
+        $L$ can be obtained by adjoining the roots of the polynomial to $K$ one at a time, each being an extension of degree at most the degree of the polynomial, so $[L : K]$ is finite. Being a splitting field of the polynomial in $K[x]$, $L$ is a normal extension. From the Fundamental Theorem we know that $|\Gal(L : K)| = [L : K]$, and so $\Gal(L : K)$ is finite and has a finite number of subgroups. Due to the Galois correspondence, there are then a finite number of fields between $K$ and $L$. \par
+
+    \item
+        Let $L$ be a finite extension of a field $K$ of characteristic $0$. Prove that the number of fields between $K$ and $L$ is finite. (Optional: is this true over prime characteristic?) \par
+        The normal closure $N$ of $L$ over $K$ exists, and separability is guaranteed for fields of characteristic $0$, so we can again apply the Fundamental Theorem from which we deduce that there are a finite number of fields between $K$ and $N$, and hence between $K$ and $L$ also. \par
+        This is not necessarily true if $K$ is of characteristic $p$ prime. For example, if $K = \text{GF}_p(x, y)$ is a field of rational functions and $L = K(\sqrt[p]x, \sqrt[p]y)$, then $[L : K] = p^2$ but for any $\alpha \in L$, $\alpha^p \in K$, so $L : K$ does not have a primitive element. Thus, by Artin's primitive element theorem, the number of intermediate fields is infinite.
+
+    \item
+        \begin{enumerate}
+            \item
+                Suppose $K$ is an extension of $\QQ$.  Prove that every automorphism of $K$ fixes each element of $\QQ$. \par
+                Let $\varphi$ be an automorphism of $K$. First, $\varphi(1) = \varphi(1 \cdot 1) = \varphi(1)(1)$ and so canceling gives $\varphi(1) = 1$. Next, for any $n \in \mathbb{Z}$, $\varphi(n) = \varphi(\sum_{i = 1}^n 1) = \sum_{i = 1}^n \varphi(1) = n$. Lastly, for any $pq^{-1} \in \mathbb{Q}$, $\varphi(pq^{-1}) = \varphi(q) \varphi(q^{-1}) = \varphi(p) \varphi(q)^{-1} = pq^{-1}$ where $p, q \in \mathbb{Z}$.
+            \item
+                State and prove a similar result for fields of prime characteristic $p$. \par
+                Any automorphism $\varphi$ of a field of characteristic $p$ fixes $\mathbb{Z}_p$, its smallest subfield. This is because, using the same argument as above, $\varphi(1) = 1$ and $\varphi(n) = n$ for any $n \in \mathbb{Z}_p$.
+        \end{enumerate}
+
+    \item
+        Let $K \subseteq \CC$ be the splitting field of $x^4-5$ over $\QQ$. (This was a problem on HW3.)
+        \begin{enumerate}
+            \item
+                Describe each automorphism in $\Gal(K:\QQ)$ as a permutation of the roots of $x^4-5$. \par
+                Since $x^4 - 5 = (x - \sqrt[4]{5})(x + \sqrt[4]{5})(x - i\sqrt[4]{5})(x + i\sqrt[4]{5})$, we have that $K = \QQ(\sqrt[4]{5}, i)$, the elements of which have the form $a + bi + c\sqrt[4]{5} + di\sqrt[4]{5}$. By Theorem 7.9, if $\alpha \in \Gal(K:\QQ)$, then $\alpha(i) \in \{ i, -i \}$ and $\alpha(\sqrt[4]{5}) \in \{ \sqrt[4]{5}, -\sqrt[4]{5}, i\sqrt[4]{5}, -i\sqrt[4]{5} \}$. There are eight elements in $\Gal(K:\QQ)$, which include the identity map $\alpha_1$ as well as the mappings
+                \begin{itemize}
+                    \item
+                        $\alpha_2 : a + bi + c\sqrt[4]{5} + di\sqrt[4]{5} \mapsto a - bi + c\sqrt[4]{5} - di\sqrt[4]{5}$
+                    \item
+                        $\alpha_3 : a + bi + c\sqrt[4]{5} + di\sqrt[4]{5} \mapsto a + bi - c\sqrt[4]{5} - di\sqrt[4]{5}$
+                    \item
+                        $\alpha_4 : a + bi + c\sqrt[4]{5} + di\sqrt[4]{5} \mapsto a + bi + ci\sqrt[4]{5} - d\sqrt[4]{5}$
+                    \item
+                        $\alpha_5 : a + bi + c\sqrt[4]{5} + di\sqrt[4]{5} \mapsto a + bi - ci\sqrt[4]{5} + d\sqrt[4]{5}$
+                    \item
+                        $\alpha_6 : a + bi + c\sqrt[4]{5} + di\sqrt[4]{5} \mapsto a - bi - c\sqrt[4]{5} + di\sqrt[4]{5}$
+                    \item
+                        $\alpha_7 : a + bi + c\sqrt[4]{5} + di\sqrt[4]{5} \mapsto a - bi + ci\sqrt[4]{5} + d\sqrt[4]{5}$
+                    \item
+                        $\alpha_8 : a + bi + c\sqrt[4]{5} + di\sqrt[4]{5} \mapsto a - bi - ci\sqrt[4]{5} - d\sqrt[4]{5}$.
+                \end{itemize}
+            \item
+                Prove that $x^4-5$ is irreducible over $\QQ(i)$ and describe the Galois group of $x^4-5$ over $\QQ(i)$. \par
+                %$\sqrt[4]{5}$ is irrational, and so it is not contained in $\QQ(i)$ because its imaginary part is zero; likewise, $i\sqrt[4]{5} \notin \QQ(i)$ because its real part is zero (otherwise, we would have that $\sqrt[4]{5}$ is rational). Then $-\sqrt[4]{5}$ and $-i\sqrt[4]{5}$ are also not contained in $\QQ(i)$, and so $x^4 - 5$ has no linear factors over $\QQ(i)$. The same argument can be applied to $\pm\sqrt{5}$ and $\pm i\sqrt{5}$ which shows that $x^4 - 5$ also has no quadratic factors. Lastly, it has no cubic factors or otherwise it would have a linear factor. Thus, $x^4 - 5$ is irreducible over $\QQ(i)$. \par
+                $[\mathbb{Q}(\sqrt[4]{5}, i) : \mathbb{Q}(i)] = [\mathbb{Q}(\sqrt[4]{5}, i) : \mathbb{Q}][\mathbb{Q}(i) : \mathbb{Q}] = 4$, so $x^4 - 5$ is the minimal polynomial of $\sqrt[4]{5}$ over $i$ and hence irreducible. \par
+                The elements of $\Gal(K : \QQ(i))$ include the identity map $\beta_1$ as well as
+                \begin{itemize}
+                    \item
+                        $\beta_2 : a + bi + c\sqrt[4]{5} + di\sqrt[4]{5} \mapsto a + bi - c\sqrt[4]{5} - di\sqrt[4]{5}$
+                    \item
+                        $\beta_3 : a + bi + c\sqrt[4]{5} + di\sqrt[4]{5} \mapsto a + bi + ci\sqrt[4]{5} - d\sqrt[4]{5}$
+                    \item
+                        $\beta_4 : a + bi + c\sqrt[4]{5} + di\sqrt[4]{5} \mapsto a + bi - ci\sqrt[4]{5} + d\sqrt[4]{5}$
+                \end{itemize}
+                and so $\Gal(K : \QQ(i))$ has the multiplication table
+                \begin{center}
+                    \begin{tabular}{cccccc}
+                                  & \vline & $\beta_1$ & $\beta_2$ & $\beta_3$ & $\beta_4$ \\
+                        \hline
+                        $\beta_1$ & \vline & $\beta_1$ & $\beta_2$ & $\beta_3$ & $\beta_4$ \\
+                        $\beta_2$ & \vline & $\beta_2$ & $\beta_1$ & $\beta_4$ & $\beta_3$ \\
+                        $\beta_3$ & \vline & $\beta_3$ & $\beta_4$ & $\beta_1$ & $\beta_2$ \\
+                        $\beta_4$ & \vline & $\beta_4$ & $\beta_3$ & $\beta_2$ & $\beta_1$
+                    \end{tabular}.
+                \end{center}
+        \end{enumerate}
+
+    \item
+        Let $K$ be a field containing a primitive $n$th root of unity (an element of order $n$ under multiplication).  Show that for any $a \in K$ the Galois group of $x^n -a$ over $K$ is abelian. \par
+        %We will show that the Galois group is isomorphic to $\mathbb{Z}/n\mathbb{Z}^+$, which is abelian.
+        \sloppy
+        If $\omega$ is a primitive $n$th root of unity, then the roots of $x^n - a$ are given by $\sqrt[n]{a}, \sqrt[n]{a}\omega, \cdots, \sqrt[n]{a}\omega^{n - 1}$, and the splitting field of $x^n - a$ over $K$ is given by $L = K(\sqrt[n]{a})$. If $\sqrt[n]{a} \in K$, then $L = K$ and the Galois group is trivial, and hence abelian. Otherwise, an automorphism in $\Gal(L : K)$ must take $\sqrt[n]{a}$ to some root of $x^n - a$, so it takes $1 \mapsto \omega^k$ for some $0 \leq k \leq n - 1$, and hence $\Gal(L : K) \cong \mathbb{Z}_n^\times$, which is also abelian.
+
+    \item
+        Let $K = \ZZ_3(t)$, the field of rational functions in $t$ with coefficients in $\ZZ_3$.  Show that $x^3 - t \in K[x]$ is not separable over $K$.  Show that the Galois group of its splitting field over $K$ consists only of the identity automorphism. \par
+        First, $x^3 - t$ is inseparable because its roots are all roots of $D(x^3 - t) = 3x^2 = 0$. Thus, $x^3 - t$ can have at most two distinct roots, one of which is repeated. Since the roots have different multiplicities, an automorphism cannot take one root to the other, so it must take each root to itself, characterizing the identity automorphism.
+
+    \item
+        Let $\alpha \in \CC$ be algebraic (over $\QQ$), let $K = \QQ(\alpha)$, and let $n = [K : \QQ]$.
+        \begin{enumerate}
+            \item
+                Let $\alpha_1, \dots, \alpha_n$ be the distinct roots of the minimum polynomial of $\alpha$ over $\QQ$, and let $T_\alpha : K \rightarrow K$ be the $\QQ$-linear transformation given by multiplication by $\alpha$. Prove that the trace of $T_\alpha$ is $\alpha_1 + \cdots + \alpha_n$ and the determinant of $T_\alpha$ is $\alpha_1 \cdots \alpha_n$. [Hint: Consider the basis $\{1, \alpha, \dots, \alpha^{n-1}\}$ for $K$ over $\QQ$.] \par
+                \iffalse
+                    Following the hint, the matrix representation of $T_\alpha$ is
+                    \begin{align*}
+                        \left[ \begin{array}{ccccc}
+                            0 & 0 & 0 & \cdots & -\alpha_1 \\
+                            1 & 0 & 0 & \cdots & -\alpha_2 \\
+                            0 & 1 & 0 & \cdots & -\alpha_3 \\
+                            \vdots & \vdots & \ddots & \cdots & \vdots \\
+                            0 & 0 & 0 & 1 & -\alpha_n
+                        \end{array} \right]
+                    \end{align*}
+                    where the last column is deduced from the fact that $(\alpha - \alpha_1)(\alpha - \alpha_2)\cdots(\alpha - \alpha_n) = 0$ which implies $T_\alpha(\alpha^{n - 1}) = \alpha^n = -\alpha_1 - \alpha_2 \alpha + \cdots - \alpha_n \alpha^{n - 1}$.
+                \fi
+                The minimum polynomial is given by $(x - \alpha_1)(x - \alpha_2)\cdots(x - \alpha_n)$, which can be expanded to $x^n + a_{n - 1}x^{n - 1} + \cdots + a_0$. Since $T_\alpha(\alpha^{n - 1}) = \alpha^n = -a_{n - 1}x^{n - 1} - \cdots - a_0$, the matrix representation of $T_\alpha$ in the given basis is
+                \begin{align*}
+                    \left[ \begin{array}{ccccc}
+                        0 & 0 & 0 & \cdots & -a_0 \\
+                        1 & 0 & 0 & \cdots & -a_1 \\
+                        0 & 1 & 0 & \cdots & -a_2 \\
+                        \vdots & \vdots & \ddots & \cdots & \vdots \\
+                        0 & 0 & \cdots & 1 & -a_{n - 1}
+                    \end{array} \right].
+                \end{align*}
+                From Vieta's formulas, $\tr T_\alpha = -a_{n - 1} = -(-\alpha_1 - \cdots - \alpha_n) = \alpha_1 + \cdots + \alpha_n$. Also, $\det T_\alpha = (-1)^{n - 1}(-a_0) = (-1)^n (-1)^n \alpha_1 \cdots \alpha_n = \alpha_1 \cdots \alpha_n$.
+            \item
+                Prove that the characteristic polynomial of (any matrix representing) $T_\alpha$ is equal to the minimum polynomial of $\alpha$ over $\QQ$. \par
+                This is the polynomial $\det(A - \lambda I)$ in terms of $\lambda$, which can be computed by expanding from the last column. We know from linear algebra that this quantity is the same for any matrix representing $T_\alpha$.
+            \item
+                Use part (b) to find the minimum polynomial of $\sqrt[3]{5} - \sqrt[3]{25}$ over $\QQ$. \par
+                Since $(\sqrt[3]{5} - \sqrt[3]{25})^3 = 5 - 15\sqrt[3]{5} + 15\sqrt[3]{25} - 25$, we have that
+                \begin{align*}
+                    (\sqrt[3]{5} - \sqrt[3]{25})^3 + 15(\sqrt[3]{5} - \sqrt[3]{25}) + 20 = 0,
+                \end{align*}
+                and so the minimum polynomial is $x^3 + 15x + 20$.
+        \end{enumerate}
+\end{enumerate}
+
+\end{document}

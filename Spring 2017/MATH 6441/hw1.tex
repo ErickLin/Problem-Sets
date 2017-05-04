@@ -1,0 +1,88 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, dsfont, enumitem, fancyhdr, graphicx}
+\usepackage[margin=0.9in, includehead, includefoot, heightrounded]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand*\dist{\mathop{\!\mathrm{d}}}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\begin{document}
+
+\section*{MATH 6441 Exercises -- Chapter 0}
+\begin{enumerate}
+    \item[2.]
+        \boldmath\textbf{Construct an explicit deformation retraction of $\mathbb{R}^n - \{0\}$ onto $S^{n - 1}$.
+        }\unboldmath \par
+        Consider the family of maps $f_t : (\mathbb{R}^n - \{0\}) \to (\mathbb{R}^n - \{0\}), t \in [0, 1]$ given by
+        \begin{align*}
+            f_t(x) = x \left( 1 - t + \frac{t}{\norm{x}} \right),
+        \end{align*}
+        where $\norm{\cdot}$ denotes the Euclidean norm. We can see that $f_0(x) = x$ for all $x$. If $x \in S^{n - 1}$ in particular, then we know that $\norm{x} = 1$, implying that $f_t(x) = x$ for all $t$. \par
+        We show that $f_1(\mathbb{R}^n - \{0\}) = S^{n - 1}$ as follows: the forward inclusion is true because $f_1(x) = x/\norm{x} \in S^{n - 1}$ for all $x$, and the reverse inclusion is true because for any $y \in S^{n - 1}$, $y$ is contained in $\mathbb{R}^n - \{0\}$, and $f_1(y) = y$. \par
+        Lastly, the map associated with the family $f_t(x)$ is continuous because it can be written as sums, products, and quotients of continuous functions (including the norm), which are continuous. %depends continuously on both $t$ and $x$, because each $x \in (\mathbb{R}^n - \{0\}) - S^{n - 1}$ moves along a line segment at constant speed with respect to $t$ until it reaches $f_1(x) \in S^{n - 1}$, while each $x \in S^{n - 1}$ is stationary.
+
+    \item[3.]
+        \begin{enumerate}[label=(\alph*)]
+            \item
+                \boldmath\textbf{Show that the composition of homotopy equivalences $X \to Y$ and $Y \to Z$ is a homotopy equivalence $X \to Z$. Deduce that homotopy equivalence is an equivalence relation.
+                }\unboldmath \par
+                Let $f : X \to Y$ and $g : Y \to Z$ be homotopy equivalences, which means that there exist $f^{-1} : Y \to X$ and $g^{-1} : Z \to Y$ such that $ff^{-1} \simeq f^{-1}f \simeq gg^{-1} \simeq g^{-1}g \simeq \mathds{1}$. Then the composition $fg$ is a homotopy equivalence $X \to Z$, because if we consider the map $g^{-1}f^{-1} : Z \to X$, then
+                \begin{gather*}
+                    (fg)(g^{-1}f^{-1}) = fgg^{-1}f^{-1} \simeq f\mathds{1}f^{-1} = ff^{-1} \simeq \mathds{1} \\
+                    (g^{-1}f^{-1})(fg) = g^{-1}f^{-1}fg \simeq g^{-1}\mathds{1}g = g^{-1}g \simeq \mathds{1}.
+                \end{gather*} \par
+                Homotopy equivalence is also reflexive (since for any topological space, the identity map is a homotopy equivalence whose inverse is the identity) and symmetric, so it is an equivalence relation.
+
+            \item
+                \boldmath\textbf{Show that the relation of homotopy among maps $X \to Y$ is an equivalence relation.
+                }\unboldmath \par
+                Any map $f : X \to X$ is homotopic to itself because it is connected to itself by the homotopy that is constant with respect to $t$. Homotopy is symmetric because a homotopy connecting $f_0$ to $f_1$ also connects $f_1$ to $f_0$. \par
+                Lastly, if $f_0, f_1 : X \to Y$ are homotopic (connected by homotopy $f_t$ where $t \in [0, 1]$) and $g_0, g_1 : X \to Y$ are homotopic (connected by homotopy $g_t$ where $t \in [0, 1]$) with $f_1 = g_0$, then the family of maps $h_t : X \to Y$ given by
+                \begin{align*}
+                    h_t(x) = \begin{cases}
+                        f_{2t}(x), t \in [0, \frac{1}{2}] \\
+                        g_{2t - 1}(x), t \in [\frac{1}{2}, 1]
+                    \end{cases}
+                \end{align*}
+                has an associated map that is continuous, using the fact that a function is continuous if its restrictions to closed sets that cover the domain and agree at their intersection are continuous (in similar instances hereafter, we will say that $h_t$ is $g_t$ \emph{appended} to $f_t$). Since $h_0 = f_0$ and $h_1 = g_1$, $f_0$ and $g_1$ are homotopic.
+
+            \item
+                \boldmath\textbf{Show that a map homotopic to a homotopy equivalence is a homotopy equivalence.
+                }\unboldmath \par
+                Let $f_0 : X \to Y$ be a homotopy equivalence with homotopy inverse $f_0^{-1}$, and let $f_1 : X \to Y$ be connected to $f_0$ by homotopy $f_t$ where $t \in [0, 1]$. Then $f_0^{-1} f_t$ is a homotopy connecting $f_0^{-1} f_0 \simeq \mathds{1}$ to $f_0^{-1} f_1$, and likewise, $f_t f_0^{-1}$ is a homotopy connecting $f_0 f_0^{-1} \simeq \mathds{1}$ to $f_1 f_0^{-1}$. Since homotopy is an equivalence relation by (b), we conclude then that $f_1 f_0^{-1} \simeq f_0^{-1} f_1 \simeq \mathds{1}$, and thus $f_1$ is a homotopy equivalence.
+        \end{enumerate}
+
+    \item[9.]
+        \boldmath\textbf{Show that a retract of a contractible space is contractible.
+        }\unboldmath \par
+        If $X$ is a contractible space, then $\mathds{1}$ is homotopic to some constant map whose image is the singleton $\{x\}$ for some $x \in X$.
+        \begin{lemma}
+            A contractible space is path connected.
+        \end{lemma}
+        \begin{proof}
+            Let $X$ be a contractible space with $x, y \in X$. We know there exists a homotopy $F : X \times [0, 1] \to X$ such that $F(X, 0) = X$ to $F(X, 1) = \{z\}$ for some $z \in X$. Note that $F(x, t)$ and $F(y, t)$ respectively connect $x$ and $y$ with $z$, and are continuous with respect to $t$. Thus,
+            \begin{align*}
+                G(t) = \begin{cases}
+                    F(x, 2t), &t \in [0, \frac{1}{2}] \\
+                    F(y, 2(1 - t)),  &t \in [\frac{1}{2}, 1]
+                \end{cases}
+            \end{align*}
+            is a path connecting $x$ to $y$.
+        \end{proof}
+        The above lemma tells us that $x$ can be connected to any point $a \in X$ via a path, which in turn can be appended to each function in the homotopy, resulting in another homotopy whose image is $\{a\}$. $\mathds{1}$ is then homotopic to any constant map whose image is in $X$. In particular, we can consider $a \in A$, and let $f_t : X \to X, t \in [0, 1]$ be a homotopy between $f_0 = \mathds{1}$ and $f_t = a$. \par
+        Now let $A \subset X$ be a retract, meaning that there exists a retraction $r$ of $X$ onto $A$. Further, let $i$ be the inclusion map from $A$ to $X$. Then we see that $r f_t i : A \to A$ is a homotopy between $r f_0 i = \mathds{1}$ and $f_t = a$, concluding that $A$ is contractible.
+
+    \item[10.]
+        \boldmath\textbf{Show that a space $X$ is contractible iff every map $f : X \to Y$, for arbitrary $Y$, is nullhomotopic. Similarly, show $X$ is contractible iff every map $g : Y \to X$ is nullhomotopic.
+        }\unboldmath \par
+        Suppose $X$ is contractible, so that for some $x \in X$, there exists a homotopy $h_t : X \to X$ from $h_0 = \mathds{1}$ to the constant map $h_1 = x$. Then for all $f : X \to Y$, $f h_t : X \to Y$ is a homotopy from $f h_0 = f$ to the constant map $f h_1 = f(x) \in Y$. Similarly, for all $g : Y \to X$, $h_t g : Y \to X$ is a homotopy from $h_0 g = g$ to the constant map $h_1 g = x$. \par
+        Now suppose that either every map $f : X \to Y$ is nullhomotopic or every map $g : Y \to X$ is nullhomotopic. In either case, take $Y = X$ and let $f = \mathds{1}$.
+\end{enumerate}
+
+\end{document}

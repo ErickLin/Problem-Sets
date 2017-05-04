@@ -1,0 +1,104 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amsthm, enumitem, fancyhdr, tabularx}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\newcommand{\im}{\text{im}\,}
+
+\begin{document}
+
+\section*{MATH 4107 - HW10 Solutions}
+
+\subsection*{11.1}
+\begin{enumerate}
+    \item[6.]
+        \boldmath
+        \textbf{Decide whether or not $S$ is a subring of $R$, when} \par
+        \unboldmath
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{$S$ is the set of all rational numbers $a/b$, where $b$ is not divisible by $3$, and $R = \mathbb{Q}$.} \par
+                \unboldmath
+                $S$ is not a subring because $1/6 \in S$, but $1/6 + 1/6 = 1/3 \notin S$, so $S$ is not closed under addition.
+
+            \item
+                \boldmath
+                \textbf{$S$ is the set of functions which are linear combinations with integer coefficients of the functions $\{ 1, \cos nt, \sin nt \}, n \in \mathbb{Z}$, and $R$ is the set of all real valued functions of $t$.} \par
+                \unboldmath
+                $S$ is a subring. Linear combinations are closed under addition and subtraction. This set also happens to be closed under multiplication. It is easy to see the closure of the product of any element with $1$, but the product of $\cos{nt}$ and $\sin{nt}$ is also closed because $\sin{nt}\cos{nt} = \sin{2nt}/2 \in S$. Finally, $1$ is present in $S$ as the multiplicative identity.
+        \end{enumerate}
+
+    \item[7.]
+        \boldmath
+        \textbf{Decide whether the given structure forms a ring. If it is not a ring, determine which of the ring axioms hold and which fail:} \par
+        \unboldmath
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{$U$ is an arbitrary set, and $R$ is the set of subsets of $U$. Addition and multiplication of elements of $R$ are defined by the rules $A + B = (A \cup B) \setminus (A \cap B)$ and $A \cdot B = A \cap B$.} \par
+                \unboldmath
+                Under addition, the identity element is $0 = \emptyset$ since for any $A \in R$,
+                \begin{align*}
+                    A + \emptyset = (A \cup \emptyset) \setminus (A \cap \emptyset) = A \setminus \emptyset = A.
+                \end{align*}
+                The inverse element of any $B \in R$ is $B$ itself, since
+                \begin{align*}
+                    (A + B) + B &= [((A \cup B) \setminus (A \cap B)) \cup B] \setminus [((A \cup B) \setminus (A \cap B)) \cap B] \\
+                    &= (A \cup B) \setminus (B \setminus A) = A.
+                \end{align*}
+                $R$ under addition is associative since for any $C \in R$,
+                \begin{align*}
+                    (A + B) + C &= [((A \cup B) \setminus (A \cap B)) \cup C] \setminus [((A \cup B) \setminus (A \cap B)) \cap C] \\
+                    &= [(A \cup B \cup C) \setminus (A \cap B \cup C)] \setminus [(A \cup B \cap C) \setminus (A \cap B \cap C)] \\
+                    &= (A \cup [(B \cup C) \setminus (B \cap C)]) \setminus (A \cap [(B \cup C) \setminus (B \cap C)]) \\
+                    &= A + (B + C).
+                \end{align*}
+                Thus $R$ is a group under addition. Also, since $A \cup B = B \cup A$ and $A \cap B = B \cap A$, $A + B = B + A$ and $R$ under addition is abelian. \par
+                Under multiplication, the identity element is $1 = U$ since for all $A \in R$, $A \cap U = A$, and $R$ is associative and commutative because the intersection operator has these properties. \par
+                Finally, the following argument demonstrates that the distributive property holds:
+                \begin{align*}
+                    (A + B)C &= [(A \cup B) \setminus (A \cap B)] \cap C \\
+                    &= (A \cup B \cap C) \setminus (A \cap B \cap C) \\
+                    &= [(A \cap C) \cup (B \cap C)] \setminus [(A \cap C) \cap (B \cap C)] \\
+                    &= AC + BC.
+                \end{align*}
+                Therefore, $R$ is a ring.
+
+            \item
+                \boldmath
+                \textbf{$R$ is the set of continuous functions $\mathbb{R} \to \mathbb{R}$. Addition and multiplication are defined by the rules $[f + g](x) = f(x) + g(x)$ and $[f \circ g](x) = f(g(x))$.} \par
+                \unboldmath
+                Under addition, the identity element is the function $g = 0$, since $[f + 0](x) = f(x) + 0 = f(x)$; the inverse element of $g$ is $-g$, since $[(f + g) - g](x) = [f(x) + g(x)] - g(x) = f(x)$; and the associative property holds because $[(f + g) + h](x) = [f(x) + g(x)] + h(x) = f(x) + [g(x) + h(x)] = [f + (g + h)](x)$. The group under addition is abelian because $[f + g](x) = f(x) + g(x) = g(x) + f(x) = [g + f](x)$. \par
+                Under multiplication, the identity element is $g(x) = x$ since in this case, $[f \circ g](x) = f(g(x)) = f(x)$, and associativity property holds because $[(f \circ g) \circ h](x) = [f \circ g](h(x)) = f(g(h(x))) = f([g \circ h](x)) = [f \circ (g \circ h)](x)$. However, the commutativity property does not hold because $[f \circ g](x) = f(g(x)) \neq g(f(x)) = [g \circ f](x)$. For example, if $f(x) = 2x$ and $g(x) = x^2$, then $f(g(x)) = f(x^2) = 2(x^2) = 2x^2 \neq g(f(x)) = g(2x) = (2x)^2 = 4x^2$. \par
+                The distributive property holds because $[(f + g) \circ h](x) = [f + g](h(x)) = f(h(x)) + g(h(x)) = [f \circ h](x) + [g \circ h](x)$. Thus, $R$ is not a ring, but the only unfulfilled property is commutativity under multiplication.
+        \end{enumerate}
+
+    \item[8.]
+        \boldmath
+        \textbf{Determine the units in:} \par
+        \unboldmath
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{$\mathbb{Z} / 12\mathbb{Z}$.} \par
+                \unboldmath
+                The units are $1$, $5$ (since $5 \cdot 5 = 25 \cong 1$ (mod $12$)), $7$, and $11$, since they are each their own multiplicative inverses.
+
+            \item
+                \boldmath
+                \textbf{$\mathbb{Z} / 8\mathbb{Z}$.} \par
+                \unboldmath
+                The units are $1$, $3$, $5$, and $7$.
+
+            \item
+                \boldmath
+                \textbf{$\mathbb{Z} / n\mathbb{Z}$.} \par
+                \unboldmath
+                The units include all the integers less than $n$ that are relatively prime with $n$.
+        \end{enumerate}
+\end{enumerate}
+\end{document}

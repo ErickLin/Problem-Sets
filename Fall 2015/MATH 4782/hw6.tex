@@ -1,0 +1,96 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[margin=3.5cm]{geometry}
+\usepackage{amsfonts, amsmath, enumitem, fancyhdr, physics}
+
+\pagestyle{fancy}
+\rhead{Erick Lin}
+\allowdisplaybreaks
+
+\begin{document}
+	
+\section*{MATH/PHYS 4782 - HW6 Solutions}
+
+\begin{enumerate}
+    \item[\textbf{9.3:}]
+
+    \item[\textbf{9.5:}]
+        Consider a subset $S \subset \{ x \}$ where $\{ x \}$ is the index set. Then
+        \begin{align*}
+            \left| \sum_{x \in S} p_x - \sum_{x \in S} q_x \right|
+        \end{align*}
+        is given by the quantity inside the absolute value operator if that quantity is nonnegative, and by the opposite of that quantity otherwise. In the former case, we are done. In the latter case, we can observe the postulate of probability that
+        \begin{align*}
+            \sum_{x \in S} p_x = 1 - \sum_{x \notin S} p_x \qquad \sum_{x \in S} q_x = 1 - \sum_{x \notin S} q_x,
+        \end{align*}
+        and therefore
+        \begin{align*}
+            -\left( \sum_{x \in S} p_x - \sum_{x \in S} q_x \right) &= \sum_{x \in S} q_x - \sum_{x \in S} p_x \\
+            &= \left( 1 - \sum_{x \notin S} q_x \right) - \left( 1 - \sum_{x \notin S} p_x \right) \\
+            &= \sum_{x \notin S} p_x - \sum_{x \notin S} q_x.
+        \end{align*}
+        Because $\{ x : x \notin S\} \subset \{ x \}$, this subset is included in the list of elements over which the maximum is taken (in the modified formula), so
+        \begin{align*}
+            \max_{S} \left| \sum_{x \in S} p_x - \sum_{x \in S} q_x \right| = \max_{S} \left( \sum_{x \in S} p_x - \sum_{x \in S} q_x \right).
+        \end{align*}
+
+    \item[\textbf{9.8:}]
+
+    \item[\textbf{9.10:}]
+        Let $\rho$ and $\sigma$ be fixed points of $\mathcal{E}$, that is, quantum operations such that $\mathcal{E}(\rho) = \rho$ and $\mathcal{E}(\sigma) = \sigma$. Then we have that
+        \begin{align*}
+            D(\mathcal{E}(\rho), \mathcal{E}(\sigma)) = D(\rho, \sigma).
+        \end{align*}
+        However, this contradicts the strictly contractive property of $\mathcal{E}$, so there can be only be at most one fixed point. Since $\mathcal{E}$ is trace-preserving, it must have a fixed point; therefore it has exactly one fixed point.
+
+    \item[\textbf{9.15:}]
+
+    \item[\textbf{9.17:}]
+        Uhlmann's theorem shows that $0 \leq F(\rho, \sigma) \leq 1$ with equality in the second inequality if and only if $\rho = \sigma$. Because the inverse cosine is a decreasing function on its domain, taking the inverse cosine of the expressions gives the result
+        \begin{gather*}
+            \arccos(0) \geq \arccos[F(\rho, \sigma)] \geq \arccos(1) \\
+            \frac{\pi}{2} \geq A(\rho, \sigma) \geq 0
+        \end{gather*}
+        and thus $A(\rho, \sigma) \geq 0$ if and only if $\rho = \sigma$.
+
+
+    \item[\textbf{9.18:}]
+
+    \item[\textbf{9.22:}]
+        For all $\rho$, let $\mathcal{E}(\rho) = U \mathcal{E}_1(\rho) U^\dagger$ for some $\mathcal{E}_1$ and $\mathcal{F}(\rho) = V \mathcal{F}_1(\rho) V^\dagger$ for some $\mathcal{E}_2$. Then using contractivity and some properties of quantum operations,
+        \begin{align*}
+            E(VU, \mathcal{F} \circ \mathcal{E}) &= \max_\rho d((VU) \rho (VU)^\dagger, V \mathcal{F}_1[U \mathcal{E}_1(\rho) U^\dagger]V^\dagger) \\
+            &= \max_\rho d((VU) \rho (VU)^\dagger, (VU) \mathcal{F}_1 \circ \mathcal{E}_1(\rho) (VU)^\dagger) \\
+            &= \max_\rho d(\rho, \mathcal{F}_1 \circ \mathcal{E}_1(\rho)) \\
+            &\leq \max_\rho d(\mathcal{F}_1(\rho), \mathcal{E}_1(\rho)) \\
+            &\leq \max_\rho d(\rho, \mathcal{E}_1(\rho)) + \max_\rho d(\rho, \mathcal{F}_1(\rho)) \\
+            &= \max_\rho d(U \rho U^\dagger, U \mathcal{E}_1(\rho) U^\dagger) + \max_\rho d(V \rho V^\dagger, V \mathcal{F}_1(\rho) V^\dagger) \\
+            &= \max_\rho d(U \rho U^\dagger, \mathcal{E}(\rho)) + \max_\rho d(V \rho V^\dagger, \mathcal{F}(\rho)) \\
+            &= E(U, \mathcal{E}) + E(V, \mathcal{F}).
+        \end{align*}
+
+
+    \item[\textbf{10.3:}]
+
+    \item[\textbf{10.4:}]
+        \begin{enumerate}[label = (\arabic*)]
+            \item
+                $P_0 = \dyad{000}{000}, P_1 = \dyad{100}{100}, P_2 = \dyad{010}{010}, P_3 = \dyad{001}{001}, \\
+                P_4 = \dyad{111}{111}, P_5 = \dyad{011}{011}, P_6 = \dyad{101}{101}, P_7 = \dyad{110}{110}$ \\
+                Let $\ket{\psi}$ denote the encoded state. If a bit flip occurs in bit number $j$, then $\bra{\psi} P_j \ket{\psi} = \bra{\psi} P_{j + 4} \ket{\psi} = 1$. Otherwise, if no bit flip occurs, then $\bra{\psi} P_0 \ket{\psi} = \bra{\psi} P_4 \ket{\psi} = 1$.
+
+            \item
+                $\ket{\psi}$ must be a computational basis state (either $a = 0$ or $b = 0$) because the projection operator corresponding to the error syndrome destroys any superposition of states by sending either $a$ or $b$ to zero, but preserves computational basis states. \par
+                For example, consider the corrupted state $a\ket{100} + b\ket{011}$. The error syndrome for bit flip on qubit one is given by $P_1$ and $P_5$. The desired state in the recovery procedure is $a\ket{000} + b\ket{111}$, yet using $P_1$ gives the result $\ket{000}$ and using $P_5$ gives the result $\ket{111}$. \par
+                However, if the corrupted state is instead $\ket{100}$, then using $P_1$ gives the correct result.
+
+            \item
+                For computational basis states, the minimum fidelity is still \\
+                $\sqrt{1 - 3p^2 + 2p^3}$ as before. Otherwise, the recovery procedure gives the incorrect result so the minimum fidelity is zero.
+        \end{enumerate}
+
+    \item[\textbf{Pb. 9.1:}]
+
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,108 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsmath, enumitem, fancyhdr, gensymb, mathrsfs, siunitx, textcomp}
+\usepackage[margin=1in]{geometry}
+
+\def\dbar{{\mathchar'26\mkern-12mu \mathrm{d}}}
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{PHYS 3141 - Problem Set 5 Solutions}
+
+\begin{enumerate}[label=\textbf{[\arabic*]}]
+    \item
+        \begin{enumerate}
+            \item
+                Reversible
+            \item
+                Reversible
+            \item
+                Irreversible
+        \end{enumerate}
+
+    \item
+        Irreversible because the gas cannot be re-compressed without an input of work from the surroundings.
+
+    \item
+        Increasing the temperature of the hot reservoir and decreasing the temperature of the cold reservoir would lead to a higher efficiency for the Carnot cycle.
+
+    \item
+        Neither of the laws is violated because conservation of energy is obeyed and the device is not transferring heat to a hotter body.
+
+    \item
+        The efficiency is independent of the nature of the working substance and is still $\eta = 1 - \frac{T_\text{out}}{T_\text{in}}$.
+
+    \item
+        \begin{enumerate}
+            \item
+                Zero
+            \item
+                Positive
+            \item
+                Zero
+        \end{enumerate}
+
+    \item
+        $|Q_\text{in}| = \int_{S_1}^{S_2} T_\text{in} dS$ is the area of the region between the segment from $A$ to $B$ and the $x$-axis, while $|Q_\text{out}| = \int_{S_1}^{S_2} T_\text{out} dS$ is the area of the region between the segment from $D$ to $C$ and the $x$-axis. $|Q| = |Q_\text{in}| - |Q_\text{out}|$ is the area of the rectangular region representing the Carnot cycle. \\[1.5in]
+
+    \item
+        Since $\eta = 1 - \frac{Q_\text{out}}{Q_\text{in}}$ for any cycle and $\frac{T_\text{out}}{T_\text{in}} = \frac{Q_\text{out}}{Q_\text{in}}$ for a (reversible) Carnot cycle,
+        \begin{align*}
+            \frac{Q_\text{in}}{T_\text{in}} \left( \frac{\eta_\text{irrev} - \eta_\text{rev}}{1 - \eta_\text{rev}} \right) &= \frac{Q_\text{in}}{T_\text{in}} \left( \frac{1 - \frac{Q_\text{out, irrev}}{Q_\text{in}} - 1 + \frac{Q_\text{out, rev}}{Q_\text{in}}}{\frac{Q_\text{out, rev}}{Q_\text{in}}} \right) \\
+            &= \frac{Q_\text{in}}{T_\text{in}} \left( 1 - \frac{Q_\text{out, irrev}}{Q_\text{out, rev}} \right) \\
+            &= \frac{Q_\text{in}}{T_\text{in}} - \frac{Q_\text{out, irrev}}{T_\text{out, rev}}
+        \end{align*}
+
+    \item
+        From the first law $\dbar Q = dU + \dbar W$, and during a free expansion, the temperature change (and thereby the change in internal energy) is zero and no work is done. Then the total entropy change of the system over the cycle is
+        \begin{align*}
+            \oint \frac{\dbar Q}{T} &= \Delta S_{A \to B} + \Delta S_{B \to C} + \Delta S_{C \to D} + \Delta S_{D \to A} \\
+            &= \int_{A}^{B} \frac{dU + \dbar W}{T_\text{in}} + 0 - \frac{Q_\text{out}}{T_\text{out}} + 0 \\
+            &= 0 - \frac{Q_\text{out}}{T_\text{out}} < 0.
+        \end{align*}
+
+    \item
+        $\Delta S_{A \to B} = 0$ because all reversible adiabatic processes are isoentropic. In an isothermal process, the change in internal energy is zero. Using the equation of state for an ideal gas, the entropy difference from $C$ to $A$ is
+        \begin{align*}
+            \Delta S_{C \to A} = \int_C^A \frac{\dbar Q}{T} &= \int_C^A \frac{\dbar W}{T} = \int_{V_C}^{V_A} \frac{P dV}{T} = \int_{V_C}^{V_A} \frac{nRdV}{V} = nR \ln \left( \frac{V_A}{V_C} \right).
+        \end{align*}
+        Since $C_V = \left( \frac{\dbar Q}{dT} \right)_V$, we have $\dbar Q = C_V dT$ during an isochoric process, and
+        \begin{align*}
+            \Delta S_{B \to C} = \int_B^C \frac{\dbar Q}{T} = \int_B^C \frac{C_V dT}{T} = C_V \ln \left( \frac{T_C}{T_B} \right).
+        \end{align*}
+
+    \item
+        \begin{enumerate}
+            \item
+                No, because while heat transfers from the hot body to the cold body it cannot flow spontaneously in the other direction.
+
+            \item
+                \begin{align*}
+                    Q_A &= \Delta U_A + W_A \\
+                    &= \frac{3}{2} nR(T_f - T_A) \\
+                    Q_B &= \Delta U_B + W_B \\
+                    &= \frac{3}{2} nR(T_f - T_B) \\
+                    \frac{Q_A}{Q_B} &= \frac{T_f - T_A}{T_f - T_B}
+                \end{align*}
+
+            \item
+                From \textbf{[10]}, we have
+                \begin{align*}
+                    \int_A^f \dbar Q &= \int_{T_A}^{T_f} C_V dT & \int_B^f \dbar Q &= \int_{T_B}^{T_f} C_V dT \\
+                    Q_A &= c_A m_A (T_f - T_A) & Q_B &= c_B m_B (T_f - T_B)
+                \end{align*}
+                and rearranging the result of (b), we have
+                \begin{align*}
+                    T_f = \frac{Q_B T_A - Q_A T_B}{Q_B - Q_A}.
+                \end{align*}
+                This leads to the result that
+                \begin{align*}
+                    T_f = \frac{c_A T_A - c_B T_B}{c_A + c_B}.
+                \end{align*}
+        \end{enumerate}
+
+\end{enumerate}
+
+\end{document}

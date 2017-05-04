@@ -1,0 +1,269 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsmath}
+\allowdisplaybreaks
+\usepackage{amssymb}
+\usepackage{bm}
+
+\begin{document}
+	
+	\section*{MATH 2406 - HW3 Solutions}
+	
+	\subsection*{3.10}
+	\begin{enumerate}
+		\setcounter{enumi}{5}
+		\item Consider the first case $x = y$, and let $\vec{v} = (x_1, x_1, z_1), \vec{w} = (x_2, x_2, z_2) \in S$. Taking the linear combinations of $\vec{v}$ and $\vec{w}$,
+		\[ a\vec{v} + b\vec{w} = (ax_1 + bx_2, ax_1 + bx_2, az_1 + bz_2), \; a, b \in \mathbb{R}, \]
+		fulfilling the closure property in the first case.\par
+		Now consider the second case $x = z$, and let $\vec{v} = (x_1, y_1, x_1), \vec{w} = (x_2, y_2, x_2) \in S$. Taking the linear combinations of $\vec{v}$ and $\vec{w}$,
+		\[ a\vec{v} + b\vec{w} = (ax_1 + bx_2, ay_1 + by_2, ax_1 + bx_2), \; a, b \in \mathbb{R}, \]
+		fulfilling the closure property in the second case as well.\par
+		Finally, consider the case in which $x = y$ for one vector and $x = z$ for the other. Without loss of generality, let $\vec{v} = (x_1, x_1, z_1), \vec{w} = (x_2, y_2, x_2) \in S$. Taking the linear combinations of $\vec{v}$ and $\vec{w}$,
+		\[ a\vec{v} + b\vec{w} = (ax_1 + bx_2, ax_1 + by_2, az_1 + bx_2), \; a, b \in \mathbb{R}, \]
+		which does not fulfill the closure property because $x \neq y$ and $x \neq z$. Then $S$ is not a vector space.
+		
+		\setcounter{enumi}{8}
+		\item Let $\vec{v} = (x_1, 2x_1, 3x_1), \vec{w} = (x_2, 2x_2, 3x_2) \in S$. Taking the linear combinations of $\vec{v}$ and $\vec{w}$,
+		\[ a\vec{v} + b\vec{w} = (ax_1 + bx_2, 2ax_1 + 2bx_2, 3ax_1 + 3bx_2), \; a, b \in \mathbb{R}, \]
+		fulfilling the closure property. Then $S$ is a subspace of dimension 1 in $\mathbb{R}^3$.
+		
+		\setcounter{enumi}{11}
+		\item Let $g$ and $h$ be polynomials in $S$. For the linear combination $j = ag + bh$ with $a, b \in \mathbb{R}$,
+		\[ j(0) = ag(0) + bh(0) = ag(2) + bh(2) = j(2), \]
+		fulfilling the closure property. Then $S$ is a subspace of dimension $n$ in $P_n$ (since $\mbox{dim}(P_n) = n$, and there is otherwise no restriction on the degree of $g$ and $h$).
+		
+		\item Let $g$ and $h$ be polynomials in $S$. For the linear combination $j = ag + bh$ with $a, b \in \mathbb{R}$,
+		\begin{align*}
+		j(0) + j(1) &= ag(0) + bh(0) + ag(1) + bh(1) \\
+		&= a\left[g(0) + g(1)\right] + b\left[h(0) + h(1)\right] \\
+		&= a(0) + b(0) \\
+		&= 0,
+		\end{align*}
+		fulfilling the closure property. Then $S$ is a subspace of dimension $n$ in $P_n$.
+		
+		\setcounter{enumi}{24}
+		\item (a) Let $S = \{x_1, x_2, \cdots, x_k\}$. Then
+		\[ L(S) = \left\{\sum_{i = 1}^k c_i x_i, \; c_i \in \mathbb{R}.\right\} \]
+		By setting $c_i = 1$ and $c_j = 0$ for $j \neq i$, it can be seen that each element of $S$ is contained in $L(S)$. \par
+		(b) If $T$ is a subspace of $V$, then $T$ is a linear space that satisfies the closure axioms, and $y_1, y_2, \cdots, y_m \in T$ implies that
+		\[ \left\{\sum_{i = 1}^m c_i y_i, \; c_i \in \mathbb{R}\right\} \subseteq T.\]
+		Since any $x_1, x_2, \cdots, x_k \in S$ is also in $T$, $L(S) \subseteq T$ by the above statement. \par
+		(c) $S$ must satisfy the closure axioms to be a subspace of $V$, which is only possible if $L(S) = S$. In addition, any subspace of $V$ must satisfy the closure axioms by definition. \par
+		(d) Let $S = \{x_1, x_2, \cdots, x_k\}$ and $T = \{x_1, x_2, \cdots, x_m\}$, $m \geq k$. Then
+		\[ L(S) = \left\{\sum_{i = 1}^k c_i x_i, \; c_i \in \mathbb{R}.\right\}, \]
+		\[ L(T) = \left\{\sum_{i = 1}^m c_i x_i, \; c_i \in \mathbb{R}.\right\}. \]
+		By setting $c_i = 0$ for $k < i <= m$, it can be seen that all elements of $L(S)$ are contained in $L(T)$. \par
+		(e) Let $x, y$ denote elements of $S \cap T$. Then $x$ and $y$ are elements of $S$, and because $S$ is a subspace,
+		\[ \mbox{span}\{x, y\} = \left\{c_1 x + c_2 y, \; c_1, c_2 \in \mathbb{R} \right\} \subseteq S \]
+		by the closure axioms. $x$ and $y$ are also elements of the subspace $T$, so
+		\[ \mbox{span}\{x, y\} \subseteq T. \]
+		Any linear combination of $x$ and $y$ is contained in both $S$ and $T$, which fulfills the closure axioms. Then $S \cap T$ is a subspace of V. \par
+		(f) Let $S = \{s_1, s_2, \cdots, s_m\}$, $T = \{t_1, t_2, \cdots, t_n\}$, and $S \cap T =$\\$\{x_1, x_2, \cdots, x_k\}$. Then
+		\begin{gather*}
+		L(S) = \left\{ \sum_{i = 1}^{m} c_i s_i, \; c_i \in \mathbb{R} \right\} \\
+		L(T) = \left\{ \sum_{i = 1}^{n} c_i t_i, \; c_i \in \mathbb{R} \right\} \\
+		L(S \cap T) = \left\{ \sum_{i = 1}^{k} c_i x_i, \; c_i \in \mathbb{R} \right\}.
+		\end{gather*}
+		Because $x_i \in S$ and $x_i \in T$, any element of the form $\sum_{i = 1}^{k} c_i x_i$ in $L(S \cap T)$ is equivalent to an element $\sum_{i = 1}^{m} c_i s_i$ in $L(S)$ and an element $\sum_{i = 1}^{n} c_i t_i$ in $L(T)$. Then $L(S \cap T) \subseteq L(S) \cap L(T)$.
+		 \par
+		(g) $S = \{(1, 0), (0, 1)\}$, $T = \{(1, 1), (2, 1)\}$ \par
+	\end{enumerate}
+
+	\subsection*{3.13}
+	\begin{enumerate}
+		\item (a) No, does not satisfy axioms 1, 2, and 4
+		(b) No, does not satisfy axioms 2 and 3
+		(c) No, does not satisfy axiom 4
+		(d) No, does not satisfy axiom 2
+		(e) Yes
+
+		\setcounter{enumi}{9}
+		\item (a) Commutativity/symmetry:
+		\[ (f, g) = \sum_{k = 0}^{n} f\left(\frac{k}{n}\right) g\left(\frac{k}{n}\right) = \sum_{k = 0}^{n} g\left(\frac{k}{n}\right) f\left(\frac{k}{n}\right) = (g, f) \]
+		Distributivity/linearity:
+		\begin{align*}
+		(f, g + h) &= \sum_{k = 0}^{n} f\left(\frac{k}{n}\right) (g + h)\left(\frac{k}{n}\right) \\
+		&= \sum_{k = 0}^{n} f\left(\frac{k}{n}\right) g\left(\frac{k}{n}\right) + \sum_{k = 0}^{n} f\left(\frac{k}{n}\right) h\left(\frac{k}{n}\right) \\
+		&= (f, g) + (f, h)
+		\end{align*}
+		Associativity/homogeneity:
+		\[ c(f, g) = c\sum_{k = 0}^{n} f\left(\frac{k}{n}\right) g\left(\frac{k}{n}\right) = \sum_{k = 0}^{n} (cf)\left(\frac{k}{n}\right) g\left(\frac{k}{n}\right) = (cf, g) \]
+		Positivity:
+		\[ (f, f) = \sum_{k = 0}^{n} f\left(\frac{k}{n}\right) f\left(\frac{k}{n}\right) = \sum_{k = 0}^{n} f^2\left(\frac{k}{n}\right) > 0, \; f \neq 0 \]
+		(b) \begin{align*}
+		(f, g) &= \sum_{k = 0}^{n} \frac{k}{n}\left( a\frac{k}{n} + b \right) \\
+		&= \left( \frac{a}{n^2} \right) \sum_{k = 0}^{n}k^2 + \left( \frac{b}{n} \right) \sum_{k = 0}^{n}k \\
+		&= \left( \frac{a}{n^2} \right) \sum_{k = 0}^{n}k^2 + \left( \frac{b}{n} \right) \sum_{k = 0}^{n}k \\
+		&= \left( \frac{a}{n^2} \right) \frac{n(n + 1)(2n + 1)}{6} + \left( \frac{b}{n} \right) \frac{n(n + 1)}{2} \\
+		&= \frac{a(n + 1)(2n + 1)}{6n} + \frac{b(n + 1)}{2}
+		\end{align*}
+		(c) Taking $(f, g) = 0$,
+		\begin{gather*}
+		\frac{a(n + 1)(2n + 1)}{6n} + \frac{b(n + 1)}{2} = 0 \\
+		b = -\frac{a(2n + 1)}{3n} \\
+		g(t) = at + b = a\left( t - \frac{2n + 1}{3n} \right), \; a \in \mathbb{R}
+		\end{gather*}
+		
+		\setcounter{enumi}{13}
+		\item (a) No, does not satisfy axiom 4
+		(b) No, does not satisfy axiom 2
+		(c) No, does not satisfy axiom 4
+		(d) No, does not satisfy axiom 4
+	\end{enumerate}
+	
+	\subsection*{3.17}
+	\begin{enumerate}
+		\item (a) $\left\{ \frac{1}{\sqrt{3}}(1, 1, 1), (0, 1, 0) \right\}$ \par
+		(b) $\left\{ \frac{1}{\sqrt{3}}(1, 1, 1), (0, 1, 0) \right\}$
+
+		\setcounter{enumi}{3}
+		\item The functions form an orthogonal set if the inner product of each pair is equal to zero, which is shown to be true as follows:
+		\begin{gather*}
+		\int_{0}^{1} y_0(t) y_1(t) dt = \int_{0}^{1} \sqrt{3}(2t - 1)dt = \left.\sqrt{3}(t^2 -t)\right\vert_{0}^{1} = 0 \\
+		\int_{0}^{1} y_0(t) y_2(t) dt = \int_{0}^{1} \sqrt{5}(6t^2 - 6t + 1)dt = \left.\sqrt{5}(2t^3 - 3t^2 + t)\right\vert_{0}^{1} = 0.
+		\end{gather*}
+		The functions also form an orthonormal set if the norm of each function is equal to $1$, which is shown below:
+		\begin{gather*}
+		\|y_0(t)\| = \sqrt{\int_{0}^{1}y_0^2(t)dt} = \sqrt{\int_{0}^{1}1dt} = 1 \\
+		\|y_1(t)\| = \sqrt{\int_{0}^{1}y_1^2(t)dt} = \sqrt{\int_{0}^{1}\left(\sqrt{3}(2t - 1)\right)^2dt} = 1 \\
+		\|y_2(t)\| = \sqrt{\int_{0}^{1}y_2^2(t)dt} = \sqrt{\int_{0}^{1}\left(\sqrt{5}(6t^2 - 6t + 1)\right)^2dt} = 1.
+		\end{gather*}
+		Finally,
+		\begin{align*}
+		\mbox{span}\{y_0, y_1, y_2\} &= 1c_1 + \sqrt{3}(2t - 1)c_2 + \sqrt{5}(6t^2 - 6t + 1)c_3 \\
+		&= 1(c_1 - \sqrt{3}c_2 + \sqrt{5}c_3) + t(2\sqrt{3}c_2 - 6\sqrt{5}c_3) + t^2(6\sqrt{5}c_3) \\
+		&= \mbox{span}\{x_0, x_1, x_2\}, \; c_1, c_2, c_3 \in {\mathbb{R}}
+		\end{align*}
+
+		\setcounter{enumi}{6}
+		\item The constant polynomial $g$ nearest to $f$ is the projection of $f$ onto the span of $g$, or
+		\begin{align*}
+		\mbox{proj}_gf &= \frac{(f, g)}{\|g\|} \\
+		&= \frac{\int_{0}^{2} f(x)g(x)dx}{\sqrt{\int_{0}^{2}g^2(x)dx}} \\
+		&= \frac{g\int_{0}^{2} e^xdx}{\sqrt{g^2\int_{0}^{2}dx}} \\
+		&= \frac{e^2 - 1}{2}.
+		\end{align*}
+		Then the distance between $f$ and the nearest $g$ is
+		\begin{align*}
+		\|g - f\|^2 &= \int_{0}^{2}(g - f)^2dx \\
+		&= \int_{0}^{2} (g - e^x)^2dx \\
+		&= \int_{0}^{2} \left(\frac{1}{2}e^2 - \frac{1}{2} - e^x\right)^2dx \\
+		&= e^2 - 1
+		\end{align*}
+	\end{enumerate}
+	
+	\subsection*{4.4}
+	\begin{enumerate}
+		\setcounter{enumi}{10}
+		\item $T$ is linear because for any two points $P = (r, \theta)$ and $Q = (r', \theta')$,
+		\[ T(aP + bQ) = aT(P) + bT(Q). \]
+		Because $T$ leaves $r$ unchanged, $T(P) = O$ only for $r = 0$, a zero-dimensional space, so $T$ has nullity $0$. Its rank is $2$ by definition.
+		
+		\setcounter{enumi}{14}
+		\item $T$ is nonlinear because for two points $P = (r, \theta)$ and $Q = (r', \theta')$ in general,
+		\[ T(aP + bQ) \neq aT(P) + bT(Q). \]
+		
+		\setcounter{enumi}{23}
+		\item Following the hint, suppose that
+		\[ \sum_{i = k + 1}^{k + n}c_iT(e_i) = O \]
+		for $c_{k + 1}, \cdots, c_{k + n} \in \mathbb{R}$. Then
+		\[ T\left(\sum_{i = k + 1}^{k + n}c_ie_i\right) = O, \]
+		so an element $z = c_{k + 1}e_{k + 1} + \cdots + c_{k + n}e_{k + n}$ is in $N(T)$. Using the given basis for the nullspace, $z$ can also be expressed as $z = c_1 e_1 + \cdots + c_k e_k$ for $c_1, \cdots, c_k \in \mathbb{R}$ so that
+		\[ z - z = \sum_{i = 1}^{k}c_i e_i - \sum_{i = k + 1}^{k + n}c_i e_i = O.\]
+		Because the elements $e_1, \cdots, e_{k + n}$ are independent, $c_1, \cdots, c_{k + n}$ must equal zero. Then $T(e_{k + 1}), \cdots, T(e_{k + n})$ must be independent and constitute a basis for $T(V)$. This contradicts the fact that $n > r = \mbox{dim}(T(V))$. This can be resolved by forcing either the nullity to be infinite (so that $z$ cannot be expressed in more than one way like what was shown above) or the rank to be infinite (so that $n \ngtr r$).
+
+		\setcounter{enumi}{28}
+		\item Let ${u_n}$, ${v_n}$ be two real convergent sequences. Then
+		\begin{align*}
+		T(b{u_n} + c{v_n}) &= \left\{\lim_{n \to \infty}(bu_n + cv_n) - (bu_n + cv_n)\right\} \\
+		&= \left\{\lim_{n \to \infty}bu_n - bu_n + \lim_{n \to \infty}cv_n - cv_n\right\} \\
+		&= b\left\{\lim_{n \to \infty}u_n - u_n\right\} + c\left\{\lim_{n \to \infty}v_n - v_n\right\} \\
+		&= bT(u_n) + cT(v_n),
+		\end{align*}
+		so $T$ is linear. Then its null space consists of all $\{x_n\}$ such that
+		\[ T(\{x_n\}) = \{y_n\} = \left\{\lim_{n \to \infty}x_n - x_n \right\} = 0, \]
+		which is the set of all constant sequences. The range of $T$ is
+		\[ T(V) = \left\{\{y_n\}\right\} = \left\{\{\lim_{n \to \infty}x_n - x_n\}\right\}, \]
+		which is the set of all sequences that converge to $a - a = 0$.
+	\end{enumerate}
+	
+	\subsection*{4.8}
+	\begin{enumerate}
+		\setcounter{enumi}{1}
+		\item \begin{align*}
+		T_1(x) &= x \\
+		T_2(x) &= 2 - x \\
+		T_3(x) &= (x + 1)(\mbox{mod }3) \\
+		T_4(x) &= (x + 2)(\mbox{mod }3) \\
+		T_5(x) &= (x - 1)(\mbox{mod }3) \\
+		T_6(x) &= (x - 2)(\mbox{mod }3) \\
+		T_1T_1(x) &= x \\
+		T_2T_1(x) &= 2 - x \\
+		T_3T_1(x) &= (x + 1)(\mbox{mod }3) \\
+		T_4T_1(x) &= (x + 2)(\mbox{mod }3) \\
+		T_5T_1(x) &= (x - 1)(\mbox{mod }3) \\
+		T_6T_1(x) &= (x - 2)(\mbox{mod }3) \\
+		T_1T_2(x) &= 2 - x \\
+		T_2T_2(x) &= x \\
+		T_3T_2(x) &= (-x)(\mbox{mod }3) \\
+		T_4T_2(x) &= (1 - x)(\mbox{mod }3) \\
+		T_5T_2(x) &= (1 - x)(\mbox{mod }3) \\
+		T_6T_2(x) &= (-x)(\mbox{mod }3) \\
+		T_1T_3(x) &= (x + 1)(\mbox{mod }3) \\
+		T_2T_3(x) &= 2 - (x + 1)(\mbox{mod }3) \\
+		T_3T_3(x) &= (x + 2)(\mbox{mod }3) \\
+		T_4T_3(x) &= x(\mbox{mod }3) \\
+		T_5T_3(x) &= x(\mbox{mod }3) \\
+		T_6T_3(x) &= (x - 1)(\mbox{mod }3) \\
+		T_1T_4(x) &= (x + 2)(\mbox{mod }3) \\
+		T_2T_4(x) &= 2 - (x + 2)(\mbox{mod }3) \\
+		T_3T_4(x) &= x(\mbox{mod }3) \\
+		T_4T_4(x) &= (x + 1)(\mbox{mod }3) \\
+		T_5T_4(x) &= (x + 1)(\mbox{mod }3) \\
+		T_6T_4(x) &= x(\mbox{mod }3) \\
+		T_1T_5(x) &= (x - 1)(\mbox{mod }3) \\
+		T_2T_5(x) &= 2 - (x - 1)(\mbox{mod }3) \\
+		T_3T_5(x) &= x(\mbox{mod }3) \\
+		T_4T_5(x) &= (x + 1)(\mbox{mod }3) \\
+		T_5T_5(x) &= (x - 2)(\mbox{mod }3) \\
+		T_6T_5(x) &= x(\mbox{mod }3) \\
+		T_1T_6(x) &= (x - 2)(\mbox{mod }3) \\
+		T_2T_6(x) &= 2 - (x - 2)(\mbox{mod }3) \\
+		T_3T_6(x) &= (x - 1)(\mbox{mod }3) \\
+		T_4T_6(x) &= x(\mbox{mod }3) \\
+		T_5T_6(x) &= x(\mbox{mod }3) \\
+		T_6T_6(x) &= (x - 1)(\mbox{mod }3) \\
+		\mbox{ The functions}&\mbox{ are all one-to-one on }V. \\
+		T_1^{-1}(x) &= x \\
+		T_2^{-1}(x) &= 2 - x \\
+		T_3^{-1}(x) &= (x - 1)(\mbox{mod }3) \\
+		T_4^{-1}(x) &= (x - 2)(\mbox{mod }3) \\
+		T_5^{-1}(x) &= (x + 1)(\mbox{mod }3) \\
+		T_6^{-1}(x) &= (x + 2)(\mbox{mod }3)
+		\end{align*}
+		
+		\setcounter{enumi}{11}
+		\item Let $P, Q$ be points in $\mathbb{R}^2$ such that $P = (x, y)$ and $Q = (x', y')$. Then
+		\begin{align*}
+		aT(P) + bT(Q) &= a(2x - y, x + y) + b(2x' - y', x' + y') \\
+		&= \left(a(2x - y) + b(2x' - y'), a(x + y) + b(x' + y')\right) \\
+		&= T(aP + bQ),
+		\end{align*}
+		so $T$ is linear. \\
+		Now suppose that $T(P) = T(Q)$. By linearity, $T(P - Q) = T(P) - T(Q) = O$, so $P - Q = O$ and $P = Q$. Then $T$ is also one-to-one on $V$. \\
+		We have $u = 2x - y$ and $v = x + y$. Solving for $x$ and $y$, the equations become
+		\begin{align*}
+		x &= \frac{u + v}{3} \\
+		y &= \frac{2v - u}{3}
+		\end{align*}
+		
+		\setcounter{enumi}{22}
+		\item If $S$ is invertible, then it follows that for any $x$ and $y$,
+		\[ S(T(x)) = S(T(y)) \; \Leftrightarrow \; T(x) = T(y). \]
+		Also, if $T$ is invertible, then it follows that
+		\[ T(x) = T(y) \; \Leftrightarrow \; x = y. \]
+		By transitivity, $S(T(x)) = S(T(y)) \Leftrightarrow x = y$, which implies that $ST$ is invertible. \\
+		To prove the identity, we can take the composition of the inverse of one side with the other side. The result is
+		\[ \left((ST)^{-1}\right)^{-1}T^{-1}S^{-1} = STT^{-1}S^{-1} = SS^{-1} = I. \]
+	\end{enumerate}
+\end{document}

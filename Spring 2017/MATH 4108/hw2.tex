@@ -1,0 +1,141 @@
+\documentclass[12pt]{article}
+
+%Packages Used%
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{amsfonts,setspace}
+\usepackage{fullpage}
+\usepackage{comment}
+\usepackage{enumitem}
+\usepackage[margin=1in]{geometry}
+
+
+\setlength{\abovedisplayskip}{3mm}
+\setlength{\belowdisplayskip}{3mm}
+\setlength{\abovedisplayshortskip}{0mm}
+\setlength{\belowdisplayshortskip}{2mm}
+\setlength{\baselineskip}{12pt}
+\setlength{\normalbaselineskip}{12pt}
+
+\newcommand{\blank}{\underline{~~~~~~~~~}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\kk}{\mathbf{k}}
+\newcommand{\cP}{\mathcal{P}}
+
+\newcommand{\bu}{\mathbf{u}}
+\newcommand{\bv}{\mathbf{v}}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\by}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\bc}{\mathbf{c}}
+\newcommand{\bp}{\mathbf{p}}
+\newcommand{\bq}{\mathbf{q}}
+\newcommand{\be}{\mathbf{e}}
+\newcommand{\bzero}{\mathbf{0}}
+\DeclareMathOperator{\Nul}{Nul}
+\DeclareMathOperator{\Mod}{mod}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\tr}{tr}
+
+\renewcommand{\And}{\wedge}
+\newcommand{\Or}{\vee}
+\newcommand{\Implies}{\Rightarrow}
+\newcommand{\Not}{\sim}
+
+
+
+\normalbaselines
+\pagestyle{empty}
+\raggedbottom
+\begin{document}
+
+\noindent
+\textbf{Name: Erick Lin} \smallskip  \\
+\textbf{Collaborators:} \smallskip \\ %%% List anyone with whom you discussed the problems
+\textbf{Outside resources: Wellesley MATH 306 (for Exercise 9)} \smallskip \\ %%% List all resources used OTHER than the textbook, lecture notes, quizzes, worksheets, and previous homework assignments.
+
+\begin{center}
+{
+Math 4108, Algebra II \\
+HW 2 --- Due Feb 3, 2017 (Fri)
+}
+\end{center}
+
+\noindent Read and think about the problems in Chapters 3 and 4 of the textbook (Howie).   Turn in the following problems.  Justify all your answers.
+
+\begin{enumerate}
+    \item Let $K = \QQ(\sqrt[3]{2})$. Find all elements $\alpha \in K$ such that $K = \QQ(\alpha)$. \par
+        The roots of the minimum polynomial of $\sqrt[3]{2}$, $x^3 - 2$, also include $\sqrt[3]{2}e^{2i\pi/3}$ and $\sqrt[3]{2}e^{4i\pi/3}$, which means that $\QQ(\sqrt[3]{2}) \cong \QQ[x]/\langle x^3 - 2 \rangle \cong \QQ(\sqrt[3]{2}e^{2i\pi/3}) \cong \QQ(\sqrt[3]{2}e^{4i\pi/3})$. However, $\sqrt[3]{2}e^{2i\pi/3}, \sqrt[3]{2}e^{4i\pi/3} \notin K$.
+
+    \item Let $K = \QQ(\sqrt{3},\sqrt{5})$.
+    \begin{enumerate}
+        \item Prove that $\sqrt{3} \notin \QQ(\sqrt{5})$. \par
+            Suppose for the purpose of contradiction that there exist $a, b \in \mathbb{Q}$ such that $\sqrt{3} = a + b\sqrt{5}$, where $b \neq 0$ since $\sqrt{3}$ is irrational. Then $a^2 = (\sqrt{3} - b\sqrt{5})^2 = 3 - 2b\sqrt{15} + 5b^2$, which implies that $\sqrt{15} = (a^2 + 5b^2 + 3)/2b \in \mathbb{Q}$, a contradiction since $\sqrt{15}$ is also irrational.
+        %https://math.stackexchange.com/questions/1601819/show-that-the-only-subfields-of-mathbbqi-sqrt5-is-mathbbq-mathb
+        \item Find a basis of $K$ over $\QQ$. \par
+            Since $\{ 1, \sqrt{3} \}$ is a basis for $\QQ(\sqrt{3})$ over $\mathbb{Q}$ and $\{ 1, \sqrt{5} \}$ is a basis for $\QQ(\sqrt{3}, \sqrt{5})$ over $\mathbb{Q}(\sqrt{3})$, the proof of Theorem 3.3 allows us to deduce that $\{ 1, \sqrt{3}, \sqrt{5}, \sqrt{15} \}$ is a basis for $K = \QQ(\sqrt{3},\sqrt{5})$.
+        \item Show that the only subfields of $K$ are $\QQ$, $\QQ(\sqrt{3})$, $\QQ(\sqrt{5})$, $\QQ(\sqrt{15})$, and $K$ itself. \par
+            Because $[K : \QQ] = 4$, all the subfields of $K$ other than itself and $\QQ$ must be of degree 2, the only nontrivial factor of $4$. Lastly, the existence of any subfield other than $\QQ(\sqrt{3})$, $\QQ(\sqrt{5})$, or $\QQ(\sqrt{15})$ contradicts the independence of the basis given in part (b).
+        \item Find the minimum polynomial of $\sqrt{3}+\sqrt{5}$ over $\QQ$. \par
+            %The roots of the polynomial must include $\pm \sqrt{3} \pm \sqrt{5}$.
+            The minimum polynomial must be of degree $4$, the cardinality of the basis. We can thus see that
+            \begin{align*}
+                (x - \sqrt{3} - \sqrt{5})(x - \sqrt{3} + \sqrt{5})(x + \sqrt{3} - \sqrt{5})(x + \sqrt{3} + \sqrt{5}) = x^4 - 11x^2 + 4.
+            \end{align*}
+            is the minimum polynomial.
+    \end{enumerate}
+
+    \item Find the multiplicative inverse of $1+\sqrt{3}+\sqrt{5}+\sqrt{15}$ in $\QQ(\sqrt{3},\sqrt{5})$.
+        \begin{align*}
+            \frac{1}{1 + \sqrt{3} + \sqrt{5} + \sqrt{15}} \cdot \frac{1 - \sqrt{3}}{1 - \sqrt{3}} = \frac{1 - \sqrt{3}}{-2(1 + \sqrt{5})} \cdot \frac{1 - \sqrt{5}}{1 - \sqrt{5}} = \frac{1 - \sqrt{3} - \sqrt{5} + \sqrt{15}}{8}
+        \end{align*}
+
+    \item Show that $[\QQ(\sqrt{5}+\sqrt[3]{2}) : \QQ] = 6$. \par
+        It is clear that $\sqrt{5} + \sqrt[3]{2} \in \QQ(\sqrt{5}, \sqrt[3]{2})$, and so $\QQ(\sqrt{5} + \sqrt[3]{2}) \subseteq \QQ(\sqrt{5}, \sqrt[3]{2})$. The minimum polynomial of $\sqrt{5}$ over $\mathbb{Q}$ is $x^2 - 5$, while the minimum polynomial of $\sqrt[3]{2}$ over $\mathbb{Q}$ is $x^3 - 2$, so Exercise 5 tells us that $[\QQ(\sqrt{5}, \sqrt[3]{2}) : \QQ] = 6$. Also, using an argument similar to the one in 2(a) yields $\sqrt{5} \notin \mathbb{Q}(\sqrt[3]{2})$ and $\sqrt[3]{2} \notin \QQ(\sqrt{5})$, which means that $\QQ(\sqrt{5} + \sqrt[3]{2})$ must be larger than these two fields. Examining possible degrees of the extensions shows that $\QQ(\sqrt{5} + \sqrt[3]{2}) = \QQ(\sqrt{5}, \sqrt[3]{2})$.
+
+    \item Let $L$ be a field, $K$ be a subfield of $L$, and $a,b \in L$ be algebraic over $K$ of degrees $m$ and $n$ respectively.  Prove that if $m$ and $n$ are relatively prime, then $[K(a,b):K] = mn$. \par
+        We know that $[K(a, b) : K] = [K(a, b) : K(a)][K(a) : K] = [K(a, b) : K(b)][K(b) : K]$, so it must be a multiple of both $m$ and $n$; the LCM of $m$ and $n$ is $mn$. Also, $[K(a, b) : K(a)] \leq [K(b) : K] = n$ and $[K(a, b) : K(b)] \leq [K(a) : K] = m$; thus, $mn$ is an upper bound on $[K(a, b) : K]$.
+
+    \item Let $K$ be a field. Prove that the following conditions are equivalent. 
+    \begin{enumerate}
+        \item Every polynomial in $K[x]$ of degree $\geq 1$ has a root in $K$.
+        \item Every polynomial in $K[x]$ of degree $\geq 1$ {\em splits} over $K$, that is, it factors as a product of linear polynomials.
+        \item Every irreducible polynomial in $K[x]$ has degree $1$.
+        \item There is no algebraic extension of $K$ except $K$ itself.
+    \end{enumerate}
+    A field $K$ is called {\em algebraically closed} if any (hence all) of the conditions above are satisfied. \par
+    (a) implies (b) by induction, since a polynomial of degree $\geq 2$ with a root factors into a linear polynomial and a polynomial of degree $\geq 1$. (b) implies (c) since any polynomial of degree $\geq 2$ that splits must be reducible. (c) implies (d) since the minimum polynomial of any element must be of degree $1$, while any algebraic extension of $K$ other than itself involves a minimum polynomial of degree $\geq 2$. Lastly, (d) implies (a) because any polynomial of degree $\geq 2$ with no roots suggests the existence of an irreducible degree-2 polynomial, which in turn can be used to form an algebraic extension of $K$ of degree 2.
+
+    \item Prove that an algebraically closed field must contain infinitely many elements. \par
+        Suppose for the purpose of contradiction that an algebraically closed field has finitely many elements, which we may enumerate as $a_1, \cdots, a_n$. Then the polynomial $(x - a_1) \cdots (x - a_n) + 1$ of degree $n$ has no roots (since it evaluates to $1$ at every $a_i$), contradicting condition (a).
+
+    \item Let $\overline{\QQ}$ denote the field of algebraic numbers:
+    $$
+        \overline{\QQ} = \{a \in \CC : a \textup{ is algebraic over }\QQ \}.
+    $$
+    Show that $\overline{\QQ}$ is algebraically closed.  You can use the Fundamental Theorem of Algebra, which says that $\CC$ is algebraically closed. \par
+    The coefficients of any polynomial $a_n x^n + \cdots + a_0 \in \overline{\QQ}[x]$ are algebraic over $\mathbb{Q}$, so $\mathbb{Q}(a_0, \cdots, a_n)$ is an algebraic extension of $\QQ$. Thus, for any root $\alpha \in \mathbb{C}$ of the polynomial, $\mathbb{Q}(a_0, \cdots, a_n, \alpha)$ is an algebraic extension of $\QQ$, meaning $\alpha \in \overline{\QQ}$. \par
+    {\em Note}:  An extension $L$ of a field $K$ is called an {\em algebraic closure} of $K$ if $L$ is algebraically closed and is algebraic over $F$.  This exercise shows that the algebraic numbers form an algebraic closure of the rational numbers.
+
+    \item 
+    \begin{enumerate}
+        \item Find the minimum polynomial of $\cos\left( \frac{2 \pi}{5} \right)$. \par
+            Expanding $(\cos\left(\frac{2\pi}{5}\right) + i\sin\left(\frac{2\pi}{5}\right))^5 = 1$ and equating the real parts, we have that $(x - 1)(4x^2 + 2x - 1)$ evaluated at $\cos\left(\frac{2\pi}{5}\right)$ is $0$, so the minimum polynomial is $4x^2 + 2x - 1$.
+        \item Prove that a regular pentagon is constructible. \par
+            Since $\cos\left(\frac{2\pi}{5}\right)$ is a root of $4x^2 + 2x - 1$, it must be $\frac{\sqrt{5} - 1}{4}$, which is constructible. Then the angle of $\frac{2\pi}{5}$ is also constructible, and so a regular pentagon is constructible.
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}

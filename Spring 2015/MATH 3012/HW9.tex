@@ -1,0 +1,65 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+\section*{MATH 3012 - HW9 Solutions}
+
+\begin{enumerate}
+	\item Following the Inclusion-Exclusion Principle:
+	\[ 147 - 60 - 103 - 50 + 30 + 40 + 25 - 18 = 11. \]
+	
+	\item This is similar to the derangement problem, but $A_i$ is now the set of permutations in which child $i + 1$ directly follows child $i$. Then $|\cap_{i = \in I}A_i| = N(k)$ is the $n - 1$ possible positions of the adjacent children multiplied by the $(n - 2)!$ possible permutations of the remaining children, or $(n - 1)!$. Following the Inclusion-Exclusion Formula,
+	\begin{align*}
+	|X - \cup_{i = 1}^{n - 1}A_i| &= \sum_{k = 0}^{n - 1}(-1)^k(n - k)!\dbinom{n - 1}{k} \\
+	&= \sum_{k = 0}^{n - 1}(-1)^k(n - k)!\frac{(n - 1)!}{k!(n - k - 1)!} \\
+	&= \sum_{k = 0}^{n - 1}(-1)^k(n - k)\frac{(n - 1)!}{k!} \\
+	&= n!\sum_{k = 0}^{n - 1}\frac{(-1)^k}{k!} - (n - 1)!\sum_{k = 1}^{n - 1}\frac{(-1)^k}{(k - 1)!}.
+	\end{align*}
+	
+	\item Written in terms of the advancement operator:
+	\begin{gather*}
+	A^2 r = Ar + 2r \\
+	(A^2 - A - 2)r = 0 \\
+	(A - 2)(A + 1)r = 0 \\
+	\lambda_1 = 2, \; \lambda_2 = -1
+	\end{gather*}
+	Then the general solution is of the form
+	\[ r_n = 2^nb_1 + (-1)^nb_2. \]
+	Solving for the initial conditions,
+	\begin{gather*}
+	r_0 = 1 = b_1 + b_2 \\
+	r_2 = 3 = 4b_1 + b_2 \\
+	\Rightarrow b_1 = \frac{2}{3}, \; b_2 = \frac{1}{3}.
+	\end{gather*}
+	
+	\item Written in terms of the advancement operator:
+	\begin{gather*}
+	(A^2 - A - 6)g = 0 \\
+	(A - 3)(A + 2)g = 0 \\
+	\lambda_1 = 3, \; \lambda_2 = -2
+	\end{gather*}
+	Because this recurrence relation is inhomogeneous, the general solution is of the form
+	\[ g(n) = g_c(n) + g_p(n) \]
+	where
+	\begin{gather*}
+	g_c(n) = 3^n b_1 + (-2)^n b_2 \\
+	g_p(n) = n3^n b_3
+	\end{gather*}
+	Substituting the particular solution into the recurrence relation:
+	\begin{gather*}
+	n3^nb_3 = (n - 1)3^{n - 1}b_3 + 6(n - 2)3^{n - 2}b_3 + 3^{n - 1} \\
+	\Rightarrow b_3 = \frac{1}{5}. \\
+	g(n) = 3^n b_1 + (-2)^n b_2 + n3^n\left( \frac{1}{5} \right)
+	\end{gather*}
+	Solving for the initial conditions,
+	\begin{gather*}
+	g(0) = 1 = b_1 + b_2 \\
+	g(1) = 2 = 3b_1 - 2b_2 + \frac{3}{5} \\
+	\Rightarrow b_1 = \frac{17}{25}, \; b_2 = \frac{8}{25}
+	\end{gather*}
+	Finally, we have
+	\[ g(n) = 3^n\left( \frac{17}{25} \right) + (-2)^n\left( \frac{8}{25} \right) + n3^n\left( \frac{1}{5} \right) \]
+\end{enumerate}
+
+\end{document}

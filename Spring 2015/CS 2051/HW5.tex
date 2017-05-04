@@ -1,0 +1,91 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage{amsmath}
+\allowdisplaybreaks
+\usepackage{amssymb}
+\usepackage{bm}
+
+\begin{document}
+	\section*{CS 2051 - HW5 Solutions}
+	
+	\begin{enumerate}
+		\item (a) $(x^0 + x^2 + x^4 + \cdots)(x^0 + x^1 + x^2 + \cdots)(x^0 + x^1 + x^2 + \cdots) = \frac{1}{(1 - x^2)(1 - x)^2} = \frac{1}{(1 + x)(1 - x)^3}$ \par
+		(b) First, perform a partial fraction decomposition of the generating function (following the hint):
+		\[ 1 = A(1 - x)^3 + B(1 + x)(1 - x)^2 + \Gamma(1 + x)(1 - x) + \Delta(1 + x) \]
+		Setting $x = 1$, we have $\Delta = \frac{1}{2}$. \\
+		Setting $x = -1$, we have $A = \frac{1}{8}$. \\
+		Setting $x = 0$, we have $B + \Gamma = \frac{3}{8}$. \\
+		Setting $x = 2$, we have $B - \Gamma = -\frac{1}{8}$, which leads to $B = \frac{1}{8}$ and $\Gamma = \frac{1}{4}$. The generating function in decomposed form is
+		\[ \frac{1}{8(1 + x)} + \frac{1}{8(1 - x)} + \frac{1}{4(1 - x)^2} + \frac{1}{2(1 - x)^3}. \]
+		The polynomial expansions for each partial fraction are shown below:
+		\begin{align*}
+		\frac{1}{8(1 + x)} &= \frac{1}{8}\sum_{r = 0}^{\infty}(-1)^r x^r \\
+		\frac{1}{8(1 - x)} &= \frac{1}{8}\sum_{r = 0}^{\infty}x^r \\
+		\frac{1}{4(1 - x)^2} &= \left( \frac{1}{4} \right)\frac{d}{dx}\left( \frac{1}{1 - x} \right) = \left( \frac{1}{4} \right)\frac{d}{dx}\sum_{r = 0}^{\infty}x^r = \frac{1}{4}\sum_{r = 0}^{\infty}(r + 1)x^r \\
+		\frac{1}{2(1 - x)^3} &= \frac{d}{dx}\left( \frac{1}{(1 - x)^2} \right) = \frac{d}{dx}\sum_{r = 0}^{\infty}(r + 1)x^r = \sum_{r = 0}^{\infty}(r + 2)(r + 1)x^r
+		\end{align*}
+		$\alpha_r$ is the sum of the coefficients of $x^r$, which is
+		\[ \frac{1}{8}(-1)^r + \frac{1}{8} + \frac{1}{4}(r + 1) + (r^2 + 3r + 2) = r^2 + \frac{13r}{4} + \frac{19}{8} + \frac{1}{8}(-1)^r. \]
+		
+		\item The appropriate generating function is shown below:
+		\begin{align*}
+		A(x) &= (1 + x + x^2 + \cdots)^n \\
+		&= \frac{1}{(1 - x)^n} \\
+		&= \left( \frac{1}{n - 1} \right) \frac{d}{dx}\left( \frac{1}{(1 - x)^{n - 1}} \right) \\
+		&= \frac{1}{(n - 1)!} \frac{d^{n - 1}}{dx^{n - 1}}\left( \frac{1}{1 - x} \right) \\
+		&= \frac{1}{(n - 1)!} \frac{d^{n - 1}}{dx^{n - 1}}\sum_{r = 0}^{\infty}x^r \\
+		&= \frac{1}{(n - 1)!} \sum_{r = 0}^{\infty}(r + n - 1)(r + n - 2)\cdots(r + 1)x^r \\
+		&= \sum_{r = 0}^{\infty}\frac{(r + n - 1)!}{r!(n - 1)!}x^r
+		\end{align*}
+		It can be seen that the coefficient of the $x^r$ term is $\dbinom{r + n - 1}{r}$.
+		
+		\item The generating function is
+		\begin{align*}
+		(1 + x + x^2 + \cdots + x^t)^3 &= [(1 + x + x^2 + \cdots) - (x^{t + 1} + x^{t + 2} + \cdots)]^3 \\
+		&= \left( \frac{1}{1 - x} - \frac{x^{t + 1}}{1 - x} \right)^3 \\
+		&= \frac{(1 - x^{t + 1})^3}{(1 - x)^3} \\
+		&= \frac{1 - 3x^{t + 1} + 3x^{2(t + 1)} - x^{3(t + 1)}}{(1 - x)^3} \\
+		&= \frac{1}{(1 - x)^3} - \frac{3x^{t + 1}}{(1 - x)^3} + \frac{3x^{2(t + 1)}}{(1 - x)^3} - \frac{x^{3(t + 1)}}{(1 - x)^3}
+		\end{align*}
+		Due to the property of convolution, multiplying by $x^k$ "shifts" the coefficients left by $k$, so the latter two terms can be discarded since they contain only powers of $x$ higher than $2t + 1$. From Exercise 2,
+		\[ \frac{1}{(1 - x)^3} = \sum_{r = 0}^{\infty}{\dbinom{r + 3 - 1}{r}}x^r = \sum_{r = 0}^{\infty}{\dbinom{r + 2}{r}}x^r \]
+		so the relevant terms of the generating function become
+		\[ \sum_{r = 0}^{\infty}{\dbinom{r + 2}{r}}x^r - 3\sum_{r = 0}^{\infty}{\dbinom{r + 2 - (t + 1)}{r - (t + 1)}}x^r. \]
+		The desired quantity, which is the coefficient of $x^{2t + 1}$, is
+		\begin{align*}
+		\dbinom{2t + 3}{2t + 1} - 3\dbinom{t + 2}{t} &= \dbinom{2t + 3}{2} - 3\dbinom{t + 2}{2} \\
+		&= \frac{(2t + 3)(2t + 2)}{2} - 3\frac{(t + 2)(t + 1)}{2} \\
+		&= \frac{t(t + 1)}{2}.
+		\end{align*}
+		
+		\item Because the sequence of digits has an inherent order, the generating function follows an exponential form which is given below:
+		\[ \left( 1 + \frac{x^2}{2!} + \frac{x^4}{4!} + \cdots \right) \left( x + \frac{x^3}{3!} + \frac{x^5}{5!} + \cdots \right) \left( 1 + x + \frac{x^2}{2!} + \cdots \right)^2 \]
+		When simplified, the above expression becomes
+		\begin{align*}
+		\left( \frac{e^x + e^{-x}}{2} \right) \left( \frac{e^x - e^{-x}}{2} \right)e^{2x} &= \frac{1}{4}(e^{2x} - e^{-2x})e^{2x} \\
+		&= \frac{1}{4}(e^{4x} - 1) \\
+		&= -\frac{1}{4} + \frac{1}{4}\sum_{r = 0}^{\infty}\frac{(4x)^r}{r!} \\
+		&= -\frac{1}{4} + \sum_{r = 0}^{\infty}\frac{4^{r - 1}x^r}{r!}.
+		\end{align*}
+		From above, it can be seen that the desired quantity, which is the coefficient of $x^r$, is
+		\[ \alpha_r = \left\{
+			\begin{array}{lr}
+				0 &: r = 0 \\
+				4^{r - 1} &: r \geq 1
+			\end{array}
+		\right. \] 
+		
+		\item Infinite sums can be used instead of partial sums in the generating function because any term of degree $13$ or higher will not affect the coefficient of the term of the desired degree, which is $12$. Then this problem has a one-to-one correspondence with that in Exercise 4, if blue flags are mapped to ``$0$''s, black flags are mapped to ``$1$''s, and the remaining colors of flags are mapped to the remaining digits. Then the number of possible permutations is
+		\[ \alpha_{12} = 4^{11}. \]
+		
+		\item Without any restrictions, $S$ has $\dbinom{15}{4}$ 4-element subsets. When considering the generating function for the restricted case, one method is to count the possible configurations of the spaces formed by the unchosen elements. Namely, there will be $5$ spaces, with the $2$ at the ends having a minimum size of $0$ and the $3$ in the middle having a minimum size of $1$ (due to the chosen elements being nonconsecutive). The sizes of the spaces must add up to the number of unchosen elements, which is $15 - 4 = 11$. The generating function is then given by
+		\[ (1 + x + x^2 + \cdots)^2(x + x^2 + x^3 + \cdots)^3 = \frac{x^3}{(1 - x)^5} \]
+		From Exercise 2,
+		\[ \frac{1}{(1 - x)^5} = \sum_{r = 0}^{\infty}{\dbinom{r + 5 - 1}{r}}x^r = \sum_{r = 0}^{\infty}{\dbinom{r + 4}{r}}x^r \]
+		and due to the property of convolution, multiplying by $x^3$ "shifts" the coefficients left by $3$, so
+		\[ \frac{x^3}{(1 - x)^5} = \sum_{r = 0}^{\infty}{\dbinom{r + 1}{r - 3}}x^r. \]
+		The coefficient given by $x^r$ for the desired $r = 11$ is then
+		\[ \dbinom{11 + 1}{11 - 3} = \dbinom{12}{8} = \dbinom{12}{4}. \]
+		
+	\end{enumerate}
+\end{document}

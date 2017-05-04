@@ -1,0 +1,192 @@
+\documentclass[12pt]{article}
+
+%Packages Used%
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{amsfonts,setspace}
+\usepackage{fullpage}
+%\usepackage[pdftex,pagebackref,hypertexnames=false, colorlinks, citecolor=black, linkcolor=blue, urlcolor=red]{hyperref}
+\usepackage{comment}
+\usepackage{enumitem}
+\usepackage[margin=1in]{geometry}
+
+
+\setlength{\abovedisplayskip}{3mm}
+\setlength{\belowdisplayskip}{3mm}
+\setlength{\abovedisplayshortskip}{0mm}
+\setlength{\belowdisplayshortskip}{2mm}
+\setlength{\baselineskip}{12pt}
+\setlength{\normalbaselineskip}{12pt}
+
+\newcommand{\blank}{\underline{~~~~~~~~~}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\kk}{\mathbf{k}}
+\newcommand{\cP}{\mathcal{P}}
+
+\newcommand{\bu}{\mathbf{u}}
+\newcommand{\bv}{\mathbf{v}}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\by}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\bc}{\mathbf{c}}
+\newcommand{\bp}{\mathbf{p}}
+\newcommand{\bq}{\mathbf{q}}
+\newcommand{\be}{\mathbf{e}}
+\newcommand{\bzero}{\mathbf{0}}
+\DeclareMathOperator{\Nul}{Nul}
+\DeclareMathOperator{\Mod}{mod}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\tr}{tr}
+
+\renewcommand{\And}{\wedge}
+\newcommand{\Or}{\vee}
+\newcommand{\Implies}{\Rightarrow}
+\newcommand{\Not}{\sim}
+
+
+
+\normalbaselines
+\pagestyle{empty}
+\raggedbottom
+\begin{document}
+
+\begin{center}
+{
+Math 4108, Algebra II \\
+HW 5 --- Due on March 17, 2017 (Friday)
+}
+\end{center}
+
+\begin{enumerate}
+    \item Prove that an irreducible polynomial whose derivative is not zero is separable. \par
+        Assume that $f$ is an irreducible polynomial with nonzero derivative over a field $K$ with splitting field $L$. Since $Df \neq 0$, $\deg f \geq 1$ and hence $f$ has at least one root in $L$. By Theorem 6.1, $f$ is separable if and only if $f$ and $Df$ have no non-constant common factor. So if $f$ is inseparable, then $f$ and $Df$ share a non-constant common factor which has a root $\alpha \in L$; however, the minimum polynomial of $\alpha$ over $K$ is a factor of both $f$ and $Df$, contradicting the fact that $f$ is irreducible (since $f \neq Df$ and the minimum polynomial is a unique irreducible polynomial). Thus, $f$ must be separable.
+
+    \item Let $K$ be a field of characteristic $p$ (prime).  Let $f(x) \in K[x]$ be a polynomial whose derivative is the zero polynomial. \par
+    \begin{enumerate}
+        \item Prove that $f(x)$ can be written as $f(x) = a_0 + a_1 x^p + \cdots + a_n x^{np}$ for $a_0,\dots,a_n \in K$. \par
+            For any term $a x^m$ of $f(x)$, the derivative is $amx^{m - 1}$, which is zero only when $p \mid m$ or $a = 0$; if $p \mid m$, then we can write $ax^m = ax^{kp}$ where $k = m/p$. The result follows from the linearity of the derivative operator.
+        \item Prove that if $K$ is finite, then $f(x) = (g(x))^p$ for some $g(x) \in K[x]$. \par
+            Since we know that the multiplicative group of $K$ consisting of all nonzero elements is cyclic of order $p - 1$, we have that $a^p = a$, and hence that $\sqrt[p]{a}$ exists and equals $a$, for all $a \in K$. These are also obviously true if $a = 0$. Using the fact that $K$ is of characteristic $p$, we can write
+            \begin{align*}
+                f(x) = (\sqrt[p]{a_0} + \sqrt[p]{a_1} x + \cdots + \sqrt[p]{a_n} x^n)^p = (a_0 + a_1 x + \cdots + a_n x^n)^p.
+            \end{align*}
+    \end{enumerate}
+
+    \item Prove that finite fields are perfect, using the previous problems. \\ (A field $K$ is called {\em perfect} if every irreducible polynomial over $K$ is separable.  We have shown in class that fields of characteristic $0$ are perfect.) \par
+        Let $f(x) \in K[x]$ be irreducible. If the derivative of $f$ is the zero polynomial, then $f$ is a product of polynomials in $K[x]$ by Exercise 2(b), contradicting the hypothesis that $f$ is irreducible; hence, the derivative is nonzero. Exercise 1 states that $f$ is hence separable.
+
+    \item Give an example of a field that is not perfect. \par
+        %$\mathbb{R}$ is not perfect, because while $x^4 + 2x^2 + 1 \in \mathbb{R}[x]$, the roots of $x^4 + 2x^2 + 1 = (x^2 + 1)^2$ are $\pm i$ which have multiplicity $2$ in the splitting field $\mathbb{C}$.
+        $\ZZ_p(X)$ is not perfect when $p = 2$ or $p = 3$ because the polynomial $Y^p - X \in \ZZ_p(X)(Y)$ is irreducible over $\ZZ_p(X)$ and inseparable, which we show as follows. Suppose to the contrary that $Y^p - X$ is reducible, meaning it has a root $u(X)/v(X)$ if $p = 2$ or $p = 3$. But then $u^p(X) = Xv^p(X)$, a contradiction because the degree of the left-hand side is a multiple of $p$ while the degree of the right-hand side is not. Also, $Y^p - X$ is inseparable because it shares no roots in common with $D(Y^p - X) = pY^{p - 1}$, which has only 0 as a root.
+
+    \item Let $K = \ZZ_p(x,y)$ and $L = K[a,b]/\langle a^p - x, b^p - y\rangle$ for some prime $p$. \par
+    \begin{enumerate}
+        \item Show that $L$ is a field and that $[L:K] = p^2$. \par
+            \iffalse
+                We know that $L$ is a field if and only if $a^p - x$ and $b^p - y$ are irreducible, which is true because they are by definition the minimal polynomials of the newly adjoined elements which will be denoted $\sqrt[p]{x}$ and $\sqrt[p]{y}$. Thus, $[L : K] = [L : K[a] / (\langle a^p - x \rangle)] [(K[a] / \langle a^p - x \rangle) : K] = p^2$.
+                %This is true because $\sqrt[p]{x}, \sqrt[p]{y} \neq 1 \in \ZZ_p$ (otherwise $x = y = 1$ and $K = \ZZ_p$, contradicting its construction), and any other $p$th root of unity must have order $p$. 
+            \fi
+            Let $M$ be the splitting field of $a^p - x$ over $K$. Then over $M$, we know that $a^p - x = (a - \alpha)^p$ where $\alpha \in M$, so $M = K(\alpha)$. Suppose $a^p - x = g_1(a) \cdots g_k(a)$ over $K$ where the $g_i(a)$ are monic (without loss of generality) and irreducible. By unique factorization, $g_i(a) = (a - \alpha)^{m_i}$ for some $m_i < p$, but the $g_i(a)$ are also minimum polynomials of $\alpha$ over $K$ of different degrees, a contradiction. Thus, $a^p - x$ is irreducible, and $[M : K] = p$. \par
+            The same argument can be used to show that the splitting field of $b^p - y$ over $M$ is $L$ and $b^p - y$ is irreducible over $M$, so $[L : M] = p$. In conclusion, $[L : K] = [L : M][M : K] = p^2$.
+
+        \item Show that $L \neq K(\alpha)$ for any $\alpha \in L$. (Hint: for any $\alpha \in L$, show that $\alpha^p \in K$.) \par
+            \iffalse
+                The elements of $L$ are of the form $c_0 + c_1 x + c_2 y + c_3\sqrt[p]{x} + c_4\sqrt[p]{y}$ where the $c_i \in \mathbb{Z}_p$. Since $L$ is (like $K$) of characteristic $p$,
+                \begin{align*}
+                    (c_0 + c_1 x + c_2 y + c_3 \sqrt[p]{x} + c_4 \sqrt[p]{y})^p = c_0^p + (c_1 x)^p + (c_2 y)^p + c_3^p x + c_4^p y \in K.
+                \end{align*}
+                This means that for any $\alpha \in L$, the degree of the minimum polynomial of $\alpha$ over $K$ is at most $p$, so $[L : K(\alpha)] = [L : K] / [K(\alpha) : K] \geq p^2 / p > 1$ implying $L \neq K(\alpha)$.
+            \fi
+            Any $\alpha \in L$ can be written in the form $\alpha = \sum_{i, j = 0}^{p - 1} c_{ij} a^i b^j$ where $c_{ij} \in K$, and since the fields are of characteristic $p$,
+            \begin{align*}
+                \alpha^p = \sum_{i, j = 0}^{p - 1} c_{ij}^p a^{ip} b^{jp} = \sum_{i, j = 0}^{p - 1} c_{ij}^p x^i y^j \in K.
+            \end{align*}
+            Thus, the degree of $\alpha$ over $K$ is less than $p$, and $[L : K(\alpha)] = [L : K] / [K(\alpha) : K] > p^2 / p > 1$, so $L \neq K(\alpha)$.
+
+        \item Show that there are infinitely many fields between $K$ and $L$.  \\(Hint: show that $K(a+b u) \neq K(a+b v)$ for distinct $u,v \in K$.) \par
+            %Assume for the purpose of contradiction that $K(a + bu) = K(a + bv)$ for distinct $u, v \in K$, where $a, b \in L \setminus K$. Hence, there exist $c_1, c_2 \in K$ such that $c_1(a + bu) = c_2(a + bv)$. Matching the coefficients of the first term requires $c_1 = c_2$ while matching the coefficients of the second term requires $c_1 u = c_1 v$, a contradiction. Thus, $K(a + bu) \neq K(a + bv)$. Because $u$ and $v$ are arbitrary elements of the infinite field $K$, there are infinitely many such fields. Note also that all fields of this form are extensions of $K$ but subfields of $L$ (since $a, b \in L$).
+            Assume for the purpose of contradiction that there are only finitely many fields, so that there must exist $M = K[a + bu] = K[a + bv] \subsetneq L$ for some $u \neq v \in K$. But $[(a + bu) - (a + bv)] / (u - v) = b \in L$ and $[v(a + bu) - u(a + bv)] / (v - u) = a \in L$, implying that $M = K(a, b) = L$.
+    \end{enumerate}
+
+    \item 
+    \begin{enumerate}
+        \item Show that $\Phi_{p^r}(x) = \Phi_p(x^{p^{r-1}})$ if $p$ is a prime number. \par
+            The set of integers relatively prime to $p^r$ is the same as the set of integers relatively prime to $p$, so
+            \begin{align*}
+                \Phi_{p^r}(x) = \prod_{\substack{1 \leq k \leq p^r \\ \gcd(k, p) = 1}} (x - e^{2\pi ik / p^r}).
+            \end{align*}
+            If $\gcd(k, p) = 1$, then $\gcd(k + p, p) = 1$ also, so the equivalence classes of the integers $1 \leq k \leq p^r$ modulo $p$ each have $p^r / p = p^{r - 1}$ elements. Simplifying products of factors indexed by values of $k$ sharing the same equivalence classes gives
+            \begin{align*}
+                \prod_{\substack{1 \leq k \leq p^r \\ \gcd(k, p) = 1}} (x - e^{2\pi ik / p^r})
+                &= \prod_{\substack{1 \leq k \leq p \\ \gcd(k, p) = 1}} \prod_{j = 1}^{p^{r - 1}} (x - e^{2\pi i(jp + k) / p^r}) \\
+                &= \prod_{\substack{1 \leq k \leq p \\ \gcd(k, p) = 1}} \prod_{j = 1}^{p^{r - 1}} e^{2\pi ik/p^r} \left( \frac{x}{e^{2\pi ik/p^r}} - e^{2\pi ijp / p^r} \right) \\
+                &= \prod_{\substack{1 \leq k \leq p \\ \gcd(k, p) = 1}} e^{2\pi ik/p} \prod_{j = 1}^{p^{r - 1}} \left( \frac{x}{e^{2\pi ik/p^r}} - e^{2\pi ij / p^{r - 1}} \right) \\
+                &= \prod_{\substack{1 \leq k \leq p \\ \gcd(k, p) = 1}} e^{2\pi ik/p} \left[ \left( \frac{x}{e^{2\pi ik/p^r}} \right)^{p^{r - 1}} - 1 \right] \\
+                &= \prod_{\substack{1 \leq k \leq p \\ \gcd(k, p) = 1}} ( x^{p^{r - 1}} - e^{2\pi ik/p} )
+                = \Phi_p(x^{p^{r - 1}}).
+            \end{align*}
+        \item Show that $\Phi_{2n}(x) = \Phi_n(-x)$ if $n$ is odd and $n > 1$. \par
+            For any $n \geq 3$, $\varphi(n)$ is even because for each integer $1 \leq k \leq n$ relatively prime to $n$, $n - k \neq k$ is also relatively prime to $n$. Thus, $\Phi_n(x)$ and $\Phi_{2n}(x)$ have an even number of factors, and
+            \begin{align*}
+                \Phi_{2n}(x) &= \prod_{\substack{1 \leq k \leq 2n \\ \gcd(k, 2n) = 1}} (x - e^{2\pi ik/(2n)})
+                = \prod_{\substack{1 \leq k \leq 2n \\ \gcd(k, 2n) = 1}} e^{-\pi i} (xe^{\pi i} - e^{2\pi ik/(2n)}e^{\pi i}) \\
+                &= \prod_{\substack{1 \leq k \leq 2n \\ \gcd(k, 2n) = 1}} (-x - e^{2\pi i(k + n)/(2n)}).
+            \end{align*}
+            %Note that the set of integers relatively prime to $2n$ is the set of integers relatively prime to both $2$ and $n$, or the odd integers relatively prime to $n$. \par
+            We now show that
+            \begin{align*}
+                \left\{ \frac{k + n}{2} \text{ mod } n : 1 \leq k \leq 2n, \; \gcd(k, 2n) = 1 \} = \{ k : 1 \leq k \leq n, \gcd(k, n) = 1 \right\}.
+            \end{align*}
+            The inclusion $\subseteq$ is true because for any $k$ satisfying the given properties, $k$ is also relatively prime with $n$, and the relative primality is preserved under addition with $n$, division by $2$, and the modulo operation by $n$. The inclusion $\supseteq$ is true because for any $k$ satisfying the given properties, $k$ can be written as $(k' + n) / 2$ mod $n$ where $k' = 2k - n$ mod $n$ (a value between $1$ and $n$). $k'$ satisfies $\gcd(k', 2n) = 1$ because, noting that $n$ is odd, the relative primality of $k$ with $n$ is preserved under multiplication by $2$ and subtraction by $n$, and furthermore, the result is odd so $k'$ is also relatively prime with $2$. \par
+            %If $1 \leq k \leq 2n$ is such an integer, then $k + n$ is an even integer relatively prime to $n$, and $(k + n)/2$ is an odd integer relatively prime to $n$.
+            To conclude,
+            \begin{align*}
+                \prod_{\substack{1 \leq k \leq 2n \\ \gcd(k, 2n) = 1}} (-x - e^{2\pi i(k + n)/(2n)})
+                = \prod_{\substack{1 \leq k \leq n \\ \gcd(k, n) = 1}} (-x - e^{2\pi ik/n})
+                = \Phi_n(-x).
+            \end{align*}
+    \end{enumerate}
+
+    \item If a polynomial $f$ of degree $n$ has $n$ distinct roots $\alpha_1,\dots,\alpha_n$, then its {\em discriminant} is defined to be $\Delta(f) = \displaystyle\prod_{i<j}(\alpha_i-\alpha_j)^2$. \par
+    \begin{enumerate}
+        \item Show that the discriminant of a polynomial with rational coefficients is a rational number. \par
+            If $f(x) \in \QQ[x]$ is of degree $n$ and has $n$ distinct roots, then the splitting field $L$ is separable and normal, so $L : \QQ$ is Galois. Since any $\sigma \in \Gal(L : \QQ)$ permutes roots in a one-to-one correspondence and $(\alpha_i - \alpha_j)^2 = (\alpha_j - \alpha_i)^2$ for all $i < j$, $\sigma(\Delta(f)) = \Delta(f)$, meaning that $\Delta(f)$ is fixed by $\Gal(L : \QQ)$. By the Fundamental Theorem of Galois Theory, $\Delta(f)$ is contained in the fixed field $\QQ$.
+        \item Express the discriminant of a quadratic (degree 2) polynomial explicitly in terms of its coefficients. \par
+            The roots of $f(x) = a_0 + a_1 x + a_2 x^2$ are $\frac{-a_1 \pm \sqrt{a_1^2 - 4a_0 a_2}}{2a_0}$, so the discriminant is
+            \begin{align*}
+                \Delta(f) = \left( \frac{\sqrt{a_1^2 - 4a_0 a_2}}{a_0} \right)^2 = \frac{a_1^2}{a_0^2} - \frac{4a_2}{a_0}.
+            \end{align*}
+        \item Express the discriminant of a cubic (degree 3) polynomial explicitly in terms of its coefficients. \par
+    \end{enumerate}
+
+    \item Let $K$ be a field of characteristic $0$ and $a \in K$.  Show that if $x^n-a$ has a polynomial factor whose degree is relatively prime to $n$, then it has a root in $K$. (Hint: Show that if $g(x)$ is a monic factor of $f(x)$ of degree $m$, then the constant term of $g(x)$ is an $n$th root of $a^m$.) \par
+        %$x^n - a = x^n / a - 1 = (x / \sqrt[n]{a})^n - 1 = \prod_{d \mid n} \Phi_d(x/\sqrt[n]{a})$. $\sqrt[n]{a^m} \in K$ from the hint so $\sqrt[n]{a} \in K$ as well since $m$ and $n$ are relatively prime, and $\sqrt[n]{a}$ is a root of $x^n - a$.
+        The conclusion is trivial if $m = 1$; otherwise, we have $1 < m < n$, and $g$ can be written
+        \begin{align*}
+            g(x) = \prod_{\substack{1 \leq k \leq m \\ 1 \leq a_k \leq n}} (x - e^{2\pi i a_k/n}\sqrt[n]{a}).
+        \end{align*}
+        If $\beta \in K$ is the constant term of $g$, then from above, $\beta^n = a^m$. Because $\gcd(m, n) = 1$, there exist $s, t \in \mathbb{N}$ such that $ms + nt = 1$, and so $a^{ms} = a^{1 - nt}$ and $\beta^{s/n} = a^{ms/n} = a^{(1 - nt)/n} = \sqrt[n]{a}/a^t \in K$, so $\sqrt[n]{a} \in K$.
+
+    \item Let $K$ be a field of characteristic $0$ containing all $n^{th}$ roots of unity.  Prove that for any $a \in K$ the degree of the splitting field of $x^n-a$ over $K$ divides $n$. \par
+        %The roots of $x^n - a$ are $\sqrt[n]{a} e^{2\pi ik/n}$ for all $1 \leq k \leq n$, so the splitting field is $K(\sqrt[n]{a})$, from which we can deduce that the degree is at most $n$. The order of $e^{2\pi ik/n}$ divides $n$;
+        If $L$ is the splitting field of $x^n - a$ and $\omega$ is a primitive $n$th root of unity, then $L : K$ is normal and separable (since $\text{char}\, K = 0$), and hence Galois, so $|\Gal(L : K)| = [L : K]$ by the Fundamental Theorem of Galois Theory. By Theorem 8.18, $\Gal(L : K(\omega)) = \Gal(L : K)$ is cyclic, with order dividing $n$, and hence $[L : K]$ divides $n$.
+
+    \item Prove that any finite group is isomorphic to the Galois group of a polynomial over some field.  (Hint: By Cayley's Theorem, any finite group is isomorphic to the subgroup of a symmetric group.) \par
+        %Following the hint, assume that the given finite group is isomorphic to some subgroup of $S_n$ for some $n \geq 1$. If $n = 1$, then we can deduce that the finite group is isomorphic to the trivial group $S_1$, which in turn is isomorphic to the Galois group of any field over itself (containing the identity map), or the Galois group of any linear polynomial over any field. We know that for any $n \geq 2$, there exists $f(x) \in \mathbb{Q}[x]$ whose Galois group is isomorphic to $S_n$; in other words, $S_n \cong \Gal(K : \mathbb{Q})$ where $K$ is the splitting field of $f$ over $\mathbb{Q}$. By the Fundamental Theorem of Galois theory, any subgroup of $S_n$ corresponds to a field extension $L \supset K$ (i.e., is isomorphic to $\Gal(L : \mathbb{Q})$), which is the splitting field of $fg$ where $g$ is the minimum polynomial of $L$ over $K$.
+        By Cayley's Theorem, any finite group is isomorphic to some $G \leq S_n$. Also, we know that for every integer $n \geq 1$ there exists a field $K$ of characteristic 0 and a polynomial $f(x) \in K[x]$ of degree $n$ such that $\Gal(L : K) \cong S_n$ where $L$ is the splitting field of $f$ over $K$. By the Fundamental Theorem of Galois Theory, there exists an intermediate field $M$ corresponding to $G$. $L : M$ is a Galois extension because $f(x) \in M[x]$, so there must exist a polynomial $m(x) \in M[x]$ such that $L$ is the splitting field of $m$ over $M$. In conclusion, $G \cong \Gal(L : M)$, the Galois group of $m$.
+\end{enumerate}
+
+\end{document}

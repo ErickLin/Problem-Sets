@@ -1,0 +1,347 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{amsfonts, amsmath, enumitem}
+
+\textheight=9.5in
+\textwidth=6.5in
+\topmargin=-.8in
+\headsep=0pt
+\oddsidemargin=0truecm
+\evensidemargin=0truecm
+\footskip=20pt
+\pretolerance=1600
+\tolerance=1600
+\hbadness=1600
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{problem}[theorem]{Problem}
+
+\begin{document}
+
+\title{
+}
+
+%\author{Assigned 1-13-16 , Due 1-19-16 (in class)
+%}
+
+
+\date{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author's definitions
+
+\newcommand{\DEF}[1]{{\em #1\/}}
+
+\newcommand\chic{\chi_c}
+\newcommand\C{\hbox{${\cal C}$}}
+\newcommand{\RR}{\mbox{$\mathbb R$}}
+\newcommand{\NN}{\mbox{$\mathbb N$}}
+\newcommand{\ZZ}{\mbox{$\mathbb Z$}}
+\newcommand{\eopf}{\raisebox{0.8ex}{\framebox{}}}
+\newcommand{\dist}{\hbox{\rm d}}
+\renewcommand\a{\alpha}
+\renewcommand\b{\beta}
+\renewcommand\c{\gamma}
+\renewcommand\d{\delta}
+\newcommand\D{\Delta}
+\newcommand{\directedchi}{\mbox{$\vec{\chi}$}}
+\newcommand{\directedE}{\mbox{$\vec{E}$}}
+\newcommand{\directedG}{\mbox{$\vec{G}$}}
+\newcommand{\directedK}{\mbox{$\vec{K}$}}
+
+\newenvironment{proof}%
+{\noindent{\bf Proof.}\ }%
+{\hfill\eopf\par\bigskip}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\maketitle
+
+\noindent{\bf  Last Name:} $Lin \quad$
+\noindent{\bf First Name:} $Erick \quad$
+\noindent{\bf Email:}          $elin42@gatech.edu$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 1, 1/13/16 Due 1/20/16 in class $~~~~~~~~~~~$Page 1/8}
+
+\bigskip
+
+\noindent{\bf Problem 1: Analysis of Recursive Algorithm (10 points)}.\\
+Consider the function Mystery defined below.\\
+\noindent
+$~~~~~$Mystery$(n)$\\
+$~~~~~$if $n > 1$ then
+ begin\\
+$~~~~~~~~~~~~~~~~~~~~~~~$ print("x");\\
+$~~~~~~~~~~~~~~~~~~~~~~~$ Mystery$(n-1);$  \\
+$~~~~~~~~~~~~~~~~~~~~~~~$ Mystery$(n-1); $ \\ 
+$~~~~~~~~~~~~~~~~~~~~~~~$ Mystery$(n-1);$  \\
+$~~~~~~~~~~~~~~~~~~~~~~~$ Mystery$(n-1); $ \\ 
+$~~~~~~~~~~~~~~~~~~~~~~~$end\\
+If we call Mystery$(n)$, where $n$ is an integer $n>1$, how many x's (as an exact function of $n$)
+does call Mystery$(n)$ print?
+Justify your answer/show your work 
+(solve recurrences using the substitution method, do not use $O()$ notation.)\\
+{\bf Answer:}
+From the code, the recurrence relation is given by
+\begin{align*}
+    f(x) = 4f(x - 1) + 1,
+\end{align*}
+with the recursion halting at $f(1) = 0$. Using repeated substitution, we have that
+\begin{align*}
+    f(n) &= 4f(n - 1) + 1 \\
+    &= 4[4f(n - 2) + 1] + 1 \\
+    &= 4^2f(n - 2) + 4 + 1 \\
+    &= 4^2[4f(n - 3) + 1] + 4 + 1 \\
+    &= 4^3f(n - 3) + 4^2 + 4 + 1,
+\end{align*}
+so we may prove that, by the induction principle, the general form is
+\begin{align*}
+    f(n) &= 4^kf(n - k) + \sum_{i = 0}^{k - 1} 4^i \\
+    &= 4^kf(n - k) + \frac{4^k - 1}{4 - 1} \\
+    &= 4^kf(n - k) + \frac{4^k - 1}{3}
+\end{align*}
+and since we know that $f(1) = 0$, when we set $n - k = 1$ (or equivalently, $k = n - 1$), we have
+\begin{align*}
+    f(n) &= 4^{n - 1} f(1) + \frac{4^{n - 1} - 1}{3} \\
+    &= \frac{4^{n - 1} - 1}{3}.
+\end{align*}
+
+
+\pagebreak
+
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 1, 1/13/16 Due 1/20/16 in class $~~~~~~~~~~~$Page 2/8}
+
+\bigskip
+
+\noindent{\bf Problem 2: Analysis of Recursive Algorithm (10 points)}.\\
+Consider the function Mystery defined below, where $T$ is a global variable initialized to $T:=0$.\\
+\noindent
+Mystery$(x)$\\
+begin\\
+$T:=T+1;$\\
+if $x > 1$ then begin\\
+$~~~~~~~~~~~~~~~~~~~$Mystery$(x-1);$  Mystery$(x-1);$ Mystery$(x-1);$\\
+$~~~~~~~~~~~~~~~~~~~$end\\
+end\\
+If we call Mystery$(n)$, where $n$ is a positive integer, what is the value of $T$ (as an exact function of $n$), 
+at the end of the execution of  Mystery$(n)$. Justify your answer
+(solve recurrences using the substitution method do not use $O()$ notation.)\\
+{\bf Answer:}
+From the code, the recurrence relation is given by
+\begin{align*}
+    f(x) = 3f(x - 1) + 1,
+\end{align*}
+with the recursion halting at $f(1) = 1$. Using repeated substitution, we have that
+\begin{align*}
+    f(n) &= 3f(n - 1) + 1 \\
+    &= 3[3f(n - 2) + 1] + 1 \\
+    &= 3^2f(n - 2) + 3 + 1 \\
+    &= 3^2[3f(n - 3) + 1] + 3 + 1 \\
+    &= 3^3f(n - 3) + 3^2 + 3 + 1,
+\end{align*}
+so we may prove that, by the induction principle, the general form is
+\begin{align*}
+    f(n) &= 3^kf(n - k) + \sum_{i = 0}^{k - 1} 3^i \\
+    &= 3^kf(n - k) + \frac{3^k - 1}{3 - 1} \\
+    &= 3^kf(n - k) + \frac{3^k - 1}{2}
+\end{align*}
+and since we know that $f(1) = 1$, when we set $n - k = 1$ (or equivalently, $k = n - 1$), we have
+\begin{align*}
+    f(n) &= 3^{n - 1} f(1) + \frac{3^{n - 1} - 1}{2} \\
+    &= 3^{n - 1} + \frac{3^{n - 1} - 1}{2} \\
+    &= \frac{3^n - 1}{2}.
+\end{align*}
+
+\pagebreak
+
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 1, 1/13/16 Due 1/20/16 in class $~~~~~~~~~~~$Page 3/8}
+
+\bigskip
+
+\noindent{\bf Problem 3: Analysis of Recursive Algorithm (10 points)}.\\
+Consider the function Mystery defined below.\\
+\noindent
+$~~~~~$Mystery$(n)$\\
+$~~~~~$if $n > 1$ then
+ begin\\
+$~~~~~~~~~~~~~~~~~~~~~~~$ print("xx");\\
+$~~~~~~~~~~~~~~~~~~~~~~~$ Mystery$(n/3);$  \\
+$~~~~~~~~~~~~~~~~~~~~~~~$ Mystery$(n/3); $ \\ 
+$~~~~~~~~~~~~~~~~~~~~~~~$ Mystery$(n/3);$  \\
+$~~~~~~~~~~~~~~~~~~~~~~~$end\\
+If we call Mystery$(n)$, where $n>1$ and $n$ is a power of 3, how many x's (as a function of $n$)
+does call Mystery$(n)$ print?
+Justify your answer/show your work
+(solve recurrences using the substitution method.)\\
+{\bf Answer:}
+From the code, the recurrence relation is given by
+\begin{align*}
+    f(x) = 3f(x/3) + 2,
+\end{align*}
+with the recursion halting at $f(1) = 0$. Using repeated substitution, we have that
+\begin{align*}
+    f(n) &= 3f(n/3) + 2 \\
+    &= 3[3f(n/3^2) + 2] + 2 \\
+    &= 3^2f(n/3^2) + 2(3 + 1) \\
+    &= 3^2[3f(n/3^3) + 2] + 2(3 + 1) \\
+    &= 3^3f(n/3^3) + 2(3^2 + 3 + 1),
+\end{align*}
+so we may prove that, by the induction principle, the general form is
+\begin{align*}
+    f(n) &= 3^kf(n/3^k) + 2\sum_{i = 0}^{k - 1} 3^i \\
+    &= 3^kf(n/3^k) + 2\frac{3^k - 1}{3 - 1} \\
+    &= 3^kf(n/3^k) + 3^k - 1
+\end{align*}
+and since we know that $f(1) = 0$, when we set $n/3^k = 1$ (or equivalently, $k = \log_3 n$), we have
+\begin{align*}
+    f(n) &= 3^{\log_3 n} f(1) + 3^{\log_3 n} - 1 \\
+    &= n - 1.
+\end{align*}
+
+\pagebreak
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 1, 1/13/16 Due 1/20/16 in class $~~~~~~~~~~~$Page 4/8}
+
+\bigskip
+
+\noindent{\bf Problem 4: Analysis of Recursive Algorithm (10 points)}.\\
+Consider the function Mystery defined below.\\
+\noindent
+$~~~~~$Mystery$(n)$\\
+$~~~~~$if $n > 1$ then
+ begin\\
+$~~~~~~~~~~~~~~~~~~~~~~~$ for $i=1$ to $n$ print("x");\\
+$~~~~~~~~~~~~~~~~~~~~~~~$ Mystery$(n/2);$  \\
+$~~~~~~~~~~~~~~~~~~~~~~~$ Mystery$(n/2); $ \\ 
+$~~~~~~~~~~~~~~~~~~~~~~~$end\\
+If we call Mystery$(n)$, where $n>1$ and $n$ is a power of 2, how many x's (as a function of $n$)
+does call Mystery$(n)$ print?
+Justify your answer/show your work
+(solve recurrences using the substitution method.)\\
+{\bf Answer:}\\
+From the code, the recurrence relation is given by
+\begin{align*}
+    f(x) = 2f(x/2) + x,
+\end{align*}
+with the recursion halting at $f(1) = 0$. Using repeated substitution, we have that
+\begin{align*}
+    f(n) &= 2f(n/2) + n \\
+    &= 2 \left[ 2f(n/2^2) + \frac{n}{2} \right] + n \\
+    &= 2^2f(n/2^2) + 2n \\
+    &= 2^2 \left[ 2f(n/2^3) + \frac{n}{2^2} \right] + 2n \\
+    &= 2^3f(n/2^3) + 3n.
+\end{align*}
+so we may prove that, by the induction principle, the general form is
+\begin{align*}
+    f(n) &= 2^kf(n/2^k) + kn
+\end{align*}
+and since we know that $f(1) = 0$, when we set $n/2^k = 1$ (or equivalently, $k = \log_2 n$), we have
+\begin{align*}
+    f(n) &= 2^{\log_2 n} f(1) + n \log_2 n \\
+    &= n \log_2 n.
+\end{align*}
+ 
+\pagebreak
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511,Spring 2016, Homework 1, 1/13/16 Due 1/20/16 in class $~~~~~~~~~~~$Page 5/8}
+
+\bigskip
+
+\noindent{\bf Problem 5: Mergesort Application: Counting Inversions (15 points)}.\\
+Let $A$ be an array of $n$ distinct numbers. If  for some $i < j$  we have $A(i)>A(j)$ 
+then the pair $(i,j)$ is called an inversion of $A$. \\
+a. List the  inversions of the array 2,3,8,6,1 (there are five inversions.)\\
+b. Which array with elements from the set $\{1, 2 \ldots , n \}$ has the most inversions? How many does it have?\\
+c. Show how to determine the number of inversions in any array of $n$ distinct elements in time $O(n \log n)$. Hint: Modify mergesort.
+Note: If you give pseudocode, it should be very short and very clear.\\
+{\bf Answer:}\\
+\begin{enumerate}[label=\alph*.]
+    \item
+        Using $1$-indexing, the inversions are $(1, 5)$, $(2, 5)$, $(3, 4)$, $(3, 5)$, and $(4, 5)$.
+
+    \item
+        The array $n, n - 1, \cdots, 1$ has the most inversions with $\binom{n}{2} = \frac{(n - 1)n}{2}$ in total. This is the maximum number of inversions because every possible pair is an inversion.
+
+    \item
+        The algorithm is defined as follows. First, we allocate an empty array with the same capacity as the original array, and have the algorithm call itself recursively on the first half of the array, then on the second half, and storing the results into two new arrays that we will call the left and right subarrays. The merge step proceeds by repeatedly comparing the first element remaining in the left subarray with the first element remaining in the right subarray, and appending the smaller of the two elements to the resultant array. If the first element of the right half is smaller than that of the left half, the number of inversions seen is incremented. If either the left subarray or the right subarray is empty, then the nonempty subarray is appended to the resultant array. The algorithm returns a sorted version of the original array, and upon its termination, the number of inversions seen is the same as the desired quantity. \par
+        Because the algorithm is the same as mergesort except for the incrementation operation that takes constant time, the algorithm has the same time complexity, which is $O(n \log n)$.
+\end{enumerate}
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf   CS 3511, Fall 2016, Homework 1, 1/13/16 Due 1/20/16 in class $~~~~~~~~~~~$Page 6/8}
+
+\bigskip
+
+\noindent{\bf Problem 6: Divide and Conquer (15 points).}\\
+Given a sorted array of distinct integers $A(1,...,n)$ (these integers can be positive, zero, or negative), you want to
+find out whether there is an index $ i$ for which $A(i)=i$. 
+Give a divide-and-conquer algorithm that runs in time $ O(\log n)$. You have to justify correctness and running time. 
+Note: If you give pseudocode, it should be very short and very clear.\\
+{\bf Answer:}\\
+We define a lower bound and an upper bound starting at $1$ and $n$, respectively, and then repeat the following procedure until either the lower bound is greater than the upper bound or we have found a value of $A$ which equals its index: We let $i$ be the average of the lower and upper bounds, and compare $i$ with $A(i)$. If they are equal, then we terminate the algorithm with an affirmative result. Otherwise, if $A(i) > i$, then we reset the upper bound to $i - 1$, and if $A(i) < i$, then we reset the lower bound to $i + 1$. Then we continue. This is correct because if $A(i) > i$, then $A(j) > j$ for all $j > i$, and if $A(i) < i$, then $A(j) < j$ for all $j < i$, since the array is sorted and has distinct integers. If the loop ends, then the algorithm terminates with a negatory result. \par
+The initial range of indices is $n$, and this range is divided in half (taking the floor function) with each iteration of the loop, which means that the number of iterations is at most $\log_2 n = O(\log_2 n)$.
+ 
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 1, 1/13/16 Due 1/20/16 in class $~~~~~~~~~~~$Page 7/8}
+
+\bigskip
+
+\noindent{\bf Problem 7: Mix and Max with very few comparisons: Efficient Design (15 points)}. \\
+Let $A$ be an array of $n$ distinct numbers.
+It is clear that one can find the maximum of these numbers with $n\! - \! 1$ comparisons.
+Similarly, it is clear that one can find the minimum of these numbers with $n\! - \! 1$ comparisons.
+Thus, one can find both the maximum and the minimum of these numbers with $2n \! - \! 2$ comparisons. 
+But one can do better! Show how to find both the maximum and the minimum of $n$ distinct numbers 
+with $3\frac{n}{2}-2$ comparisons (you may assume that $n$ is even.)
+Note: If you give pseudocode, it should be very short and very clear.\\
+{\bf Answer:}
+We begin by splitting the array into $\frac{n}{2}$ disjoint connected subarrays, each with two elements, and comparing the elements of the first subarray, setting the smaller of these two as the initial minimum and the larger of these two as the initial maximum. This step requires only 1 comparison. Then we repeat the following procedure for all subsequent subarrays. We compare the two elements in the subarray, defining $a$ as the larger element and $b$ as the smaller element. Then we compare $a$ with the maximum seen so far, and if $a$ is larger, then $a$ becomes the new maximum; likewise, we compare $b$ with the minimum seen so far, and if $b$ is smaller, then $b$ becomes the new minimum. Because every subarray after the first one requires 3 comparisons, the total number of comparisons is $1 + 3 \left( \frac{n}{2} - 1 \right) = \frac{3n}{2} - 2$.
+ 
+
+ \pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 1, 1/13/16 Due 1/20/16 in class $~~~~~~~~~~~$Page 8/8}
+
+\bigskip
+
+\noindent{\bf Problem 8: Exact Sum: Sorting Application (15 points)}. \\
+Given a sorted array of distinct integers $A(1,...,n)$ and a target integer $S$, you want to find if 
+$S$ can be expressed as the sum of two distinct entries of $A$. That is, you want to find $1 \leq i < j \leq n$
+such that $A(i)+A(j)=S$, if such a pair exists. If such a pair does not exist, you want to answer NO. 
+Give an algorithm that runs in time $O(n)$. You have to justify correctness and running time.
+Note: If you give pseudocode, it should be very short and very clear.\\
+{\bf Answer:}
+We initialize $i$ to $1$ and $j$ to $n$, and repeat the following procedure until $i = j$ (upon which we terminate with a negatory result): \par
+If $A(i) + A(j) = S$, then we terminate with the indices $i$ and $j$ as the output. \par
+If $A(i) + A(j) < S$, then, because the array is sorted, it is also true that $A(i) + A(k) < S$ for all $k < j$. However, $A(k) + A(j) > A(i) + A(j)$ for all $k > i$, so there may be some $k > i$ such that $A(k) + A(j) = S$. Hence, the only way to proceed is to increment $i$ by $1$ and continue. \par
+Otherwise, if $A(i) + A(j) > S$, then it is also true that $A(k) + A(j) > S$ for all $k > i$. However, $A(i) + A(k) < A(i) + A(j)$ for all $k < j$, so there may be some $k < j$ such that $A(i) + A(k) = S$. Hence, the only way to proceed in this case is to decrement $j$ by $1$ and continue. \par
+Each iteration requires a constant number of operations. Because the difference between $i$ and $j$ is initially $n - 1$ and decreases by $1$ at each iteration, and the procedure terminates when the difference becomes $0$, the algorithm terminates in at most $n - 1$ iterations, and hence in $O(n)$ time.
+
+
+
+\end{document}

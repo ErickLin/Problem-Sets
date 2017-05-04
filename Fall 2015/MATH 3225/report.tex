@@ -1,0 +1,523 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amsthm, dsfont, enumitem, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+
+\allowdisplaybreaks
+% save indent length before setting parindent to 0
+\newlength\tindent
+\setlength{\tindent}{\parindent}
+\setlength{\parindent}{0pt}
+\renewcommand{\indent}{hspace*{\tindent}}
+
+\pagestyle{fancy}
+\rhead{Erick Lin, Ho Keun Kim}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\setcounter{theorem}{0}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{proposition}{Proposition}[section]
+\setcounter{proposition}{0}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\setcounter{definition}{0}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\bs}{\boldsymbol}
+\newcommand{\var}{\operatorname{var}}
+\newcommand{\bias}{\operatorname{bias}}
+\newcommand{\mse}{\operatorname{mse}}
+\newcommand{\eff}{\operatorname{eff}}
+\newcommand{\cov}{\operatorname{cov}}
+\newcommand{\cor}{\operatorname{cor}}
+
+\title{Point Estimation}
+\author{Erick Lin \and Ho Keun Kim}
+
+\begin{document}
+\maketitle
+
+\section{Estimators}
+    \iffalse
+    \begin{theorem}[Markov's inequality]
+        If $X$ is a nonnegative random variable, then
+        \begin{align*}
+            \mathbb{P}(X \geq x) \leq \frac{\mathbb{E}(X)}{x}, x > 0.
+        \end{align*}
+    \end{theorem}
+     For $x > 0$, $x \mathds{X \geq x} \leq X$. Taking expected values, $x \mathbb{P}(X \geq x) \leq \mathbb{E}(X)$.
+    \fi
+    \subsection*{The Basic Statistical Model}
+    Suppose we have an observable random variable $X$, and a random experiment samples $n$ objects from a population. Then the data vector has the form
+    \begin{align*}
+        \bs{X} = (X_1, X_2, \cdots, X_n)
+    \end{align*}
+    where $X_i$ is the random variable corresponding to the data from the $i$th object. When the $\{ X_i \}$ are independent and identically distributed, $\bs{X}$ is a \textit{random sample} of size $n$ from the distribution of the underlying measurement variable $X$. \par
+    \begin{definition}
+        A \textit{statistic} is an observable function $\bs{U}$ of the outcome variable $\bs{X}$ of a random experiment, so $\bs{U} = \bs{U}(\bs{X})$.
+    \end{definition}
+    This means that a statistic is also a random variable, and that $X$ is itself a statistic. \textit{Data reduction} refers to the instance in which the dimension of $\bs{U}$ is smaller than the dimension of $\bs{X}$. Often, the goal is to maximize data reduction while minimizing loss of information. \par
+    \begin{definition}
+    A \textit{parameter} $\bs{\theta}$ is a function of the distribution of $\bs{X}$, and it takes values in the \textit{parameter space} $\Theta$.
+    \end{definition}
+    Conventionally, the distribution of $\bs{X}$ has $k \in \mathbb{N}^+$ real parameters of interest so that $\bs{\theta} = (\theta_1, \theta_2, \cdots, \theta_k)$ and $\Theta \subset \mathbb{R}^k$. Often, one or more parameters are unknown, but may be approximated from the data variable $\bs{X}$. This gives rise to the general problem of \textit{parameter estimation}. \par
+    \begin{definition}
+        If $\theta$ is an unknown parameter taking values in a parameter space $\Theta \subset \mathbb{R}$, then a real-valued statistic $U = U(\bs{X})$ that is used to estimate $\theta$ is called an \textit{estimator} of $\theta$. When the data $\bs{x}$ is recorded during a random experiment, the observed value $u = U(\bs{x})$ is called an \textit{estimate} of $\theta$.
+    \end{definition}
+    In addition, we have the following definitions given below:
+    \begin{definition}
+        The \textit{error} of $U$ is given by $U - \theta$.
+    \end{definition}
+    \begin{definition}
+        The \textit{bias} of $U$ is given by $\bias(U) = \mathbb{E}(U - \theta) = \mathbb{E}(U) - \theta$.
+    \end{definition}
+    \begin{definition}
+        The \textit{mean square error} of $U$ is given by $\mse(U) = \mathbb{E} \left[ (U - \theta)^2 \right]$.
+    \end{definition}
+    The error is also a random variable, and the bias is simply the expected value of the error. We can further specify the bias of some estimators in the following way:
+    \begin{definition}
+        $U$ is \textit{unbiased} if $\bias(U) = 0$, or equivalently $\mathbb{E}(U) = \theta$, for all $\theta \in \Theta$.
+        $U$ is \textit{negatively biased} if $\bias(U) \leq 0$, or equivalently $\mathbb{E}(U) \leq \theta$, for all $\theta \in \Theta$.
+        $U$ is \textit{positively biased} if $\bias(U) \geq 0$, or equivalently $\mathbb{E}(U) \geq \theta$, for all $\theta \in \Theta$.
+    \end{definition}
+    The definitions may be further separated into \textit{strong} and \textit{weak} bias, depending on whether the inequalities are strict ($<$ and $>$) or loose ($\leq$ and $\geq$). Note that because the above definitions are uniform in $\theta$, it may be the case that none of these definitions applies. 
+    \begin{theorem}
+        $\mse(U) = \var(U) + \bias^2(U)$.
+        \begin{proof}
+            This follows from the properties of expectation and variance:
+            \begin{align*}
+                \mathbb{E} \left[ (U - \theta)^2 \right] = \var(U - \theta) + \left[ \mathbb{E}(U - \theta) \right]^2 = \var(U) + \bias^2(U). \qquad \qedhere
+            \end{align*}
+        \end{proof}
+    \end{theorem}
+    In particular, if the estimator $U$ is unbiased, then the mean square error of $U$ is the variance of $U$. This implies that given two unbiased estimators $U$ and $V$ of $\theta$, the one with the smaller variance is preferable because it has the smaller mean square error. \par
+    \begin{definition}
+        The \textit{relative efficiency} of $V$ to $U$ is the ratio of the variances:
+        \begin{align*}
+            \eff(U, V) = \frac{\var(U)}{\var(V)}
+        \end{align*}
+    \end{definition}
+
+    \subsubsection*{Asymptotic Properties}
+    Suppose again that we have a real parameter $\theta$ in parameter space $\Theta$. In a statistical experiment, we often observe an infinite sequence of random variables over time, $\bs{X} = (X_1, X_2, \cdots)$ so that at time $n$ we have observed $(X_1, X_2, \cdots, X_n)$. Given a formula that defines an estimator of $\theta$ for each sample size $n$, we obtain a sequence of real-valued estimators of $\theta$, $\bs{U} = (U_1, U_2, \cdots)$ where
+    \begin{align*}
+        U_n = U_n(X_1, X_2, \cdots, X_n), \quad n \in \mathbb{N}^+
+    \end{align*}
+    is a function of $(X_1, X_2, \cdots, X_n)$. The following definitions discuss the asymptotic properties of the estimators as $n \to \infty$. \par
+    \begin{definition}
+        The sequence of estimators $\bs{U} = (U_1, U_2, \cdots)$ is \textit{asymptotically unbiased} for $\theta$ if $\bias(U_n) \to 0$ as $n \to \infty$ for all $\theta \in \Theta$, or equivalently, $\mathbb{E}(U_n) \to \theta$ as $n \to \infty$ for all $\theta \in \Theta$. \par
+    \end{definition}
+    \begin{definition}
+        Suppose that $\bs{U} = (U_1, U_2, \cdots)$ and $\bs{V} = (V_1, V_2, \cdots)$ are two sequences of estimators that are asymptotically unbiased for $\theta$. The \textit{asymptotic relative efficiency} of $(V_n)_{n = 1}^\infty$ to $(U_n)_{n = 1}^\infty$ is
+        \begin{align*}
+            \lim_{n \to \infty} \frac{\var(U_n)}{\var(V_n)}
+        \end{align*}
+        assuming that the limit exists. \par
+    \end{definition}
+    As the sample size $n$ increases, we expect the estimators will improve and eventually converge to $\theta$. Estimators that behave in this manner are characterized as the following: \par
+    \begin{definition}
+        The sequence of estimators $\bs{U} = (U_1, U_2, \cdots)$ is \textit{consistent} for $\theta$ if $U_n \to \theta$ as $n \to \infty$ in probability for each $\theta \in \Theta$:
+        \begin{align*}
+            \mathbb{P}(|U_n - \theta| > \epsilon) \to 0 \text{ as } n \to \infty \text{ for all } \epsilon > 0 \text{ and } \theta \in \Theta.
+        \end{align*}
+    \end{definition}
+    \begin{definition}
+        The sequence of estimators $\bs{U} = (U_1, U_2, \cdots)$ is \textit{mean-square consistent} for $\theta$ if $\mse(U_n) \to 0$ as $n \to \infty$ for all $\theta \in \Theta$.
+    \end{definition}
+    This is the statistical version of the theorem that states that mean-square convergence implies convergence in probability.
+    \begin{theorem}
+        If $\bs{U} = (U_1, U_2, \cdots, U_n)$ is a mean-square consistent sequence of estimators of $\theta$ and $\mathbb{E}(U_n^2)$ exists, then $\bs{U}$ is consistent for $\theta$.
+        \begin{proof}
+            From Markov's inequality,
+            \begin{align*}
+                \mathbb{P}(|U_n - \theta| > \epsilon) = \mathbb{P} \left[ (U_n - \theta)^2 > \epsilon^2 \right] \leq \frac{\mathbb{E} \left[ (U_n - \theta)^2 \right]}{\epsilon^2} = \frac{\mse(U_n)}{\epsilon^2}
+            \end{align*}
+            which approaches $0$ as $n \to \infty$.
+        \end{proof}
+    \end{theorem}
+
+    \subsection*{Estimation in the Univariate Model}
+    Suppose that $X$ is a real-valued random variable for an experiment with finite mean $\mu$ and variance $\sigma^2$. Sampling from the distribution of $X$ produces a sequence $\bs{X} = (X_1, X_2, \cdots)$ of independent random variables, each of which has the distribution of $X$. For all $n \in \mathbb{N}^+$, $(X_1, X_2, \cdots, X_n)$ is a random sample of size $n$ from the distribution of $X$. \par
+
+    \subsubsection*{Estimating the Mean}
+    A natural estimator of $\mu$ is given by the following definition.
+    \begin{definition}
+        The \textit{sample mean} of $\bs{X}$ is given by
+        \begin{align*}
+            M_n = \frac{1}{n} \sum_{i = 1}^n X_i.
+        \end{align*}
+    \end{definition}
+    \begin{theorem}
+        The sample mean $M_n$ satisfies the following properties:
+        \begin{enumerate}[label=\alph*.]
+            \item
+                $\mathbb{E}(M_n) = \mu$ so $M_n$ is an unbiased estimator of $\mu$.
+            \item
+                $\var(M_n) = \sigma^2 / n$, which implies that $M_n$ is a mean-square consistent estimator of $\mu$.
+        \end{enumerate}
+        \begin{proof}
+            Expectation is linear:
+            \begin{align*}
+                \mathbb{E}(M_n) &= \mathbb{E} \left( \frac{1}{n} \sum_{i = 1}^n X_i \right) = \frac{1}{n} \sum_{i = 1}^n \mathbb{E}(X_i) = \frac{1}{n} (n \mu) = \mu.
+            \end{align*}
+            To find the variance, we rely on the fact that the $X_i$ are independent:
+            \begin{align*}
+                \var(M_n) &= \mathbb{E} \left( (M_n - \mu)^2 \right) \\
+                &= \mathbb{E} \left[ \left( \frac{1}{n} \sum_{i = 1}^n X_i - \mu \right)^2 \right] \\
+                &= \mathbb{E} \left( \left[ \sum_{i = 1}^n \left( \frac{X_i}{n} - \frac{\mu}{n} \right) \right]^2 \right) \\
+                &= \frac{1}{n^2} \mathbb{E} \left[ \sum_{i = 1}^n \sum_{j = 1}^n (X_i - \mu)(X_j - \mu) \right] \\
+                &= \frac{1}{n^2} \sum_{i = 1}^n \mathbb{E} \left[ (X_i - \mu)^2 \right] \\
+                &= \frac{1}{n^2} (n \sigma^2) \\
+                &= \frac{\sigma^2}{n} \to 0 \text{ as } n \to \infty
+            \end{align*}
+            From Proposition 1, we have that $\mse(M_n) = \var(M_n)$ and so $M_n$ is mean-square consistent.
+        \end{proof}
+    \end{theorem}
+    The consistency of the sample mean $M_n$ is actually a restatement of the weak law of large numbers. Some important special cases of the sample mean are given below.
+    \begin{definition}
+        Suppose that $X = \mathbf{1}_A$, the indicator variable for an event $A$ that has probability $\mathbb{P}(A)$. Then the sample mean for a random sample of size $n$ from the distribution of $X$ is the \textit{relative frequency} or \textit{empirical probability} of $A$, denoted $P_n(A)$. $P_n(A)$ gives an unbiased and mean-square consistent estimator of $\mathbb{P}(A)$.
+    \end{definition}
+    \begin{definition}
+        Suppose that $F$ denotes the cumulative distribution function of a real-valued random variable $Y$. Then for fixed $y \in \mathbb{R}$, the \textit{empirical distribution function} $F_n(y)$ is given by the sample mean for a random sample of size $n$ from the distribution of the indicator variable $X = \mathbf{1}(Y \leq y)$. $F_n(y)$ gives an unbiased and mean-square consistent estimator of $F(y)$.
+    \end{definition}
+    \begin{definition}
+        Suppose that $U$ is a random variable with discrete distribution on a countable set $S$ and $f$ denotes the probability density function of $U$. Then for fixed $u \in S$, the \textit{empirical probability density function} $f_n(u)$ is given by the sample mean for a random sample of size $n$ from the distribution of the indicator variable $X = \mathbf{1}(U = u)$. $f_n(u)$ gives an unbiased and mean-square consistent estimator of $f(u)$.
+    \end{definition}
+
+    \subsubsection*{Estimating the Variance}
+    Let $X$ be a random variable with finite fourth \textit{central moment} $\sigma_4 = \mathbb{E} \left[ (X - \mu)^4 \right]$. The \textit{kurtosis} of $X$ is given by $\sigma_4 / \sigma^4$. If $\mu$ is known, then a natural estimator of $\sigma^2$ is a modified version of the \textit{sample variance} given by
+    \begin{definition}
+        \begin{align*}
+            W_n^2 = \frac{1}{n} \sum_{i = 1}^n (X_i - \mu)^2.
+        \end{align*}
+    \end{definition}
+    \begin{theorem}
+        $W_n^2$ is the sample mean of the random sample $((X_1 - \mu)^2, (X_2 - \mu)^2, \cdots, (X_n - \mu)^2)$ and satisfies the following properties:
+        \begin{enumerate}[label=\alph*.]
+            \item
+                $\mathbb{E}(W_n^2) = \sigma^2$ so $W_n^2$ is an unbiased estimator of $\sigma^2$.
+            \item
+                $\var(W_n^2) = (\sigma_4 - \sigma^4) / n$, which implies that $W_n^2$ is a mean-square consistent estimator of $\sigma^2$.
+        \end{enumerate}
+    \end{theorem}
+    If $\mu$ is unknown, we may instead use another natural estimator of $\sigma^2$ given by the following definition.
+    \begin{definition}
+        The \textit{standard version of the sample variance} is given by
+        \begin{align*}
+            S_n^2 = \frac{1}{n - 1} \sum_{i = 1}^n (X_i - M_n)^2.
+        \end{align*}
+    \end{definition}
+    \begin{theorem}
+        The sample variance $S_n^2$ satisfies the following properties:
+        \begin{enumerate}[label=\alph*.]
+            \item
+                $\mathbb{E}(S_n^2) = \sigma^2$ so $S_n^2$ is an unbiased estimator of $\sigma^2$.
+            \item
+                $\var(S_n^2) = \frac{1}{n} \left( \sigma_4 - \frac{n - 3}{n - 1} \sigma^4 \right)$, which implies that $S_n^2$ is a mean-square consistent estimator of $\sigma^2$.
+        \end{enumerate}
+    \end{theorem}
+    Comparing the estimators $W_n^2$ and $S_n^2$ of $\sigma^2$, we see that both are unbiased but $\var(W_n^2) < \var(S_n^2)$, although the asymptotic relative efficiency of $S_n^2$ to $W_n^2$ is $1$. This means that when $\mu$ is known, it is preferable to use $W_n^2$ as the estimator for $\sigma^2$, although it becomes less important as the sample size $n$ increases. \par
+    The \textit{sample standard deviation} $S_n$ is a natural estimator of the standard deviation $\sigma$. $\mathbb{E}(S_n) \leq \sigma$ so it is negatively biased. For the majority of sampling distributions, there does not exist a statistic $U$ such that $U$ is an unbiased estimator of $\sigma$ and $U^2$ is an unbiased estimator of $\sigma^2$.
+
+    \subsection*{Estimation in the Bivariate Model}
+    Suppose that $X$ and $Y$ are real-valued random variables for an experiment, so that $(X, Y)$ has a bivariate distribution in $\mathbb{R}^2$. Let $\mu = \mathbb{E}(X)$, $\sigma^2 = \var(X)$, $\nu = \mathbb{E}(Y)$, $\tau^2 = \var(Y)$, $\delta = \cov(X, Y) = \mathbb{E}[(X - \mu)(Y - \nu)]$, and $\delta_2 = \mathbb{E} \left[ (X - \mu)^2 (Y - \nu)^2 \right]$.
+
+    \subsubsection*{Estimating the Covariance}
+    If $\mu$ and $\nu$ are known, then a natural estimator of the covariance $\delta$ is a modified version of the \textit{sample covariance} given by
+    \begin{definition}
+        \begin{align*}
+            W_n = W(\bs{X}_n, \bs{Y}_n) = \frac{1}{n} \sum_{i = 1}^n (X_i - \mu)(Y_i - \nu).
+        \end{align*}
+    \end{definition}
+    \begin{theorem}
+        $W_n$ is the sample mean of the random sample $((X_1 - \mu)(Y_1 - \nu), (X_2 - \mu)(Y_2 - \nu), \cdots, (X_n - \mu)(Y_n - \nu))$ and satisfies the following properties:
+        \begin{enumerate}[label=\alph*.]
+            \item
+                $\mathbb{E}(W_n) = \delta$ so $W_n$ is an unbiased estimator of $\delta$.
+            \item
+                $\var(W_n) = (\delta_2 - \delta^2) / n$, which implies that $W_n$ is a mean-square consistent estimator of $\delta$.
+        \end{enumerate}
+    \end{theorem}
+    If $\mu$ and $\nu$ are unknown, we may instead use another natural estimator of $\delta$ given by the following definition.
+    \begin{definition}
+        The \textit{standard version of the sample covariance} is given by
+        \begin{align*}
+            S_n = S(\bs{X}_n, \bs{Y}_n) = \frac{1}{n - 1} \sum_{i = 1}^n [X_i - M_n(\bs{X}_n)][Y_i - M_n(\bs{Y}_n)].
+        \end{align*}
+    \end{definition}
+    \begin{theorem}
+        The sample covariance $S_n$ satisfies the following properties:
+        \begin{enumerate}[label=\alph*.]
+            \item
+                $\mathbb{E}(S_n) = \delta$ so $S_n$ is an unbiased estimator of $\delta$.
+            \item
+                $\var(S_n) = \frac{1}{n} \left( \delta_2 + \frac{1}{n - 1} \sigma^2 \tau^2 - \frac{n - 2}{n - 1} \delta^2 \right)$, which implies that $S_n$ is a mean-square consistent estimator of $\delta$.
+        \end{enumerate}
+    \end{theorem}
+    Comparing the estimators $W_n$ and $S_n$ of $\delta$, we see that both are unbiased but $\var(W_n) < \var(S_n)$, although the asymptotic relative efficiency of $S_n$ to $W_n$ is $1$. This means that when $\mu$ and $\nu$ are known, it is preferable to use $W_n$ as the estimator for $\delta$, although it becomes less important as the sample size $n$ increases. \par
+
+    \subsubsection*{Estimating the Correlation}
+    A natural estimator of the correlation $\rho = \cor(X, Y)$ is given by the following definition.
+    \begin{definition}
+        The \textit{sample correlation} of $\bs{X}$ and $\bs{Y}$ is given by
+        \begin{align*}
+            R(\bs{X}, \bs{Y}) = \frac{S(\bs{X}, \bs{Y})}{S(\bs{X}) S(\bs{Y})}
+        \end{align*}
+    \end{definition}
+    However, $R$ is a nonlinear function of the sample covariance and sample standard deviations, which means that it is not possible to compute the bias or mean square error of this estimator for most distributions of $(X, Y)$. On the other hand, $R$ is consistent because an application of the law of large numbers shows that $R \to \rho$ as $n \to \infty$ in probability.
+
+\section{The Method of Moments}
+    Suppose that we have a basic random experiment with an observable, real-valued random variable $X$ whose distribution has $k$ unknown parameters given by a parameter vector $\bs{\theta} = (\theta_1, \theta_2, \cdots, \theta_k)$ taking values in a parameter space $\Theta$. Then suppose that the experiment is repeated $n$ times to generate a random sample $\bs{X} = (X_1, X_2, \cdots, X_n)$. The \textit{method of moments} is a procedure for constructing estimators of the parameters that is based on matching the \textit{sample moments} with the corresponding \textit{distribution moments}. First, let
+    \begin{align*}
+        \mu_j(\bs{\theta}) = \mathbb{E}_{\bs{\theta}} \left( X^j \right), \quad j \in \{ 1, 2, \cdots, k \}
+    \end{align*}
+    so that $\mu_j(\bs{\theta})$ is the $j$th moment of $X$ about $0$. Note that $\mu_1(\bs{\theta}) = \mu$. Also, let
+    \begin{align*}
+        M_j(\bs{X}) = \frac{1}{n} \sum_{i = 1}^n X_i^j, \quad j \in \{ 1, 2, \cdots, k \}
+    \end{align*}
+    so that $M_j(\bs{X})$ is the $j$th sample moment about $0$. Equivalently, $M_j(\bs{X})$ is the sample mean for the random sample $\left( X_1^j, X_2^j, \cdots, X_n^j \right)$ from the distribution of $X_j$. Note that $M_1(\bs{X})$ is the sample mean, which will be denoted by $M$.
+    Recall that $M_j(\bs(X))$ is an unbiased and consistent estimator of $\mu_j(\bs{\theta})$ for each $j$. Then the estimators $(W_1, W_2, \cdots, W_k)$ can be constructed respectively from the parameters $(\theta_1, \theta_2, \cdots, \theta_k)$ by solving the set of simultaneous equations
+    \begin{align*}
+        \mu_j (W_1, W_2, \cdots, W_k) = M_j (X_1, X_2, \cdots, X_n), \quad j \in \{1, 2, \cdots, k\}
+    \end{align*}
+    for $(W_1, W_2, \cdots, W_k)$ in terms of $(M_1, M_2, \cdots, M_k)$ if the solution exists. \par
+
+    \subsection{Estimates for the Mean and Variance}
+    \begin{theorem}
+        Suppose that $\bs{X} = (X_1, X_2, \cdots, X_n)$ is a random sample of size $n$ from the distribution of a random variable $X$ with unknown mean $\mu$ and variance $\sigma^2$. The methods of moments estimators for $\mu$ and $\sigma^2$ are, respectively,
+        \begin{align*}
+            M &= \frac{1}{n} \sum_{i = 1}^n X_i \\
+            T^2 &= \frac{1}{n} \sum_{i = 1}^n (X_i - M)^2.
+        \end{align*}
+        \begin{proof}
+            The first part is given by the definition of method of moments estimator. Also, $\sigma^2 = \mu_2 - \mu^2$ and hence the method of moments estimator of $\sigma^2$ is $T^2 = M_2 - M^2$, which simplifies to the result above.
+        \end{proof}
+    \end{theorem}
+    Also, $T^2 = \frac{n - 1}{n} S^2$ where $S^2$ is the sample variance, which is unbiased and consistent. Thus $S^2$ and $T^2$ are multiples of one another. \par
+    \begin{theorem}
+        $\bias \left( T^2 \right) = -\sigma^2 / n$.
+        \begin{proof}
+            $\mathbb{E} \left( T^2 \right) = \frac{n - 1}{n} \mathbb{E} \left( S^2 \right) = \frac{n - 1}{n} \sigma^2$ so $\bias \left( T^2 \right) = \frac{n - 1}{n} \sigma^2 - \sigma^2 = -\frac{\sigma^2}{n}$.
+        \end{proof}
+    \end{theorem}
+    As a result of the previous theorem, $T^2$ is negatively biased and asymptotically unbiased. \par
+    \begin{theorem}
+        $\mse \left( T^2 \right) = \frac{(n - 1)^2}{n^3} \left( \sigma_4 - \frac{n - 3}{n - 1} \sigma^4 \right) + \frac{\sigma^4}{n^2}$.
+        \begin{proof}
+            $\mse \left( T^2 \right) = \var \left( T^2 \right) + \bias^2 \left( T^2 \right)$ and $\var \left( T^2 \right) = \left( \frac{n - 1}{n} \right)^2 \var \left( S^2 \right)$. Then substituting $\var \left( S^2 \right)$ and $\bias \left( T^2 \right)$ gives the above result.
+        \end{proof}
+    \end{theorem}
+    As a result of the previous theorem, $T^2$ is consistent and the asymptotic relative efficiency of $T^2$ to $S^2$ is $1$. \par
+    Another natural estimator of $\sigma^2$ is
+    \begin{align*}
+        W^2 = \frac{1}{n} \sum_{i = 1}^n (X_i - \mu)^2,
+    \end{align*}
+    which is also unbiased and consistent, with $\var \left( W^2 \right) = \left( \sigma_4 - \sigma^4 \right) / n$. The advantages of using $T^2$ over $S^2$ and $W^2$ as the estimator lies in the fact that it has smaller mean square error for sampling distributions such as the normal distribution.
+
+\section{Maximum Likelihood}
+    Suppose that we have an observable random variable $\bs{X}$ with image $S$ for an experiment, and that the distribution of $\bs{X}$ depends on an unknown parameter $\theta$ which takes values in the parameter space $\Theta$. Let $f_\theta$ denote the probability density function of $X$ on $S$ for $\theta \in \Theta$.
+    \begin{definition}
+        The \textit{likelihood function} $L$ is the function obtained by reversing the roles of $\bs{x}$ and $\theta$ in the probability density function, or
+        \begin{align*}
+            L_x(\theta) = f_\theta(\bs{x}); \quad \theta \in \Theta, \bs{x} \in S.
+        \end{align*}
+    \end{definition}
+    The method of maximum likelihood refers to finding a value $u(\bs{X})$ of the parameter $\theta$ that maximizes $L_{\bs{x}}(\theta)$ for each $\bs{x} \in S$.
+    \begin{definition}
+        If maximum likelihood can be achieved on $S$ in terms of $\theta$, then the statistic $u(\bs{X})$ is the \textit{maximum likelihood estimator} of $\theta$.
+    \end{definition}
+    \begin{definition}
+        The \textit{log likelihood function} of $\theta$ is given by
+        \begin{align*}
+            \ln[L_{\bs{x}}(\theta)].
+        \end{align*}
+    \end{definition}
+
+    \subsection{Vector of Parameters}
+    Note that because the natural logarithm function is strictly increasing on $(0, \infty)$, the maximum value of the likelihood function, if it exists, occurs at the same points as the maximum value of log likelihood function. \par
+    An important special case is when $\bs{\theta} = (\theta_1, \theta_2, \cdots, \theta_k)$ is a vector of $k$ real parameters, so that $\Theta \subset \mathbb{R}^k$. The likelihood function $L_{\bs{x}}$ becomes a function of several variables. If $\Theta$ is a set that is not discrete, then the point at which a local maximum of $L_{\bs{x}}$ occurs is where
+    \begin{align*}
+        \frac{\partial}{\partial \theta_i} L_{\bs{x}}(\bs{\theta}) = 0, \quad i \in \{1, 2, \cdots, k\}
+    \end{align*}
+    or, equivalently,
+    \begin{align*}
+        \frac{\partial}{\partial \theta_i} \ln[L_{\bs{x}}(\bs{\theta})] = 0, \quad i \in \{1, 2, \cdots, k\}.
+    \end{align*}
+    The maximum value may also occur at a boundary point of $\Theta$, or not exist at all. \par
+
+    \subsection{Random Samples}
+    Now consider the case where the outcome variable $\bs{X} = (X_1, X_2, \cdots, X_n)$ is a random sample of size $n$ from the distribution of a random variable $X$ taking values in $R$, with probability density function $g_\theta$ for $\theta \in \Theta$. Then $\bs{X}$ takes values in $S = R^n$, and the joint probability density function of $\bs{X}$ is the product of the marginal probability density functions. Then the likelihood function becomes
+    \begin{align*}
+        L_{\bs{x}}(\theta) = \prod_{i = 1}^n g_\theta(x_i); \quad \bs{x} = (x_1, x_2, \cdots, x_n) \in S, \theta \in \Theta
+    \end{align*}
+    and hence the log likelihood function becomes
+    \begin{align*}
+        \ln[L_{\bs{x}}(\theta)] = \sum_{i = 1}^n \ln[g_\theta(x_i)]; \quad \bs{x} = (x_1, x_2, \cdots, x_n) \in S, \theta \in \Theta.
+    \end{align*}
+
+    \subsection{The Invariance Property}
+    Suppose that $h$ is a one-to-one function such that $h : \Theta \to \Lambda$. $\lambda = h(\theta)$ can be seen as a new parameter taking values in $\Lambda$, and the probability density function can be parameterized in terms of $\lambda$. Following these observations, define a new function
+    \begin{align*}
+        \overline{f}_\lambda(\bs{x}) = f_{h^{-1}(\lambda)}(\bs{x}), \quad \bs{x} \in S, \lambda \in \Lambda.
+    \end{align*}
+    The corresponding likelihood function is
+    \begin{align*}
+        \overline{L}_{\bs{x}}(\lambda) = L_{\bs{x}} \left[ h^{-1}(\lambda) \right], \quad \lambda \in \Lambda, \bs{x} \in S.
+    \end{align*}
+    \begin{theorem}
+        Suppose that $u(\bs{x}) \in \Theta$ maximizes $L_{\bs{x}}$ for $\bs{x} \in S$. Then $h[u(\bs{x})] \in \Lambda$ maximizes $\overline{L}_{\bs{x}}$ for $\bs{x} \in S$. It follows that if $U$ is a maximum likelihood estimator for $\theta$, then $V = h(U)$ is a maximum likelihood estimator for $\lambda = h(\theta)$. This result is known as the \textit{invariance property}.
+    \end{theorem}
+    If the function $h$ is not one-to-one, then the maximum likelihood problem for $\lambda = h(\theta)$ can be generalized by defining
+    \begin{align*}
+        \overline{L}_{\bs{x}}(\lambda) = \max\{ L_{\bs{x}}(\theta) : \theta \in \Theta, h(\theta) = \lambda \}; \quad \lambda \in \Lambda, \bs{x} \in S.
+    \end{align*}
+    Because the theorem still holds in this case, the invariance property can be extended to transformations of $\theta$ that are not one-to-one.
+
+\section{Best Unbiased Estimators}
+    Returning to the basic statistical model, suppose that $\lambda = \lambda(\theta)$ is a parameter derived from $\theta$. We will now consider the general problem of finding the best estimator of $\lambda$ among a given class of unbiased estimators. We will use the mean square error as our measure of the quality of unbiased estimators.
+    \begin{definition}
+        Suppose that $U$ and $V$ are unbiased estimators of $\lambda$.
+        \begin{enumerate}[label=\alph*.]
+            \item
+                If $\var_\theta(U) \leq \var_\theta(V)$ for all $\theta \in \Theta$, then $U$ is a \textit{uniformly better} estimator than $V$.
+            \item
+                If $U$ is uniformly better than every other unbiased estimator of $\lambda$, then $U$ is a \textit{Uniformly Minimum Variance Unbiased Estimator (UMVUE)} of $\lambda$.
+        \end{enumerate}
+    \end{definition}
+    It is possible that given two estimators $U$ and $V$, neither estimator is uniformly better than the other. \par
+
+    \subsection*{Random Variables}
+    \begin{definition}
+        For $\bs{x} \in S$ and $\theta \in \Theta$, the \textit{score} is given by
+        \begin{align*}
+            L_1(\bs{x}, \theta) = \frac{d}{d\theta} \ln (f_\theta(\bs{x})).
+        \end{align*}
+        Also, define
+        \begin{align*}
+            L_2(\bs{x}, \theta) = -\frac{d}{d\theta} L_1(\bs{x}, \theta) = -\frac{d^2}{d\theta^2} \ln(f_\theta(\bs{x})).
+        \end{align*}
+    \end{definition}
+    We will now consider statistics $h(\bs{X})$ where $h : S \to \mathbb{R}$ (so $h$ does not depend on $\theta$) and $\mathbb{E}_\theta \left( h^2(\bs{X}) \right) < \infty$ for $\theta \in \Theta$. We will also make the \textit{fundamental assumption} that
+    \begin{align}
+        \frac{d}{d\theta} \mathbb{E}_\theta(h(\bs{X})) = \mathbb{E}(h(\bs{X}) L_1(\bs{X}, \theta)).
+    \end{align}
+    \begin{theorem}
+        The fundamental assumption is equivalent to the assumption that the derivative operator $d/d\theta$ can be interchanged with the expected value operator $\mathbb{E}(\theta)$.
+        \begin{proof}
+            From the definition of expectation, the left hand side is given by
+            \begin{align*}
+                \frac{d}{d\theta} \mathbb{E}(h(\bs{X})) = \frac{d}{d\theta} \int_S h(\bs{x}) f_\theta(\bs{x}) d\bs{x}.
+            \end{align*}
+            and the right hand side is given by
+            \begin{align*}
+                \mathbb{E}(h(\bs{X}) L_1(\bs{X}, \theta)) &= \mathbb{E}_\theta \left( h(\bs{X}) \frac{d}{d\theta} \ln[f_\theta(\bs{X})] \right) \\
+                &= \int_S h(\bs{x}) \frac{d}{d\theta} \ln[f_\theta(\bs{x})] f_\theta(\bs{x}) d\bs{x} \\
+                &= \int_S h(\bs{x}) \frac{\frac{d}{d\theta} f_\theta(\bs{x})}{f_\theta(\bs{x})} f_\theta(\bs{x}) d\bs{x} \\
+                &= \int_S h(\bs{x}) \frac{d}{d\theta} f_\theta(\bs{x}) d\bs{x} \\
+                &= \int_S \frac{d}{d\theta} h(\bs{x}) f_\theta(\bs{x}) d\bs{x}.
+            \end{align*}
+            Thus the two expressions are equivalent if and only if the derivative and integral operators are interchangeable.
+        \end{proof}
+    \end{theorem}
+    Generally, the fundamental assumption will be satisfied if $f_\theta(\bs{x})$ is differentiable as a function of $\theta$, the derivative that is jointly continuous in $\bs{x}$ and $\theta$, and the support set $\{ x \in S : f_\theta(\bs{x}) > 0 \}$ is independent of $\theta$.
+    \begin{theorem}
+        $\mathbb{E}(L_1(\bs{X}, \theta)) = 0 \text{ for all } \theta \in \Theta$.
+        \begin{proof}
+            This follows from the fundamental assumption for $h(\bs{x}) = 1$.
+        \end{proof}
+    \end{theorem}
+    \begin{theorem}
+        If $h(\bs{X})$ is a statistic, then for all $\theta \in \Theta$,
+        \begin{align*}
+            \cov_\theta[h(\bs{X}), L_1(\bs{X}, \theta)] = \frac{d}{d\theta} \mathbb{E}_\theta[h(\bs{X})].
+        \end{align*}
+        \begin{proof}
+            Use the definition of covariance, the result of the previous theorem, and the fundamental assumption.
+        \end{proof}
+    \end{theorem}
+    \begin{theorem}
+        $\var_\theta(L_1(\bs{X}, \theta)) = \mathbb{E}_\theta \left( L_1^2 (\bs{X}, \theta) \right)$ for all $\theta \in \Theta$.
+        \begin{proof}
+            This follows from the fact that $\mathbb{E}(L_1(\bs{X}, \theta))^2 = 0$.
+        \end{proof}
+    \end{theorem}
+    \begin{theorem}[Cram\'er-Rao lower bound]
+        If $h(\bs{X})$ is a statistic, then for all $\theta \in \Theta$,
+        \begin{align*}
+            \var_\theta[h(\bs{X})] \geq \frac{\left( \frac{d}{d\theta} \mathbb{E}_\theta[h(\bs{X})] \right)^2}{\mathbb{E}_\theta \left[ L_1^2(\bs{X}, \theta) \right]}
+        \end{align*}
+        \begin{proof}
+            The Cauchy-Schwarz inequality is given by
+            \begin{align*}
+                \cov_\theta^2[h(\bs{X}), L_1(\bs{X}, \theta)] \leq \var_\theta[h(\bs{X})] \var_\theta[L_1(\bs{X}, \theta)]
+            \end{align*}
+            Now substitute the results from the previous two theorems.
+        \end{proof}
+        \begin{corollary}
+            Suppose that $\lambda(\theta)$ is a parameter and $h(\bs{X})$ is an unbiased estimator of $\lambda$. Then
+            \begin{align*}
+                \var_\theta[h(\bs{X})] \geq \frac{\left( \frac{d\lambda}{d\theta} \right)^2}{\mathbb{E}_\theta \left[ L_1^2(\bs{X}, \theta) \right]}.
+            \end{align*}
+            since $\mathbb{E}_\theta(h(\bs{X})) = \lambda$ for all $\theta \in \Theta$.
+        \end{corollary}
+    \end{theorem}
+    \begin{theorem}
+        Equality holds in the previous theorem, and hence $h(\bs{X})$ is an UMVUE, if and only if there exists a function $u(\theta)$ such that
+        \begin{align*}
+            h(\bs{X}) = \lambda(\theta) + u(\theta) L_1 (\bs{X}, \theta).
+        \end{align*}
+        \begin{proof}
+            This follows from the property of the Cauchy-Schwarz inequality that the equality condition is met if and only if the random variables are linear transformations of one another.
+        \end{proof}
+    \end{theorem}
+    \begin{definition}
+        The \textit{Fisher information number} of $\bs{X}$ is given by
+        \begin{align*}
+            \mathbb{E}_\theta \left[ L_1^2(\bs{X}, \theta) \right].
+        \end{align*}
+    \end{definition}
+    \begin{theorem}
+        If the appropriate derivatives exist and the appropriate interchanges are allowed, then the Fisher information number can also be written as
+        \begin{align*}
+            \mathbb{E}_\theta \left[ L_1^2(\bs{X}, \theta) \right] = \mathbb{E}_\theta \left[ L_2(\bs{X}, \theta) \right].
+        \end{align*}
+    \end{theorem}
+    Substituting into the Cram\'er-Rao lower bound gives
+    \begin{align*}
+        \var_\theta[h(\bs{X})] \geq \frac{\left( \frac{d\lambda}{d\theta} \right)^2}{\mathbb{E}_\theta \left[ L_2(\bs{X}, \theta) \right]}.
+    \end{align*}
+
+    \subsection*{Random Samples}
+    Now suppose that $\bs{X} = (X_1, X_2, \cdots, X_n)$ is a random sample of size $n$ from the distribution of a random variable $X$ having probability density function $g_\theta$ and taking values in a set $R$, so that $S = R^n$.
+    \begin{definition}
+        For $x \in R$ and $\theta \in \Theta$, define
+        \begin{align*}
+            l_1(x, \theta) &= \frac{d}{d\theta} \ln[g_\theta(x)] \\
+            l_2(x, \theta) &= -\frac{d^2}{d\theta^2} \ln[g_\theta(x)].
+        \end{align*}
+    \end{definition}
+    \begin{remark}
+        $L_1^2$ can be written in terms of $l_1^2$ and $L_2$ can be written in terms of $l_2$:
+        \begin{enumerate}[label=\alph*.]
+            \item
+                $\mathbb{E}_\theta \left[ L_1^2(\bs{X}, \theta) \right] = n \mathbb{E}_\theta \left[ l_1^2(X, \theta) \right]$
+            \item
+                $\mathbb{E}_\theta \left[ L_2(\bs{X}, \theta) \right] = n \mathbb{E}_\theta \left[ l_2(X, \theta) \right]$
+        \end{enumerate}
+    \end{remark}
+    The Cram\'er-Rao lower bound on the variance of a statistic is then characterized for random samples as follows.
+    \begin{theorem}
+        If $\bs{X}$ is a random sample of size $n$ and $h(\bs{X})$ is a statistic, then the general Cram\'er-Rao lower bound is given by
+        \begin{align*}
+            \var_\theta[h(\bs{X})] \geq \frac{\left( \frac{d}{d\theta} \mathbb{E}_\theta[h(\bs{X})] \right)^2}{n \mathbb{E}_\theta \left[ l_1^2(\bs{X}, \theta) \right]}
+        \end{align*}
+        For an unbiased estimator $h(\bs{X})$, we have
+        \begin{align*}
+            \var_\theta[h(\bs{X})] &\geq \frac{\left( \frac{d\lambda}{d\theta} \right)^2}{n \mathbb{E}_\theta \left[ l_1^2(\bs{X}, \theta) \right]} \\
+            \var_\theta[h(\bs{X})] &\geq \frac{\left( \frac{d\lambda}{d\theta} \right)^2}{n \mathbb{E}_\theta \left[ l_2(\bs{X}, \theta) \right]}.
+        \end{align*}
+    \end{theorem}
+\end{document}

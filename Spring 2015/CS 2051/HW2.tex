@@ -1,0 +1,82 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{CS 2051 - HW2 Solutions}
+
+\begin{enumerate}
+
+\item By definition, $h(n)=\Theta(f(n) + g(n))$ iff $\exists$ positive real constants $c_1$ and $c_2$ with $c_1 \leq c_2$ and a positive integer $n_0$ such that
+\[ c_1(f(n) + g(n)) \leq h(n) \leq c_2(f(n) + g(n)) \; \forall \; n \geq n_0. \]
+Since $\lim_{n \to \infty} (f(n) + g(n)) = \max(f(n), g(n))$, $\exists$ some $n_0$ for which
+\[ c_1(f(n) + g(n)) \leq \max(f(n), g(n)) \leq c_2(f(n) + g(n)) \; \forall \; n \geq n_0. \]
+By comparing the expressions above, it can be seen that $h(n) = \max(f(n), g(n))$. Then by substitution, $\max(f(n), g(n))=\Theta(f(n) + g(n))$.
+
+\item 
+\begin{align*}
+\Omega(g(n, m)) = \; &\{f(n, m) : \exists \mbox{ positive constants }c, n_0, m_0 \mbox{ s.t. } \\
+&0 \leq c \cdot g(n, m) \leq f(n, m) \; \forall \; n \geq n_0, m \geq m_0\}
+\end{align*}
+\begin{align*}
+o(g(n, m)) = \; &\{f(n, m) : \forall \mbox{ positive constants }c, \exists \mbox{ positive constants } n_0, m_0 \mbox{ s.t. } \\
+&0 \leq f(n, m) < c \cdot g(n, m) \; \forall \; n \geq n_0, m \geq m_0\}
+\end{align*}
+
+\item \textbf{Reflexive property:}
+\begin{gather*}
+c_1 \cdot g(n) \leq g(n) \leq c_2 \cdot g(n) \;\; \forall \;\; 0 < c_1 \leq 1, 1 \leq c_2 < \infty \\
+\Rightarrow g(n) = \Theta(g(n))
+\end{gather*}
+\textbf{Symmetric property:} \par
+Let $f(n) = \Theta(g(n))$. Then $c_1 \cdot g(n) \leq f(n) \leq c_2 \cdot g(n)$ for some positive constants $c_1$, $c_2$ with $c_1 \leq c_2$. By definition, $g(n) = \Theta(f(n))$ if there exist positive constants $c_3, c_4, n_0$ such that
+\[ c_3 \cdot f(n) \leq g(n) \leq c_4 \cdot f(n)\; \forall \; n \geq n_0. \]
+If $c_3$ is chosen to be equal to $1/c_2$ and $c_4$ is chosen to be equal to $1/c_1$, then the above statement is always true, which proves the symmetric property. \par
+\textbf{Transitive property:} \par
+Let $f(n) = \Theta(g(n))$ and $g(n) = \Theta(h(n))$. Then $c_1 \cdot g(n) \leq f(n) \leq c_2 \cdot g(n)$ and $c_3 \cdot h(n) \leq g(n) \leq c_4 \cdot h(n)$ for some positive constants $c_1$, $c_2$, $c_3$, $c_4$ with $c_1 \leq c_2$, $c_3 \leq c_4$. It necessarily follows from these inequalities that
+\[ c_1c_3 \cdot h(n) \leq f(n) \leq c_2c_4 \cdot h(n), \]
+which fulfills the condition for $f(n) = \Theta(h(n))$.
+
+\item
+(a) Using properties of exponentiation and the fact that quantities in square roots become insignificant when compared to quantities with exponents greater than 1 for large $N$:
+\begin{align*}
+\frac{1}{N}\ln\dbinom{N}{\alpha N} &\sim \frac{1}{N}\ln\frac{N!}{(\alpha N)![(1 - \alpha)N]!} \\
+&\sim \frac{1}{N}\ln\left(\frac{\sqrt{2\pi N}\left(\frac{N}{e}\right)^N}{\sqrt{2\pi \alpha N}\left(\frac{\alpha N}{e}\right)^{\alpha  N}\sqrt{2\pi(1-\alpha)N}\left(\frac{(1-\alpha)N}{e}\right)^{(1-\alpha)N}}\right) \\
+&\sim \frac{1}{N}\ln\left(\frac{\left(\frac{N}{e}\right)^N}{\left(\frac{\alpha N}{e}\right)^{\alpha N}\left(\frac{(1-\alpha)N}{e}\right)^{(1-\alpha)N}}\right) \\
+&\sim \frac{1}{N}\ln\left(\frac{N^Ne^{\alpha N}e^{(1-\alpha)N}}{e^N\alpha^{\alpha N}N^{\alpha N}(1-\alpha)^{(1-\alpha)N}N^{(1-\alpha)N}}\right) \\
+&\sim -\frac{1}{N}\ln\left(\alpha^{\alpha N}(1-\alpha)^{(1-\alpha)N}\right) \\
+&\sim -\frac{1}{N}\left(\alpha N \ln\alpha + [(1-\alpha)N] \ln(1-\alpha)\right) \\
+&\sim -(\alpha\ln\alpha + (1-\alpha)\ln(1-\alpha))
+\end{align*}
+(b)
+\[ \frac{N!}{(N-M)!} = \prod_{k=0}^{M-1} \left(N-k\right) \]
+For large $N$, $k$ becomes insignificant because $M$ is fixed. $N!/(N-M)!$ becomes
+\[ \prod_{k=0}^{M-1} N\ = N^M.\]
+Then
+\[ \dbinom{N}{M} = \frac{N!}{M!(N-M)!} = \frac{N^M}{M!} \]
+
+\item For the case in which $\epsilon < 0$, first make the substitution for $\dbinom{n}{k}$ to produce the following inequality for $f(k)$:
+\begin{align*}
+f(k) &\geq \frac{\left(\frac{n}{k}\right)^k}{2^{\binom{k}{2}}} \\
+&= \frac{\left(\frac{n}{k}\right)^k}{2^{k(k-1)/2}} \\
+&= \left(\frac{n}{k2^{(k-1)/2}}\right)^k \\
+&= \left(\frac{n\sqrt{2}}{(2+\epsilon)\log_2n2^{((2+\epsilon)\log_2n)/2}}\right)^{(2+\epsilon)\log_2n} \\
+&= \left(\frac{n\sqrt{2}}{(2+\epsilon)n^{(2+\epsilon)/2}\log_2n}\right)^{(2+\epsilon)\log_2n} \\
+&= \left(\frac{\sqrt{2}n^{-\epsilon/2}}{(2+\epsilon)\log_2n}\right)^{(2+\epsilon)\log_2n}
+\end{align*}
+For large $n$, the $\log_2n$ and constant parts becomes insignificant compared to $n^{-\epsilon/2}$, which has a positive degree for $\epsilon < 0$. Since $k$ and $n$ are both monotonic,
+\[ \lim_{n \to \infty}f(k) \geq \lim_{n \to \infty}n^{-(\epsilon/2)(2+\epsilon)\log_2n} = \lim_{n \to \infty}n^{(-\epsilon-\epsilon^2/2)\log_2n} = \infty. \]
+Therefore, for all positive constants $c$ and $\epsilon < 0$, there exists a positive constant $k_0$ such that $0 \leq c < f(k)$ for all $k \geq k_0$, so $f(k) = \omega(1)$. \par
+In the same way, for $\epsilon > 0$,
+\begin{align*}
+f(k) &\leq \frac{\left(\frac{en}{k}\right)^k}{2^{\binom{k}{2}}} \\
+&= \left(\frac{\sqrt{2}en^{-\epsilon/2}}{(2+\epsilon)\log_2n}\right)^{(2+\epsilon)\log_2n}
+\end{align*}
+and by following the same logic,
+\[ \lim_{n \to \infty}f(k) \leq \lim_{n \to \infty}n^{-(\epsilon/2)(2+\epsilon)\log_2n} = \lim_{n \to \infty}n^{(-\epsilon-\epsilon^2/2)\log_2n} = 0. \]
+Therefore, for all positive constants $c$ and $\epsilon > 0$, there exists a positive constant $k_0$ such that $0 \leq f(k) < c$ for all $k \geq k_0$, so $f(k) = o(1)$.
+
+\end{enumerate}
+
+\end{document}

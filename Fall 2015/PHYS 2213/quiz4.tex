@@ -1,0 +1,45 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsmath, fancyhdr, siunitx}
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{PHYS 2213B - Quiz 4 Corrections}
+
+\begin{enumerate}
+    \setcounter{enumi}{2}
+    \item
+        Because electrons in a conductor follow the Fermi-Dirac distribution, we have
+        \begin{align}
+            n(E) = g(E) F_{\text{FD}},
+        \end{align}
+        and in the limit as $T \to 0$,
+        \begin{align}
+            F_{\text{FD}} = \begin{cases}
+                1 & \text{for } E < E_\text{F} \\
+                0 & \text{for } E > E_\text{F}
+            \end{cases}.
+        \end{align}
+        Then we have in the limit as $T \to 0$ that
+        \begin{align*}
+            \overline{E} &= \frac{1}{N} \int_0^\infty E n(E) dE \\
+            &= \frac{1}{N} \int_0^{E_\text{F}} E g(E) dE \\
+            &= \frac{1}{N} \int_0^{E_\text{F}} \frac{3N}{2} E_\text{F}^{-3/2} E^{3/2} dE \\
+            &= \frac{3}{2} E_\text{F}^{-3/2} \int_0^{E_\text{F}} E^{3/2} dE \\
+            &= \frac{3}{2} E_\text{F}^{-3/2} \left[ \frac{2}{5} E^{5/2} \right]_0^{E_\text{F}} \\
+            &= \frac{3}{5} E_\text{F}.
+        \end{align*}
+        The fraction of electrons with energy $E < \overline{E}$ is given by
+        \begin{align*}
+            \frac{\int_0^{\overline{E}} n(E) dE}{\int_0^\infty n(E) dE} &= \frac{\int_0^{3E_\text{F}/5} g(E) dE}{\int_0^{E_\text{F}} g(E) dE} \\
+            &= \frac{\frac{3N}{2} E_\text{F}^{-3/2} \int_0^{3E_\text{F}/5} E^{1/2} dE}{\frac{3N}{2} E_\text{F}^{-3/2} \int_0^{E_\text{F}} E^{1/2} dE} \\
+            &= \frac{\left[ \frac{2}{3} E^{3/2} \right]_0^{3E_\text{F}/5}}{\left[ \frac{2}{3} E^{3/2} \right]_0^{E_\text{F}}} \\
+            &= \frac{\left( \frac{3}{5} E_\text{F} \right)^{3/2}}{\left( E_\text{F} \right)^{3/2}} \\
+            &= \left( \frac{3}{5} \right)^{3/2}.
+        \end{align*}
+
+\end{enumerate}
+
+\end{document}

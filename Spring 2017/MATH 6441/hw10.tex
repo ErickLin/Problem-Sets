@@ -1,0 +1,57 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, dsfont, enumitem, fancyhdr, graphicx, mathtools}
+\usepackage{tikz-cd}
+\usepackage[margin=1in, includehead, includefoot, heightrounded]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand*\dist{\mathop{\!\mathrm{d}}}
+\DeclareMathOperator{\im}{Im}
+%\let\ker\relax %RedeclareMathOperator
+%\DeclareMathOperator{\ker}{Ker}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Ext}{Ext}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\newcommand{\inc}{\xhookrightarrow{}}
+\newcommand*\sq{\mathbin{\vcenter{\hbox{\rule{.4ex}{.4ex}}}}}
+\newcommand{\iso}{\approx}
+\newcommand{\RP}{\mathbb{R}\mathrm{P}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\begin{document}
+
+\section*{MATH 6441 -- HW10 Solutions}
+\subsection*{Section 3.2}
+\begin{enumerate}
+    %https://www2.math.ethz.ch/education/bachelor/lectures/fs2015/math/alg_topo/sol4.pdf
+    \item[7.]
+        \boldmath\textbf{For a map $f : M \to N$ between connected closed orientable $n$-manifolds with fundamental classes $[M]$ and $[N]$, the \emph{degree} of $f$ is defined to be the integer $d$ such that $f_*([M]) = d[N]$, so the sign of the degree depends on the choice of fundamental classes. Show that for any connected closed orientable $n$-manifold $M$ there is a degree 1 map $M \to S^n$.
+        }\unboldmath \par
+        Let $B \subset M$ be any open ball and $x \in B$. Then the diagram
+        \begin{center}
+            \begin{tikzcd}
+                H_n(M)\arrow{r}\arrow{d} & H_n(M \mid x)\arrow{d} & \arrow{l}H_n(B \mid x)\arrow{d} \\
+                H_n(S^n)\arrow{r} & H_n(M \mid f(x)) & \arrow{l}H_n(f(B) \mid f(x))
+            \end{tikzcd}
+        \end{center}
+        commutes where $f$ induces the vertical maps. The two horizontal maps on the left are isomorphisms by orientability, the two horizontal maps on the right are isomorphisms by excision, and the vertical map on the right is an isomorphism because $f(B)$ is an embedding of $B$ in $N$, so the vertical map on the left is also an isomorphism. We conclude that $f$ sends a fundamental class of $M$ to a fundamental class of $S^n$, and is thus of degree 1.
+
+    %http://math.stanford.edu/~ralph/math215c/solution3.pdf
+    \item[11.]
+        \boldmath\textbf{If $M_g$ denotes the closed orientable surface of genus $g$, show that degree 1 maps $M_g \to M_h$ exist iff $g \geq h$.
+        }\unboldmath \par
+        If $g = h$, then the identity is a degree 1 map, so consider $g > h$. In this case, we can write $M_g = M_h \sharp M_{g - h}$, and define $f : M_g \to M_h$ to be the map that collapses $(M_{g - h} \setminus D^2) \cup \partial D^2$ to a point. If $B \subset M_h$ is an open ball and $x \in B$, then we have the diagram
+        \begin{center}
+            \begin{tikzcd}
+                H_2(M_g \mid x)\arrow[r, "\cong"]\arrow[d, "f_*"] & H_2(B \mid x)\arrow[d, "(f|_B)_*"] \\
+                H_2(M_h \mid x)\arrow[r, "\cong"] & H_2(B \mid x)
+            \end{tikzcd}
+        \end{center}
+        and since $f|_B$ is the identity, $f_*$ is an isomorphism, and so $f$ sends a fundamental class of $M_g$ to a fundamental class of $M_h$ and hence has degree 1. \par
+        If $g < h$, suppose for the purpose of contradiction that there existed a degree 1 map $f : M_h \to M_h$. Then by Exercise 10, there would exist a surjection $f_* : H_1(M_g) \iso \mathbb{Z}^{2g} \to H_1(M_h) \iso \mathbb{Z}^{2h}$, which cannot be the case.
+\end{enumerate}
+\end{document}

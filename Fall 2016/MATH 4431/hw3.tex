@@ -1,0 +1,181 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\begin{document}
+
+\section*{MATH 4431 -- HW3 Solutions}
+\begin{enumerate}
+    \item[2.]
+        \boldmath\textbf{Show that any continuous image of a separable space is separable.
+        }\unboldmath \par
+        Let $X$ be a separable space and $f$ be a continuous function whose domain takes values in $X$. Since $X$ is separable, there exists a countable subset $A$ such that $\overline{A} = X$. The continuity of $f$ implies that $f(X) = f(\overline{A}) \subseteq \overline{f(A)}$, and thus $f(A)$ is dense in $f(X)$. Furthermore, $f(A)$ is countable because its cardinality is at most that of $A$. Because $f(A)$ is a dense, countable subset of $f(X)$, $f(X)$ is separable.
+
+    \item[4.]
+        \boldmath\textbf{A subset $S$ of a topological space $X$ is called a \emph{zero set} if there is a continuous function $f : X \to [0, 1]$ such that $f^{-1}(0) = S$. Prove that:
+        }\unboldmath \par
+        \begin{enumerate}
+            \item
+                \boldmath\textbf{zero sets are closed.
+                }\unboldmath \par
+                Since $[0, 1]$ is a $T_1$ space according to the subspace topology, finite sets, including $\{0\}$, are closed. The inverse map of a closed set by a continuous function is closed, which means that any zero set, which is by definition the inverse map of $\{0\}$ by some continuous function, is closed in particular.
+
+            \item
+                \boldmath\textbf{every closed non-empty subset of a metric space is a zero set.
+                }\unboldmath \par
+                Let $S$ be a closed, non-empty subset of a metric space $(X, d)$. Then the function $f : X \to [0, 1]$ given by
+                \begin{align*}
+                    f(x) = \inf_{s \in S} d(x, s)
+                \end{align*}
+                is zero exactly when $x \in S$. $f$ is also continuous because for all $x, y \in X$ and $s \in S$, by the triangle inequality
+                \begin{align*}
+                    d(x, s) \leq d(x, y) + d(y, s),
+                \end{align*}
+                and noting that the left-hand side is at least $\inf_{s \in S} d(x, s)$, taking $\inf_{s \in S} d(x, s)$ of both sides gives
+                \begin{gather*}
+                    \inf_{s \in S} d(x, s) \leq d(x, y) + \inf_{s \in S} d(y, s) \\
+                    \Rightarrow f(x) - f(y) \leq d(x, y).
+                \end{gather*}
+                Switching the roles of $x$ and $y$ gives $f(y) - f(x) \leq d(x, y)$ instead. In summary,
+                \begin{gather*}
+                    |f(x) - f(y)| \leq d(x, y);
+                \end{gather*}
+                in other words, for any open set $U \subseteq f(X)$ and any $x \in f^{-1}(U)$, since there exists $\epsilon(x) > 0$ such that $B_{\epsilon(x)}(f(x)) \subseteq U$, the inequality shows that the open ball $B_{\epsilon(x)}(x) \subseteq f^{-1}(U)$, and therefore $f^{-1}(U) = \bigcup_{x \in f^{-1}(U)} B_{\epsilon(x)}(x)$ is open.
+
+            \item
+                \boldmath\textbf{if every closed subset of a second countable $T_1$-space $X$ is a zero set, then $X$ is metrizable.
+                }\unboldmath \par
+                Let $S$ be a closed subset of $X$ and $x \in X \setminus S$. Because $S$ is a zero set, there exists a continuous function $f : X \to [0, 1]$ such that $f^{-1}(0) = S$, and $f$ also has the property that $f(x) > 0$ since $x \notin S$. \par
+                Take the interval $[f(x) - \epsilon, 1]$ for some $\epsilon < \min\{ f(x), 1 - f(x) \}$, which is closed in $[0, 1]$ under the subspace topology. Then $[0, 1] \setminus [f(x) - \epsilon, 1] = [0, f(x) - \epsilon)$ is open, implying that
+                \begin{align*}
+                    f^{-1}([0, f(x) - \epsilon)),
+                \end{align*}
+                which contains $S$, is open. Additionally, $(f(x) - \epsilon, f(x) + \epsilon)$ is open under the subspace topology, implying that
+                \begin{align*}
+                    f^{-1}((f(x) - \epsilon, f(x) + \epsilon)),
+                \end{align*}
+                which contains $x$, is open. Thus, $X$ is regular, which is equivalent to metrizability for a second countable space.
+        \end{enumerate}
+
+    \boldmath\textbf{A space $X$ is called \emph{Lindel\"of} if every open cover of $X$ has a countable subcover.
+    }\unboldmath
+    \item[6.]
+        \boldmath\textbf{Show that if $X$ is a second countable space, then $X$ is Lindel\"of.
+        }\unboldmath \par
+        Each set in an open cover of $X$ can be written as a union of basic open sets, and the number of basic open sets is countable in a second countable space. This means if we take a subcover of the open cover such that each set in the subcover contains some basic set not contained in any other set in the subcover, then such a subcover is countable, since it consists of a number of sets at most the number of basic open sets. Lastly, such a subcover exists, because in any subcover we can keep removing the sets that contain no unique basic sets until the above is true.
+
+    \item[7.]
+        \boldmath\textbf{Show that for a metric space $X$, the following are equivalent:
+        \begin{enumerate}[label=(\roman*)]
+            \item
+                $X$ is second countable,
+            \item
+                $X$ is Lindel\"of, and
+            \item
+                $X$ is separable.
+        \end{enumerate}
+        }\unboldmath \par
+        (i) $\Rightarrow$ (ii) is a special case of Problem 6, and (i) $\Leftrightarrow$ (iii) is given by Theorem II.19. We will conclude by proving that (ii) $\Rightarrow$ (i) as follows. \par
+        With $X$ being a metric space, we may define the open covers
+        \begin{align*}
+            \{ B_{1/k}(x) : x \in X \}
+        \end{align*}
+        for all $k \in \mathbb{N}_{> 0}$, a countable number. Each of these has a countable subcover according to the definition of a Lindel\"of space, and the union of these subcovers forms a countable basis for the metric topology on $X$. Therefore, $X$ is second countable.
+
+    \item[10.]
+        \boldmath\textbf{Let $X$ be any Hausdorff space and $X^* = X \cup \{\infty\}$ (where $\infty$ is some point not in $X$) be such that a set $U$ is open in $X^*$ if either it is an open set in $X$ or $U = X^* \setminus K$ where $K$ is a compact set in $X$. The space $X^*$ is called the \emph{one point compactification} of $X$. Show that:
+        }\unboldmath \par
+        \begin{enumerate}
+            \item
+                \boldmath\textbf{we have indeed defined a topology on $X^*$.
+                }\unboldmath \par
+                $\emptyset$ is open in $X$, so it is by definition open in $X^*$ also. $X^* = X^* \setminus \emptyset$ is open because $\emptyset$ is trivially compact. \par%Because compact sets are closed in Hausdorff spaces, the complement in $X$ of any compact set $K$ in $X$ is open in $X$ and hence open in $X^*$, and so we have verified that $X^* \setminus K = X^* \cap (X \setminus K)$ is open in $X^*$. \par
+                We now consider pairwise intersections of open sets in $X^*$, breaking it down into cases: %(for any subset $K$ of $X^*$, we follow the convention $\overline{K} = X^* \setminus K$):
+                \begin{itemize}
+                    \item
+                        If $A$ and $B$ are open in $X$, then $A \cap B$ is open in $X$ also, so it is open in $X^*$.
+                    \item
+                        If $A$ is open in $X$ and $B = X^* \setminus K$ where $K$ is compact, then
+                        \begin{align*}
+                            A \cap B &= (A \cap X) \cap (X^* \setminus K) = A \cap (X \setminus K).
+                        \end{align*}
+                        $K$, being compact in a Hausdorff space, is closed, and hence $X \setminus K$ is open. Overall, then, $A \cap B$ is open.
+                    \item
+                        If $A = X^* \setminus H$ and $B = X^* \setminus K$ where $H$ and $K$ are compact in $X$, then
+                        \begin{align*}
+                            A \cap B &= X^* \setminus (H \cup K).
+                        \end{align*}
+                        $H \cup K$ is compact in $X$, being a union of two compact sets, and thus $A \cap B$ is open.
+                \end{itemize}
+                The following lemma is used as part of the conclusion of this proof:
+                \begin{lemma}
+                    An arbitrary intersection of compact sets in a Hausdorff space is compact.
+                \end{lemma}
+                \begin{proof}
+                    Let $K$ denote the intersection of compact sets. Compact sets in a Hausdorff space are closed, so $K$ is closed. Then $K$ is compact because every open cover $\mathcal{C}$ of the intersection is contained in the open cover $\mathcal{C} \cup \{ K^c \}$ of any of the larger compact sets, and so the latter must have a finite subcover, which is also a finite subcover for $K$.
+                \end{proof}
+                Lastly, we consider arbitrary unions of open sets in $X^*$.
+                \begin{itemize}
+                    \item
+                        If all the open sets are open in $X$, then their union is also open in $X$, so it is open in $X^*$. Note also that any open set $U \subseteq X$ can be written $X^* \setminus (X^* \setminus U)$.
+                    \item
+                        Otherwise, there are open sets of the form $X^* \setminus K$ for $K$ compact in $X$.  But now the union of any open sets can be written as the set difference between $X^*$ and the intersection of the second difference terms (which become $X \setminus U$ if $U$ is open in $X$ because of the intersection with compact sets in $X$) of all the open sets' representations. This intersection is of compact sets and closed sets in $X$, which, because $X$ is Hausdorff, becomes an intersection of compact sets, and this is in turn compact by the above lemma. Therefore, the set difference is between $X^*$ and a compact set, and so the originally described union of open sets is open.
+                \end{itemize}
+
+            \item
+                \boldmath\textbf{$X^*$ is compact, and $X$ is open in $X^*$.
+                }\unboldmath \par
+                Any open cover $\mathcal{C}$ of $X^*$ must have an open set $U$ of the form $X^* \setminus K$, for some $K$ compact in $X$, in order to cover the point $\infty$. Since $\mathcal{C}$ is also an open cover of $K$, it has a finite subcover $\mathcal{C}_K$ of $K$. But then $\{ U \} \cup \mathcal{C}_K$, which is also finite, covers $X^*$. Therefore, $X^*$ is compact. \par
+                $X$ is open in $X$, so it is by definition open in $X^*$ also.
+
+            \item
+                \boldmath\textbf{$X$ is dense in $X^*$ if and only if $X$ is not compact.
+                }\unboldmath \par
+                ($\Rightarrow$) If $X$ is compact, then $X^* \setminus X = \{ \infty \}$ is by definition open in $X^*$, so $\infty$ is not a limit point of $X$ and hence $\overline{X} \neq X^*$. \par
+                ($\Leftarrow$) If $X$ is not compact, then any open set in $X^*$ of the form $X^* \setminus K$, for some $K$ compact in $X$, must contain points in $X$ ($X \setminus K$ to be precise), and these are the only open sets that contain $\infty$. Then $\infty$ is a limit point of $X$, and $\overline{X} = X^*$. \par
+        \end{enumerate}
+
+    \item[12.]
+        \boldmath\textbf{Suppose $X$ is a compact Hausdorff space and $f : X \to Y$ is a quotient map. Show that the following are equivalent:
+            \begin{enumerate}[label=(\roman*)]
+                \item
+                    $Y$ is Hausdorff,
+                \item
+                    $f$ takes closed sets in $X$ to closed sets in $Y$, and
+                \item
+                    the set $\{ (x_1, x_2) \in X \times X \mid f(x_1) = f(x_2) \}$ is closed in $X \times X$.
+            \end{enumerate}
+        }\unboldmath \par
+
+        ((i) $\Rightarrow$ (iii)) Suppose $x_1, x_2 \in X$ with $f(x_1) \neq f(x_2)$. Because $X$ is Hausdorff, $x_1$ and $x_2$ can be separated by open sets $U_{x_1}, U_{x_2} \subset X$ such that $U_{x_1} \cap U_{x_2} = \emptyset$; likewise, $f(x_1)$ and $f(x_2)$ can be separated by open sets $U_{f(x_1)}, U_{f(x_2)} \subset Y$ such that $U_{f(x_1)} \cap U_{f(x_2)} = \emptyset$. Because $f$ is a quotient map, $f^{-1}(U_{f(x_1)})$ and $f^{-1}(U_{f(x_2)})$ are also open in $X$, and they contain $x_1$ and $x_2$ respectively. Thus,
+        \begin{align*}
+            U_{x_1} \cap f^{-1}(U_{f(x_1)}) \text{ and } U_{x_2} \cap f^{-1}(U_{f(x_2)})
+        \end{align*}
+        are disjoint open sets in $X$ separating $x_1$ and $x_2$ whose images are disjoint open sets in $Y$ separating $f(x_1)$ and $f(x_2)$. Their product is open by the product topology. \par
+        Thus, if $S = \{ (x_1, x_2) \in X \times X \mid f(x_1) \neq f(x_2) \}$, then
+        \begin{align*}
+            S = \bigcup_{(x_1, x_2) \in S} [U_{x_1} \cap f^{-1}(U_{f(x_1)})] \times [U_{x_2} \cap f^{-1}(U_{f(x_2)})]
+        \end{align*}
+        is open, and so the complement $\{ (x_1, x_2) \in X \times X \mid f(x_1) = f(x_2) \}$ is closed. \par
+        ((iii) $\Rightarrow$ (ii)) Because a finite product of compact spaces is compact and closed subsets of compact spaces are compact, $R = \{ (x_1, x_2) \in X \times X \mid f(x_1) = f(x_2) \}$ is compact. Let $C \subset X$ be closed, and hence compact. Then $(C \times X) \cap R$ is compact, and so is the projection mapping $\pi_2((C \times X) \cap R)$ since projection maps are continuous, and continuous mappings of compact spaces is compact. But the projection mapping onto the second factor is also given by
+        \begin{align*}
+            \{ x \in X \mid f(x) \in f(C) \} = f^{-1}(f(C)).
+        \end{align*}
+        Being compact in a Hausdorff space $X$, $f^{-1}(f(C))$ is closed. $f^{-1}$ is continuous since $f$ is a quotient map, which implies that $f(C)$ is closed also. \par
+        ((ii) $\Rightarrow$ (i)) Let $y_1, y_2 \in Y$. Since $X$ is Hausdorff, singletons in $X$ are closed, then using the properties of $f$ that it is surjective and maps closed sets to closed sets, singletons in $Y$ are closed also, including $\{y_1\}$ and $\{y_2\}$. Lastly, we have that $f^{-1}(y_1)$ and $f^{-1}(y_2)$ are closed due to the continuity of $f$. \par
+        Being compact and Hausdorff, $X$ is normal, which means there exists open sets $U, V \subset X$ separating $f^{-1}(y_1)$ and $f^{-1}(y_2)$ such that $U \cap V = \emptyset$. Now consider the sets
+        \begin{align*}
+            f(X \setminus f^{-1}(f(X \setminus U))) \text{ and } f(X \setminus f^{-1}(f(X \setminus V))),
+        \end{align*}
+        which are disjoint because they are contained respectively in $U$ and $V$. The former contains $y_1$ (since its argument contains $f^{-1}(y_1)$), and the latter contains $y_2$ (since its argument contains $f^{-1}(y_2)$). Finally, both are open due to $f$ and $f^{-1}$ both taking open sets to open sets and closed sets to closed sets, so we have ensured the separation condition on $y_1$ and $y_2$, and $Y$ is Hausdorff.
+\end{enumerate}
+
+\end{document}

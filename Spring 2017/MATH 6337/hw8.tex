@@ -1,0 +1,207 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr, graphicx}
+\usepackage[margin=1in, includehead, includefoot, heightrounded]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\newcommand*\dist{\mathop{\!\mathrm{d}}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\DeclareMathOperator*{\argmax}{\arg\!\max}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+\DeclareMathOperator*{\vol}{vol}
+\DeclareMathOperator*{\esssup}{ess\,sup}
+\DeclareMathOperator*{\BV}{BV}
+\DeclareMathOperator*{\Lip}{Lip}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\begin{document}
+
+\section*{MATH 6337 -- HW8 Solutions}
+\begin{enumerate}
+    \item[4.1.6.]
+        \boldmath\textbf{Exhibit a continuous function $f : [0, 1] \to \mathbb{R}$ that is differentiable at almost every point and satisfies $f' \geq 0$ a.e., yet is not monotone increasing on $[0, 1]$.
+        }\unboldmath \par
+        Since the Cantor-Lebesgue function $\varphi$ is continuous, differentiable a.e., satisfies $\varphi' = 0$ a.e., and is monotone nondecreasing everywhere, we have that
+        \begin{align*}
+            f = 1 - \varphi
+        \end{align*}
+        is continuous, differentiable a.e., satisfies $f' = 0 - \varphi' = 0$ a.e., and is monotone nonincreasing everywhere.
+
+    \item[4.2.10.]
+        \boldmath\textbf{Given $f : [a, b] \to \mathbb{C}$, prove the following statements.
+        }\unboldmath \par
+        \begin{enumerate}
+            \item
+                \boldmath\textbf{$|f(b) - f(a)| \leq V[f; a, b]$.
+                }\unboldmath \par
+                For any finite partition
+                $\Gamma = \{ a = x_0 < \cdots < x_n = b \}$,
+                we have by the triangle inequality that
+                \begin{align*}
+                    |f(b) - f(a)| \leq \sum_{j = 1}^n |f(x_j) - f(x_{j - 1})| \leq S_\Gamma,
+                \end{align*}
+                so it is also true that
+                \begin{align*}
+                    |f(b) - f(a)| \leq \sup\{ S_\Gamma : \Gamma \text{ is a partition of } [a, b] \} = V[f; a, b].
+                \end{align*}
+            \item
+                \boldmath\textbf{If $\Gamma = \{ a = x_0 < \cdots < x_n = b \}$ is a partition of $[a, b]$ and $\Gamma'$ is a refinement of $\Gamma$, then $S_\Gamma \leq S_{\Gamma'}$.
+                }\unboldmath \par
+                Writing
+                $\Gamma' = \{ a = y_0 < \cdots < y_m = b \}$,
+                we have that for every consecutive pair of points $(x_k, x_{k + 1})$ in $\Gamma$, $x_k = y_{f(k)}$ and $x_{k + 1} = y_{f(k) + l(k)}$ for some $f(k) \geq k$ and $l(k) \geq 1$ with the additional restrictions that $f(0) = 0$ and $f(n - 1) + l(n - 1) = m$. By the triangle inequality,
+                \begin{align*}
+                    |f(x_{k + 1}) - f(x_k)| \leq \sum_{j = f(k) + 1}^{f(k) + l(k)} |f(y_j) - f(y_{j - 1})|,
+                \end{align*}
+                and summing over all $k$ gives
+                \begin{align*}
+                    S_\Gamma %= \sum_{k = 0}^{n - 1} |f(x_{k + 1}) - f(x_k)|
+                    \leq \sum_{k = 0}^{n - 1} \sum_{j = f(k) + 1}^{f(k) + l(k)} |f(y_j) - f(y_{j - 1})| = \sum_{j = 1}^m |f(y_j) - f(y_{j - 1})| = S_{\Gamma'}.
+                \end{align*}
+            \item
+                \boldmath\textbf{If $[c, d] \subseteq [a, b]$, then $V[f; c, d] \leq V[f; a, b]$.
+                }\unboldmath \par
+                Any finite partition
+                $\Gamma = \{ c = x_0 < \cdots < x_n = d \}$
+                of $[c, d]$ can be extended to the partition
+                $e(\Gamma) = \{ a < x_0 < \cdots < x_n < b \}$
+                of $[a, b]$, which gives
+                \begin{align*}
+                    S_\Gamma[f; c, d] &= \sum_{j = 1}^n |f(x_j) - f(x_{j - 1})| \\
+                    &\leq |f(x_0) - a| + \sum_{j = 1}^n |f(x_j) - f(x_{j - 1})| + |f(b) - f(x_n)| = S_{e(\Gamma)}[f; a, b].
+                \end{align*}
+                Thus,
+                \begin{align*}
+                    V[f; c, d] &= \sup\{ S_\Gamma[f; c, d] : \Gamma \text{ is a partition of } [c, d] \} \\
+                    &\leq \sup\{ S_{e(\Gamma)}[f; a, b] : \Gamma \text{ is a partition of } [c, d] \} \\
+                    &\leq \sup\{ S_{\Gamma'}[f; a, b] : \Gamma' \text{ is a partition of } [a, b] \}
+                    = V[f; a, b].
+                \end{align*}
+        \end{enumerate}
+
+    \item[4.2.16.]
+        \boldmath\textbf{Given a function $f : [a, b] \to \mathbb{C}$, write $f = f_r + if_i$ where $f_r$ and $f_i$ are real-valued. Prove that
+        \begin{align*}
+            f \in \text{BV}[a, b] \quad \Longleftrightarrow \quad f_r, f_i \in \text{BV}[a, b].
+        \end{align*}
+        }\unboldmath \par
+        ($\Leftarrow$) Given a finite partition
+        $\Gamma = \{ a = x_0 < \cdots < x_n = b \}$,
+        we have by the triangle inequality that
+        \begin{align*}
+            |f(x_j) - f(x_{j - 1})| &= |f_r(x_j) + if_i(x_j) - f_r(x_{j - 1}) - if_i(x_{j - 1})| \\
+            &= |f_r(x_j) - f_r(x_{j - 1}) + i(f_i(x_j) - f_i(x_{j - 1}))| \\
+            &\leq |f_r(x_j) - f_r(x_{j - 1})| + |f_i(x_j) - f_i(x_{j - 1})|
+        \end{align*}
+        for all $j$, and summing over all $j$ gives $S_\Gamma[f; a, b] \leq S_\Gamma[f_r; a, b] + S_\Gamma[f_i; a, b]$. Taking the supremum over all partitions $\Gamma$, $V[f_r; a, b] + V[f_i; a, b]$ is finite so $V[f; a, b]$ must be finite also. \par
+        ($\Rightarrow$) The finiteness of $V[f; a, b]$ implies that $S_\Gamma[f; a, b]$ is finite for any finite partition
+        $\Gamma = \{ a = x_0 < \cdots < x_n = b \}$,
+        which in turn implies that
+        \begin{align*}
+            |f(x_j) - f(x_{j - 1})|
+            &= |f_r(x_j) - f_r(x_{j - 1}) + i(f_i(x_j) - f_i(x_{j - 1}))|
+        \end{align*}
+        is finite for all $j$. Then $|f_r(x_j) - f_r(x_{j - 1})|$ and $|f_i(x_j) - f_i(x_{j - 1})|$ are finite by the Pythagorean theorem. We conclude that $S_\Gamma[f_r; a, b]$ and $S_\Gamma[f_i; a, b]$ are finite (because they are finite sums) and so $V[f_r; a, b]$ and $V[f_i; a, b]$ are finite (because $\Gamma$ was an arbitrary partition of $[a, b]$).
+
+    \item[4.2.20.]
+        \boldmath\textbf{Assume that $A \subseteq \mathbb{R}$ is measurable, and suppose that $f : A \to \mathbb{R}$ is Lipschitz \emph{on the set} $A$, i.e., there exists a constant $K \geq 0$ such that
+        \begin{align*}
+            |f(x) - f(y)| \leq K|x - y|, \qquad x, y \in A.
+        \end{align*}
+        Prove that
+        \begin{align*}
+            |f(E)|_e \leq K|E|_e \text{ for every set } E \subseteq A.
+        \end{align*}
+        }\unboldmath \par
+        We know that
+        $|E|_e = \inf\left\{ \sum_k \vol(Q_k) \right\}$,
+        where the infimum is taken over all countable collections of boxes $\{Q_k\}$ such that $E \subseteq \bigcup_k Q_k$ (also, note that $f(E) \subseteq f(\bigcup_k Q_k) \subseteq \bigcup_k f(Q_k)$). \par
+        Thus, for each $n \in \mathbb{N}$, there exists a countable collection of boxes $\{Q_{n, k}\}$ (where $k$ depends on $n$) such that $E \subseteq \bigcup_k Q_{n, k}$ and $\sum_k \vol(Q_{n, k}) - |E|_e < \frac{1}{n}$. Because $Q_{n, k} \subseteq \mathbb{R}$, it is a closed interval $[a_{n, k}, b_{n, k}]$ with center $c_{n, k} = (b_{n, k} - a_{n, k})/2$. Then by the hypothesis,
+        \begin{align*}
+            |f(x) - f(c_{n, k})| \leq K|x - c_{n, k}|, \qquad x \in A.
+        \end{align*}
+        Multiplying both sides by 2, the right-hand side is bounded above by $K \vol(Q_{n, k})$, and we have that
+        \begin{align*}
+            2\max_{x \in A} |f(x) - f(c_{n, k})| \leq K \vol(Q_{n, k}),
+        \end{align*}
+        in which the left-hand side is an upper bound on $\max_{x, y \in Q_{n, k}} |f(x) - f(y)| \geq |f(Q_{n, k})|_e$, using the fact that $f(c_{n, k}) \in f(Q_{n, k})$. Summing over all $k$, the left-hand side becomes an upper bound on $\sum_k |f(Q_{n, k})|_e$ and hence on $|f(E)|_e$ by countable subadditivity. So far, we have
+        \begin{align*}
+            |f(E)|_e \leq K \sum_k \vol(Q_{n, k}) < K(|E|_e + \frac{1}{n}).
+        \end{align*}
+        Since $n$ was arbitrary, we can take $n \to \infty$ to obtain $|f(E)|_e \leq K|E|_e$.
+
+    \item[4.2.21.]
+        \begin{enumerate}
+            \item
+            \boldmath\textbf{Fix $a, b > 0$, and define
+                \begin{align*}
+                    f(x) = \begin{cases}
+                        |x|^a \sin(|x|^{-b}), &x \neq 0, \\
+                        0, &x = 0.
+                    \end{cases}
+                \end{align*}
+                Prove that $f \in \text{BV}[-1, 1]$ if and only if $a > b$.
+            }\unboldmath \par
+            First, $-|x|^a \leq |x|^a \sin(|x|^{-b}) \leq |x|^a$ everywhere so by the Sandwich Theorem, $\lim_{x \to 0} |x|^a \sin(|x|^{-b}) = 0$, and $f$ is continuous. \par
+            Also, $|x|^a$ and $\sin(|x|^{-b})$ are differentiable for all $x \neq 0$ so their product is also, and hence $f$ is differentiable for all $x$, with
+            \begin{align*}
+                f'(x) %&= \pm a|x|^{a - 1} \sin(|x|^{-b}) \pm |x|^a \cos(|x|^{-b})(-b)|x|^{-b - 1} \\
+                &= \begin{cases}
+                    \pm ax^{a - 1} \sin(x^{-b}) \pm bx^{a - b - 1} \cos(x^{-b}), &x < 0 \\
+                    0, &x = 0 \\
+                    \pm ax^{a - 1} \sin(x^{-b}) \pm bx^{a - b - 1} \cos(x^{-b}), &x > 0
+                \end{cases}
+            \end{align*}
+            (where the signs of the terms depend on the parities of $a$ and $b$). Here, we note that since $|ax^{a - 1} \sin(x^{-b})| \leq a|x^{a - 1}|$ and $-(a - 1) = 1 - a < 1$, the first term of $f'(x)$ is (Riemann) integrable on $[-1, 0)$ and $(0, 1]$. \par
+            If $a > b$, then by similar reasoning, the second term is also integrable on $[-1, 0)$ and $(0, 1]$. We have that $f'$ is integrable (and hence Lebesgue integrable by Theorem 3.5.12) on $[-1, 1]$, and thus $f \in \BV[-1, 1]$ by Lemma 4.2.8. \par
+            Next, using the change of variables $y = x^{-b}$, we have
+            \begin{align} \label{eq:intf}
+                \begin{split}
+                    \int_0^1 |f(x)| dx &= \int_0^1 |x^a \sin(x^{-b})| dx = \frac{1}{b} \int_1^\infty x^{a - b - 1} |\sin y| dy \\
+                    &= \frac{1}{b} \int_1^\infty y^{1 - a/b + 1/b} |\sin y| dy.
+                \end{split}
+            \end{align}
+            Because $|\sin y|$ is $2\pi$-periodic, the mean of $|\sin y|$ over $[1, \infty)$ is the mean of $|\sin y|$ over an interval of measure $2\pi$ such as $[\pi, 3\pi]$, which is
+            \begin{align*}
+                \frac{\int_{\pi}^{3\pi} |\sin y| dy}{2\pi} &= \frac{\int_{\pi}^{2\pi} |\sin y| dy + \int_{2\pi}^{3\pi} |\sin y| dy}{2\pi} \\
+                &= \frac{2\int_0^\pi \sin y dy}{2\pi} = \frac{-\cos\pi + \cos0}{\pi} = \frac{2}{\pi}.
+            \end{align*}
+            The integral in (\ref{eq:intf}) is positive everywhere, so by the Mean Value Theorem for (Riemann) Integrals, it becomes
+            \begin{align*}
+                \frac{2}{\pi} \int_1^\infty y^{1 - a/b + 1/b} dy
+            \end{align*}
+            which diverges when $a \leq b$ since $-(1 - a/b + 1/b) \leq -1/b \leq 1$. In conclusion, $f$ is not integrable on $(0, 1]$ and hence not on $[-1, 1]$ either.
+            \begin{lemma}
+                If a real-valued function $f : [a, b] \to \mathbb{R}$ satisfies $f \in \BV[a, b]$, then $f$ is Riemann integrable.
+            \end{lemma}
+            \begin{proof}
+                By the Jordan decomposition (Theorem 4.2.14), $f$ is the difference of two monotone functions, which we previously showed must be Riemann integrable, so $f$ must also be Riemann integrable.
+            \end{proof}
+            The above lemma shows that $f \notin \BV[-1, 1]$ when $a \leq b$.
+
+            \iffalse
+            \pagebreak
+            If $a \leq b$, then by using the change of variables $y = x^{-b}$, we have
+            \begin{align} \label{eq:term2}
+                \int_0^1 |bx^{a - b - 1} \cos{x^{-b}}| dx = \int_1^\infty x^{a - b - 1} |\cos y| \frac{dy}{x^{-b - 1}} = \int_1^\infty y^{-a/b} |\cos y| dy.
+            \end{align}
+            Because $|\cos y|$ is $2\pi$-periodic, the mean of $|\cos y|$ over $[1, \infty)$ is the mean of $|\cos y|$ over an interval of measure $2\pi$ such as $[\pi/2, 5\pi/2]$, which is
+            \begin{align*}
+                \frac{\int_{\pi/2}^{5\pi/2} |\cos y| dy}{2\pi} &= \frac{\int_{\pi/2}^{3\pi/2} |\cos y| dy + \int_{3\pi/2}^{5\pi/2} |\cos y| dy}{2\pi} \\
+                &= \frac{2\int_{-\pi/2}^{\pi/2} \cos y dy}{2\pi} = \frac{2}{\pi}.
+            \end{align*}
+            The integral in (\ref{eq:term2}) is positive everywhere, so by the Mean Value Theorem for (Riemann) Integrals, it becomes
+            \begin{align*}
+                \frac{2}{\pi} \int_1^\infty y^{-a/b} dy
+            \end{align*}
+            which diverges since $a/b < 1$. In conclusion, the second term is not integrable on $(0, 1]$ and hence not on $[-1, 1]$ either. Therefore, $f'$ is not integrable on $[-1, 1]$.
+            The above lemma shows that $f \notin \BV[a, b]$.
+            \fi
+        \end{enumerate}
+\end{enumerate}
+
+\end{document}

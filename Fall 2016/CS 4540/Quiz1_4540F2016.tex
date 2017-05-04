@@ -1,0 +1,320 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{algpseudocode, amsfonts, amsmath, amsthm, enumitem}
+\usepackage[plain]{algorithm}
+
+\textheight=9.5in
+\textwidth=6.5in
+\topmargin=-.8in
+\headsep=0pt
+\oddsidemargin=0truecm
+\evensidemargin=0truecm
+\footskip=20pt
+%\footheight=20pt
+\pretolerance=1600
+\tolerance=1600
+\hbadness=1600
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{problem}[theorem]{Problem}
+
+\begin{document}
+
+\title{
+}
+
+%\author{Assigned 1-13-16 , Due 1-19-16 (in class)
+%}
+
+
+\date{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author's definitions
+
+\newcommand{\DEF}[1]{{\em #1\/}}
+
+\newcommand\chic{\chi_c}
+\newcommand\C{\hbox{${\cal C}$}}
+\newcommand{\RR}{\mbox{$\mathbb R$}}
+\newcommand{\NN}{\mbox{$\mathbb N$}}
+\newcommand{\ZZ}{\mbox{$\mathbb Z$}}
+\newcommand{\eopf}{\raisebox{0.8ex}{\framebox{}}}
+\newcommand{\dist}{\hbox{\rm d}}
+\renewcommand\a{\alpha}
+\renewcommand\b{\beta}
+\renewcommand\c{\gamma}
+\renewcommand\d{\delta}
+\newcommand\D{\Delta}
+\newcommand{\directedchi}{\mbox{$\vec{\chi}$}}
+\newcommand{\directedE}{\mbox{$\vec{E}$}}
+\newcommand{\directedG}{\mbox{$\vec{G}$}}
+\newcommand{\directedK}{\mbox{$\vec{K}$}}
+
+%\newenvironment{proof}%
+%{\noindent{\bf Proof.}\ }%
+%{\hfill\eopf\par\bigskip}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\maketitle
+
+\noindent{\bf  Last Name:} $Lin \quad$
+\noindent{\bf First Name:} $Erick \quad$
+\noindent{\bf Email:}          $elin42@gatech.edu$\\
+\noindent{\bf CS 4540, Fall 2016, Quiz 1,   10/18/16 Due 10/26/16 5pm in Klaus 2138 $~~~$Page 5/7 }
+
+\bigskip
+
+\noindent
+{\bf Problem 1: Searching, Design of a Recursive Algorithm (10 points) }\\
+You are given an infinite array $A(\cdot )$ in which the first $n$ cells contain integers in sorted order and
+the rest of the cells are filled with $\infty$. You are not given the value of $n$. Describe an algorithm that
+takes an integer $x$ as input and finds a position in the array containing $x$, if such a position exists,
+in $ O(\log n)$ time. (If you are disturbed by the fact that the array $A$ has infinite length, assume
+instead that it is of length $n$, but that you don't know this length, and that the implementation
+of the array data type in your programming language returns the error message $\infty$ whenever
+elements $A(i)$ with $ i > n$ are accessed.) \\
+
+\noindent
+{\bf Answer:}\\
+We give the following two-stage binary search algorithm:
+\begin{algorithm}[H] {\begin{algorithmic}[1]
+    \Function{findPositionOf}{$x$, $A$}
+        \State initialize $lo := 1, hi := 1$
+        \While {$A(hi + 1) \neq \infty$}
+            \State $hi := 2 \cdot hi$
+        \EndWhile
+        \While {$lo \leq hi$ and $A(lo) \neq \infty$}
+            \State initialize $mid := lo + \frac{hi - lo}{2}$
+            \If {$A(mid) = x$}
+                \State \Return $mid$
+            \ElsIf {$A(mid) < x$}
+                \State $lo := mid + 1$
+            \Else
+                \State $hi := mid - 1$
+            \EndIf
+        \EndWhile
+        \State \Return a value indicating that $x \notin A$, i.e. that no position exists
+    \EndFunction
+\end{algorithmic}} \end{algorithm}
+Lines 3-5 guarantee that the range $[lo, hi]$ by line 6 includes all the elements not equal to $\infty$, and take $O(\log n)$ time because $hi$ doubles each iteration until it becomes at most $2(n - 1)$, so there are at most $\lceil \log(n + 1) \rceil$ iterations. The remainder of the algorithm is correct and takes $O(\log n)$ time which can be seen from proofs of standard binary search.
+
+
+\pagebreak
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 4540, Fall 2016, 10/18/16 Due 10/26/16 5pm in Klaus 2138 $~~~$Page 2/7}
+
+\bigskip\noindent
+{\bf Problems 2: Comparison of different recursive methods (15 points) }\\
+Suppose you have $k$ sorted arrays, each with $n$ elements, and you want
+to combine them into a single sorted array of $ kn$ elements.\\
+(a) Here's one strategy: Using the merge procedure, merge the first two arrays,
+then merge in the third, then merge in the fourth, and so on. What is the time
+complexity of this algorithm, in terms of $ k $ and $n$?\\
+(b) Give a more efficient solution to this problem, using divide-and-conquer. 
+State clearly and justify the running time of your more efficient solution.\\
+
+
+\noindent
+{\bf Answer:}
+\begin{enumerate}[label=(\alph*)]
+    \item
+        Merging two arrays of size $n$ takes $2n$ operations, and every iteration $i$ after the first takes $(i + 1)n$ operations. Then the total number of operations is $\sum_{i = 1}^k (i + 1)n = O(k^2 n)$.
+    \item
+        One solution is given by allocating an array of size $kn$ and moving all $n$ elements of each of the $k$ arrays into unique locations in this new array, which takes $O(kn)$ time. Finally, running merge sort on this new array sorts it in $O(kn \log(kn))$ time.
+\end{enumerate}
+
+
+
+\pagebreak
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 4540, Fall 2016, Quiz 1,   10/18/16 Due 10/26/16 5pm in Klaus 2138 $~~~$Page 3/7 }
+
+\bigskip
+
+\noindent{\bf Problem 3: Making Change, Dynamic Programming  (15 points)   }.\\
+Given an unlimited supply of coins of integer denominations $x_1 = 1, x_2 , \ldots , x_n$ we wish to make ``optimal'' change for
+an integer value $v$. By ``optimal'' we mean that make change for $v$ {\em using  the minimum possible number of coins} 
+(realize that since $x_1 =1$ is one of the denominations, it is possible to make change for any $v$
+using $v$ copies of $x_1$, but that is not necessarily optimal.)
+We also want to give explicitly the number of copies of each coin used in an optimal solution.
+Give an $O(n v)$ dynamic-programming algorithm for the following problem:\\
+Input: $x_1 = 1 < x_2 \ldots < x_n$, and $v$\\
+Output: (a) The smallest number $P(v)$ of coins with  that can realize $v$.\\
+$~~~~~~~~~~~~$ (b) The number of copies $y_i$ of each denomination $x_i$\\
+$~~~~~~~~~~~~~~~~~~~~~~~$ in an optimal solution that uses $P(v)$ coins, $1 \leq i \leq n$.\\
+$~~~~~~~~~~~~~~~~~$ That is, we want $x_i$,  $1 \leq i \leq n$, such that $\sum_{i=1}^n y_i x_i = v$ and $ \sum_{i=1}^n y_i =P(v)$.\\
+
+
+\noindent
+{\bf Answer:} \\
+Using the notation $y_{w, i}$ for the number of copies of denomination $x_i$ in the optimal solution for any value $w$, we give the following knapsack algorithm:
+\begin{algorithm}[H] {\begin{algorithmic}[1]
+    \Function{makingChange}{$x_1, x_2, \cdots x_n$, $v$}
+        \State initialize $P(0) := 0, \; P(w) = \infty \; \forall 0 < w \leq v, \; y_{0, i} := 0 \; \forall 1 \leq i \leq n$
+        \For {$1 \leq w \leq v$ in ascending order}
+            \For {$1 \leq i \leq n$ in ascending order}
+                \If {$x_i \leq w$ and $P(w - x_i) + 1 < P(w)$}
+                    \State $P(w) := P(w - x_i) + 1$
+                    \State $y_{w, j} := \begin{cases}
+                        y_{w - x_i, j}, &j \neq i \\
+                        y_{w - x_i, j} + 1, &j = i
+                    \end{cases} \; \forall 1 \leq j \leq n$
+                \EndIf
+            \EndFor
+        \EndFor
+        \State \Return $P(v), y_{v, 1}, y_{v, 2}, \cdots, y_{v, n}$
+    \EndFunction
+\end{algorithmic}} \end{algorithm}
+We know the correctness of the algorithm from the standard knapsack argument, and it is easy to see that the algorithm runs in $O(nv)$ time (line 7 takes constant time if we use an appropriate hashing scheme for the $y_w$ sequences).
+
+
+
+\pagebreak
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 4540, Fall 2016, Quiz 1,   10/18/16 Due 10/26/16 5pm in Klaus 2138 $~~~$Page 4/7 }
+
+\bigskip
+
+\noindent{\bf Problem 4: Approximation Algorithms: Set Cover (15 points)    }.\\
+(a) Consider the setcover problem. There are $n$ elements $e_i$, $1 \leq i \leq n$, and $m$ sets 
+$S_j$, $1 \leq j \leq m$. Each set has a cost $c_j$, $1 \leq j \leq m$. 
+As usual, a cover $C$ for the elements is a collection of sets such that every element belongs to at least one set. 
+Also, the {\em cost} of a cover $C$ is $c(C) = \sum_{s_j \in C} c_j$.
+Let OPT be the cost of a setcover that has minimum cost. 
+We also know that the maximum cardinality of a set is $k << n$, that is, 
+each set can cover at most $k$ elements. 
+Argue that the standard greedy setcover algorithm (page 16, Algorithm 2.2 in Vazirani's book) 
+gives a cover $C^*$ with  $c(C^*) \leq H_k {\rm OPT}$.\\
+(b) Consider the weighted vertex cover problem, and the greedy algorithm (page 24, Algorithm 2.17, Vazirani) 
+which we proved is a factor 2 approximation algorithm. When the underlying graph of the vertex cover problem 
+has maximum vertex degree 3, does part (a)  help to get an approximation algorithm 
+with performance better than factor 2? \\
+
+\noindent{\bf Answer:}
+\begin{enumerate}[label=(\alph*)]
+    \item
+        Denote $\mathcal{O}$ as the optimal set cover (so that $\sum_{O \in \mathcal{O}} \mathrm{cost}(O) = \mathrm{OPT}$), and consider $O \in \mathcal{O}$ with $o_1, o_2, \cdots, o_{|O|}$ being the elements of $O$ in the order that they were covered by the greedy algorithm. At the iteration when any $o_j, 1 \leq j \leq |O|$ was being covered by the algorithm, $O$ chould have been chosen as the covering set, and up to that point none of $o_j, o_{j + 1}, \cdots, o_{|O|}$ had been covered. The number of elements newly covered by $O$ is at least $|O| - (j - 1)$, which implies that
+        \begin{align*}
+            \mathrm{price}(o_j) \leq \frac{\mathrm{cost}(O)}{|O| - (j - 1)}.
+        \end{align*}
+        Using the fact that $\mathcal{O}$ covers all elements in the universe $U$ and summing the above quantity over all elements, we have that
+        \begin{align*}
+            c(C^*) = \sum_{e_i \in U} \mathrm{price}(e_i) \leq \sum_{O \in \mathcal{O}} \sum_{o_j \in O} \mathrm{price}(o_j) = \sum_{O \in \mathcal{O}} H_{|O|} \mathrm{cost}(O) \leq \sum_{O \in \mathcal{O}} H_{k} \mathrm{cost}(O) = H_k \mathrm{OPT}.
+        \end{align*}
+
+    \item
+        Yes, since each vertex $v_j$ corresponds to the set of edges $S_j$ incident to it, this problem reduces to set cover in which we want to cover all the edges using the $S_j$'s. Since the maximum cardinality of the $S_j$'s is 3, the greedy set cover algorithm gives a cover of cost at most $H_3 \mathrm{OPT} = (1 + \frac{1}{2} + \frac{1}{3})\mathrm{OPT} = \frac{11}{6}\mathrm{OPT}$ according to part (a).
+\end{enumerate}
+
+
+\pagebreak
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 4540, Fall 2016, Quiz 1,   10/18/16 Due 10/26/16 5pm in Klaus 2138 $~~~$Page 5/7 }
+
+\bigskip
+
+\noindent{\bf Problem 5: Approximation Algorithms: MAXCUT  (15 points)   }.\\
+Given an undirected graph $G(V,E)$, the {\em cardinality maximum cut problem} 
+asks for a partition of $V$ into sets $A$ and $B$ 
+so that the number of edges with one endpoint in $A$ and the other endpoint in $B$ is maximized. 
+We denote the size of such a cut OPT.\\
+(a)  Argue that the randomized algorithm below outpots a cut $A$ and $B$ whose expected size is at least OPT/2.\\
+$~~~~~~~$ 1. Initialization:\\
+$~~~~~~~~~~~$ for some edge $\{ u , v \} \in E$ set $A:= \{ u \}$ and $B:= \{ v \}$ \\
+$~~~~~~~$ 2. Iteration: \\
+$~~~~~~~~~~~$ for all $\{ x \} \in V \setminus \{ u, v \}$ \\
+$~~~~~~~~~~~~~~~~~~~~~$ with probability 1/2 add $x$ to $A$:  $A:= A \cup \{ x \}$\\
+$~~~~~~~~~~~~~~~~~~~~~$ if $x$ was not added to $A$ then add $x$ to $B$: $B:= B \cup \{ x \}$\\
+$~~~~~~~$ 3. Output $A$ and $B$.\\
+(b) Give a deterministic polynomial time algorithm that outputs a cut whose size is always at least OPT/2.\\
+
+\noindent
+{\bf Answer:}
+\begin{enumerate}[label=(\alph*)]
+    \item
+        First, notice that $|E|$ is trivially an upper bound on $\mathrm{OPT}$. The initialization step adds $1$ edge to the cut. \par
+        At each iteration, consider the edges whose endpoints include $x$ and some $y \in A \cup B$. \par
+        For each such edge, we know that $x$ is added to the same set ($A$ or $B$) as $y$ with probability $1/2$, and is otherwise added to the other set, so the expected number of edges added to the cut is $1/2$. \par
+        We consider every edge in $E \setminus \{u, v\}$ exactly once over all the iterations. Hence, the expected number of edges in the cut given by the overall algorithm is $1 + |E \setminus \{u, v\}|/2 > |E|/2 \geq \mathrm{OPT}/2$.
+    \item
+        The algorithm is the same as in part (a) except that in the iteration step, $x$ is added deterministically to the set (either $A$ or $B$), assumed to be $A$ without loss of generality, such that there are at least as many edges whose endpoints include $x$ and some point in $B$ as edges whose endpoints include $x$ and some point in $A$. \par
+        Then at each iteration, the number of edges added to the cut is at least half the number of edges from $x$ to some point in $A \cup B$. \par
+        Since we consider every edge in $E \setminus \{u, v\}$ exactly once over all the iterations, the number of edges in the cut given by the overall algorithm is at least $1 + |E \setminus \{u, v\}|/2 > |E|/2 \geq \mathrm{OPT}/2$.
+\end{enumerate}
+
+
+\pagebreak
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 4540, Fall 2016, Quiz 1,    10/18/16 Due 10/26/16 5pm in Klaus 2138 $~~~$Page 6/7}
+
+\bigskip
+
+\noindent{\bf Problem 6: Approximation Algorithms: MAXSAT   (15 points)  }.\\
+Let $f$ be an instance of SAT, over boolean variables $x_i, 1 \leq i \leq n$. Let OPT be the maximum number of clauses that can be satisfied. 
+Let $\tau$ be an arbitrary assignment of truth values to the $x_i$'s, $1 \leq i \leq n$. 
+Let $\bar{\tau}$ be the "opposite" of $\tau$: 
+$((x_i=\mbox{TRUE in $\tau$}) \Longleftrightarrow (x_i=\mbox{FALSE in $ \bar{\tau}$}))$
+and $((x_i=\mbox{FALSE in $\tau$}) \Longleftrightarrow (x_i=\mbox{TRUE in $ \bar{\tau}$}))$.
+Argue that at least one of $\tau$ and $\bar{\tau}$ satisfy at least half of the clauses of $f$. \\
+
+\noindent 
+{\bf Answer:} \\
+Each clause consists of a disjunction of boolean variables (e.g. $x_i$) or complements of boolean variables (e.g. $\overline{x}_i$), each of which is TRUE in either $\tau$ or $\tau'$, so the clause is satisfied in at least one of $\tau$ and $\overline{\tau}$. If $\tau$ satisfies $a$ clauses and $\overline{\tau}$ satisfies $b$ clauses, then $a + b$ is at least the number of clauses, which means either $a$ or $b$ must be at least half the number of clauses.
+
+
+\pagebreak
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 4540, Fall 2016, Quiz 1,   10/18/16 Due 10/26/16 5pm in Klaus 2138 $~~~$Page 7/7 }
+
+\bigskip
+
+\noindent{\bf Problem 7: Analysis of Randomized Algorithm  (15 points)  }.\\
+Suppose that we have $n$ coupons and we sample with repetition. 
+In class we saw that the time $T$ to collect all coupons has $E[T] = n H_n$, where $H_n$ is the $n$-th harmonic number. 
+Let $T^\prime$  be the time to collect $n/2$ distinct coupons (you may assume that $n$ is even). \\
+(a) Prove that $\mathbb{E}[T^\prime ] = c n$, for some constant $c$ (compute $c$ explicitly.)\\
+ \underline{Note:} You may use the approximation $H_x = \gamma + \log_e (x)$, where $\gamma =0.577$\\
+(b) Argue that the probability that, after $2kcn$ samples, you have collected less than $n/2$ distinct coupons is 
+at most $1/2^k$. \\
+
+\noindent
+{\bf Answer:}
+\begin{enumerate}[label=(\alph*)]
+    \item
+        We know that the expected number of samples required to collect $k$ distinct coupons, $1 \leq k \leq n$ is $\sum_{i = 0}^{k - 1} \frac{n}{n - i}$, so in particular, the expected number of samples required to collect $n/2$ distinct coupons is
+        \begin{align*}
+            \mathbb{E}(T') &= \sum_{i = 0}^{n/2 - 1} \frac{n}{n - i} = \sum_{i = 0}^{n - 1} \frac{n}{n - i} - \sum_{i = n/2}^{n - 1} \frac{n}{n - i} \\
+            &= nH_n - nH_{n/2} \approx n[(\gamma + \ln(n)) - (\gamma + \ln(n/2))] \\
+            &= n(\ln(n) - \ln(n/2)) n = n\ln 2;
+        \end{align*}
+        the desired $c$ is approximately $\ln 2$.
+    \item
+        From Markov's inequality, the probability that fewer than $n/2$ distinct coupons have been collected after $2cn$ samples is given by
+        \begin{align*}
+            \mathbb{P}(T' > 2cn) < \frac{\mathbb{E}(T')}{2cn} = \frac{1}{2}.
+        \end{align*}
+        Now we consider the probability that fewer than $n/2$ distinct coupons have been collected after $2kcn$ samples. If we partition the sample into $k$ subsets of $2cn$ samples, then the probability that every subset has fewer than $n/2$ distinct coupons is an (strict) upper bound on the desired quantity, and the events are independent for all the subsets. Thus,
+        \begin{align*}
+            \mathbb{P}(T' > 2kcn) < [\mathbb{P}(T' > 2cn)]^k = \frac{1}{2^k}.
+        \end{align*}
+\end{enumerate}
+
+
+\end{document}

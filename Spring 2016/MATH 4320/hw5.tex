@@ -1,0 +1,556 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{MATH 4320 - HW5 Solutions}
+\subsection*{6.77}
+\begin{enumerate}
+    \item[1.]
+        \begin{enumerate}
+            \item
+                The residue at $z = 0$ of
+                \begin{align*}
+                    \frac{1}{z + z^2} = \frac{1/z}{1 + z} = \sum_{n = 0}^\infty (-1)^n z^{n - 1},
+                \end{align*}
+                where $0 < |z| < 1$, is the coefficient of $1/z$, or $\mathbf{1}$.
+
+            \item
+                The residue at $z = 0$ of
+                \begin{align*}
+                    z \cos \left( \frac{1}{z} \right) = z \sum_{n = 0}^\infty \frac{(-1)^n}{z^{2n} (2n)!} = \sum_{n = 0}^\infty \frac{(-1)^n}{z^{2n - 1} (2n)!},
+                \end{align*}
+                where $0 < |z| < \infty$, is the coefficient of $1/z$ (the term at $n = 1$), or $\mathbf{-1/2}$.
+
+            \item
+                The residue at $z = 0$ of
+                \begin{align*}
+                    \frac{z - \sin z}{z} &= 1 - \frac{1}{z} \sum_{n = 0}^\infty \frac{(-1)^n z^{2n + 1}}{(2n + 1)!} = 1 - \sum_{n = 0}^\infty \frac{(-1)^n z^{2n}}{(2n + 1)!} \\
+                    &= \sum_{n = 1}^\infty \frac{(-1)^{n - 1} z^{2n}}{(2n + 1)!},
+                \end{align*}
+                where $0 < |z|, \infty$, is the coefficient of $1/z$, or $\mathbf{0}$.
+
+            \item
+                Dividing the Maclaurin expansion of $\sin z$ into that of $\cos z$ gives
+                \begin{align*}
+                    \cot z = \frac{\cos z}{\sin z} = \frac{1}{z} - \frac{z}{3} - \frac{z^3}{45} + \cdots,
+                \end{align*}
+                where $0 < |z| < \pi$; hence, the residue at $z = 0$ of
+                \begin{align*}
+                    \frac{\cot z}{z^4} = \frac{1}{z^5} - \frac{1}{3z^3} - \frac{1}{45z} + \cdots
+                \end{align*}
+                is the coefficient of $1/z$, or $\mathbf{-1/45}$.
+
+            \item
+                The residue at $z = 0$ of
+                \begin{align*}
+                    \frac{\sinh z}{z^4(1 - z^2)} &= \frac{1}{z^4} \sum_{n = 0}^\infty \frac{z^{2n + 1}}{(2n + 1)!} \sum_{n = 0}^\infty z^{2n} = \frac{1}{z^4} \left( z + \frac{7}{6} z^3 + \cdots \right) \\
+                    &= \frac{1}{z^3} + \frac{7}{6z} + \cdots,
+                \end{align*}
+                where $0 < |z| < 1$, is the coefficient of $1/z$, or $\mathbf{7/6}$.
+        \end{enumerate}
+
+    \item[2.]
+        Let $C$ denote the circle $|z| = 3$.
+        \begin{enumerate}
+            \item
+                The residue at the only singular point $z = 0$ of
+                \begin{align*}
+                    \frac{e^{-z}}{z^2} = \frac{1}{z^2} \sum_{n = 0}^\infty \frac{(-z)^n}{n!} = \sum_{n = 0}^\infty \frac{(-1)^n z^{n - 2}}{n!},
+                \end{align*}
+                where $0 < |z| < \infty$, is the coefficient of $1/z$, or $-1$. Because $z = 0$ is inside $C$, we have by Cauchy's residue theorem that
+                \begin{align*}
+                    \int_C \frac{e^{-z}}{z^2} dz = 2\pi i(-1) = -2\pi i.
+                \end{align*}
+
+            \item
+                Using the Taylor series expansion around the only singular point $z = 1$, we find that the residue of
+                \begin{align*}
+                    \frac{e^{-z}}{(z - 1)^2} = \frac{1}{(z - 1)^2} \sum_{n = 0}^\infty \frac{(-1)^n e^{-1} (z - 1)^n}{n!} = \sum_{n = 0}^\infty \frac{(-1)^n (z - 1)^{n - 2}}{e n!},
+                \end{align*}
+                where $0 < |z| < \infty$, is the coefficient of $1/(z - 1)$, or $-1/e$. Because $z = 1$ is inside $C$, we have by Cauchy's residue theorem that
+                \begin{align*}
+                    \int_C \frac{e^{-z}}{(z - 1)^2} dz = 2\pi i \left( -\frac{1}{e} \right) = -\frac{2\pi i}{e}.
+                \end{align*}
+
+            \item
+                The residue at the only singular point $z = 0$ of
+                \begin{align*}
+                    z^2 e^{1/z} = z^2 \sum_{n = 0}^\infty \frac{1}{z^n n!} = \sum_{n = 0}^\infty \frac{1}{z^{n - 2} n!},
+                \end{align*}
+                where $0 < |z| < \infty$, is the coefficient of $1/z$, or $1/3! = 1/6$. Because $z = 0$ is inside $C$, we have by Cauchy's residue theorem that
+                \begin{align*}
+                    \int_C z^2 e^{1/z} dz = 2\pi i \left( \frac{1}{6} \right) = \frac{\pi i}{3}.
+                \end{align*}
+
+            \item
+                Using partial fraction decomposition, we find that the residues at the singular points $z = 0$ and $z = 2$ of
+                \begin{align*}
+                    \frac{z + 1}{z^2 - 2z} = \frac{z + 1}{z(z - 2)} = -\frac{1}{2z} + \frac{3}{2(z - 2)}
+                \end{align*}
+                are the coefficients of $1/z$ and $1/(z - 2)$, or $-1/2$ and $3/2$. Because $z = 0$ and $z = 2$ are inside $C$, we have by Cauchy's residue theorem that
+                \begin{align*}
+                    \int_C \frac{z + 1}{z^2 - 2z} dz = 2\pi i \left( -\frac{1}{2} + \frac{3}{2} \right) = 2\pi i.
+                \end{align*}
+        \end{enumerate}
+
+    \item[4.]
+        \begin{enumerate}
+            \item
+                The residue at $z = 0$ of
+                \begin{align*}
+                    \frac{1}{z^2} \frac{(1/z)^5}{1 - (1/z)^3} = \frac{1/z^7}{1 - 1/z^3} = \frac{-1/z^4}{1 - z^3} = -\frac{1}{z^4} \sum_{n = 0}^\infty z^{3n},
+                \end{align*}
+                where $0 < |z| < 1$, is the coefficient of $1/z$, or $-1$. Because $z^5/(1 - z^3)$ has only a finite number of singular points ($z = 1$, $z = \pm i$) inside $C$, by Cauchy's residue theorem,
+                \begin{align*}
+                    \int_C \frac{z^5}{1 - z^3} dz = 2\pi i \underset{z = 0}{\text{\ Res}} \left[ \frac{1}{z^2} \frac{(1/z)^5}{1 - (1/z)^3} \right] = 2\pi i(-1) = -2\pi i.
+                \end{align*}
+
+            \item
+                The residue at $z = 0$ of
+                \begin{align*}
+                    \frac{1}{z^2} \frac{1}{1 + (1/z)^2} \cdot \frac{z^2}{z^2} = \frac{1}{1 + z^2} = \sum_{n = 0}^\infty \left( -z^2 \right)^n,
+                \end{align*}
+                where $0 < |z| < 1$, is the coefficient of $1/z$, or $0$. Because $1/(1 + z^2)$ has only a finite number of singular points ($z = \pm i$) inside $C$, by Cauchy's residue theorem,
+                \begin{align*}
+                    \int_C \frac{1}{1 + z^2} dz = 2\pi i \underset{z = 0}{\text{\ Res}} \left[ \frac{1}{z^2} \frac{1}{1 + (1/z)^2} \right] = 2\pi i(0) = 0.
+                \end{align*}
+
+            \item
+                The residue at $z = 0$ of
+                \begin{align*}
+                    \frac{1}{z^2} \frac{1}{1/z} = \frac{1}{z},
+                \end{align*}
+                where $z \neq 0$, is the coefficient of $1/z$, or $1$. Because $1/z$ has only a finite number of singular points ($z = 0$) inside $C$, by Cauchy's residue theorem,
+                \begin{align*}
+                    \int_C \frac{1}{z} dz = 2\pi i \underset{z = 0}{\text{\ Res}} \left[ \frac{1}{z^2} \frac{1}{1/z} \right] = 2\pi i(1) = 2\pi i.
+                \end{align*}
+        \end{enumerate}
+
+    \item[5.]
+        \begin{enumerate}
+            \item
+                Because $C$ is interior to the circle of convergence $|z| < \infty$ of the Maclaurin expansion of $e^z$, term by term integration may be used as follows:
+                \begin{align*}
+                    \int_C e^{z + 1/z} dz = \int_C e^z e^{1/z} dz = \int_C \sum_{n = 0}^\infty \frac{z^n}{n!} e^{1/z} dz = \sum_{n = 0}^\infty \frac{1}{n!} \int_C z^n e^{1/z} dz.
+                \end{align*}
+
+            \item
+                For integer $n$, the residue at the only singular point $z = 0$ of
+                \begin{align*}
+                    z^n e^{1/z} = z^n \sum_{k = 0}^\infty \frac{1}{z^k k!},
+                \end{align*}
+                where $z \neq 0$, is the coefficient of $1/z$ (where $k = n + 1$), or $1/(n + 1)!$. Because $z = 0$ is inside $C$, we have by Cauchy's residue theorem that
+                \begin{align*}
+                    \int_C z^n e^{1/z} dz = \frac{2\pi i}{(n + 1)!}
+                \end{align*}
+                and hence, from part (a),
+                \begin{align*}
+                    \int_C e^{z + 1/z} dz = \sum_{n = 0}^\infty \frac{1}{n!} \int_C z^n e^{1/z} dz = 2\pi i \sum_{n = 0}^\infty \frac{1}{n! (n + 1)!}.
+                \end{align*}
+        \end{enumerate}
+\end{enumerate}
+
+\subsection*{6.79}
+\begin{enumerate}
+    \item
+        \begin{enumerate}
+            \item
+                Since
+                \begin{align*}
+                    z e^{1/z} = z \sum_{n = 0}^\infty \frac{1}{z^n n!} = \sum_{n = 0}^\infty \frac{1}{z^{n - 1} n!},
+                \end{align*}
+                where $0 < |z| < \infty$, has an infinite number of nonzero coefficients $b_n$, the isolated singular point $z = 0$ is an essential singular point.
+
+            \item
+                Since
+                \begin{align*}
+                    \frac{z^2}{1 + z} = \frac{(z + 1)^2 - 2(z + 1) + 1}{z + 1} = (z + 1) - 2 + \frac{1}{z + 1}
+                \end{align*}
+                has a finite nonzero number of coefficients $b_n$, the isolated singular point $z = -1$ is a pole.
+
+            \item
+                Since
+                \begin{align*}
+                    \frac{\sin z}{z} = \frac{1}{z} \sum_{n = 0}^\infty \frac{(-1)^n z^{2n + 1}}{(2n + 1)!} = \sum_{n = 0}^\infty \frac{(-1)^n z^{2n}}{(2n + 1)!},
+                \end{align*}
+                where $0 < |z| < \infty$, has no nonzero coefficients $b_n$, the isolated singular point $z = 0$ is a removable singular point.
+
+            \item
+                Since
+                \begin{align*}
+                    \frac{\cos z}{z} = \frac{1}{z} \sum_{n = 0}^\infty \frac{(-1)^n z^{2n}}{(2n)!} = \sum_{n = 0}^\infty \frac{(-1)^n z^{2n - 1}}{(2n)!},
+                \end{align*}
+                where $0 < |z| < \infty$, has a finite nonzero number of coefficients $b_n$, the isolated singular point $z = 0$ is a pole.
+
+            \item
+                Since
+                \begin{align*}
+                    \frac{1}{(2 - z)^3} = -\frac{1}{(z - 2)^3}
+                \end{align*}
+                has a finite nonzero number of coefficients $b_n$, the isolated singular point $z = 2$ is a pole.
+        \end{enumerate}
+
+    \item
+        \begin{enumerate}
+            \item
+                Since
+                \begin{align*}
+                    \frac{1 - \cosh z}{z^3} = \frac{1}{z^3} \left[ 1 - \sum_{n = 0}^\infty \frac{z^{2n}}{(2n)!} \right] = \frac{1}{z^3} \left[ -\sum_{n = 1}^\infty \frac{z^{2n}}{(2n)!} \right] = -\sum_{n = 1}^\infty \frac{z^{2n - 3}}{(2n)!},
+                \end{align*}
+                where $0 < |z| < \infty$, has a finite nonzero number of coefficients $b_n$, the isolated singular point $z = 0$ is a pole. The only nonzero such term occurs at $n = 1$; hence the pole is of order $\mathbf{1}$. Also, the residue $B$ is the coefficient of this term, which is $-1/2! = \mathbf{-1/2}$.
+
+            \item
+                Since
+                \begin{align*}
+                    \frac{1 - e^{2z}}{z^4} = \frac{1}{z^4} \left( 1 - \sum_{n = 0}^\infty \frac{(2z)^n}{n!} \right) = \frac{1}{z^4} \left( -\sum_{n = 1}^\infty \frac{(2z)^n}{n!} \right) = -\sum_{n = 1}^\infty \frac{2^n z^{n - 4}}{n!},
+                \end{align*}
+                where $0 < |z| < \infty$, has a finite nonzero number of coefficients $b_n$, the isolated singular point $z = 0$ is a pole. The nonzero such terms begin at $b_3$ and end at $b_1$; hence the pole is of order $\mathbf{3}$. The residue $B$ is the coefficient of the term at $n = 3$, which is $-2^3/3! = \mathbf{-4/3}$.
+
+            \item
+                Since
+                \begin{align*}
+                    \frac{e^{2z}}{(z - 1)^2} = \frac{1}{(z - 1)^2} \sum_{n = 0}^\infty \frac{2^n e^2 (z - 1)^n}{n!} = \sum_{n = 0}^\infty \frac{2^n e^2 (z - 1)^{n - 2}}{n!}
+                \end{align*}
+                where $0 < |z - 1| < \infty$, has a finite nonzero number of coefficients $b_n$, the isolated singular point $z = 1$ is a pole. The nonzero such terms begin at $b_2$ and end at $b_1$; hence the pole is of order $\mathbf{2}$. The residue $B$ is the coefficient of the term at $n = 1$, which is $\mathbf{2e^2}$.
+        \end{enumerate}
+
+    \item
+        \begin{enumerate}
+            \item
+                Since
+                \begin{align*}
+                    g(z) &= \frac{1}{z - z_0} \left[ f(z_0) + \frac{f'(z_0)(z - z_0)}{1!} + \frac{f''(z_0)(z - z_0)^2}{2!} + \cdots \right] \\
+                    &= \frac{f(z_0)}{z - z_0} + \frac{f'(z_0)}{1!} + \frac{f''(z_0)(z - z_0)}{2!} + \cdots,
+                \end{align*}
+                where $0 < |z - z_0| < R$ for some $R$, $g$ has a simple pole at $z_0$, with residue $f(z_0)$.
+
+            \item
+                If $f(z_0) = 0$, the equation from part (a) has no nonzero coefficients $b_n$, so $z_0$ is a removable singular point.
+        \end{enumerate}
+
+    \item
+        Since the only singular point of $\phi(z)$ occurs at $z = -ai$, $\phi(z)$ has the Taylor series representation
+        \begin{align*}
+            \phi(z) = \phi(ai) + \frac{\phi'(ai)(z - ai)}{1!} + \frac{\phi''(ai)(z - ai)^2}{2!} + \cdots
+        \end{align*}
+        about $z = ai$ whenever $|z - ai| < 2a$, and hence
+        \begin{align*}
+            f(z) &= \frac{1}{(z - ai)^3} \left[ \phi(ai) + \frac{\phi'(ai)(z - ai)}{1!} + \frac{\phi''(ai)(z - ai)^2}{2!} + \cdots \right] \\
+            &= \frac{\phi(ai)}{(z - ai)^3} + \frac{\phi'(ai)}{(z - ai)^2} + \frac{\phi''(ai)}{2(z - ai)} + \cdots.
+        \end{align*}
+        Differentiating $\phi(z)$ yields
+        \begin{gather*}
+            \phi'(z) = \frac{16a^4iz - 8a^3z^2}{(z + ai)^4} \qquad
+            \phi''(z) = \frac{16a^3(z^2 - 4aiz - a^2)}{(z + ai)^5} \\
+            \phi(ai) = -a^2 i \qquad \phi'(ai) = -\frac{a}{2} \qquad \phi''(ai) = -i.
+        \end{gather*}
+        and thus the principal part of $z = ai$ is
+        \begin{align*}
+            \frac{\phi(ai)}{(z - ai)^3} + \frac{\phi'(ai)}{(z - ai)^2} + \frac{\phi''(ai)}{2(z - ai)} = -\frac{a^2 i}{(z - ai)^3} - \frac{a}{2(z - ai)^2} - \frac{i}{2(z - ai)}.
+        \end{align*}
+\end{enumerate}
+
+\subsection*{6.81}
+\begin{enumerate}
+    \item[3.]
+        \begin{enumerate}
+            \item
+                The nonzero terms $b_n$ of
+                \begin{align*}
+                    \frac{\sinh z}{z^4} = \frac{1}{z^4} \sum_{n = 0}^\infty \frac{z^{2n + 1}}{(2n + 1)!} = \sum_{n = 0}^\infty \frac{z^{2n - 3}}{(2n + 1)!},
+                \end{align*}
+                where $0 < |z| < \infty$, begin at $b_3$ and end at $b_1$; hence the pole at $z = 0$ is of order $3$. The residue $B$ is the coefficient of the term at $n = 1$, which is $1/3! = 1/6$.
+
+            \item
+                When $0 < |z| < \infty$,
+                \begin{align*}
+                    z(e^z - 1) = z \left( \sum_{n = 1}^\infty \frac{z^n}{n!} \right) = z^2 \left[ \sum_{n = 0}^\infty \frac{z^n}{(n + 1)!} \right]
+                \end{align*}
+                which means that
+                \begin{align*}
+                    f(z) = \frac{\phi(z)}{z^2} \text{\quad where \quad} \phi(z) = \frac{1}{\sum_{n = 0}^\infty z^n / (n + 1)!}.
+                \end{align*}
+                Differentiating $\phi(z)$ yields
+                \begin{align*}
+                    \phi'(z) = \frac{-\sum_{n = 1}^\infty nz^{n - 1} / (n + 1)!}{\left[ \sum_{n = 0}^\infty z^n / (n + 1)! \right]^2} = \frac{-(1/2 + 2z/3! + \cdots)}{(1 + z/2! + \cdots)^2}.
+                \end{align*}
+                Because $\phi(z)$ is analytic and nonzero at $z = 0$, $z = 0$ is a pole of order $2$. Moreover, the theorem states that
+                \begin{align*}
+                    B = \frac{\phi^{(2 - 1)}(0)}{(2 - 1)!} = -\frac{1}{2}.
+                \end{align*}
+        \end{enumerate}
+
+    \item[4.]
+        Let $f(z) = (3z^3 + 2)/[(z - 1)(z^2 + 9)]$. The singularities of $f(z)$ include $z = 1, \pm 3i$.
+        \begin{enumerate}
+            \item
+                Let $C$ denote the circle $|z - 2| = 2$. $z = 1$, the only singularity inside $C$, is a pole of order $1$ because $f(z)$ can be written in the form
+                \begin{align*}
+                    f(z) = \frac{\phi(z)}{z - 1}
+                    \text{\quad where \quad}
+                    \phi(z) = \frac{3z^3 + 2}{z^2 + 9}
+                \end{align*}
+                is analytic and nonzero at $z = 1$. Therefore,
+                \begin{align*}
+                    \underset{z = 1}{\text{Res}} f(z) = \phi(1) = \frac{3(1)^3 + 2}{1^2 + 9} = \frac{1}{2}
+                \end{align*}
+                and from Cauchy's residue theorem,
+                \begin{align*}
+                    \int_C \frac{3z^3 + 2}{(z - 1)(z^2 + 9)} dz = 2\pi i \left( \frac{1}{2} \right) = \pi i.
+                \end{align*}
+
+            \item
+                Let $C$ denote the circle $|z| = 4$. Now all three singularities are inside $C$, and are poles of order $1$. For $z = 3i$, $f(z)$ can be written in the form
+                \begin{align*}
+                    f(z) = \frac{\phi(z)}{z - 3i}
+                    \text{\quad where \quad}
+                    \phi(z) = \frac{3z^3 + 2}{z + 3i}
+                \end{align*}
+                is analytic and nonzero at that point, and hence,
+                \begin{align*}
+                    \underset{z = 3i}{\text{Res}} f(z) = \phi(3i) = \frac{3(3i)^3 + 2}{(3i)^2 + 9} = \frac{15 + 49i}{12}.
+                \end{align*}
+                For $z = -3i$, $f(z)$ can be written in the form
+                \begin{align*}
+                    f(z) = \frac{\phi(z)}{z + 3i}
+                    \text{\quad where \quad}
+                    \phi(z) = \frac{3z^3 + 2}{z - 3i}
+                \end{align*}
+                is analytic and nonzero at that point, and hence,
+                \begin{align*}
+                    \underset{z = -3i}{\text{Res}} f(z) = \phi(-3i) = \frac{3(-3i)^3 + 2}{(-3i)^2 + 9} = \frac{15 - 49i}{12}.
+                \end{align*}
+                Then from Cauchy's residue theorem,
+                \begin{align*}
+                    \int_C \frac{3z^3 + 2}{(z - 1)(z^2 + 9)} dz = 2\pi i \left( \frac{1}{2} + \frac{15 + 49i}{12} + \frac{15 - 49i}{12} \right) = 6\pi i.
+                \end{align*}
+        \end{enumerate}
+
+    \item[8.]
+        When the extended Cauchy integral formula is applied to $\phi(z)$ and $n$ is taken to be $m - 1$, we have that
+        \begin{align*}
+            \int_C \frac{\phi(z) dz}{(z - z_0)^m} = 2\pi i \underset{z = z_0}{\text{\ Res\ }} f(z) = 2\pi i \frac{\phi^{(m - 1)}(z_0)}{(m - 1)!}.
+        \end{align*}
+        From the second equation, we have
+        \begin{align*}
+            \underset{z = z_0}{\text{\ Res\ }} f(z) = \frac{\phi^{(m - 1)}(z_0)}{(m - 1)!}.
+        \end{align*}
+\end{enumerate}
+
+\subsection*{6.83}
+\begin{enumerate}
+    \item[3.]
+        We use the theorem for identifying simple poles in the following.
+        \begin{enumerate}
+            \item
+                Let $p(z) = \sinh z$ and $q(z) = z^2 \cosh z$. Since
+                \begin{align*}
+                    p \left( \frac{\pi i}{2} \right) &= \sinh \frac{\pi i}{2} = \frac{e^{\pi i/2} - e^{-\pi i/2}}{2} = \frac{2i \sin (\pi/2)}{2} = i \neq 0 \\
+                    q \left( \frac{\pi i}{2} \right) &= \left( \frac{\pi i}{2} \right)^2 \cosh \frac{\pi i}{2} = \left( \frac{\pi i}{2} \right)^2 \frac{e^{\pi i/2} + e^{-\pi i/2}}{2} \\
+                    &= \left( \frac{\pi i}{2} \right)^2 \frac{2\cos(\pi/2)}{2} = 0 \\
+                    q' \left( \frac{\pi i}{2} \right) &= [z^2 \sinh z + 2z \cosh z]_{z = \frac{\pi i}{2}} = \left( \frac{\pi i}{2} \right)^2 i + 2 \left( \frac{\pi i}{2} \right) (0) \\
+                    &= -\frac{i\pi^2}{4} \neq 0,
+                \end{align*}
+                $z = \pi i/2$ is a simple pole of $p(z) / q(z)$ and
+                \begin{align*}
+                    \underset{z = \pi i/2}{\text{\ Res\ }} \frac{p(z)}{q(z)} = \frac{p(\pi i/2)}{q'(\pi i/2)} = \frac{i}{-i\pi^2 / 4} = -\frac{4}{\pi^2}.
+                \end{align*}
+
+            \item
+                Let $p(z) = e^{zt}$ and $q(z) = \sinh z$. For the first term, since
+                \begin{align*}
+                    p(\pi i) &= e^{\pi it} = \cos(\pi t) + i\sin(\pi t) = \cos(\pi t) \neq 0 \\
+                    q(\pi i) &= \sinh(\pi i) = \frac{e^{\pi i} - e^{-\pi i}}{2} = \frac{2i \sin(\pi)}{2} = 0 \\
+                    q'(\pi i) &= \cosh(\pi i) = \frac{e^{\pi i} + e^{-\pi i}}{2} = \frac{2\cos(\pi)}{2} = -1 \neq 0,
+                \end{align*}
+                $z = \pi i$ is a simple pole of $p(z) / q(z)$ and
+                \begin{align*}
+                    \underset{z = \pi i}{\text{\ Res\ }} \frac{p(z)}{q(z)} = \frac{p(\pi i)}{q'(\pi i)} = \frac{\cos(\pi t)}{-1} = -\cos(\pi t).
+                \end{align*}
+                For the second term, since
+                \begin{align*}
+                    p(-\pi i) &= e^{-\pi it} = \cos(-\pi t) + i\sin(-\pi t) = \cos(\pi t) \neq 0 \\
+                    q(-\pi i) &= \sinh(-\pi i) = \frac{e^{-\pi i} - e^{\pi i}}{2} = \frac{-2i \sin(\pi)}{2} = 0 \\
+                    q'(-\pi i) &= \cosh(-\pi i) = \frac{e^{-\pi i} + e^{\pi i}}{2} = \frac{2\cos(\pi)}{2} = -1 \neq 0,
+                \end{align*}
+                $z = -\pi i$ is a simple pole of $p(z) / q(z)$ and
+                \begin{align*}
+                    \underset{z = -\pi i}{\text{\ Res\ }} \frac{p(z)}{q(z)} = \frac{p(-\pi i)}{q'(-\pi i)} = \frac{\cos(\pi t)}{-1} = -\cos(\pi t).
+                \end{align*}
+                Then we have that
+                \begin{align*}
+                    \underset{z = \pi i}{\text{\ Res\ }} \frac{p(z)}{q(z)} + \underset{z = -\pi i}{\text{\ Res\ }} \frac{p(z)}{q(z)} = -2\cos(\pi t).
+                \end{align*}
+        \end{enumerate}
+
+    \item[4.]
+        \begin{enumerate}
+            \item
+                Let $p(z) = z$, $q(z) = 1 / \sec z = \cos z$, and $z_n = \pi/2 + n\pi$ where $n \in \mathbb{Z}$. Since
+                \begin{align*}
+                    p(z_n) &= z_n \neq 0 \\
+                    q(z_n) &= \cos z_n = 0 \\
+                    q'(z_n) &= -\sin z_n = -(-1)^n = (-1)^{n + 1},
+                \end{align*}
+                $z = z_n$ is a simple pole of $p(z) / q(z)$ and
+                \begin{align*}
+                    \underset{z = z_n}{\text{\ Res\ }} \frac{p(z)}{q(z)} = \frac{p(z_n)}{q'(z_n)} = \frac{z_n}{(-1)^{n + 1}} = (-1)^{n + 1} z_n.
+                \end{align*}
+
+            \item
+                Let $p(z) = \sinh z$, $q(z) = \cosh z$, and $z_n = (\pi/2 + n\pi)i$ where $n \in \mathbb{Z}$. Since
+                \begin{align*}
+                    p(z_n) &= \sinh \left[ \left( \frac{\pi}{2} + n\pi \right) i \right] = i \sin \left( \frac{\pi}{2} + n\pi \right) = i(-1)^n \neq 0 \\
+                    q(z_n) &= \cosh \left[ \left( \frac{\pi}{2} + n\pi \right) i \right] = \cos \left( \frac{\pi}{2} + n\pi \right) = 0 \\
+                    q'(z_n) &= \sinh z_n = i(-1)^n \neq 0,
+                \end{align*}
+                $z = z_n$ is a simple pole of $p(z) / q(z)$ and
+                \begin{align*}
+                    \underset{z = z_n}{\text{\ Res\ }} \frac{p(z)}{q(z)} = \frac{p(z_n)}{q'(z_n)} = \frac{i(-1)^n}{i(-1)^n} = 1.
+                \end{align*}
+        \end{enumerate}
+
+    \item[10.]
+        If $p(z)/q(z)$ satisfies the stated conditions and has a pole of order $m$ at $z_0$, then we may write
+        \begin{align*}
+            \frac{p(z)}{q(z)} = \frac{\phi(z)}{(z - z_0)^m}
+        \end{align*}
+        where $\phi(z)$ is analytic and nonzero at $z_0$. Rearranging, we have
+        \begin{align*}
+            q(z) = (z - z_0)^m \frac{p(z)}{\phi(z)}.
+        \end{align*}
+        Since $p(z)/\phi(z)$ is analytic and nonzero at $z_0$, $q$ has a zero of order $m$ at $z_0$.
+
+    \item[11.]
+        Let $S \subset R$ denote the set of zeros in $R$, a closed and bounded region, and let $z_0 \in S$ denote one such element. If $f$ satisfies the stated conditions, then $f$ is analytic at $z_0$, and because the zero is of finite order,
+        \begin{align*}
+            f(z) = (z - z_0)^m g(z)
+        \end{align*}
+        where $g(z)$ is analytic and nonzero. This implies that $f(z)$ is not identically equal to zero in any neighborhood of $z_0$, and hence $z_0$ is isolated; that is, there exists some deleted neighborhood $0 < |z - z_0| < \varepsilon$ of $z_0$ which contains no zeros of $f$. From the definition, $z_0$ is not an accumulation point of $S$, and because $z_0$ was chosen arbitrarily, it is also true that $S$ has no accumulation points. Therefore, due to the Bolzano-Weierstrass theorem, $S$ has a finite number of elements in $R$.
+\end{enumerate}
+
+\subsection*{7.86}
+\begin{enumerate}
+    \item[1.]
+        Let $f(x) = 1/(x^2 + 1)$. First, we will show that $\lim_{R \to \infty} \int_{C_R} f(z) dz = 0$. When $|z| = R$ (and $R \geq 1$),
+        \begin{gather*}
+            |z^2 + 1| \geq ||z|^2 - 1| = R^2 - 1.
+        \end{gather*}
+        Then if $z$ is any point on $C_R$,
+        \begin{gather*}
+            |f(z)| = \frac{1}{|z^2 + 1|} \leq \frac{1}{R^2 - 1} \\
+            \Rightarrow \left| \int_{C_R} f(z) dz \right| \leq \left( \frac{1}{R^2 - 1} \right) \pi R \to 0 \text{\quad as \quad} R \to \infty \\
+            \Rightarrow \int_{C_R} f(z) dz \to 0 \text{\quad as \quad} R \to \infty.
+        \end{gather*}
+        The isolated singularities of $f(z)$ are $\pm i$, but only $i$ is interior to $C_R$. If we let $p(z) = 1$ and $q(z) = z^2 + 1$, then
+        \begin{align*}
+            p(i) = 1 \neq 0, \quad q(i) = 0, \text{\quad and \quad} q'(i) = 2i \neq 0;
+        \end{align*}
+        hence $i$ is a simple pole of $f(z)$ and
+        \begin{align*}
+            \underset{z = i}{\text{\ Res\ }} \frac{p(z)}{q(z)} = \frac{p(i)}{q'(i)} = \frac{1}{2i}.
+        \end{align*}
+        Because $f(x)$ is even, it follows from the residue method for improper integrals that
+        \begin{align*}
+            \int_0^\infty \frac{1}{x^2 + 1} dx = \pi i \left( \frac{1}{2i} \right) = \frac{\pi}{2}.
+        \end{align*}
+
+    \item[2.]
+        Let $f(x) = 1/(x^2 + 1)^2$. First, we will show that $\lim_{R \to \infty} \int_{C_R} f(z) dz = 0$. When $|z| = R$ (and $R \geq 1$),
+        \begin{gather*}
+            |z^2 + 1| \geq ||z|^2 - 1| = R^2 - 1.
+        \end{gather*}
+        Then if $z$ is any point on $C_R$,
+        \begin{gather*}
+            |f(z)| = \left| \frac{1}{(z^2 + 1)^2} \right| = \frac{1}{|z^2 + 1|^2} \leq \frac{1}{(R^2 - 1)^2} \\
+            \Rightarrow \left| \int_{C_R} f(z) dz \right| \leq \left[ \frac{1}{(R^2 - 1)^2} \right] \pi R \to 0 \text{\quad as \quad} R \to \infty \\
+            \Rightarrow \int_{C_R} f(z) dz \to 0 \text{\quad as \quad} R \to \infty.
+        \end{gather*}
+        The isolated singularities of $f(z)$ are $\pm i$, but only $i$ is interior to $C_R$ for some $R$. Since
+        \begin{align*}
+            \frac{1}{(z^2 + 1)^2} = \frac{\phi(z)}{(z - i)^2} \text{\quad where \quad} \phi(z) = \frac{1}{(z + i)^2}
+        \end{align*}
+        where $\phi(z)$ is analytic and nonzero at $z = i$, we have that
+        \begin{align*}
+            \underset{z = i}{\text{\ Res\ }} \frac{1}{(z^2 + 1)^2} = \frac{\phi^{(1)}(i)}{1!} = \left[ -\frac{2}{(z + i)^3} \right]_{z = i} = \frac{1}{4i}.
+        \end{align*}
+        Because $f(x)$ is even, it follows from the residue method for improper integrals that
+        \begin{align*}
+            \int_0^\infty \frac{1}{(x^2 + 1)^2} dx = \pi i \left( \frac{1}{4i} \right) = \frac{\pi i}{4}.
+        \end{align*}
+
+    \item[4.]
+        Let $f(x) = x^2/(x^6 + 1)$. First, we will show that $\lim_{R \to \infty} \int_{C_R} f(z) dz = 0$. When $|z| = R$ (and $R \geq 1$),
+        \begin{gather*}
+            |z^2| = |z|^2 = R^2
+            |z^6 + 1| \geq ||z|^6 - 1| = R^6 - 1.
+        \end{gather*}
+        Then if $z$ is any point on $C_R$,
+        \begin{gather*}
+            |f(z)| = \frac{|z^2|}{|z^6 + 1|} \leq \frac{R^2}{R^6 - 1} \\
+            \Rightarrow \left| \int_{C_R} f(z) dz \right| \leq \left( \frac{R^2}{R^6 - 1} \right) \pi R \to 0 \text{\quad as \quad} R \to \infty \\
+            \Rightarrow \int_{C_R} f(z) dz \to 0 \text{\quad as \quad} R \to \infty.
+        \end{gather*}
+        The isolated singularities of $f(z)$ are the zeros of $z^6 + 1$, or
+        \begin{align*}
+            c_k = e^{i(\pi/6 + k\pi/3)},
+        \end{align*}
+        but only $c_0 = e^{i\pi/6}$, $c_1 = i$, $c_2 = e^{5i\pi/6}$ are interior to $C_R$ for some $R$. If we let $p(z) = z^2$ and $q(z) = z^6 + 1$, then
+        \begin{align*}
+            p(c_k) = c_k^2 \neq 0, \quad q(c_k) = 0, \text{\quad and \quad} q'(c_k) = 6c_k^5 \neq 0;
+        \end{align*}
+        hence $c_0$, $c_1$, and $c_2$ are simple poles of $f(z)$ and
+        \begin{align*}
+            \underset{z = c_k}{\text{\ Res\ }} \frac{p(z)}{q(z)} = \frac{p(c_k)}{q'(c_k)} = \frac{c_k^2}{6c_k^5} = \frac{1}{6c_k^3} = \frac{1}{6e^{i(\pi/2 + k\pi)}} = \frac{(-1)^k}{6i}.
+        \end{align*}
+        Because $f(x)$ is even, it follows from the residue method for improper integrals that
+        \begin{align*}
+            \int_0^\infty \frac{x^2}{x^6 + 1} dx = \pi i \sum_{k = 0}^2 \underset{z = c_k}{\text{\ Res\ }} \frac{z^2}{z^6 + 1} = \pi i \sum_{k = 0}^2 \frac{(-1)^k}{6i} = \frac{\pi}{6}.
+        \end{align*}
+
+    \item[9.]
+        Let $C_R$ denote the positively oriented part of the circle $|z| = R$ in the contour, and let $f(x) = 1/(x^3 + 1)$. First, we will show that $\lim_{R \to \infty} \int_{C_R} f(z) dz = 0$. When $|z| = R$ (and $R \geq 1$),
+        \begin{gather*}
+            |z^3 + 1| \geq ||z|^3 - 1| = R^3 - 1.
+        \end{gather*}
+        Then if $z$ is any point on $C_R$,
+        \begin{gather*}
+            |f(z)| = \frac{1}{|z^3 + 1|} \leq \frac{1}{R^3 - 1} \\
+            \Rightarrow \left| \int_{C_R} f(z) dz \right| \leq \left( \frac{1}{R^3 - 1} \right) \pi R \to 0 \text{\quad as \quad} R \to \infty \\
+            \Rightarrow \int_{C_R} f(z) dz \to 0 \text{\quad as \quad} R \to \infty.
+        \end{gather*}
+        The isolated singularities of $f(z)$ are the zeros of $z^3 + 1$, or
+        \begin{align*}
+            c_k = e^{i(\pi + 2k\pi)/3)},
+        \end{align*}
+        but only $c_0 = e^{i\pi/3}$ is interior to $C_R$ for some $R$. If we let $p(z) = 1$ and $q(z) = z^3 + 1$, then
+        \begin{align*}
+            p(c_k) = 1 \neq 0, \quad q(c_k) = 0, \text{\quad and \quad} q'(c_k) = 3c_k^2 \neq 0;
+        \end{align*}
+        hence $c_0$ is a simple pole of $f(z)$ and
+        \begin{align*}
+            \underset{z = c_k}{\text{\ Res\ }} \frac{p(z)}{q(z)} = \frac{p(c_k)}{q'(c_k)} = \frac{1}{3c_k^2}.
+        \end{align*}
+        Now let $C_0$ denote the segment from $O$ to $R$ and $C_1$ denote the segment from $O$ to $Re^{2i\pi/3}$. From the residue theorem,
+        \begin{align}
+            \int_{C_0} \frac{dz}{z^3 + 1} + \int_{C_R} \frac{dz}{z^3 + 1} + \int_{-C_1} \frac{dz}{z^3 + 1} = 2\pi i \underset{z = c_0}{\text{\ Res\ }} \frac{1}{z^3 + 1}; \label{eq:residue}
+        \end{align}
+        since $C_0$ is parameterized by $z = x$ and $C_1$ is parameterized by $z = xe^{2i\pi/3}$ for $0 \leq x \leq R$, we have that
+        \begin{gather*}
+            \int_{C_0} \frac{dz}{z^3 + 1} = \int_0^R \frac{dx}{x^3 + 1} \\
+            \int_{-C_1} \frac{dz}{z^3 + 1} = -\int_{C_1} \frac{dz}{z^3 + 1} = -\int_0^R \frac{e^{2i\pi/3} dx}{(xe^{2i\pi/3})^3 + 1} = -e^{2i\pi/3} \int_0^R \frac{dx}{x^3 + 1}.
+        \end{gather*}
+        Therefore, in the limit as $R$ approaches $\infty$, (\ref{eq:residue}) becomes
+        \begin{gather*}
+            \int_0^\infty \frac{dx}{x^3 + 1} + 0 - e^{2i\pi/3} \int_0^\infty \frac{dx}{x^3 + 1} = \frac{2\pi i}{3c_0^2} = \frac{2\pi i}{3e^{2i\pi/3}} \\
+            \Rightarrow \int_0^\infty \frac{dx}{x^3 + 1} = \frac{2\pi i}{3e^{2i\pi/3} (1 - e^{2i\pi/3})} = \frac{2\pi i}{3(e^{2i\pi/3} - e^{-2i\pi/3})} = \frac{\pi}{3\sin\frac{2\pi}{3}} = \frac{2\pi}{3\sqrt{3}}.
+        \end{gather*}
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,149 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr, graphicx}
+\usepackage[margin=1in, includehead, includefoot, heightrounded]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\DeclareMathOperator*{\argmax}{\arg\!\max}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\begin{document}
+
+\section*{MATH 4640 -- HW4 Solutions}
+For any interval $[a, b]$, we can canonically write
+\begin{align*}
+    \int_a^b f(x) dx = \sum_{i = 0}^{N - 1} \int_{x_i}^{x_{i + 1}} f(x) dx
+\end{align*}
+where $x_i = a + ih, h = (b - a) / N$. \par
+\begin{enumerate}
+    \item
+        The \emph{midpoint rule} uses the approximation
+        \begin{align*}
+            \int_{x_i}^{x_{i + 1}} f(x) dx \approx (x_{i + 1} - x_i) f \left( \frac{x_i + x_{i + 1}}{2} \right)
+            = h f \left( \frac{x_i + x_i + h}{2} \right) = hf \left( x_i + \frac{h}{2} \right),
+        \end{align*}
+        so the \emph{composite midpoint rule} is
+        \begin{align*}
+            \int_a^b f(x) dx \approx \sum_{i = 0}^{N - 1} hf \left( x_i + \frac{h}{2} \right)
+            = h \sum_{i = 0}^{N - 1} f \left( x_i + \frac{h}{2} \right)
+            = h\sum_{i = 1}^N f \left( x_i - \frac{h}{2} \right)
+            .%= h \sum_{i = 1}^N f_{i - 1/2}.
+        \end{align*}
+        Denoting $\tilde{x}_i = x_i - h/2$, the error is given by the absolute value of
+        \begin{align*}
+            \int_a^b f(x) dx - h \sum_{i = 1}^N f(\tilde{x}_i)
+            &= \sum_{i = 1}^N \left[ \int_{x_{i - 1}}^{x_i} f(x) dx - hf(\tilde{x}_i) \right] \\
+            &= \sum_{i = 1}^N \left[ \int_{x_{i = 1}}^{x_i} \left[ f(x) - f(\tilde{x}_i) \right] dx \right] \\
+            &= \sum_{i = 1}^N \left[ \int_{x_{i - 1}}^{x_i} f[\tilde{x}_i, x] \left( x - \tilde{x}_i \right) dx \right] \\
+            &= \sum_{i = 1}^N \left[ \int_{x_{i - 1}}^{x_i} \left( f[\tilde{x}_i, \tilde{x}_i] + f[\tilde{x}_i, \tilde{x}_i, x](x - \tilde{x}_i) \right) \left( x - \tilde{x}_i \right) dx \right] \\
+            &= \sum_{i = 1}^N \left[ \int_{x_{i - 1}}^{x_i} f[\tilde{x}_i, \tilde{x}_i] \left( x - \tilde{x}_i \right) dx + \int_{x_{i - 1}}^{x_i} f[\tilde{x}_i, \tilde{x}_i, x](x - \tilde{x}_i)^2 dx \right].
+        \end{align*}
+        The first integral evaluates to
+        \begin{align*}
+            \frac{1}{2} f[\tilde{x}_i, \tilde{x}_i] (x - x_0)^2 \bigg|_{x_{i - 1}}^{x_i}
+            = \frac{1}{2} f[\tilde{x}_i, \tilde{x}_i] \frac{h^2 - h^2}{4} = 0,
+        \end{align*}
+        whereas for the second integral, since $(x - \tilde{x}_i)^2$ is positive, the Mean Value Theorem for Integrals states that there exist $\eta, \xi \in [x_{i - 1}, x_i]$ such that
+        \begin{align*}
+            \int_{x_{i - 1}}^{x_i} f[\tilde{x}_i, \tilde{x}_i, x](x - \tilde{x}_i)^2 dx
+            &= f[\tilde{x}_i, \tilde{x}_i, \eta] \int_{x_{i - 1}}^{x_i} (x - \tilde{x}_i)^2 dx
+            = \frac{f''(\xi)}{2!} \int_{x_{i - 1}}^{x_i} (x - \tilde{x}_i)^2 dx \\
+            &= \frac{1}{3} \frac{f''(\xi)}{2!} (x - \tilde{x}_i)^3 \bigg|_{x_{i - 1}}^{x_i}
+            = \frac{1}{3} \frac{f''(\xi)}{2!} \frac{h^3 + h^3}{8} = \frac{f''(\xi) h^3}{24} \\
+            &\leq \max_{\xi \in [x_{i - 1}, x_i]} \frac{|f''(\xi)| h^3}{24}.
+        \end{align*}
+        Thus, %if we denote $\xi_i = \argmax |f''(\xi)|$,
+        the error is bounded above by the absolute value of
+        \begin{align*}
+            \sum_{i = 1}^N \max_{\xi \in [x_{i - 1}, x_i]} \frac{|f''(\xi)| h^3}{24},
+        \end{align*}
+        which equals, for some $\eta \in [a, b]$ by the Mean Value Theorem,
+        \begin{align*}
+            f''(\eta) \sum_{i = 1}^N \frac{h^3}{24}
+            = \frac{f''(\eta) Nh^3}{24}
+            = \frac{f''(\eta) (b - a)h^2}{24}.
+        \end{align*}
+
+    \item
+        We know that Gaussian quadrature provides an exact approximation for $I$ whenever $f \in \Pi_{2n - 1}$ where $n$ is the number of points. \par
+        When $n = 1$, we can apply this fact in the cases $f(x) = 1$ and $f(x) = x$ to obtain
+        \begin{gather*}
+            I = \int_0^1 x(1) dx = A_1(1) \Rightarrow A_1 = \frac{1}{2} \\
+            I = \int_0^1 x(x) dx = A_1 x_1 \Rightarrow x_1 = \frac{1/3}{1/2} = \frac{2}{3}.
+        \end{gather*}
+        Thus, the general formula is $I \approx A_1 f(x_1) = \frac{1}{2} f(\frac{2}{3})$. \par
+        When $n = 2$, we can apply the same fact in the cases $f(x) = 1$, $f(x) = x$, $f(x) = x^2$, and $f(x) = x^3$ to obtain
+        \begin{gather*}
+            I = \int_0^1 x(1) dx = \sum_{j = 1}^2 A_j(1) \Rightarrow A_1 + A_2 = \frac{1}{2} \\
+            I = \int_0^1 x(x) dx = \sum_{j = 1}^2 A_j x_j \Rightarrow A_1 x_1 + A_2 x_2 = \frac{1}{3} \\
+            I = \int_0^1 x(x^2) dx = \sum_{j = 1}^2 A_j x_j^2 \Rightarrow A_1 x_1^2 + A_2 x_2^2 = \frac{1}{4} \\
+            I = \int_0^1 x(x^3) dx = \sum_{j = 1}^2 A_j x_j^3 \Rightarrow A_1 x_1^3 + A_2 x_2^3 = \frac{1}{5}.
+        \end{gather*}
+        Solving the system of equations gives $A_1 = \frac{1}{4} \pm \frac{\sqrt{6}}{36}$, $A_2 = \frac{1}{4} \mp \frac{\sqrt{6}}{36}$, $x_1 = \frac{3}{5} \pm \frac{\sqrt{6}}{10}$, and $x_2 = \frac{3}{5} \pm \frac{\sqrt{6}}{10}$, so the general formula is
+        \begin{align*}
+            I \approx \left( \frac{1}{4} + \frac{\sqrt{6}}{36} \right) f \left( \frac{3}{5} + \frac{\sqrt{6}}{10} \right) + \left( \frac{1}{4} - \frac{\sqrt{6}}{36} \right) f \left( \frac{3}{5} - \frac{\sqrt{6}}{10} \right).
+        \end{align*}
+
+    \item
+        First, the approximation given by the \emph{corrected trapezoidal rule} is
+        \begin{align*}
+            I(p_3) &= \int_{x_i}^{x_{i + 1}} [ f(x_i) + f'(x_i)(x - x_i) + f[x_i, x_i, x_{i + 1}](x - x_i)^2 \\
+            &\qquad+ f[x_i, x_i, x_{i + 1}, x_{i + 1}](x - x_i)^2(x - x_{i + 1}) ] dx \\
+            &= f(x_i)h + \frac{f'(x_i) h^2}{2} + \frac{f[x_i, x_i, x_{i + 1}] h^3}{3} - \frac{f[x_i, x_i, x_{i + 1}, x_{i + 1}] h^4}{12} \\
+            &= \frac{(f(x_i) + f(x_{i + 1}))h}{2} + \frac{(f'(x_i) - f'(x_{i + 1}))h^2}{12}.
+        \end{align*}
+        for $I(f)$. Writing $f(x) = p_3(x) + f[y_0, y_1, y_2, y_3, x] \psi_4(x)$ and setting $y_0 = x_i, y_1 = x_i, y_2 = x_{i + 1}, y_3 = x_{i + 1}$, we have that $\psi_4(x) = (x - x_i)^2 (x - x_{i + 1})^2$ is positive on all of $[x_i, x_{i + 1}]$. By the Mean Value Theorem for Integrals, the approximation error is the absolute value of, for some $\eta, \xi \in [x_i, x_{i + 1}]$,
+        \begin{align*}
+            I(f) - I(p_3) &= \int_{x_i}^{x_{i + 1}} f[x_0, x_1, x_2, x_3, x] (x - x_i)^2 (x - x_{i + 1})^2 dx \\
+            &= f[x_0, x_1, x_2, x_3, \eta] \int_{x_i}^{x_{i + 1}} (x - x_i)^2 (x - x_{i + 1})^2 dx \\
+            &= \frac{f^{(4)}(\xi)}{4!} \cdot \frac{h^5}{30}
+            = \frac{f^{(4)}(\xi) h^5}{720}.
+        \end{align*}
+        Continuing from above, the \emph{composite corrected trapezoidal rule} is
+        \begin{align*}
+            \int_a^b f(x) dx &= \sum_{i = 0}^{N - 1} \left[ \frac{(f(x_i) + f(x_{i + 1}))h}{2} + \frac{(f'(x_i) - f'(x_{i + 1}))h^2}{12} \right] \\
+            &= \sum_{i = 0}^{N - 1} \frac{(f(x_i) + f(x_{i + 1}))h}{2} + \sum_{i = 0}^{N - 1} \frac{(f'(x_i) - f'(x_{i + 1}))h^2}{12} \\
+            &= \frac{(f(a) + f(b))h}{2} + h\sum_{i = 1}^{N - 1} f(x_i) + \frac{(f'(a) - f'(b))h^2}{12}.
+        \end{align*}
+        The composite error is, for some $\xi_i \in [x_i, x_{i + 1}]$ for all $i$,
+        \begin{align*}
+            \sum_{i = 0}^{N - 1} \frac{f^{(4)}(\xi_i) h^5}{720},
+        \end{align*}
+        which equals, for some $\eta \in [a, b]$ by the Mean Value Theorem,
+        \begin{align*}
+            \frac{f^{(4)}(\eta) Nh^5}{720} = \frac{f^{(4)}(\eta) (b - a) h^4}{720}.
+        \end{align*}
+
+    \item
+        The respective results from executing \texttt{integration\_demo.m} in MATLAB/Octave are 0.746820390541618, 0.746823197246152, 0.746823898920947, 3.62759872846843, 3.62759872846844, and 3.62759872846843.
+
+    \item
+        The result of
+        \begin{center}
+            \texttt{bisect\_smallest(@(x) 2*x.\^{}3 - 3*x - 4, -10, 10, 0.000001)}
+        \end{center}
+        is 1.64 (also, the results at each iteration are printed).
+
+    \item
+        The results of
+        \begin{center}
+            \texttt{newton(@(x) exp(x) - 3*x.\^{}2, @(x) exp(x) - 6*x, -1, 100, 0.0001, 0.0001, -0.458962267536948)} \\
+            \texttt{newton(@(x) exp(x) - 3*x.\^{}2, @(x) exp(x) - 6*x, 1, 100, 0.0001, 0.0001, 0.910007572488709)} \\
+            \texttt{newton(@(x) exp(x) - 3*x.\^{}2, @(x) exp(x) - 6*x, 3, 100, 0.0001, 0.0001, 3.73307902863282)}
+        \end{center}
+        are approximately -0.459, 0.910, and 3.73, which are the roots of $e^x - 3x^2$. \par
+        The result of 
+        \begin{center}
+            \texttt{newton(@(x) 1 + 0.3*cos(x) - x, @(x) -0.3*sin(x) - 1, 1, 100, 0.0001, 0.0001, 1.12842509299222)}
+        \end{center}
+        is 1.13, which is the sole root of $1 + 0.3\cos x - x$. \par
+        We know that Newton's method converges quadratically. In each of the function calls, the last argument $r$ is an extremely close approximation for the true root which is obtained from an initial execution of the algorithm using much smaller values of $\delta$ and $\epsilon$. This helps the program determine that the rates of (quadratic) convergence, given by $\lim_{n \to \infty} e_{n + 1} / e_n^2$ where $e_n = |x_n - r|$, are slightly larger than 0.780, 0.587, 0.922, and 0.0504, respectively.
+\end{enumerate}
+
+\end{document}

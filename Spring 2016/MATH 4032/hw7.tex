@@ -1,0 +1,58 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amsthm, changepage, enumitem, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{MATH 4032 - HW7 Solutions}
+\subsection*{8.}
+\begin{enumerate}
+    \item[7.]
+        \boldmath
+        \textbf{Prove that if a SQS of order $n$ exists, with $n \geq 2$, then $n \equiv 2$ or $4$ (mod $6$).} \par
+        \unboldmath
+        Suppose that $(X, \mathcal{B})$ is a SQS of order $n$. The following properties are established by double counting.
+        \begin{enumerate}
+            \item
+                \textit{Any point lies in $(n - 1)(n - 2)/6$ quadruples.} \par
+                Choose a point $x$, and count triples $(y, z, B)$, where $y$ is a point different from $x$, $z$ a point different from $y$ and $x$, and $B$ a quadruple containing $x$, $y$, and $z$. First, there are $\binom{n - 1}{2} = (n - 1)(n - 2)/2$ ways to choose $y$ and $z$; then there is a unique quadruple $B$ containing $x$, $y$, and $z$. Altogether, there are $(n - 1)(n - 2)/2$ such triples $(y, z, B)$. Second, if $x$ lies in $r$ quadruples, then (since each quadruple contains three points other than $x$) there are $3r$ choices of the triple $(y, z, B)$. Hence $3r = (n - 1)(n - 2)/2$, and $r$ is as claimed.
+
+            \item
+                \textit{There are $n(n - 1)(n - 2)/24$ quadruples altogether.} \par
+                We count pairs $(x, B)$, where $x$ is a point and $B$ a quadruple containing $x$. Each of the $n$ points lies in $(n - 1)(n - 2)/6$ quadruples, so there are $n(n - 1)(n - 2)/6$ pairs. If there are $b$ quadruples, each containing $4$ points, then there are $4b$ choices. So $4b = n(n - 1)(n - 2)/6$, giving the claimed value for $b$.
+        \end{enumerate}
+        Both $(n - 1)(n - 2)/6$ and $n(n - 1)(n - 2)/24$ must be whole numbers. The first condition asserts that one of $n - 1$ and $n - 2$ must divide $6$, or divide $2$ while the other divides $3$, whence $n \equiv 1, 2, 4 \text{ or } 5$ (mod $6$).
+        \iffalse
+            Suppose that $n \equiv 1$ (mod $6$), say $n = 6k + 1$. Then the number of quadruples would be
+            \begin{align*}
+                n(n - 1)(n - 2)/24 &= (6k + 1)(6k)(6k - 1)/24 \\
+                &= k(6k + 1)(6k - 1)/4
+            \end{align*}
+            which is not an integer, since neither $6k + 1$ nor $6k - 1$ is even.
+        \fi
+        Suppose that $n \equiv 5$ (mod $6$), say $6k + 5$. Then the number of quadruples would be
+        \begin{align*}
+            n(n - 1)(n - 2)/24 &= (6k + 5)(6k + 4)(6k + 3)/24 \\
+            &= (6k + 5)(3k + 2)(2k + 1)/4
+        \end{align*}
+        which is not an integer, since neither $6k + 5$ nor $2k + 1$ is even, and $3k + 2$ does not divide $4$. \par
+        If $x \in X$ and $\mathcal{C}$ is the set of triples $\{ y, z, w \}$ such that $\{ x, y, z, w \} \in \mathcal{B}$, then $(X \setminus \{x\}, \mathcal{C})$ is a STS by the definition of a SQS. Then $n \not\equiv 1$ (mod $6$) because otherwise, $n - 1 \equiv 0$ (mod $6$). From the STS theorem, we know that this would require $n - 1 = 0$, a contradiction since $n \geq 2$. So $n$ must be congruent to $2$ or $4$ modulo $6$.
+
+    \item[8.]
+        \boldmath
+        \textbf{Prove that if $(X, \mathcal{B})$ is a SQS of order $n$, then $|\mathcal{B}| = n(n - 1)(n - 2)/24$.} \par
+        \unboldmath
+        Because $|\mathcal{B}|$ is the number of quadruples, this result is given in property (b) in the previous exercise.
+
+    \item[11.]
+        \boldmath
+        \textbf{Let $(X, \mathcal{B})$ be a STS of order $n$, and $Y$ a subsystem of order $m$, where $m < n$. Prove that $n \geq 2m + 1$. Show further that $n = 2m + 1$ if and only if every triple in $\mathcal{B}$ contains either $1$ or $3$ points of $Y$.} \par
+        \unboldmath
+        We use a double counting argument, counting pairs $(x, B)$ where $x \in X \setminus Y$ and $B$ is a triple containing $X$. First, we know that $x$ lies in $(n - 1)/2$ triples. Second, because $Y \subseteq X$, the number of triples containing both $x$ as well as some $y \in Y$ is at most $(n - 1)/2$. Any such triple must have its third element in $X \setminus Y$ because $Y$ is a subsystem; thus, there is one such triple for each $y \in Y$, and the number of these triples is $m$. This gives the result $(n - 1)/2 \geq m$, which is equivalent to $n \geq 2m + 1$. \par
+        Furthermore, from our construction, $n = 2m + 1$ if and only if every triple containing $x$ contains some $y \in Y$. Because $x$ was arbitrary, the equality holds by extension if and only if every triple contains some $y \in Y$. Since $Y$ is a subsystem, no triple $B$ can contain only $2$ points of $Y$, so it must contain either $1$ or $3$ points of $Y$.
+\end{enumerate}
+\end{document}

@@ -1,0 +1,146 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, dsfont, fancyhdr}
+\usepackage[margin=1in]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{MATH 3225 - HW5 Solutions}
+\begin{enumerate}
+    \item[1.] 
+        Splitting the integral and taking advantage of symmetry,
+        \begin{align*}
+            \mu(X) = \mathbb{E}(X) &= \int_{-\infty}^\infty \frac{1}{2} cxe^{-c|x|} dx \\
+            &= \int_{-\infty}^0 \frac{1}{2} cxe^{cx} dx + \int_{0}^\infty \frac{1}{2} cxe^{-cx} dx \\
+            &= -\int_{0}^\infty \frac{1}{2} cxe^{-cx} dx + \int_{0}^\infty \frac{1}{2} cxe^{-cx} dx \\
+            &= 0.
+        \end{align*}
+        Repeating a similar process for the variance and integrating by parts twice, 
+        \begin{align*}
+            \mathbb{E}(X^2) &= \int_{-\infty}^\infty \frac{1}{2} cx^2 e^{-c|x|} dx \\
+            &= \int_{-\infty}^0 \frac{1}{2} cx^2 e^{cx} dx + \int_{0}^\infty \frac{1}{2} cx^2 e^{-cx} dx \\
+            &= \int_{0}^\infty \frac{1}{2} cx^2 e^{-cx} dx + \int_{0}^\infty \frac{1}{2} cx^2 e^{-cx} dx \\
+            &= \int_{0}^\infty cx^2 e^{-cx} dx \\
+            &= c \left( \frac{x^2 e^{-cx}}{-c} \biggr\rvert_{0}^\infty + \int_{0}^\infty \frac{2xe^{-cx}}{c} dx \right) \\
+            &= c \left[ 0 - 0 + \frac{2}{c} \left( \frac{xe^{-cx}}{-c} \biggr\rvert_{0}^\infty + \int_0^\infty \frac{e^{-cx}}{c}dx \right) \right] \\
+            &= 2 \left( 0 - 0 + \frac{e^{-cx}}{-c^2} \biggr\rvert_{0}^\infty \right) \\
+            &= 2 \left( 0 + \frac{1}{c^2} \right) \\
+            &= \frac{2}{c^2}.
+        \end{align*}
+        Then
+        \begin{align*}
+            \text{var}(X) = \mathbb{E}(X^2) - \mathbb{E}(X)^2 = \frac{2}{c^2}.
+        \end{align*}
+
+    \item[2.] 
+        Using properties of the gamma and upper incomplete gamma functions,
+        \begin{align*}
+            \mathbb{P}(Y \leq \lambda) &= \int_{-\infty}^0 0 du + \int_{0}^\lambda \frac{u^{w - 1} e^{-u}}{\Gamma(w)} du \\
+            &= \frac{\int_0^\lambda u^{w - 1} e^{-u} du}{(w - 1)!} \\
+            &= \frac{\Gamma(w, \lambda)}{(w - 1)!} \\
+            &= \frac{(w - 1)! e^{-\lambda} \sum_{k = 0}^{w - 1} \frac{\lambda_k}{k!}}{(w - 1)!} \\
+            &= e^{-\lambda} \sum_{k = 0}^{w - 1} \frac{\lambda_k}{k!} \\
+            &= \mathbb{P}(X \geq w).
+        \end{align*}
+
+    \item[4.] 
+        Because the inverse of the absolute value function is only defined for $y \geq 0$, $f_Y(y) = 0$ for $y \leq 0$, and since the normal distribution with the given parameters has an even density function
+        \begin{align*}
+            f_X(x) &= \frac{1}{\sqrt{2\pi}} \text{exp} \left( -\frac{1}{2} x^2 \right),
+        \end{align*}
+        the density function of $Y$ is identical to that of $X$ for $y \geq 0$, except scaled by a factor of $2$ to preserve the property that $\int_{-\infty}^\infty f_Y(y) = 1$. Then
+        \begin{align*}
+            f_Y(y) &=
+            \begin{cases}
+                \sqrt{\frac{2}{\pi}} \text{exp} \left( -\frac{1}{2} y^2 \right), & y \geq 0 \\
+                0, & y < 0
+            \end{cases}.
+        \end{align*}
+        The mean and variance are given by
+        \begin{align*}
+            \mu(X) = \mathbb{E}(X) &= \int_{-\infty}^\infty y f_Y(y) \\
+            &= \int_0^\infty y \sqrt{\frac{2}{\pi}} \text{exp} \left( -\frac{1}{2} y^2 \right) dy \\
+            &= -\sqrt{\frac{2}{\pi}} \text{exp} \left( -\frac{1}{2} y^2 \right) \biggr\rvert_{0}^\infty \\
+            &= -\sqrt{\frac{2}{\pi}} (0 - 1) \\
+            &= \sqrt{\frac{2}{\pi}} \\
+            \mathbb{E}(X^2) &= \int_{-\infty}^\infty y^2 f_Y(y) \\
+            &= \int_0^\infty y^2 \sqrt{\frac{2}{\pi}} \text{exp} \left( -\frac{1}{2} y^2 \right) dy \\
+            &= \sqrt{\frac{2}{\pi}} \left[ -y \text{exp} \left( -\frac{1}{2}y^2 \right) \biggr\rvert_{0}^\infty + \int_0^\infty \text{exp} \left( -\frac{1}{2} y^2 \right) dy \right] \\
+            &= \sqrt{\frac{2}{\pi}} \left[ 0 - 0 + \int_0^\infty \text{exp} \left( -\frac{1}{2} y^2 \right) dy \right] \\
+            &= \sqrt{\frac{2}{\pi}} \left[ \sqrt{\frac{\pi}{2}} \text{erf} \left( \frac{x}{\sqrt{2}} \right) \biggr\rvert_{0}^\infty \right] \\
+            &= 1 \\
+            \text{var}(X) &= \mathbb{E}(X^2) - \mathbb{E}(X)^2 = 1 - \frac{2}{\pi}.
+        \end{align*}
+
+    \item[5.] 
+        Let $F_Y(y)$ be the cdf of $Y$, and let $F^{-1}(y)$ be the generalized inverse
+        \begin{align*}
+            \text{sup}\{x : F(x) = y\}.
+        \end{align*}
+        Then for any $y \in (0, 1)$,
+        \begin{align*}
+            F_Y(y) &= \mathbb{P}(F(X) \leq y) = \mathbb{P}(X \leq F^{-1}(y)) = F(F^{-1}(y)) = y.
+        \end{align*}
+        Therefore,
+        \begin{align*}
+            F_Y(y) = \int_{-\infty}^y f_Y(u) du = y.
+        \end{align*}
+        Differentiating both sides by y, we have that $f_Y(y) = 1$. This matches the definition of the density function for a uniform distribution on $(0, 1)$.
+
+    \item[9.] 
+        \iffalse
+        When directly truncated, the distribution $F_X(\omega)$ becomes
+        \begin{align*}
+            \begin{cases}
+                F_X(\omega), & \omega \leq X^{-1}(a) \\
+                F_X(X^{-1}(a)), & \omega > X^{-1}(a)
+            \end{cases}
+        \end{align*}
+        where $X^{-1}(a)$ is the generalized inverse defined as before. Normalizing allows us to obtain
+        \begin{align*}
+            F_{X'}(\omega) =
+            \begin{cases}
+                \frac{F_X(\omega)}{F_X(X^{-1}(a))}, & \omega \leq X^{-1}(a) \\
+                1, & \omega > X^{-1}(a)
+            \end{cases}.
+        \end{align*}
+        \fi
+        Note that $X' = \min\{X, a\}$. Then $F_{X'}(x) = \mathbb{P}(X' \leq x) = \mathbb{P}(X \leq x)$ and
+        \begin{align*}
+            F_{X'}(x) =
+            \begin{cases}
+                F(x), & x \leq a \\
+                1, & x > a
+            \end{cases}.
+        \end{align*}
+
+    \item[10.] We have $g(x) = \frac{x - 2}{x + 1}$. Then
+        \begin{align*}
+            f_Y(y) &= f_X(g^{-1}(y)) \frac{d}{dy}[g^{-1}(y)] \\
+            &= f_X \left( \frac{y + 2}{1 - y} \right) \frac{3}{(1 - y)^2} \\
+            &= \text{exp} \left( \frac{y + 2}{y - 1} \right) \frac{3}{(1 - y)^2}
+        \end{align*}
+        wherever $x = \frac{y + 2}{1 - y}$ is positive and defined, which is on $y \in (-2, 1)$.
+
+    \item[14.] 
+        $g(x) = \frac{3x}{1 - x}$, and
+        \begin{align*}
+            f_Y(y) &= f_X(g^{-1}(y)) \frac{d}{dy}[g^{-1}(y)] \\
+            &= f_X \left( \frac{y}{y + 3} \right) \frac{3}{(y + 3)^2} \\
+            &= (1 - 0) \frac{3}{(y + 3)^2} \\
+            &= \frac{3}{(y + 3)^2}
+        \end{align*}
+        for $x \in [0, 1]$ or, equivalently, $y \in [0, \infty)$. Then on the same domain,
+        \begin{align*}
+            F_Y(y) &= \int_{0}^{y} \frac{3}{(u + 3)^2} du \\
+            &= -\frac{3}{u + 3} \biggr\rvert_{0}^y \\
+            &= 1 - \frac{3}{y + 3},
+        \end{align*}
+        and $F_Y(y) = 0$ everywhere else.
+
+\end{enumerate}
+
+\end{document}

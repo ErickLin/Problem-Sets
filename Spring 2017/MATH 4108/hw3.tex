@@ -1,0 +1,143 @@
+\documentclass[12pt]{article}
+
+%Packages Used%
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{amsfonts,setspace}
+\usepackage{fullpage}
+%\usepackage[pdftex,pagebackref,hypertexnames=false, colorlinks, citecolor=black, linkcolor=blue, urlcolor=red]{hyperref}
+\usepackage{comment}
+\usepackage{enumitem}
+\usepackage[margin=0.95in]{geometry}
+
+
+\setlength{\abovedisplayskip}{3mm}
+\setlength{\belowdisplayskip}{3mm}
+\setlength{\abovedisplayshortskip}{0mm}
+\setlength{\belowdisplayshortskip}{2mm}
+\setlength{\baselineskip}{12pt}
+\setlength{\normalbaselineskip}{12pt}
+
+\newcommand{\blank}{\underline{~~~~~~~~~}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\kk}{\mathbf{k}}
+\newcommand{\cP}{\mathcal{P}}
+
+\newcommand{\bu}{\mathbf{u}}
+\newcommand{\bv}{\mathbf{v}}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\by}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\bc}{\mathbf{c}}
+\newcommand{\bp}{\mathbf{p}}
+\newcommand{\bq}{\mathbf{q}}
+\newcommand{\be}{\mathbf{e}}
+\newcommand{\bzero}{\mathbf{0}}
+\DeclareMathOperator{\Nul}{Nul}
+\DeclareMathOperator{\Mod}{mod}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\tr}{tr}
+
+\renewcommand{\And}{\wedge}
+\newcommand{\Or}{\vee}
+\newcommand{\Implies}{\Rightarrow}
+\newcommand{\Not}{\sim}
+
+
+
+\normalbaselines
+\pagestyle{empty}
+\raggedbottom
+\begin{document}
+
+\noindent
+\textbf{Name: Erick Lin} \smallskip  \\
+\textbf{Outside resources: Factorization of $x^5 - 1$, $x^7 - 1$, Euler totient function} %%% List all resources used OTHER than the textbook, lecture notes, quizzes, worksheets, and previous homework assignments.
+
+\begin{center}
+{
+Math 4108, Algebra II \\
+HW 3 --- Due on Feb 13, 2017 (Mon) 
+}
+\end{center}
+
+%\noindent Read and think about the problems in Chapters 5, 6, and 7.1-7.2  of the textbook (Howie).  The solutions are in the back of the book.  Turn in the following problems.
+
+\begin{enumerate}
+    \item Let $n$ be an integer which is not a perfect square.  Prove that for any $a,b \in \QQ$, if $a + b \sqrt{n}$ is a root of a polynomial $f(x) \in \QQ[x]$, then $a - b \sqrt{n}$ is also a root of $f(x)$. \par
+        We know that $a + b\sqrt{n} \notin \QQ$, because if we assume otherwise, then we have, for some integers $p$ and $q \neq 0$ such that $\gcd(p, q) = 1$,
+        \begin{align*}
+            \sqrt{n} \in \QQ \Rightarrow \sqrt{n} = \frac{p}{q} \Rightarrow n = \frac{p^2}{q^2} = \left( \frac{p}{q} \right)^2,
+        \end{align*}
+        but $\gcd(p^2, q^2) = 1$ which forces $q = 1$ (since $n$ is an integer), contradicting the fact that $n$ is not a perfect square. \par
+        Over $\mathbb{Q}(a + b\sqrt{n})$, then, we have that
+        \begin{align*}
+            x^2 - 2ax + (a^2 - b^2 n) = (x - (a + b\sqrt{n}))(x - (a - b\sqrt{n}))
+        \end{align*}
+        which shows that the left-hand side is the minimal polynomial of $a + b\sqrt{n}$ since it is of the smallest possible degree greater than $1$. Because the minimal polynomial must divide $f(x)$, $a - b\sqrt{n}$ must be a root of $f(x)$ also.
+
+    \item Find the degrees of the splitting fields of the following polynomials over $\QQ$.
+    \begin{enumerate}
+        \item $x^3-x^2-x-2$ \par
+            The polynomial factorizes into two irreducible factors: $(x - 2)(x^2 + x + 1)$. The two roots of $x^2 + x + 1$ are $\frac{-1 \pm \sqrt{3}i}{2} \notin \mathbb{Q}$, so we may adjoin $\sqrt{3}i$, which has minimum polynomial $x^2 + 3$; thus, $\left[ \mathbb{Q}(\sqrt{3}i : \mathbb{Q}) \right] = 2$.
+        \item $x^4-5$ \par
+            Adjoining the element $\sqrt[4]{5}$, we have $x^4 - 5 = (x - \sqrt[4]{5})(x + \sqrt[4]{5})(x^2 + \sqrt{5})$ where $\sqrt{5} = \sqrt[4]{5}^2$, and since $x^4 - 5$ is irreducible and hence the minimum polynomial of $\alpha$, $[\QQ(\sqrt[4]{5}) : \QQ] = 4$. \par
+            Next, adjoining $i$ splits the $x^2 + \sqrt{5}$ factor into $(x - \sqrt[4]{5}i)(x + \sqrt[4]{5}i)$, so $[\mathbb{Q}(i, \sqrt[4]{5}) : \mathbb{Q}(\sqrt[4]{5})] = 2$, and the degree of the splitting field is $8$.
+        \item $x^6+x^3+1$ \par
+            Since $(x^6 + x^3 + 1)(x - 1)(x^2 + x + 1) = x^9 - 1$, the roots of the given polynomial are all the $9$th roots of unity that are not roots of $x - 1$ (i.e., $1$) or $x^2 + x + 1$ (i.e., $e^{2\pi i/3}$ and $e^{4\pi i/3}$). Then adjoining $e^{2\pi i/9}$ produces the splitting field of both $x^6 + x^3 + 1$ and $x^9 - 1$ since the other roots are all powers of $e^{2\pi i/9}$, and since its minimum polynomial is $x^6 + x^3 + 1$, $[\mathbb{Q}(e^{2\pi i/9}) : \mathbb{Q}] = 6$.
+    \end{enumerate}
+
+    \item Let $n$ be an integer $\geq 3$ and let $\omega = e^\frac{2\pi i}{n}$.
+    \begin{enumerate}
+        \item Prove that $\QQ(\omega)$ is the splitting field of $x^n - 1$ over $\QQ$. \par
+            Substituting $1, \omega, \omega^2, \cdots, \omega^{n - 1}$ for $x$ in $x^n - 1$ gives zero, which shows that these are the $n$ roots of $x^n - 1$, and they are all contained in $\QQ(\omega)$.
+        \item Find its degree for $n=3,4,5,6,7,8$. \par
+            $x^3 - 1 = (x - 1)(x^2 + x + 1)$ so the degree is $2$, using similar reasoning as in Exercise 2a. \par
+            $x^4 - 1 = (x - 1)(x + 1)(x^2 + 1)$ which requires the adjoinment of $i$, so the degree is $2$. \par
+            $x^5 - 1 = (x - 1)(x^4 + x^3 + x^2 + x + 1)$. Adjoining an element splitting $x^4 + x^3 + x^2 + x + 1$ gives a degree of $4$. \par
+            $x^6 - 1 = (x - 1)(x + 1)(x^2 + x + 1)(x^2 - x + 1)$ and the roots of $x^2 - x + 1$ are $\frac{1 \pm \sqrt{3}i}{2}$, so adjoining $\sqrt{3}i$ suffices to split $(x^2 + x + 1)(x^2 - x + 1)$, and the degree is $2$. \par
+            $x^7 - 1 = (x - 1)(x^6 + x^5 + x^4 + x^3 + x^2 + x + 1)$. Similar to the case for $x^5 - 1$, the degree is $6$. \par
+            $x^8 - 1 = (x^4 - 1)(x^4 + 1)$ which requires the adjoinment of $\sqrt{i}$ (whose minimal polynomial is $x^4 + 1$), so the degree is $4$.
+    \end{enumerate}
+
+    %\item Prove that if $p$ is prime, then the Galois group of $\QQ(\omega)$ over $\QQ$ is cyclic of order $p-1$, where $\omega = e^\frac{2 \pi i}{p}$. (Optional: Generalize to the case when $p$ is not prime.)
+
+    \item
+    \begin{enumerate}
+        \item Let $K$ be a finite field.  Prove that there exists a prime number $p$ and an irreducible polynomial $f \in \ZZ_p[x]$ such that $K \cong \ZZ_p[x]/\langle f \rangle$.  \par
+            We know that $K \cong GF(p^n)$ for some prime number $p$ and integer $n \geq 1$. Since the group of nonzero elements of $GF(p^n)$ is cyclic, $GF(p^n)$ is given by adjoining some element $\alpha$ to a field of order $p$ which must be isomorphic to the Galois field $\ZZ_p$. Then the desired irreducible polynomial is the minimum polynomial of $\alpha$ over $\ZZ_p$.
+        \item Prove that there exists an irreducible polynomial of every positive degree over $\ZZ_p$. \par
+            %We showed in the first homework that the number of monic irreducible polynomials of degree $2$ over $\mathbb{Z}_p$ is $p^2 - \left( \binom{p}{2} + p \right) > 0$.
+            Fix $n \in \mathbb{N}$. Due to the existence of $GF(p^n)$, there exists an irreducible polynomial $f$ of degree $n$ over $\mathbb{Z}_p$.
+    \end{enumerate}
+
+    \item 
+    \begin{enumerate}
+        \item Let $L:K$ be an extension of finite fields.  Use the degree of the extension to show that if $|L| = p^n$ and $|K|=p^m$, then $m \mid n$. \par
+            $L$ is a vector space of dimension $[L : K]$ over $K$, which means each element is a linear combination of $[L : K]$ basis elements. Since each coefficient can take on any of the $p^m$ values in $K$, the number of elements in $L$ is $\left( p^m \right)^{[L : K]}$. Thus, $n = m[L : K]$. %We know that the elements of $L$ form the roots of the polynomial $x^{p^n} - x$ and the elements of $K$ form the roots of $x^{p^m} - x$.
+        \item Prove that if $m \mid n$, then $(p^m-1) \mid (p^n-1)$. \par
+            The groups of nonzero elements of $GF(p^n)$ and $GF(p^m)$ are cyclic and of size $p^n - 1$ and $p^m - 1$, respectively. Since the latter is a subgroup of the former, the result follows from Lagrange's theorem.
+        \item Prove that if $m \mid n$, then $GF(p^n)$ has a subfield with $p^m$ elements. \par
+            By part (b), the group of nonzero elements of $GF(p^n)$ has a subgroup of size $p^m - 1$ whose elements $x$ all satisfy $x^{p^m - 1} = 1$ and are hence roots of $x^{p^m} - x$. Together with $0$, these elements must form the field $GF(p^m)$, a subfield of $GF(p^n)$ with $p^m$ elements.
+    \end{enumerate}
+
+    %\item
+    %\begin{enumerate}
+        %\item In $GF(p^n)$ show that the Frobenius automorphism $\varphi: a \mapsto a^p$ has order $n$.
+        %\item Prove that the group of automorphisms of $GF(p^n)$ is cyclic with order $n$.
+    %\end{enumerate}
+\end{enumerate}
+
+\end{document}

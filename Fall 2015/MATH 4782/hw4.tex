@@ -1,0 +1,92 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[margin=3.5cm]{geometry}
+\usepackage{amsfonts, amsmath, fancyhdr, physics}
+
+\pagestyle{fancy}
+\rhead{Erick Lin}
+\allowdisplaybreaks
+
+\begin{document}
+	
+\section*{MATH/PHYS 4782 - HW4 Solutions}
+
+\begin{enumerate}
+    \item[\textbf{2.57:}]
+        Consider a quantum system in the initial state $\ket{\psi}$. From the measurement postulate, the state of the system after a measurement defined by $\{ L_l \}$ is the normalized form of $L_l \ket{\psi}$ with a certain probability for all possible $l$. After a second measurement defined by $\{ M_m \}$, the state then becomes the normalized form of $M_m L_l \ket{\psi}$ with a certain probability for all combinations of possible $l$ and $m$. Because the final state is normalized and
+        \begin{align*}
+            \sum_{l, m} (M_m L_l)^\dagger M_m L_l &= \sum_{l, m} L_l^\dagger M_m^\dagger M_m L_l \\
+            &= \sum_l L_l^\dagger (\sum_m M_m^\dagger M_m) L_l \\
+            &= \sum_l L_l^\dagger L_l \\
+            &= I,
+        \end{align*}
+        the set of possible $M_m L_l$ defines a new collection of measurement operators.
+
+    \item[\textbf{2.58:}]
+
+    \item[\textbf{2.61:}]
+        From the definition of projective measurements, measurement of $\vec{\sigma} \cdot \vec{v}$ on the state $\ket{0}$ gives the result $+1$ with probability
+        \begin{align*}
+            p(+) = \expval{P_+}{0} = \expval{\frac{I + \vec{v} \cdot \vec{\sigma}}{2}}{0}
+        \end{align*}
+        and the state of the system after measurement is
+        \begin{align*}
+            \frac{P_+ \ket{0}}{\sqrt{\expval{P_+}{0}}} = \frac{(I + \vec{v} \cdot \vec{\sigma}) \ket{0}}{\sqrt{2 \expval{(I + \vec{v} \cdot \vec{\sigma})}{0}}}.
+        \end{align*}
+
+    \item[\textbf{2.71:}]
+        Because the $p_i$ are nonnegative and sum up to 1, it is the case that $p_i^2 \leq p_i$ for all $i$ and $\text{tr}(\rho^2) = \sum_i p_i^2 \leq 1$. \par
+        If $\rho$ is a pure state, then $\rho$ is a projector and so $\rho^2 = \rho$. From the definition of a density matrix,
+        \begin{align*}
+            \rho &= \sum_i p_i \ket{i} \bra{i}
+        \end{align*}
+        and
+        \begin{align*}
+            \rho^2 &= \left( \sum_i p_i \ket{i} \bra{i} \right) \left( \sum_j p_j \ket{j} \bra{j} \right) \\
+            &= \sum_{i, j} p_i p_j \ket{i} \braket{i}{j} \bra{j} \\
+            &= \sum_{i, j} \delta_{ij} p_i p_j \ket{i} \bra{j} \\
+            &= \sum_i p_i^2 \ket{i} \bra{i},
+        \end{align*}
+        and through substitution we find that then $p_i^2 = p_i$ for all $i$, and finally that $\text{tr}(\rho^2) = \sum_i p_i^2 = \sum_i p_i = 1$. Because all of the steps are reversible, the converse holds as well.
+
+    \item[\textbf{2.73:}]
+        Because eigenvalues form a basis for the vector space and $\ket{\psi}$ is spanned by the non-zero eigenvalues of $\rho$, the dimension of $\ket{\psi}$ is at most the rank of $\rho$. Then it is possible to construct a minimal ensemble for $\rho$ that contains $\ket{\psi}$.
+
+    \item[\textbf{6.2:}]
+
+    \item[\textbf{6.3:}]
+        $G$ is a rotation by $\theta$ radians in the space spanned by $\ket{\alpha}$ and $\ket{\beta}$. (6.13) is another way to express a rotation by $\theta$. To see why this is the case, consider the column vectors $\vec{e}_1$ and $\vec{e}_2$ of the identity matrix. Mapping these vectors to a rotation by $\theta$ results in the first being sent to $(\cos\theta, \sin\theta)$ and the second being sent to $(-\sin\theta, \cos\theta)$. Because these are the two basis vectors, concatenating the two vectors results in a new matrix which represents the complete operation of rotating by $\theta$.
+
+    \item[\textbf{6.7:}]
+
+    \item[\textbf{8.4:}]
+
+    \item[\textbf{8.6:}]
+        If $\mathcal{E}$ and $\mathcal{F}$ are quantum operations on the same quantum system, then their operator-sum representations are
+        \begin{align*}
+            \mathcal{E}(p) &= \sum_k E_k \rho E_k^\dagger \\
+            \mathcal{F}(p) &= \sum_l E_l \rho E_l^\dagger
+        \end{align*}
+        where $E_i \equiv \braket{e_i|U}{e_0}$ for all possible $i$, and $\ket{e_i}$ is the orthonormal basis for the state space of the environment. $\mathcal{E} \circ \mathcal{F}$ is also a quantum operation with the operator-sum representation
+        \begin{align*}
+            \mathcal{E} \circ \mathcal{F} &= \sum_l E_l (\sum_k E_k \rho E_k^\dagger) E_l^\dagger \\
+            &= \sum_l \sum_k E_l E_k \rho E_k^\dagger E_l^\dagger \\
+            &= \sum_l \sum_k E_l E_k \rho (E_l E_k)^\dagger.
+        \end{align*}
+        The operation elements $\{ E_k E_l \}$ satisfy the completeness relation:
+        \begin{align*}
+            \sum_l \sum_k E_l E_k (E_l E_k)^\dagger &= \sum_l \sum_k E_l E_k E_k^\dagger E_l^\dagger \\
+            &= \sum_l E_l (\sum_k E_k E_k^\dagger) E_l^\dagger \\
+            &= \sum_l E_l E_l^\dagger \\
+            &= I.
+        \end{align*}
+        A generalization of this result can be applied to the case where $\mathcal{E}$ and $\mathcal{F}$ do not necessarily have the same input and output spaces, except that the output space of $\mathcal{E}$ matches the input space of $\mathcal{F}$. Then the operator-sum representations become
+        \begin{align*}
+            \mathcal{E}(p) &= \sum_k E_k \rho E_k^\dagger \\
+            \mathcal{F}(p) &= \sum_l F_l \rho F_l^\dagger
+        \end{align*}
+        where $F_i \equiv \braket{f_i|U}{f_0}$ for all possible $i$, and $\ket{f_i}$ is the orthonormal basis for the state space of the environment relative to the system under which $\mathcal{F}$ operates. The remainder of the proof proceeds in a similar manner.
+
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,121 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, fancyhdr, gensymb, physics, siunitx}
+\iffalse
+\usepackage[margin=1in]{geometry}
+\fi
+\pagestyle{fancy}
+\rhead{Erick Lin}
+\allowdisplaybreaks
+
+\begin{document}
+
+\section*{PHYS 2213B - HW4}
+
+\begin{enumerate}
+    \item
+        \begin{enumerate}
+            \item
+                $e^{i(kx - \omega t)} / \sqrt{\int_{-\infty}^\infty |e^{i(kx - \omega t)}|^2 dx} = e^{i(kx - \omega t)} / \sqrt{\int_{-\infty}^\infty dx}$ is undefined because $\lim_{n \to \pm \infty} 1 \neq 0$. 
+
+            \item
+                $\frac{e^{i(kx - \omega t)}}{\int_0^a dx} = \frac{e^{i(kx - \omega t)}}{a}$
+
+            \item
+                The derivative of $Ae^{-\alpha |x|}$ is not continuous at $x = 0$. However, we could restrict the domain to either the positive- or the negative-valued positions. 
+        \end{enumerate}
+
+    \item
+        \begin{align*}
+            1 &= \text{Re} \left( \int_{-\infty}^\infty |A(e^{ix} + e^{-ix})|^2 dx \right) \\
+            &= \text{Re} \left( \int_{-\pi}^\pi |A(e^{ix} + e^{-ix})|^2 dx \right) \\
+            &= \text{Re} \left( \int_{-\pi}^\pi A^2 \left( e^{2ix} + 2 + e^{-2ix} \right) dx \right) \\
+            &= A^2 \int_{-\pi}^\pi \left( 2\cos2x + 2 \right) dx \\
+            &= A^2 \left[ \sin2x + 2x \right]_{-\pi}^\pi \\
+            &= A^2 (2\pi + 2\pi) \\
+            \Rightarrow A &= \frac{1}{2 \sqrt{\pi}} \\
+            \psi &= \frac{1}{2 \sqrt{\pi}} \left( e^{ix} + e^{-ix} \right)
+        \end{align*}
+        \begin{enumerate}
+            \item
+                \begin{align*}
+                    \text{Re} \left( \int_0^{\pi / 8} \left| \frac{1}{2 \sqrt{\pi}} \left( e^{ix} + e^{-ix} \right) \right|^2 dx \right)
+                    &= \frac{1}{4\pi} \left[ \sin2x + 2x \right]_0^{\pi / 8} \\
+                    &= \frac{1}{4\pi} \left( \frac{\sqrt{2}}{2} + \frac{\pi}{4} \right) \\
+                    &= \frac{\sqrt{2}}{8 \pi} + \frac{1}{16}
+                \end{align*}
+
+            \item
+                \begin{align*}
+                    \text{Re} \left( \int_0^{\pi / 4} \left| \frac{1}{2 \sqrt{\pi}} \left( e^{ix} + e^{-ix} \right) \right|^2 dx \right)
+                    &= \frac{1}{4\pi} \left[ \sin2x + 2x \right]_0^{\pi / 4} \\
+                    &= \frac{1}{4\pi} \left( 1 + \frac{\pi}{2} \right) \\
+                    &= \frac{1}{4 \pi} + \frac{1}{8}
+                \end{align*}
+        \end{enumerate}
+
+    \item
+        \begin{align*}
+            \Psi^*(x, t) \Psi(x, t) &= \left( \frac{1}{2} \Psi_1^*(x, t) + \frac{\sqrt{3}}{2} \Psi_2^*(x, t) \right) \left( \frac{1}{2} \Psi_1(x, t) + \frac{\sqrt{3}}{2} \Psi_2(x, t) \right) \\
+            &= \frac{1}{4} \Psi_1^*(x, t) \Psi_1(x, t) + \frac{\sqrt{3}}{4} \Psi_1^*(x, t) \Psi_2(x, t) \\
+            & \hspace*{4ex} + \frac{\sqrt{3}}{4} \Psi_1(x, t) \Psi_2^*(x, t) + \frac{3}{4} \Psi_2^*(x, t) \Psi_2(x, t) \\
+            &= \frac{1}{4} \left( \frac{2}{L} \right) \sin^2\left( \frac{\pi x}{L} \right) + \frac{\sqrt{3}}{4} \left( \frac{2}{L} \right) \sin\left( \frac{\pi x}{L} \right) \sin\left( \frac{2 \pi x}{L} \right) \\
+            & \hspace*{4ex} e^{i \omega_1 t} e^{-i \omega_2 t} + \frac{\sqrt{3}}{4} \left( \frac{2}{L} \right) \sin\left( \frac{2 \pi x}{L} \right) \sin\left( \frac{\pi x}{L} \right) e^{-i \omega_1 t} e^{i \omega_2 t} \\
+            & \hspace*{4ex} + \frac{3}{4} \left( \frac{2}{L} \right) \sin^2 \left( \frac{2 \pi x}{L} \right) \\
+            &= \frac{1}{2L} \sin^2 \left( \frac{\pi x}{L} \right) + \frac{\sqrt{3}}{2L} \sin\left( \frac{\pi x}{L} \right) \sin\left( \frac{2 \pi x}{L} \right) \\
+            & \hspace*{4ex} \left[ e^{i(\omega_1 - \omega_2)t} + e^{i(\omega_2 - \omega_1)t} \right] + \frac{3}{2L} \sin^2 \left( \frac{2 \pi x}{L} \right) \\
+            \int_{-L / 2}^{L / 2} \Psi^*(x, t) \Psi(x, t) dx &= 1
+        \end{align*}
+
+    \item
+        \begin{enumerate}
+            \item
+                \begin{align*}
+                    E_n &= n^2 \frac{\pi^2 \hbar^2}{2mL^2} \\
+                    E_1 &= 1^2 \frac{\pi^2 \hbar^2}{2 m_e L^2} \approx \SI{9.4e-8}{\eV} \\
+                    E_2 &= 2^2 \frac{\pi^2 \hbar^2}{2 m_e L^2} \approx \SI{3.8e-7}{\eV} \\
+                    E_3 &= 3^2 \frac{\pi^2 \hbar^2}{2 m_e L^2} \approx \SI{8.5e-7}{\eV}
+                \end{align*}
+
+            \item
+                \begin{gather}
+                    n^2 \frac{\pi^2 \hbar^2}{2mL^2} = \frac{3kT}{2} \\
+                    n = \sqrt{\frac{3kmL^2T}{\pi^2 \hbar^2}} \approx 134 \approx 130
+                \end{gather}
+        \end{enumerate}
+
+    \item
+        \begin{enumerate}
+            \item
+                The time-independent Schr\"{o}dinger equation is given by
+                \begin{align*}
+                    -\frac{\hbar^2}{2m} \frac{d^2 \psi(x)}{dx^2} + V(x) \psi(x) = E \psi(x).
+                \end{align*}
+                For $0 < x < L$, $V(x) = 0$, and the equation becomes
+                \begin{align*}
+                    \frac{d^2 \psi}{dx^2} = -\frac{2mE}{\hbar^2} \psi,
+                \end{align*}
+                which has a solution of the form $A\sin\left( \frac{\sqrt{2mE}}{\hbar} x \right)$. \par
+                For $x \geq L$, $V(x) = V_0$, and the equation becomes
+                \begin{align*}
+                    \frac{d^2 \psi}{dx^2} = \frac{2m}{\hbar^2} (V_0 - E) \psi,
+                \end{align*}
+                which has a solution of the form $Be^{-\sqrt{(2m/\hbar^2)(V_0 - E)} x}$. \par
+                Let $k = \sqrt{2mE} / \hbar$ and $\kappa = \sqrt{2m(V_0 - E)} / \hbar$.
+
+            \item
+                The two wave functions must be equal at $x = L$, and their derivatives must be equal at $x = L$. These boundary conditions give rise to the following equations
+                \begin{align}
+                    A\sin kL &= Be^{-\kappa L} \\
+                    kA\cos kL &= -B \kappa e^{-\kappa L}
+                \end{align}
+                and dividing (1) by (2), we have
+                \begin{align*}
+                    \frac{\tan kL}{k} &= -\frac{1}{\kappa} \\
+                    \kappa \tan kL &= -k.
+                \end{align*}
+        \end{enumerate}
+
+\end{enumerate}
+
+\end{document}

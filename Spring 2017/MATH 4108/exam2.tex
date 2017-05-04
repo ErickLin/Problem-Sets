@@ -1,0 +1,46 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, dsfont, enumitem, fancyhdr, graphicx}
+\usepackage[margin=1in, includehead, includefoot, heightrounded]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\begin{document}
+\section*{MATH 4108 -- Exam 2 Corrections}
+\begin{enumerate}
+    \item
+        \begin{enumerate}
+            \item
+                Since $f(x)$ and $g(x)$ are each irreducible of degree 2 with no roots in common (see test) and hence $f(x) g(x)$ is reducible, the Galois group of $f(x) g(x)$ over $\mathbb{Q}$ permutes the roots of $f(x)$ and permutes the roots of $g(x)$. If $f(x)$ and $g(x)$ are minimal polynomials of the same element in $\mathbb{Q}$, then a $\mathbb{Q}$-automorphism that transposes the roots of one must transpose the roots of the other, so the Galois group is isomorphic to $\mathbb{Z}_2$. Otherwise, a $\mathbb{Q}$-automorphism can permute the roots of $f(x)$ and the roots of $g(x)$ independently, so the Galois group is in this case isomorphic to $\mathbb{Z}_2 \times \mathbb{Z}_2$. This exhausts all the cases.
+            \item
+                For $\mathbb{Z}_2$, let $f(x) = x^2 + 1$, $g(x) = x^2 + 4 = (x - 2i)(x + 2i)$. Both are minimal polynomials of $i$, so the elements of the Galois group send $i \to \pm i$, or
+                \begin{align*}
+                    a + bi &\mapsto a + bi \\
+                    a + bi &\mapsto a - bi.
+                \end{align*}
+            \item
+                As stated, the extension is the splitting field of $\Phi_8(x) = (x - e^{i\pi/4})(x - e^{3i\pi/4})(x - e^{5i\pi/4})(x - e^{7i\pi/4})$. The elements of the Galois group send $i \to \pm i$ and $\sqrt{2} \to \pm \sqrt{2}$, which can reflect across the real axis and the origin of the complex plane respectively (since $e^{i\pi/4} = \sqrt{2}/2 + \sqrt{2}i/2$, and so on), the elements are given by
+                \begin{align*}
+                    a_0 + a_1e^{i\pi/4} + a_2e^{3i\pi/4} + a_3e^{5i\pi/4} + a_4e^{7i\pi/4} &\mapsto a_0 + a_1e^{i\pi/4} + a_2e^{3i\pi/4} + a_3e^{5i\pi/4} + a_4e^{7i\pi/4} \\
+                    a_0 + a_1e^{i\pi/4} + a_2e^{3i\pi/4} + a_3e^{5i\pi/4} + a_4e^{7i\pi/4} &\mapsto a_0 + a_1e^{7i\pi/4} + a_2e^{5i\pi/4} + a_3e^{3i\pi/4} + a_4e^{i\pi/4} \\
+                    a_0 + a_1e^{i\pi/4} + a_2e^{3i\pi/4} + a_3e^{5i\pi/4} + a_4e^{7i\pi/4} &\mapsto a_0 + a_1e^{5i\pi/4} + a_2e^{7i\pi/4} + a_3e^{i\pi/4} + a_4e^{3i\pi/4} \\
+                    a_0 + a_1e^{i\pi/4} + a_2e^{3i\pi/4} + a_3e^{5i\pi/4} + a_4e^{7i\pi/4} &\mapsto a_0 + a_1e^{3i\pi/4} + a_2e^{i\pi/4} + a_3e^{7i\pi/4} + a_4e^{5i\pi/4}.
+                \end{align*}
+        \end{enumerate}
+
+    \item
+        \begin{enumerate}
+            \item
+                $L = \mathbb{Q}(\omega_p)$ where $\omega_p$ is a $p$th root of unity, and we know that $\text{Gal}(\mathbb{Q}(\omega_p) : \mathbb{Q}) = \mathbb{Z}_p^*$, which is cyclic of order $p - 1$ since $p$ is prime. $M$ and $M'$ correspond, in the manner of the Fundamental Theorem of Galois Theory, with subgroups of $\mathbb{Z}_p^*$. Since any subgroup of a cyclic group is cyclic and such a subgroup of any order is unique, $M$ is also the unique subfield of its order in $L$, so $M' = M$.
+
+            \setcounter{enumii}{2}
+            \item
+                $\mathbb{Q}(\omega) \not\subset \mathbb{R}$ but $\mathbb{Q}(\alpha) \subset \mathbb{R}$ (since $\mathbb{Q} \subset \mathbb{R}$ and $\alpha \in \mathbb{R}$), so $[\mathbb{Q}(\omega) : \mathbb{Q}(\alpha)] \neq 1$. Following the hint, the minimal polynomial $x^2 - \alpha x + 1$ of $\omega$ over $\mathbb{Q}(\alpha)$ is of degree 2, allowing us to conclude that $[\mathbb{Q}(\omega) : \mathbb{Q}(\alpha)] = 2$. Now, $[\mathbb{Q}(\alpha) : \mathbb{Q}] = [\mathbb{Q}(\omega) : \mathbb{Q}] / [\mathbb{Q}(\omega) : \mathbb{Q}(\alpha)] = (p - 1) / 2$. \par
+                We found that $\mathbb{Q}(\alpha) \subset L \cap \mathbb{R}$ but note that $L = \mathbb{Q}(\omega) \not\subset L \cap \mathbb{R}$ (because $L \ni \omega$) whereas $L = L \cap \mathbb{C}$ (because $\omega \in \mathbb{C}$). Because $[L \cap \mathbb{C} : \mathbb{Q}(\alpha)] = [\mathbb{Q}(\omega) : \mathbb{Q}(\alpha)] = 2 = [\mathbb{C} : \mathbb{R}]$, $\mathbb{Q}(\alpha) = L \cap \mathbb{R}$.
+        \end{enumerate}
+\end{enumerate}
+\end{document}

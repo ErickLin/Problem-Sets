@@ -1,0 +1,215 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{MATH 4107 - HW1 Solutions}
+
+\subsection*{2.1}
+\begin{enumerate}
+    \item
+        \boldmath
+        \textbf{Let $S$ be a set. Prove that the law of composition defined by $ab = a$ for all $a$ and $b$ in $S$ is associative. For which sets does this law have an identity?} \par
+        \unboldmath
+        For all $a, b, c$ in $S$, since $ab = ac = a$ and $bc = b$, we have that
+        \begin{align*}
+            (ab)c = ac = a = ab = a(bc)
+        \end{align*}
+        and hence the law of composition is associative. Since an identity $e$ of $S$ satisfies $ea = a$ for all $a$ in $S$ from the definition, and we also have from the given law of composition that $ea = e$, we must have that
+        \begin{align*}
+            a = e
+        \end{align*}
+        for all $a$. Hence, if $S$ has an identity, then $S$ has only one element, which is itself the identity.
+
+    \item
+        \boldmath
+        \textbf{Prove the following properties of inverses:} \par
+        \unboldmath
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{If an element $a$ has both a left inverse $l$ and a right inverse $r$, i.e., if $la = 1$ and $ar = 1$, then $l = r$, $a$ is invertible, $r$ is its inverse.} \par
+                \unboldmath
+                Because $la = 1$ is an identity, we have that
+                \begin{align*}
+                    (la)r = r(la) = r
+                \end{align*}
+                and from the associative property,
+                \begin{align*}
+                    (la)r = l(ar) = l(1) = l.
+                \end{align*}
+                Comparing the previous two equalities, we have that $l = r$, and hence
+                \begin{align*}
+                    ra = 1 \quad \text{and} \quad ar = 1,
+                \end{align*}
+                which shows that $a$ is invertible, with inverse $r$.
+
+            \item
+                \boldmath
+                \textbf{If $a$ is invertible, its inverse is unique.} \par
+                \unboldmath
+                If $b$ and $c$ are inverses of $a$, then
+                \begin{align*}
+                    ab = ac = 1 \quad \text{and} \quad ba = ca = 1.
+                \end{align*}
+                Multiplying both sides of $ab = ac$ on the left by $b$, we have
+                \begin{align*}
+                    bab = bac\ \Leftrightarrow\ (ba)b = (ba)c\ \Leftrightarrow\ b = c
+                \end{align*}
+                and hence the inverse is unique.
+
+            \item
+                \boldmath
+                \textbf{Inverses multiply in the opposite order: If $a$ and $b$ are invertible, so is the product $ab$, and $(ab)^{-1} = b^{-1} a^{-1}$.} \par
+                \unboldmath
+                If $a^{-1}$ and $b^{-1}$ exist, then we have
+                \begin{gather*}
+                    (ab) \left( b^{-1} a^{-1} \right) = a \left( bb^{-1} \right) a^{-1} = aa^{-1} = 1 \\
+                    \left( b^{-1} a^{-1} \right) (ab) = b^{-1} \left( a^{-1} a \right) b = b^{-1} b = 1
+                \end{gather*}
+                which shows that $b^{-1} a^{-1}$ is the inverse of $ab$.
+
+            \item
+                \boldmath
+                \textbf{An element $a$ may have a left inverse or a right inverse, though it is not invertible.} \par
+                \unboldmath
+                The following exercise gives an example.
+                \iffalse
+                    Let $S$ denote the set of matrices under matrix multiplication. Given the elements
+                    \begin{align*}
+                        A = \left[
+                            \begin{array}{cc}
+                                1 & 0
+                            \end{array}
+                        \right]
+                        \qquad
+                        B = \left[
+                            \begin{array}{c}
+                                1 \\
+                                0
+                            \end{array}
+                        \right]
+                    \end{align*}
+                    in $S$, $AB$ forms the $1$-by-$1$ identity matrix, and hence $A$ is the left inverse of $B$ while $B$ is the right inverse of $A$. However, neither $A$ nor $B$ is invertible.
+                \fi
+        \end{enumerate}
+
+    \item
+        \boldmath
+        \textbf{Let $\mathbb{N}$ denote the set $\{ 1, 2, 3, \cdots \}$ of natural numbers, and let $s : \mathbb{N} \to \mathbb{N}$ be the \textit{shift} map, defined by $s(n) = n + 1$. Prove that $s$ has no right inverse, but that it has infinitely many left inverses.} \par
+        \unboldmath
+        Assume, for the purpose of contradiction, that $s$ has the right inverse $t$, so that for any $n$ in $\mathbb{N}$, $s \circ r(n) = n$. This means that $s \circ r(1) = s(r(1)) = 1$, which requires that $r(1) = 0$ from the definition of $s$. However, this is a contradiction because $0$ is outside the domain of $s$. \par
+        A possible set of left inverses is
+        \begin{align*}
+            l_k = \begin{cases}
+                x - 1, &x \neq 1 \\
+                k, &x = 1 \\
+            \end{cases}
+        \end{align*}
+        for all $k$ in $\mathbb{N}$, since $l_k \circ s(n) = l_k(s(n)) = l_k(n + 1) = n$ for all $n$ in $\mathbb{N}$, and there are infinitely many elements in $\mathbb{N}$ and hence infinitely many $l_k$.
+\end{enumerate}
+
+\subsection*{2.2}
+\begin{enumerate}
+    \item
+        \boldmath
+        \textbf{Make a multiplication table for the symmetric group $S_3$.} \par
+        \unboldmath
+        Using the identities $x^3 = 1$, $y^2 = 1$, $yx = x^2y$, and $yx^2 = xy$, we can deduce the following multiplication table: \\
+        \begin{tabular}{c | c c c c c c}
+                & $1$ & $x$ & $x^2$ & $y$ & $xy$ & $x^2y$ \\
+            \hline
+            $1$ & $1$ & $x$ & $x^2$ & $y$ & $xy$ & $x^2y$ \\
+            $x$ & $x$ & $x^2$ & $1$ & $xy$ & $x^2y$ & $y$ \\
+            $x^2$ & $x^2$ & $1$ & $x$ & $x^2y$ & $y$ & $xy$ \\
+            $y$ & $y$ & $x^2y$ & $xy$ & $1$ & $x^2$ & $x$ \\
+            $xy$ & $xy$ & $y$ & $x^2y$ & $x$ & $1$ & $x^2$ \\
+            $x^2y$ & $x^2y$ & $xy$ & $y$ & $x^2$ & $x$ & $1$
+        \end{tabular}
+
+    \item
+        \boldmath
+        \textbf{Let $S$ be a set with an associative law of composition and with an identity element. Prove that the subset consisting of the invertible elements in $S$ is a group.} \par
+        \unboldmath
+        Let $T$ denote the subset consisting of invertible elements in $S$. Because the composition law is associative for all elements in $S$, it is also associative for all elements in $T$. Also, the identity element is contained in $T$ because its inverse is itself; in other words, multiplying the identity element by the identity element gives the identity element. By the definition of $T$, every element of $T$ has an inverse. Finally, if $x, y \in T$, then $x^{-1}$ and $y^{-1}$ exist and $(xy) \left( y^{-1} x^{-1} \right) = \left( y^{-1} x^{-1} \right)(xy) = e$, so $xy$ has an inverse as well. Hence $T$ is a group.
+
+    \item
+        \boldmath
+        \textbf{Let $x$, $y$, $z$, and $w$ be elements of a group $G$.} \par
+        \unboldmath
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{Solve for $y$, given that $xyz^{-1}w = 1$.} \par
+                \unboldmath
+                $xyz^{-1} = w^{-1} \Rightarrow xy = w^{-1}z \Rightarrow y = x^{-1} w^{-1} z$
+
+            \item
+                \boldmath
+                \textbf{Suppose that $xyz = 1$. Does it follow that $yzx = 1$? Does it follow that $yxz = 1$?} \par
+                \unboldmath
+                If $xyz = 1$, then $yz = x^{-1}$ and hence $yzx = x^{-1} x = 1$. However, $yxz = y(yz)^{-1} z = yz^{-1} y^{-1} z$ is not necessarily $1$, if $y$ and $z$ do not commute.
+        \end{enumerate}
+
+    \item
+        \boldmath
+        \textbf{In which of the following cases is $H$ a subgroup of $G$?} \par
+        \unboldmath
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{$G = GL_n(\mathbb{C})$ and $H = GL_n(\mathbb{R})$.} \par
+                \unboldmath
+                Because $G$ and $H$ are established as groups and the set of invertible $n$-by-$n$ matrices with real entries is a subset of the set of invertible $n$-by-$n$ matrices with complex entries, we have that $H$ is a subgroup of $G$.
+
+            \item
+                \boldmath
+                \textbf{$G = \mathbb{R}^\times$ and $H = \{ 1, -1 \}$.} \par
+                \unboldmath
+                Because $G$ is established as a group and $H$ is a subset of $G$, the composition law is also associative for all elements in $H$. Also, $H$ contains the identity element $1$ of $G$, and the element $-1$ is its own inverse because $(-1) \times (-1) = 1$. This shows that $H$ is a group, and hence a subgroup of $G$.
+
+            \item
+                \boldmath
+                \textbf{$G = \mathbb{Z}^+$ and $H$ is the set of positive integers.} \par
+                \unboldmath
+                $H$ does not contain the identity element $0$ of $G$; hence $H$ is not a group and not a subgroup of $G$.
+
+            \item
+                \boldmath
+                \textbf{$G = \mathbb{R}^\times$ and $H$ is the set of positive reals.} \par
+                \unboldmath
+                Because $G$ is established as a group and $H$ is a subset of $G$, the composition law is also associative for all elements in $H$. Also, $H$ contains the identity element $1$ of $G$, and any element $a \in H$ has a positive inverse $a^{-1} = 1/a$ which must then also be contained in $H$. This shows that $H$ is a group, and hence a subgroup of $G$.
+
+            \item
+                \boldmath
+                \textbf{$G = GL_2(\mathbb{R})$ and $H$ is the set of matrices
+                $\left[ \begin{array}{cc}
+                        a & 0 \\
+                        0 & 0
+                \end{array} \right]$, with $a \neq 0$.} \par
+                \unboldmath
+                $H$ does not contains the element $I_2$ of $G$; hence $H$ is not a group and not a subgroup of $G$.
+        \end{enumerate}
+
+    \item
+        \boldmath
+        \textbf{In the definition of a subgroup, the identity element in $H$ is required to be the identity of $G$. One might require only that $H$ have an identity element, not that it need be the same as the identity in $G$. Show that if $H$ has an identity at all, then it is the identity in $G$. Show that the analogous statement is true for inverses.} \par
+        \unboldmath
+        Let $1$ denote the identity element in $G$, and $e$ denote the identity element in $H$. If $a \in H$, then $a a^{-1} = e$. However, $a \in G$ also, so $a a^{-1} = 1$. Because identities are unique, $e = 1$. \par
+        \iffalse
+            For all $a \in H$, if $ae = ea = a$, then because $a$ and $e$ are also contained in $G$ (a superset of $H$), $e$ satisfies the definition of an identity element in $G$. Because identities are unique, $e = 1$. \par
+        \fi
+        It is also true that for all $a \in H$, its inverse in $H$ is the same as its inverse in $G$. For if the inverse in $H$ is denoted by $a^{-1}$, then $aa^{-1} = a^{-1}a = 1$, and since $a^{-1}$ is also contained in $G$, it satisfies the definition of the inverse of $a$ in $G$, and inverses are unique.
+
+    \item
+        \boldmath
+        \textbf{Let $G$ be a group. Define an \textit{opposite group} $G^\circ$ with law of composition $a * b$ as follows: The underlying set is the same as $G$, but the law of composition is $a * b = ba$. Prove that $G^\circ$ is a group.} \par
+        \unboldmath
+        The law of composition is still associative, because for any elements $a, b, c \in G$, $(a * b) * c = ba * c = cba = a * cb = a * (b * c)$. Also, if $1$ denotes the identity element of $G$, then $a * 1 = 1a = a$ and $1 * a = a1 = a$, so $G^\circ$ has the same identity element. Finally, $a * a^{-1} = a^{-1} a = 1$ and $a^{-1} * a = a a^{-1} = 1$, which shows that all elements are still invertible and have the same inverses as before. Hence, $G^\circ$ is a group.
+\end{enumerate}
+\end{document}

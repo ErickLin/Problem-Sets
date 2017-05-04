@@ -1,0 +1,201 @@
+\documentclass{article}
+\usepackage{algpseudocode, amsmath, amssymb, enumitem}
+\usepackage[plain]{algorithm}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{float}
+
+\textheight=9.5in
+\textwidth=6.5in
+\topmargin=-.8in
+\headsep=0pt
+\oddsidemargin=0truecm
+\evensidemargin=0truecm
+\footskip=20pt
+%\footheight=20pt
+%\pretolerance=1600
+%\tolerance=1600
+%\hbadness=1600
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{problem}[theorem]{Problem}
+
+\begin{document}
+
+\title{
+}
+
+%\author{Assigned 1-13-16 , Due 1-19-16 (in class)
+%}
+
+
+\date{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author's definitions
+
+\newcommand{\DEF}[1]{{\em #1\/}}
+
+\newcommand\chic{\chi_c}
+\newcommand\C{\hbox{${\cal C}$}}
+\newcommand{\RR}{\mbox{$\mathbb R$}}
+\newcommand{\NN}{\mbox{$\mathbb N$}}
+\newcommand{\ZZ}{\mbox{$\mathbb Z$}}
+\newcommand{\eopf}{\raisebox{0.8ex}{\framebox{}}}
+\newcommand{\dist}{\hbox{\rm d}}
+\renewcommand\a{\alpha}
+\renewcommand\b{\beta}
+\renewcommand\c{\gamma}
+\renewcommand\d{\delta}
+\newcommand\D{\Delta}
+\newcommand{\directedchi}{\mbox{$\vec{\chi}$}}
+\newcommand{\directedE}{\mbox{$\vec{E}$}}
+\newcommand{\directedG}{\mbox{$\vec{G}$}}
+\newcommand{\directedK}{\mbox{$\vec{K}$}}
+
+\newenvironment{proof}%
+{\noindent{\bf Proof.}\ }%
+{\hfill\eopf\par\bigskip}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\maketitle
+
+\noindent{\bf  Last Name:} $Lin \quad$
+\noindent{\bf First Name:} $Erick \quad$
+\noindent{\bf Email:}          $elin42@gatech.edu$\\
+\noindent{ CS 4540, Fall 2016, Final Exam, 12/6/16 Due 12/14/16 by 5pm Klaus 2138 $~~$Page 1/4}
+
+\bigskip
+
+\noindent{\bf Problem 1: Divide and Conquer (25 points)}\\
+Suppose you have $k$ sorted arrays, each with $n$ elements, for a total of $kn$ elements.\\
+You want to combine these $k$ sorted arrays into a single sorted array of $ kn$ elements.\\
+(a) Here's one strategy: Using the merge procedure, merge the first two arrays,
+then merge in the third, then merge in the fourth, and so on. What is the time
+complexity of this algorithm, in terms of $k$ and $n$?\\
+(b) Give and justify a more efficient solution to this problem, using divide-and-conquer.\\
+
+\noindent
+{\bf Answer:}
+\begin{enumerate}[label=(\alph*)]
+    \item
+        Merging two arrays of size $n$ takes $2n$ operations, and every iteration $i$ after the first takes $(i + 1)n$ operations. Then the total number of operations is $\sum_{i = 1}^k (i + 1)n = O(k^2 n)$.
+    \item
+        One solution is given by allocating an array of size $kn$ and moving all $n$ elements of each of the $k$ arrays into unique locations in this new array, which takes $O(kn)$ time. Finally, running merge sort on this new array sorts it in $O(kn \log(kn))$ time.
+\end{enumerate}
+
+
+\pagebreak
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{ CS 4540, Fall 2016, Final Exam, 12/6/16 Due 12/14/16 by 5pm Klaus 2138 $~~$Page 2/4}
+
+\bigskip
+
+\noindent{\bf Problem 2: Dynamic Programming (25 points)}\\
+Suppose a CS curriculum consists of $n$ courses, all of them mandatory. The prerequisite graph $G(V,E)$
+has a node for each course, and an edge from course $v_i\in V$ to course $v_j\in V$ if and only if $v_i$ is a prerequisite
+for $v_j$. Moreover all prerequisites go from lower numbered courses to higher numbered courses, that is 
+$v_i\rightarrow v_j \in E$ implies $i < j$.
+Give an algorithm that works directly with this graph representation, and computes the
+minimum number of semesters necessary to complete the curriculum (assume that a student
+can take any number of courses in one semester). The running time of your algorithm should be
+linear, ie $O(|V|+|E|)$. \\
+
+\noindent
+{\bf Answer:}
+\begin{algorithm}[H] {\begin{algorithmic}[1]
+    \State initialize $dp(1) := 1, dp(i) := \infty \; \forall 2 \leq i \leq n$
+    \For {$1 \leq i \leq n$ in ascending order}
+        \For {$j \in [1, n]$ s.t. $v_i \to v_j \in E$}
+            \State $dp(j) := \min\{ dp(j), dp(i) + 1 \}$
+        \EndFor
+    \EndFor
+    \State \Return $\max_{1 \leq j \leq n} dp(j)$
+\end{algorithmic}} \end{algorithm}
+The correctness of the algorithm comes from the fact that for any edge $v_i \to v_j$, class $v_j$ can be taken the semester immediately following the semester $v_i$ is taken. Because the order of the vertices in list form adhere to the partial order of the directed graph, after iteration $i$, we know that no processing will take place on any of the vertices of indices up to $i$. \par
+The initialization takes $O(n)$ time, the loop iterates through each vertex and edge once and hence takes $O(|V| + |E|)$ time, and taking the maximum of the array takes $O(n)$ time. The algorithm overall takes $O(|V| + |E|)$ time.
+
+\pagebreak
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{ CS 4540, Fall 2016, Final Exam, 12/6/16 Due 12/14/16 by 5pm Klaus 2138 $~~$Page 3/4}
+
+\bigskip
+
+\noindent{\bf Problem 3: Coupon Collection, Expectation, Markov's Inequality (25 points)}\\
+Suppose that you have a box of $n$ distinct coupons and you sample with replacement.\\
+(a) Prove that the expected number of samples needed in order to collect all $n$ coupons is $n H_n$, 
+where $H_n=1+\frac{1}{2}+ \frac{1}{3} + \ldots + \frac{1}{n}$ is the $n$-th harmonic number.\\
+(b) Prove that the probability that you have not collected all $n$ coupons after 
+$2kn H_n$ samples is at most $\frac{1}{2^k}$. \\
+(c) Prove that the expected number of samples needed in order to collect at least $\frac{9n}{10}$ 
+distinct coupons is $O(n)$. You may use the bound $\gamma + \log n < H_n < \gamma + \log (n+1)$, 
+for some constant $\gamma$. You may also assume that $n$ is a multiple of 10, so that 
+ $\frac{9n}{10}$ is an integer.\\
+
+\noindent
+{\bf Answer:}
+\begin{enumerate}[label=(\alph*)]
+    \item
+        For any $i \in [1, n]$, assuming the distribution of drawn coupons is uniform and that we have already collected $i - 1$ coupons, let $T_i$ be the event in which the next sample results in a coupon not already collected. Then $\mathbb{P}(T_i) = \frac{n - (i - 1)}{n} = \frac{n - i + 1}{n}$, so the expectation for the number of samples that will result in such a coupon is $\frac{n}{n - i + 1}$. Summing over all possible $i$, we have that
+        \begin{align*}
+            \mathbb{E}(T) = \sum_{i = 1}^n \mathbb{E}(T_i) = \sum_{i = 1}^n \frac{n}{n - i + 1} = n \sum_{i = 1}^n \frac{1}{i} = n H_n.
+        \end{align*}
+
+    \item
+        From Markov's inequality, the probability that fewer than $n$ distinct coupons have been collected after $2nH_n$ samples is given by
+        \begin{align*}
+            \mathbb{P}(T > 2nH_n) < \frac{\mathbb{E}(T)}{2nH_n} = \frac{1}{2}.
+        \end{align*}
+        Now we consider the probability that fewer than $n$ distinct coupons have been collected after $2knH_n$ samples. If we partition the sample into $k$ subsets of $2nH_n$ samples, then the probability that every subset has fewer than $n$ distinct coupons is an (strict) upper bound on the desired quantity, and the events are independent for all the subsets. Thus,
+        \begin{align*}
+            \mathbb{P}(T > 2knH_n) < [\mathbb{P}(T > 2nH_n)]^k = \frac{1}{2^k}.
+        \end{align*}
+
+    \item
+        This quantity is given by
+        \begin{align*}
+            \mathbb{E}(T_1 + T_2 + \cdots + T_{9n/10}) &= \mathbb{E}(T_1) + \cdots + \mathbb{E}(T_{9n/10}) \\
+            &= \frac{n}{n} + \frac{n}{n - 1} + \cdots + \frac{n}{n - \frac{9n}{10} + 1}
+            = n \left( \sum_{i = 1}^n \frac{1}{i} - \sum_{i = 1}^{n/10} \frac{1}{i} \right) = n(H_n - H_{n/10}) \\
+            &< n(2\gamma + \log(n + 1) - \log(n/10)) < n(2\gamma + \log(10)) = O(n).
+        \end{align*}
+\end{enumerate}
+
+
+\pagebreak
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{ CS 4540, Fall 2016, Final Exam, 12/6/16 Due 12/14/16 by 5pm Klaus 2138 $~~$Page 4/4}
+
+\bigskip
+
+\noindent{\bf Problem 4:  Randomization, Arbitrarily Small Error, Chernoff Bounds (25 points)}\\
+Suppose that for some problem $A$ you have an algorithm $B$ that gives a correct answer with probability at least $\frac{3}{4}$
+and a wrong answer with probability at most $\frac{1}{4}$. 
+You construct an algorithm $B^\prime$ by running $B$ $n$ times and giving the output that appeared the majority 
+of the time. Prove that the probability that $B^\prime$ gives a wrong answer 
+is exponentially small in $n$. \\
+Note: You may use the following form of Chernoff bounds: 
+Let $X_1, X_2, \ldots , X_n$ be independent random variables, where $\Pr (X_i = 1) = p$ and 
+$\Pr (X_i = 0) = 1-p$. Let $X=\sum_{i=1}^n X_i$. Then $\Pr (X< (1-\delta )np )< e^{-\frac{1}{2}\delta^2 n p}$.\\
+
+\noindent
+{\bf Answer:} ($B$ is what you call a \emph{Monte Carlo} algorithm, the set of all which of form the complexity class BPP.) \par
+Let $X_i$ be the indicator variable for the $i$th run of $B$ giving a correct answer, with $X = \sum_{i = 1}^n X_i$. Then $B'$ gives a wrong answer if and only if $B$ outputs the wrong answer more than $n/2$ times, implying $X < n/2$. From the given Chernoff bound, taking $\delta = 1/3$,
+\begin{align*}
+    \mathbb{P}\left( X < \frac{n}{2} \right) = \mathbb{P} \left[ X < \left( 1 - \frac{1}{3} \right) n \left( \frac{3}{4} \right) \right] < e^{-(1/2) (1/3)^2 n (3/4)} = e^{-n/24}.
+\end{align*}
+
+
+\end{document}
+

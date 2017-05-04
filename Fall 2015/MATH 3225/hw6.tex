@@ -1,0 +1,273 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, dsfont, fancyhdr}
+\usepackage[margin=1in]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{MATH 3225 - HW6 Solutions}
+
+\begin{enumerate}
+    \item[1.] 
+        Let $A = X$ so that $a(x, y) = x$ and $u(x, y) = xy$. From the Jacobian formula and the independence of $X$ and $Y$,
+        \begin{align*}
+            f_{A, U}(a, u) &= f_{X, Y} \left(x(a, u), y(a, u) \right) |J(a, u)| \\
+            &= f_{X, Y}\left(a, \frac{u}{a} \right)
+            \left| \begin{array}{cc}
+                \frac{\partial x}{\partial a} & \frac{\partial x}{\partial u} \\
+                \frac{\partial y}{\partial a} & \frac{\partial y}{\partial u}
+            \end{array} \right| \\
+            &= f_X(a) f_Y\left( \frac{u}{a} \right)
+            \left| \begin{array}{cc}
+                1 & 0 \\
+                u \ln|a| & \frac{1}{a}
+            \end{array} \right| \\
+            &= f_X(a) f_Y\left( \frac{u}{a} \right) \frac{1}{|a|}.
+        \end{align*}
+        Marginalizing over $a$,
+        \begin{align*}
+            f_U(u) &= \int_{a = -\infty}^{\infty} f_X(a) f_Y\left( \frac{u}{a} \right) \frac{1}{|a|} da \\
+            &= \int_{-\infty}^{\infty} f_X(x) f_Y\left( \frac{u}{x} \right) \frac{1}{|x|} dx.
+        \end{align*}
+        Now let $B = Y$ so that $b(x, y) = y$ and $v(x, y) = x / y$. Proceeding in a similar way,
+        \begin{align*}
+            f_{B, V}(b, v) &= f_{X, Y} \left(x(b, v), y(b, v) \right) |J(b, v)| \\
+            &= f_{X, Y}\left(bv, b \right)
+            \left| \begin{array}{cc}
+                \frac{\partial x}{\partial b} & \frac{\partial x}{\partial v} \\
+                \frac{\partial y}{\partial b} & \frac{\partial y}{\partial v}
+            \end{array} \right| \\
+            &= f_X(bv) f_Y(b)
+            \left| \begin{array}{cc}
+                v & b \\
+                1 & 0
+            \end{array} \right| \\
+            &= f_X(bv) f_Y(b) |b|
+        \end{align*}
+        and marginalizing over $b$,
+        \begin{align*}
+            f_V(v) &= \int_{b = -\infty}^{\infty} f_X(bv) f_Y(b) |b| db \\
+            &= \int_{-\infty}^{\infty} f_X(vy) f_Y(y) |y| dy.
+        \end{align*}
+
+    \item[3.] 
+        In other words, the discriminant $Y^2 - 4XZ > 0$, or $Y > \sqrt{4xz}$. Because the volume of the region that falls under these constraints is
+        \begin{align*}
+            \int_0^1 \int_0^1 \int_{\sqrt{4xz}}^1 \partial y \partial x \partial z = \frac{1}{9}
+        \end{align*}
+        and the total volume of the cube is $1$, the probability that a randomly chosen point in the cube falls in the region is given by the number above.
+
+    \item[4.] 
+        Let $Z = \min\{X, Y\}$, and note that $\mathbb{P}(Z > z) = \mathbb{P}(X > z) \mathbb{P}(Y > z)$. Then
+        \begin{align*}
+            F_Z(z) &= \mathbb{P}(Z \leq z) \\
+            &= 1 - \mathbb{P}(Z > z) \\
+            &= 1 - \mathbb{P}(X > z) \mathbb{P}(Y > z) \\
+            &= 1 - (1 - F_X(z)) (1 - F_Y(z)) \\
+            &= \begin{cases}
+                1 - (1 - 0)(1 - 0), &z \leq 0 \\
+                1 - (1 - 1 + e^{-\lambda z}) (1 - 1 + e^{-\mu z}), &z > 0
+            \end{cases} \\
+            &= \begin{cases}
+                0, &z \leq 0 \\
+                1 - e^{-(\lambda + \mu) z}, &z > 0
+            \end{cases}
+        \end{align*}
+        which matches the definition of the exponential cumulative distribution function with parameter $\lambda + \mu$.
+
+    \item[9.] 
+        The joint and marginal density functions of $X$ and $Y$ are trivial when $x < 0$ or $y < 0$. If $y \geq 0$, marginalizing over $x$ yields
+        \begin{align*}
+            f_Y(y) &= \int_0^\infty f(x, y) dx \\
+            &= \frac{1}{4} \int_0^\infty xe^{-(x + y)}dx + \frac{3}{4} \int_0^\infty ye^{-(x + y)}dx.
+        \end{align*}
+        Integrating (by parts for the integral on the left),
+        \begin{align*}
+            f_Y(y) &= \frac{1}{4} \left[ -xe^{-(x + y)} - e^{-(x + y)} \right]_{x = 0}^\infty + \frac{3}{4} \left[ -ye^{-(x + y)} \right]_{x = 0}^\infty \\
+            &= \frac{1}{4} \left( 0 - 0 + 0 + e^{-y} \right) + \frac{3}{4} \left( 0 + ye^{-y} \right) \\
+            &= \frac{1}{4} e^{-y} (1 + 3y).
+        \end{align*}
+        Now,
+        \begin{align*}
+            \mathbb{P}(Y > X) &= \int_0^\infty \mathbb{P}(Y > X | X = x) f_X(x) dx \\
+            &= \int_0^\infty \mathbb{P}(Y > x) f_X(x) dx \\
+            &= \int_0^\infty (1 - \mathbb{P}(Y \leq x)) f_X(x) dx \\
+            &= \int_0^\infty f_X(x) dx - \int_0^\infty \mathbb{P}(Y \leq x) f_X(x) dx.
+        \end{align*}
+        Since
+        \begin{align*}
+            \mathbb{P}(Y \leq x) &= \int_0^x f_Y(y) dy \\
+            &= \int_0^x \frac{1}{4} e^{-y} (1 + 3y) dy \\
+            &= \frac{1}{4} \left[ -e^{-y} \right]_0^x + \frac{3}{4} \left[ -ye^{-y} - e^{-y} \right]_0^x \\
+            &= \frac{1}{4} \left( -e^{-x} + 1 \right) + \frac{3}{4} \left( -xe^{-x} - e^{-x} + 1 \right) \\
+            &= 1 - e^{-x} - \frac{3}{4}xe^{-x} \\
+            f_X(x) &= \frac{1}{4} \int_0^\infty xe^{-(x + y)}dy + \frac{3}{4} \int_0^\infty ye^{-(x + y)}dy \\
+            &= \frac{1}{4} \left[ -xe^{-(x + y)} \right]_{y = 0}^\infty + \frac{3}{4} \left[ -ye^{-(x + y)} - e^{-(x + y)} \right]_{y = 0}^\infty \\
+            &= \frac{1}{4} \left( 0 + xe^{-x} \right) + \frac{3}{4} \left( 0 - 0 + 0 + e^{-x} \right) \\
+            &= \frac{1}{4} e^{-x} (x + 3),
+        \end{align*}
+        it follows that
+        \begin{align*}
+            \mathbb{P}(Y > X) &= \int_0^\infty f_X(x) dx - \int_0^\infty \left( 1 - e^{-x} - \frac{3}{4}xe^{-x} \right) \left( \frac{1}{4} e^{-x} (x + 3) \right) dx \\
+            &= 1 - \frac{1}{4} \int_0^\infty \left( xe^{-x} - \frac{13}{4}xe^{-2x} - \frac{3}{4}x^2e^{-2x} + 3e^{-x} - 3e^{-2x} \right) dx \\
+            &= 1 - \frac{3}{8} \\
+            &= \frac{5}{8}.
+        \end{align*}
+
+    \item[11.] 
+        Let $Z = \sqrt{X^2 + Y^2}$. Then, because $X$ and $Y$ are independent,
+        \begin{align*}
+            \mathbb{E}(Z) &= \int_{-\infty}^\infty \int_{-\infty}^\infty \sqrt{x^2 + y^2} f_X(x) f_Y(y) dx dy \\
+            &= \frac{1}{2 \pi \sigma^2} \int_{-\infty}^\infty \int_{-\infty}^\infty \sqrt{x^2 + y^2} e^{-(x^2 + y^2) / (2 \sigma^2)} dx dy.
+        \end{align*}
+        Converting into polar coordinates,
+        \begin{align*}
+            \mathbb{E}(Z) &= \frac{1}{2 \pi \sigma^2} \int_0^{2\pi} \int_0^\infty r^2 e^{-r^2 / (2 \sigma^2)} dr d\theta \\
+            &= \frac{1}{\sigma^2} \int_0^\infty r^2 e^{-r^2 / (2 \sigma^2)} dr \\
+            &= \frac{1}{\sigma^2} \left( \sqrt{\frac{\pi}{2}} \sigma^3 \right) \\
+            &= \sqrt{\frac{\pi}{2}} \sigma. 
+        \end{align*}
+        The variance is
+        \begin{align*}
+            \text{Var}(Z) &= \mathbb{E}(X^2) - \mathbb{E}(X)^2 \\
+            &= \frac{1}{2 \pi \sigma^2} \int_{-\infty}^\infty \int_{-\infty}^\infty (x^2 + y^2) e^{-(x^2 + y^2) / (2 \sigma^2)} dx dy - \frac{\pi \sigma^2}{2} \\
+            &= \frac{1}{2 \pi \sigma^2} \int_{0}^{2\pi} \int_{0}^\infty r^3 e^{-r^2 / (2 \sigma^2)} dr d\theta - \frac{\pi \sigma^2}{2} \\
+            &= \frac{1}{\sigma^2} \int_{0}^\infty r^3 e^{-r^2 / (2 \sigma^2)} dr - \frac{\pi \sigma^2}{2} \\
+            &= \frac{1}{\sigma^2} \left( 2 \sigma^4 \right) - \frac{\pi \sigma^2}{2} \\
+            &= 2 \sigma^2 - \frac{\pi \sigma^2}{2}.
+        \end{align*}
+
+    \item[15.] 
+        Let $U = Y$ and $V = \frac{X}{\sqrt{Y / n}}$ so that $u(x, y) = y$ and $v(x, y) = \frac{x}{\sqrt{y / n}}$. From the Jacobian formula and the independence of $X$ and $Y$,
+        \begin{align*}
+            f_{U, V}(u, v) &= f_{X, Y}(x(u, v), y(u, v)) |J(u, v)| \\
+            &= f_{X, Y}\left( \sqrt{ \frac{u}{n} } v, u \right)
+            \left| \begin{array}{cc}
+                \frac{\partial x}{\partial u} & \frac{\partial x}{\partial v} \\
+                \frac{\partial y}{\partial u} & \frac{\partial y}{\partial v}
+            \end{array} \right| \\
+            &= f_X\left( \sqrt{ \frac{u}{n} } v \right) f_Y(u)
+            \left| \begin{array}{cc}
+                \frac{v}{2\sqrt{nu}} & \sqrt{\frac{u}{n}} \\
+                1 & 0
+            \end{array} \right| \\
+            &= \frac{1}{\sqrt{2 \pi}} e^{-uv^2/(2n)} \frac{1}{2\Gamma(\frac{1}{2} n)} \left( \frac{1}{2} u \right)^{n/2 - 1} e^{-u/2}.
+        \end{align*}
+        Marginalizing over $U$,
+        \begin{align*}
+            F_{V}(v) &= \int_{-\infty}^\infty \frac{1}{\sqrt{2 \pi}} e^{-uv^2/(2n)} \frac{1}{2\Gamma(\frac{1}{2} n)} \left( \frac{1}{2} u \right)^{n/2 - 1} e^{-u/2} du \\
+            &= \int_0^\infty \frac{1}{\sqrt{2 \pi}} e^{-uv^2/(2n)} \frac{1}{2\Gamma(\frac{1}{2} n)} \left( \frac{1}{2} u \right)^{n/2 - 1} e^{-u/2} du \\
+            &= \frac{1}{\sqrt{\pi n}} \frac{\Gamma(\frac{1}{2}(n + 1))}{\Gamma(\frac{1}{2}n)} \left( 1 + \frac{v^2}{n} \right)^{-(n + 1) / 2}.
+        \end{align*}
+
+    \item[20.] 
+        \begin{align*}
+            f_{X, Y}(x, y) =
+            \begin{cases}
+                2, &0 < y < x < 1 \\
+                0, &\text{otherwise}
+            \end{cases} \\
+        \end{align*}
+        Let $Z = X + Y$. Then
+        \begin{align*}
+            \mathbb{P}(Z \leq 1) &= \int_{x = -\infty}^\infty \int_{y = -\infty}^{1 - x} f_{X, Y}(x, y) dy dx \\
+            &= \int_{x = 0}^1 \int_{y = 0}^{\min\{x, 1 - x\}} 2 dy dx \\
+            &= 2 \int_0^1 \min\{x, 1 - x\} dx \\
+            &= 2 \left( \int_0^{1/2} x dx + \int_{1/2}^1 (1 - x) dx \right) \\
+            &= 2 \left( \left[ \frac{x^2}{2} \right]_0^{1/2} + \left[ x - \frac{x^2}{2} \right]_{1/2}^1 \right) \\
+            &= 2 \left( \frac{1}{8} + 1 - \frac{1}{2} - \frac{1}{2} + \frac{1}{8} \right) \\
+            &= \frac{1}{2}.
+        \end{align*}
+        Also, marginalizing over $y$,
+        \begin{align*}
+            f_X(x) &= \int_{-\infty}^\infty f_{X, Y}(x, v) dv \\
+            &= \int_0^x 2 dv, 0 < x < 1 \\
+            &= 2x, 0 < x < 1
+        \end{align*}
+        and $0$ elsewhere. The expectation is
+        \begin{align*}
+            \mathbb{E}(X) &= \int_{-\infty}^\infty x f_X(x) dx \\
+            &= \int_0^1 2x^2 dx \\
+            &= \left[ \frac{2}{3} x^3 \right]_0^1 \\
+            &= \frac{2}{3}.
+        \end{align*}
+        Finally, from the formula for conditional probability,
+        \begin{align*}
+            f_{Y | X}(y | x) &= \frac{f_{X, Y}(x, y)}{f_X(x)} = \frac{1}{x}, 0 < y < x < 1 \\
+            \mathbb{E}(Y | X = x) &= \int_{-\infty}^\infty y f_{Y | X}(y | x) dy \\
+            &= \frac{1}{x} \int_0^x y dy, 0 < x < 1 \\
+            &= \frac{1}{x} \left[ \frac{y^2}{2} \right]_0^x, 0 < x < 1 \\
+            &= \frac{1}{2}x, 0 < x < 1.
+        \end{align*}
+
+    \item[24.] 
+        From the Jacobian formula and the independence of $X$ and $Y$,
+        \begin{align*}
+            f_{U, V}(u, v) &= f_{X, Y}(x(u, v), y(u, v)) |J(u, v)| \\
+            &= f_{X, Y} \left( u, \frac{v - u}{a} \right) 
+            \left| \begin{array}{cc}
+                \frac{\partial x}{\partial u} & \frac{\partial x}{\partial v} \\
+                \frac{\partial y}{\partial u} & \frac{\partial y}{\partial v}
+            \end{array} \right| \\
+            &= f_X(u) f_Y\left( \frac{v - u}{a} \right)
+            \left| \begin{array}{cc}
+                1 & 0 \\
+                -\frac{1}{a} & \frac{1}{a}
+            \end{array} \right| \\
+            &= \frac{1}{a} f(u) g\left( \frac{v - u}{a} \right).
+        \end{align*}
+        If $a = \frac{1}{2}$ and $f(x) = g(x) = \lambda e^{-\lambda x}$ for $x \geq 0$, then
+        \begin{align*}
+            f_{U, V}(u, v) &= 2 f(u) g(2(v - u)), 0 \leq u \leq v \\
+            &= 2 \left( \lambda e^{-\lambda u} \right) \left( \lambda e^{-\lambda(2)(v - u)} \right), 0 \leq u \leq v \\
+            &= 2 \lambda^2 e^{\lambda(u - 2v)}, 0 \leq u \leq v
+        \end{align*}
+        and
+        \begin{align*}
+            f_V(v) &= \int_{-\infty}^\infty f_{U, V}(u, v) du \\
+            &= \int_0^v 2 \lambda^2 e^{\lambda(u - 2v)} du \\
+            &= 2 \lambda^2 \left[ \frac{1}{\lambda} e^{\lambda(u - 2v)} \right]_{u = 0}^v \\
+            &= 2 \lambda \left( e^{-\lambda v} - e^{-2\lambda v} \right).
+        \end{align*}
+        However, if $Z = \max\{X, Y\}$, then
+        \begin{align*}
+            F_Z(z) &= \mathbb{P}(Z \leq z) \\
+            &= \mathbb{P}(\max\{X, Y\} \leq z) \\
+            &= \mathbb{P}(X \leq z) \mathbb{P}(Y \leq z) \\
+            &= F_X(z) F_Y(z) \\
+            &= \left( \int_{-\infty}^\infty f(x) dx \right)^2 \\
+            &= \left( \int_0^\infty \lambda e^{-\lambda x} dx \right)^2 \\
+            &= \left( \left[ -e^{-\lambda x} \right]_0^\infty \right)^2 \\
+            &= 1
+        \end{align*}
+        and
+        \begin{align*}
+            f_Z(z) = \frac{d}{dz} F_Z(z) = 0.
+        \end{align*}
+        In conclusion, $f_V(v) \neq f_Z(z)$.
+
+    \item[26.] 
+        From the Jacobian formula,
+        \begin{align*}
+            f_{U, V}(u, v) &= f_{X, Y}(x(u, v), y(u, v)) |J(u, v)| \\
+            &= f_{X, Y}(2u + v, v)
+            \left| \begin{array}{cc}
+                2 & 1 \\
+                0 & 1
+            \end{array} \right| \\
+            &= \frac{1}{2} e^{-u - v}, v > 0, u > -\frac{v}{2}
+        \end{align*}
+        and $0$ otherwise. Marginalizing over $v$,
+        \begin{align*}
+            f_U(u) &= \int_{-\infty}^\infty f_{U, V}(u, v) dv \\
+            &= \int_0^\infty \frac{1}{2} e^{-|u| - v} dv \\
+            &= \left[ -\frac{1}{2} e^{-|u| - v} \right]_{v = 0}^\infty \\
+            &= \frac{1}{2} e^{-|u|}, -\infty < u < \infty.
+        \end{align*}
+
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,76 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amsthm, changepage, enumitem, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\newcommand{\gbinom}[2]{\genfrac{[}{]}{0pt}{}{#1}{#2}}
+
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{MATH 4032 - HW8 Solutions}
+\subsection*{9.}
+\begin{enumerate}
+    \item[2.]
+        \boldmath
+        \textbf{For fixed $q$, show that the probability that a random $n \times n$ matrix over $\text{GF}(q)$ is non-singular tends to a limit $c(q)$ as $n \to \infty$, where $0 < c(q) < 1$.} \par
+        \unboldmath
+        Since the number of non-singular $n \times n$ matrices over $\text{GF}(q)$ is $(q^n - 1)(q^n - q) \cdots (q^n - q^{n - 1})$ and the number of $n \times n$ matrices in total is $q^{n^2}$, the probability that a uniformly randomly selected $n \times n$ matrix is non-singular is
+        \begin{align*}
+            \frac{(q^n - 1)(q^n - q) \cdots (q^n - q^{n - 1})}{q^{n^2}} = (1 - q^{-1})(1 - q^{-2}) \cdots (1 - q^{-n}).
+        \end{align*}
+        Since $\lim_{n \to \infty} \sum_{i = 1}^n q^{-2i}$ converges by the Geometric Series Test, we can apply a theorem which states that $c(q) = \lim_{n \to \infty} \prod_{i = 1}^n (1 - q^{-i})$ converges and is contrained to $0 < c(q) < 1$ if and only if $\lim_{n \to \infty} \sum_{i = 1}^n q^{-i}$ converges. The latter implies the former since $\lim_{n \to \infty} \sum_{i = 1}^n q^{-i}$ also converges by the Geometric Series Test.
+
+    \item[3.]
+        \boldmath
+        \textbf{Let $F_q(n)$ be the total number of subspaces of an $n$-dimensional vector space over $\text{GF}(q)$. Prove that $F_q(0) = 1$, $F_q(1) = 2$, and
+        \begin{align*}
+            F_q(n + 1) = 2F_q(n) + (q^n - 1) F_q(n - 1)
+        \end{align*}
+        for $n \geq 1$.} \par
+        \unboldmath
+        From the definition,
+        \begin{align*}
+            F_q(n) = \sum_{k = 0}^n \gbinom{n}{k}_q.
+        \end{align*}
+        Because any $0$-dimensional vector space is the empty set, it only contains itself as a subset. Thus we must specially define
+        \begin{align*}
+            \gbinom{n}{0}_q = 1.
+        \end{align*}
+        Then we have
+        \begin{gather*}
+            F_q(0) = \sum_{k = 0}^0 \gbinom{0}{k}_q = 1 \\
+            F_q(1) = \sum_{k = 0}^1 \gbinom{1}{k}_q = \gbinom{1}{0}_q + \gbinom{1}{1}_q = 1 + \frac{q - 1}{q - 1} = 2.
+        \end{gather*}
+        For $n \geq 1$, with the help of the identity
+        \begin{gather}
+            (q^k - 1) \gbinom{n}{k}_q = (q^n - 1) \gbinom{n - 1}{k - 1}_q,
+        \end{gather}
+        the identity
+        \begin{gather}
+            \gbinom{n + 1}{k}_q = \gbinom{n}{k - 1}_q + q^k \gbinom{n}{k}_q
+        \end{gather}
+        becomes
+        \begin{align*}
+            \gbinom{n + 1}{k}_q &= \gbinom{n}{k - 1}_q + \gbinom{n}{k}_q + (q^k - 1) \gbinom{n}{k}_q \\
+            &= \gbinom{n}{k - 1}_q + \gbinom{n}{k}_q + (q^n - 1) \gbinom{n - 1}{k - 1}_q,
+        \end{align*}
+        and summing over all possible $k$, we have
+        \begin{align*}
+            \sum_{k = 0}^{n + 1} \gbinom{n + 1}{k}_q &= \sum_{k = 0}^{n + 1} \gbinom{n}{k - 1}_q + \sum_{k = 0}^{n + 1} \gbinom{n}{k}_q + (q^n - 1) \sum_{k = 0}^{n + 1} \gbinom{n - 1}{k - 1}_q \\
+            &= \sum_{k = 1}^{n + 1} \gbinom{n}{k - 1}_q + \sum_{k = 0}^n \gbinom{n}{k}_q + (q^n - 1) \sum_{k = 1}^{n} \gbinom{n - 1}{k - 1}_q \\
+            F_q(n + 1) &= F_q(n) + F_q(n) + (q^n - 1) F_q(n - 1) \\
+            &= 2F_q(n) + (q^n - 1) F_q(n - 1).
+        \end{align*}
+
+    \item[6.]
+        \boldmath
+        \textbf{Prove that a set of points of a projective space is a flat if and only if it contains the line through any two of its points.} \par
+        \unboldmath
+        Let $P$ be a set of points of a projective space, and $V$ be the corresponding set of vectors of the vector space. Since it is a union of 1-dimensional subspaces (which are by definition closed under scalar multiplication), $V$ is already closed under scalar multiplication. Also, let $p_1, p_2 \in P$ and let $v_1, v_2 \in V$ be arbitrary vectors that project to $p_1$ and $p_2$, respectively. Finally, denote $p_1 p_2$ as the unique line passing through $p_1$ and $p_2$, and let $S$ be the span of $v_1$ and $v_2$. Thus, $S$ projects to $p_1 p_2$. \par
+        ($\Leftarrow$) \iffalse Let $v_1, v_2 \in V$. If they are linearly dependent, then they are projected to the same point in $P$, and $v_1 + v_2$ is also, which implies that $v_1 + v_2 \in V$. Otherwise, let $p_1, p_2$ be the projected points of $v_1, v_2$, respectively, and let $p_1 p_2$ denote the unique line passing through these points. The space spanned by $v_1$ and $v_2$ projects to $p_1 p_2$. \fi $p_1 p_2 \subseteq P$ implies that $S \subseteq V$, and in particular, $v_1 + v_2 \in V$. Because it is closed under scalar multiplication and addition, $V$ is a subspace, and equivalently $P$ is a flat. \par
+        ($\Rightarrow$) Equivalently, $V$ is a subspace, and in particular $S \subseteq V$. Thus, the projection $p_1 p_2$ is contained in $P$.
+\end{enumerate}
+\end{document}

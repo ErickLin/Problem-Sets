@@ -1,0 +1,165 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{amsfonts, amsmath, courier, enumitem}
+
+\textheight=9.5in
+\textwidth=6.5in
+\topmargin=-.8in
+\headsep=0pt
+\oddsidemargin=0truecm
+\evensidemargin=0truecm
+\footskip=20pt
+%\footheight=20pt
+\pretolerance=1600
+\tolerance=1600
+\hbadness=1600
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{problem}[theorem]{Problem}
+
+\begin{document}
+
+\title{
+}
+
+%\author{Assigned 1-13-16 , Due 1-19-16 (in class)
+%}
+
+
+\date{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author's definitions
+
+\newcommand{\DEF}[1]{{\em #1\/}}
+
+\newcommand\chic{\chi_c}
+\newcommand\C{\hbox{${\cal C}$}}
+\newcommand{\RR}{\mbox{$\mathbb R$}}
+\newcommand{\NN}{\mbox{$\mathbb N$}}
+\newcommand{\ZZ}{\mbox{$\mathbb Z$}}
+\newcommand{\eopf}{\raisebox{0.8ex}{\framebox{}}}
+\newcommand{\dist}{\hbox{\rm d}}
+\renewcommand\a{\alpha}
+\renewcommand\b{\beta}
+\renewcommand\c{\gamma}
+\renewcommand\d{\delta}
+\newcommand\D{\Delta}
+\newcommand{\directedchi}{\mbox{$\vec{\chi}$}}
+\newcommand{\directedE}{\mbox{$\vec{E}$}}
+\newcommand{\directedG}{\mbox{$\vec{G}$}}
+\newcommand{\directedK}{\mbox{$\vec{K}$}}
+
+\newenvironment{proof}%
+{\noindent{\bf Proof.}\ }%
+{\hfill\eopf\par\bigskip}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\maketitle
+
+\noindent{\bf  Last Name:} $Lin \quad$
+\noindent{\bf First Name:} $Erick \quad$
+\noindent{\bf Email:}          $elin42@gatech.edu$\\
+\noindent{ CS 3511, Spring 2016, Quiz 3, 4-22-16 Due 4-25-16 Klaus 2138 $~~$Page 1/4}
+
+\bigskip
+
+\noindent{\bf Problem 1: Hardness Reduction 0-1-TSP (25 points)}\\
+Recall that Hamilton Cycle is the following problem.\\
+Input: Undirected graph $G(V,E)$.\\
+Output: YES if $G$ has a cycle of with $|V|$ edges, ie a cycle that includes all vertices.\\
+$~~~~~~~~~~~~$ NO if all cycles of $G$ have strictly less than $|V|$ edges, ie there is no cycle\\
+$~~~~~~~~~~~~$ that includes all vertices.\\
+1-2-TSP-OPT is the following problem. \\
+Input: Undirected complete graph $G(V,E)$, where by complete we mean that all edges are present:\\
+$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$ $\forall u \in V$ and $v \in V$ we have $\{ u , v \} \in E$.\\
+$~~~~~~~~~~~~$ In addition, every edge $e \in E$ has a cost $c(e)$, where $c(e) \in \{ 1 , 2 \}$.\\
+$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$ that is, all edges costs are either 1 or 2.\\
+Output: The cost of the cheapest cycle of $G$ that contains exactly $|V|$ edges, i.e. visits every vertex exactly once. \\
+Show that Hamilton Cycle$\leq_P$ 1-2-TSP-OPT. \\
+{\bf Answer:}\\ 
+From $G(V, E)$, construct the complete graph $G'(V, E')$ where for all $e \in E'$, $c(e) := 1$ if $e \in E$, and $c(e) := 2$ otherwise. From this definition, we know that if $G$ contains a Hamiltonian cycle, then the sum of the costs of all the edges in that cycle in $G'$ is $|V|(1) = |V|$. Conversely, if the sum of the costs of the edges of the optimal Hamiltonian cycle returned by 1-2-TSP-OPT on $G'$ is $|V|$, then this cycle consists solely of edges in $E$, so this is also a Hamiltonian cycle in the original graph. \par
+Since it is complete, constructing the new graph takes time in $O(|V|^2)$.
+
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{ CS 3511, Spring 2016, Quiz 3, 4-22-16 Due 4-25-16 Klaus 2138  $~~$Page 2/4}
+
+\bigskip
+
+\noindent{\bf Problem 2: Hardness Reduction Special Stingy 3SAT (25 points)}\\
+Special Stingy 3SAT in the following problem:\\
+Input: $m$ clauses $c_1, \ldots c_m$ over $n$ boolean variables $x_1 , \ldots , x_n$.\\
+$~~~~~~~~~$ Each clause is of the form $(x \vee y \vee z)$, where $x, y$ and $z$ are either \\
+$~~~~~~~~~$ one of the boolean variables $x_i$ or the negation of one of the boolean variables $\bar{x_i}$.\\
+Output: YES if there exists a satisfying assignment where at most $(n-1)$ variables are true.\\
+$~~~~~~~~~$ NO if there does not exist a satisfying assignment where at most $(n-1)$ variables are true.\\
+Also recall that 3SAT is the following problem:\\
+Input: $m$ clauses $c_1, \ldots c_m$ over $n$ boolean variables $x_1 , \ldots , x_n$.\\
+$~~~~~~~~~$ Each clause is of the form $(x \vee y \vee z)$, where $x, y$ and $z$ are either \\
+$~~~~~~~~~$ one of the boolean variables $x_i$ or the negation of one of the boolean variables $\bar{x_i}$.\\
+Output: YES if there exists an assignment that satisfies all clauses.\\
+$~~~~~~~~~$ NO if there does not exist an assignment that satisfies all clauses.\\
+Show that 3SAT$\leq_P$Special Stingy 3SAT. \\
+{\bf Answer:}\\
+A boolean expression with exactly $n - 1$ variables, an instance of 3SAT, has at most $n - 1$ that are \textit{true}, so it is also an instance of STINGY 3SAT. Conversely, an instance of STINGY 3SAT with a satisfying assignment having at most $n - 1$ variables that are \textit{true} is also an instance of 3SAT.
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{ CS 3511, Spring 2016, Quiz 3, 4-22-16 Due 4-25-16 Klaus 2138 $~~$Page 3/4}
+
+\bigskip
+
+\noindent{\bf Problem 3: 3SAT Approximation (25 points)}\\
+Let $f$ be a boolean formula over $n$ boolean variables $x_1, \ldots , x_n$
+with $m$ clauses $c_1, \ldots , c_m$. \\
+An algorithm design company claims that the following algorithm always finds an assignment  to
+the boolean variables that satisfies at least half of the clauses: \\
+$~~~$ STEP 1: Set all the variables to true \\
+$~~~~~~~~~~~~~~~~~$and let $x$ be the number of satisfied clauses under this assignment.\\
+$~~~$ STEP 2: Set all the variables to false \\
+$~~~~~~~~~~~~~~~~~$and let $y$ be the number of satisfied clauses under this assignment.\\
+$~~~$ STEP 3: If $x\geq y$ then output $x_1=x_2=\ldots =x_n=$TRUE.\\
+$~~~~~~~~~~~~~~~~~$If $y<x$  then output $x_1=x_2=\ldots =x_n=$FALSE.\\
+Is the algorithm design company's claim correct?\\
+If yes then give a short explanation.
+If no then give a counter-example.\\
+{\bf Answer:}\\
+Yes. Since each term $x_i$ or $\overline{x}_i$ is satisfied in either STEP 1 or STEP 2, each clause $c_i$, which is a disjunction of these terms, is satisfied in at least one of STEP 1 or STEP 2. This means that $x + y \geq m$, and thus we have that $x \geq m/2$ or $y \geq m/2$.
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{ CS 3511, Spring 2016, Quiz 3, 4-22-16 Due 4-25-16 Klaus 2138 $~~$Page 4/4}
+
+\bigskip
+
+\noindent{\bf Problem 4: (25 points)}\\
+Let $G(V,E)$ be a directed graph. 
+Let $v_1 , \ldots , v_n$ be an ordering of the vertices of $G$. \\
+Let $X$ be the number of edges $v_i \rightarrow v_j$ such that $i < j$.\\
+Let $Y$ be the number of edges $v_i \rightarrow v_j$ such that $i > j$.\\
+The OPT-ORDERING problem is to find an ordering that minimizes $Y$.\\
+Consider the following algorithm to solve OPT-ORDERING:\\
+$~~~~$ Starting at any vertex $v$, perform DFS and order the vertices in reverse finish times.\\
+Does the above algorithm produce an  OPT-ORDERING?\\
+If yes then give a short explanation. 
+If no then give a counter-example.\\
+{\bf Answer:} \\
+No, consider the linear graph $G(V, E)$ with $V = \{ x_1, \cdots, x_n \}$ and an edge $\{ x_i, x_{i + 1} \} \in E$ for all $1 \leq i \leq n - 1$. If we perform a DFS starting at $x_1$, then the vertices ordered in reverse finish time are $x_n, x_{n - 1}, \cdots, x_1$. If we define edges $v_i \rightarrow v_j$ such that $i > j$ as \textit{inversions}, then this ordering maximizes the number of inversions with $Y = n - 1$, while the ordering that minimizes the number of inversions is $x_1, x_2, \cdots, x_n$ which has $Y = 0$.
+
+
+\end{document}

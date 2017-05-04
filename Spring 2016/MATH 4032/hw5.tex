@@ -1,0 +1,89 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amsthm, changepage, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{MATH 4032 - HW5 Solutions}
+\subsection*{6.}
+\begin{enumerate}
+    \item[1.]
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{Show that the number of $n \times n$ Latin squares is 1, 2, 12, 576 for $n = 1, 2, 3, 4$ respectively.} \par
+                \unboldmath
+
+            \item
+                \boldmath
+                \textbf{Prove that, up to permutations of the rows, columns, and symbols in a Latin square, there are unique squares of orders 1, 2, 3, and two different squares of order 4.} \par
+                \unboldmath
+
+            \item
+                \boldmath
+                \textbf{Show that one of the two types of Latin square of order 4 has an orthogonal 'mate' and the other does not.} \par
+                \unboldmath
+        \end{enumerate}
+
+    \item[4.]
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{Find a family of three subsets of a 3-set having exactly three SDRs.} \par
+                \unboldmath
+                Given the 3-set $\{ 1, 2, 3 \}$, one example of a satisfactory family is $\{ 1, 2 \}$, $\{ 2, 3 \}$, $\{ 1, 2, 3 \}$. If the representative $x_1$ for the first set is $1$, then $x_2$ may be either $2$ or $3$. Otherwise, if $x_1 = 2$, then $x_2$ must be $3$. In any case, there is always a remaining representative for the third set.
+
+            \item
+                \boldmath
+                \textbf{How many SDRs does the family
+                    \begin{gather*}
+                        \{ \{ 1, 2, 3 \}, \{ 1, 4, 5 \}, \{ 1, 6, 7 \}, \{ 2, 4, 6 \}, \\ \{ 2, 5, 7 \}, \{ 3, 4, 7 \}, \{ 3, 5, 6 \} \}
+                    \end{gather*}
+                have?} \par
+                \unboldmath
+                Using a symmetry argument, it can be seen that regardless of which element is chosen as the representative $x_1$ of the first subset, the number of ways to choose representatives from the remaining subsets is the same, so without loss of generality, we may choose $x_1 = 1$. Repeating this argument, we can choose $4$ and $6$ as $x_2$ and $x_3$ without loss of generality. For $x_4$, the only remaining element is $2$. Now, the last three subsets must have one of the SDRs $(5, 7, 3)$ or $(7, 3, 5)$. Considering all the symmetry arguments, the total number of possibilities is $3 \times 2 \times 2 \times 2 = 24$.
+        \end{enumerate}
+
+    \item[5.]
+        \boldmath
+        \textbf{Let $(A_1, \cdots, A_n)$ be a family of subsets of $\{ 1, \cdots, n \}$. Suppose that the incidence matrix of the family is invertible. Prove that the family possesses a SDR.} \par
+        \unboldmath
+        The determinant can be defined as the sum of all the ways to take the product of elements with one taken from each row and column times the sign of the corresponding permutation. Since the determinant of the incidence matrix is nonzero, there is some permutation with all 1s, so the corresponding elements for this permutation form a SDR.
+
+    \item[6.]
+        \boldmath
+        \textbf{Use the truth of the van der Waerden permanent conjecture to prove that the number $d(n)$ of derangements of $\{ 1, \cdots, n \}$ satisfies
+            \begin{align*}
+                d(n) \geq n! \left( 1 - \frac{1}{n} \right)^n.
+            \end{align*}
+        How does this estimate compare with the truth?} \par
+        \unboldmath
+        A derangement of $\{ 1, \cdots, n \}$ is a SDR for the family of sets $(A_1, A_n, \cdots, A_n)$ where $A_i = \{ 1, \cdots, n \} \setminus \{ i \}$. Since each set $A_i$ has $n - 1$ elements and each element $i$ is contained in all of the sets except for $A_i$, we may use Proposition 6.5.2 with $r = n - 1$, which gives the lower bound of
+        \begin{align*}
+            d(n) \geq n! \left( \frac{n - 1}{n} \right)^n = n! \left( 1 - \frac{1}{n} \right)^n
+        \end{align*}
+        for the number of SDRs of the family. \qed \par
+        Since
+        \begin{align*}
+            n! \left( \frac{n - 1}{n} \right)^n = \frac{n!}{\left( \frac{n - 1}{n - 1} + \frac{1}{n - 1} \right)^n} = \frac{(n - 1)! n}{\left( 1 + \frac{1}{n - 1} \right)^{n - 1} \left( 1 + \frac{1}{n - 1} \right)} = \frac{(n - 1)!(n - 1)}{\left( 1 + \frac{1}{n - 1} \right)^{n - 1}},
+        \end{align*}
+        from the algebraic limit theorem, $d(n)$ approaches $n!/e$ in the limit as $n \to \infty$. However, it can be deduced from the first few examples that this lower bound does not necessarily round to $d(n)$ for small values of $n$.
+
+    \item[7.]
+        \boldmath
+        \textbf{Prove the following generalization of Hall's Theorem:} \par
+        \begin{adjustwidth}{2.5em}{0pt}
+            \textbf{\textit{If a family $(A_1, \cdots, A_n)$ of subsets of $X$ satisfies $|A(J)| \geq |J| - r$ for all $J \subset \{ 1, \cdots, n \}$, then there is a subfamily of size $n - r$ which has a SDR.}}
+        \end{adjustwidth} \par
+        \unboldmath
+        Let $Y = \{ y_1, \cdots, y_r \}$ be a set disjoint from $X$, and let $B_i = A_i \cup Y$ for all $i$. Then it is true by definition that for all $J \subset \{ 1, \cdots, n \}$,
+        \begin{align*}
+            |B(J)| = |A(J)| + r \geq (|J| - r) + r = |J|.
+        \end{align*}
+        Since $(B_1, B_2, \cdots, B_n)$ satisfies Hall's Condition, it has a SDR by Hall's Theorem. Any SDR of $(B_1, B_2, \cdots, B_n)$ has at least $n - r$ representatives in $X$, which are also valid representatives of a SDR for the subfamily of the corresponding $n - r$ elements in the family $(A_1, \cdots, A_n)$.
+\end{enumerate}
+\end{document}

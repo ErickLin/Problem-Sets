@@ -1,0 +1,34 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{CS 2051 - HW8 Solutions}
+
+\begin{enumerate}
+	
+	\item (a) If $G$ is a tree, then it contains no cycles and every edge uniquely connects two components of $G$, matching the definition of a cut-edge. \par
+	If $G$ is connected, a cycle in $G$ would not contain a cut-edge because $G$ would still remain connected after any edge is removed from the cycle. Then $G$ has no cycles and is a tree by definition. \par
+	(b) If $G$ is a tree, then for all vertices $u, v \in V(G)$, there exists exactly one $uv$-path. If there is not already an edge between $u$ and $v$, then adding such an edge would result in two $uv$-paths that differ in all their vertices except for the beginning and ending vertices, which is the definition of a cycle. \par
+	If $G$ is a connected graph such that adding any edge creates exactly one cycle, then all the edges are cut-edges, and $G$ is a tree.
+	
+	\item Suppose a spanning tree of $G$ does not contain $e$. Then $G$ remains connected even after $e$ is removed, and $e$ is not a cut-edge. \par
+	If $e$ is a cut-edge in a graph $G$, then removing $e$ will result in $G$ being disconnected. Because a spanning tree is connected and the set of edges of any spanning tree of $G$ is a subset of $E(G)$, all spanning trees of $G$ contain $e$.
+	
+	\item The graph must be connected; otherwise, it would consist of disconnected components which do not contain an Eulerian trail. The definition of a maximal trail is that no edge can be added to it while preserving its property of being a trail, in which all edges are distinct. Because the graph is connected and has only vertices of even (and nonzero) degree, any time an edge enters a vertex it can also leave from the same vertex. Then for any trail, edges can be repeatedly added to the last vertex until the trail contains all the edges in the graph, rendering it a maximal trail. Finally, whenever the maximal trail leaves its starting vertex, it must also return because the starting vertex has even degree. Therefore, the maximal trail is an Eulerian circuit.
+	
+	\item Let $G_n$ be a graph on $n$ vertices. A minimum of two edges are required for $G_3$ to be connected; however, $G_3$ will itself be an induced subgraph with exactly two edges, so a third one must be added, making $G_3$ isomorphic to $K_3$. \par
+	For the purpose of induction, assume that if $G_n$ is isomorphic to $K_n$, then adding an additional vertex $v$ to $G_n$ such that it is not isolated and does not produce an induced subgraph with exactly two edges results in $G_{n + 1} = K_{n + 1}$. This is true because for $v$ not to be isolated, an edge must be formed between $v$ and at least one vertex $w$ already in $G_n$. However, this causes the induced subgraph containing $v$, $w$, and a neighbor $w'$ of $w$ to have exactly two edges, which can be remedied by adding an edge between $v$ and $w'$. Because $G_n = K_n$, $w$ is adjacent to all other vertices in $G_n$, which means that edges must be added from all vertices of $G_n$ to $v$. The resulting graph $G_{n + 1}$ is a complete graph.
+	
+	\item Let $\bar{G}$ denote the complement of $G$. If $G$ has a vertex $v$ of degree 1, then the sole neighbor $w$ of $v$ is automatically a cut-vertex, because removing $w$ will result in ${v}$ becoming a separate component. If $v$ and $w$ are the only two vertices, then $G$ cannot be a self-complementary graph because $|E(G)|\mbox{ XOR }|E(G')| = 0$. \par
+	Now assume that $G$ has a cut-vertex $v$ and no vertex of degree $1$. Then $G - v$ contains at least two components $A$ and $B$, each with at least two vertices. In $\bar{G} - v$, each vertex in $A$ is connected to all vertices in $B$, and each vertex in $B$ is connected to all vertices in $A$. Also, $v$ has degree at least 2, so $\bar{G}$ has no cut-vertices, which is a contradiction.
+	
+	\item Let $v$ be the vertex of degree $\Delta$ and consider its neighbors. None of them are neighbors of one another because the graph contains no cycles. Each neighbor is either a leaf or splits off into more vertices of lesser degree. Because every vertex of degree higher than one splits off into more vertices, the number of leaves that are reachable from $v$ is always at least $\Delta$.
+	
+	\item For any partition of $G$ into two non-empty sets, if there is not an edge with endpoints in both sets, then there is no path between an element $u$ in one set and an element $v$ in the other set and $G$ is not connected. \par
+	If $G$ is connected, then there exists a $uv$-path for all $u, v \in G$. If $G$ is partitioned into two non-empty sets such that $u$ is in one and $v$ is in the other, then one edge in the $uv$-path must have endpoints in opposite partitions.
+	
+\end{enumerate}
+
+\end{document}

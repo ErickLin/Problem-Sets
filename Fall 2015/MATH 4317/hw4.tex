@@ -1,0 +1,120 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, enumitem, fancyhdr}
+\usepackage[margin=1in]{geometry}
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+    \section*{MATH 4317 - HW4 Solutions}
+    \subsection*{III. Metric Spaces}
+    \begin{enumerate}
+        \item[19.]
+            The definition can also be written
+            \begin{align*}
+                \limsup_{n \to \infty} a_n &= \lim_{n \to \infty} \sup_{k \geq n} a_k
+            \end{align*}
+            Because $\{a_k\}_{k \geq n} \supset \{a_{k}\}_{k \geq n + 1}$, $\sup_{k \geq n} a_k \geq \sup_{k \geq n + 1} a_k$ for all $n$. Since $\{a_n : n \in \mathbb{N}\}$ is bounded, $\{\sup_{k \geq n} a_k : n \in \mathbb{N} \}$ is also bounded. Then by the monotone convergence theorem, $\lim_{n \to \infty} \sup_{k \geq n} a_k$ exists and furthermore,
+            \begin{align*}
+                \lim_{n \to \infty} \sup_{k \geq n} a_k = \inf_{n} \sup_{k \geq n} a_k.
+            \end{align*}
+            Because
+            \begin{align*}
+                \sup_{k \geq n}(a_k + b_k) \leq \sup_{k \geq n} a_k + \sup_{k \geq n} b_k
+            \end{align*}
+            for all $n$, taking the infimum of both sides,
+            \begin{align*}
+                \inf_n \sup_{k \geq n}(a_k + b_k) &\leq \inf_n \sup_{k \geq n} a_k + \inf_n \sup_{k \geq n} b_k \\
+                \Leftrightarrow \limsup_{n \to \infty}(a_k + b_k) &\leq \limsup_{n \to \infty} a_k + \limsup_{n \to \infty} b_k.
+            \end{align*}
+            Without loss of generality, assume that $\{a_n : n \in \mathbb{N}\}$ is the sequence that converges. From the definition of upper and lower bounds, $\inf_{k \geq n} a_k \leq a_n \leq \sup_{k \geq n} a_k$ for all $n$, and from Exercise 18 we know that $\lim_{n \to \infty} \inf_{k \geq n} a_k = \lim_{n \to \infty} \sup_{k \geq n} a_k$. Then by the Squeeze Theorem
+            \begin{align*}
+                \lim_{n \to \infty} a_n &= \lim_{n \to \infty} \sup_{k \geq n} a_k,
+            \end{align*}
+            and it follows that
+            \begin{align*}
+                \limsup_{n \to \infty} a_n + \limsup_{n \to \infty} b_n &= \lim_{n \to \infty} a_n + \limsup_{n \to \infty} b_n \\
+                &= \limsup_{n \to \infty} (\lim_{n \to \infty} a_n + b_n) \\
+                &= \limsup_{n \to \infty} (\limsup_{n \to \infty} a_n + b_n) \\
+                &= \limsup_{n \to \infty} (a_n + b_n).
+            \end{align*}
+
+        \item[28.]
+            ($\Rightarrow$) Let $S$ be a closed subset of a metric space $E$, and $p$ be a cluster point of $S$. Then by definition, any open ball with center $p$ contains an infinite number of points in $S$. For the purpose of contradiction, assume that $p \notin S$. Because $\mathcal{C}S$ is open, there must then exist an open ball with center $p$ which has no elements in $\mathcal{C}\mathcal{C}S = S$. However, this contradicts the definition of a cluster point, so it must be that $p \in S$. Because $p$ was arbitrary, any cluster point of $S$ must be contained in $S$. \par
+            ($\Leftarrow$) Let $S$ be a subset of a metric space $E$ that is not closed. Then $\mathcal{C}S$ is not open, and there exists at least one element $p \in \mathcal{C}S$ such that every open ball of center $p$ contains at least one element of $\mathcal{C}\mathcal{C}S = S$. For every $n \in \mathbb{N}$, let $x_n \in B_{1/n}(p) \cap S$, where $B_r(x)$ denotes the open ball of center $x$ and radius $r$. Then any open ball of center $p$ and radius $\varepsilon$ contains every element of the infinite sequence $\{x_n : n > \frac{1}{\varepsilon}\}$, which means that $p$ is a cluster point. Therefore, $S$ has at least one cluster point which is not contained in $S$.
+
+        \item[33.]
+            Suppose, for the purpose of contradiction, that for any $\varepsilon > 0$ there exists a closed ball in $E$ of radius $\varepsilon$ that is not contained in any open set $U_i$ for $i \in I$. Now take $\varepsilon = 1 / n$ for $n \in \mathbb{N^+}$. Then there exists $x_n \in E$ such that if $C$ denotes the closed ball of center $x_n$ and radius $\varepsilon = 1 / n$ then $C \cap U_i^c \neq \emptyset$ for all $i \in I$. \par
+            Because $E$ is compact, $\{ x_n : n \in \mathbb{N} \}$ has a subsequence $\{ x_{n_k} \}$ that converges to a limit point $p \in E$. Furthermore, $p \in U_j$ for some $j \in I$. \par
+            Because $U_j$ is open, there exists $r > 0$ such that $B_r(p) \subset U_j$. Then there exists $N_1 \in \mathbb{N}$ such that
+            \[
+                \frac{1}{n'} < \frac{r}{4} \; \forall n' \geq N_1,
+            \]
+            and because $\lim{x_{n_k}} = p$, there exists $N_2 \in \mathbb{N}$ such that
+            \[
+                d(x_{n_k}, p) < \frac{r}{4} \; \forall n_k \geq N_2.
+            \]
+            If we let $N = \max\{ N_1, N_2 \}$, then from a distance property and the equivalence of convergent and Cauchy sequences,
+            \begin{align*}
+                d(x_n, p) &\leq d(x_n, x_N) + d(x_N, p) \\
+                          &< \left| \frac{1}{n} - \frac{1}{N} \right| + \frac{r}{4} \\
+                          &< \frac{r}{4} + \frac{r}{4} \\
+                          &= \frac{r}{2}
+            \end{align*}
+            for all $n \geq N$, which shows that $C \subset B_r(p)$. $B_r(p) \subset U_j$ implies $C \subset U_j$, which is a contradiction to the earlier statement that $C \cap U_i^c \neq \emptyset$ for all $i \in I$. In conclusion, there exists $\varepsilon > 0$ such that any closed ball in $E$ of radius $\varepsilon$ is contained inside $U_i$ for some $i$.
+
+        \item[35.]
+            $(\Rightarrow)$ Let $E$ be a sequentially compact metric space with metric $d$, and $S$ be an infinite subset of $E$. Then any infinite sequence $\{ a_n \} \subset S \subset E$ has an infinite subsequence $\{ a_{n_k} \}$ that converges to some limit $p \in E$ because $E$ is sequentially compact. For all $\varepsilon > 0$, there exists $N \in \mathbb{N}$ such that $d(p, a_{n_k}) < \varepsilon$ for all $n_k \geq N$. In other words, the open ball of center $p$ and radius $\varepsilon$ contains an infinite number of points in $S$. Because $\varepsilon$ was arbitrary, this is true for any open ball of center $p$, which shows that $p$ is a cluster point of $S$. Because $S$ was arbitrary, the argument holds for all infinite subsets of $E$. \par
+            $(\Leftarrow)$ Let $E$ be a metric space with metric $d$ that is not sequentially compact. Then there exists a sequence $\{ a_n \} \subset E$ that has no convergent subsequence, and from the Bolzano-Weierstrass theorem, $\{ a_n \}$ is unbounded and thereby infinite. Because $\{ a_n \}$ has no convergent subsequence, there is no open ball containing an infinite number of elements of $\{ a_n \}$, so $\{ a_n \}$ is a subset of $E$ that does not have a cluster point.
+    \end{enumerate}
+
+    \subsection*{IV. Continuous Functions}
+    \begin{enumerate}
+        \item[5.]
+            Let $S_p$ denote the bracketed set where the open balls are taken with center $p$. \par
+            ($\Rightarrow$) If $f$ is continuous at $p$, then for all $\varepsilon > 0$ and $x \in E$, there exists $\delta > 0$ such that if $d(x, p) < \delta$, then $d'(f(x), f(p)) < \varepsilon$. Then if we take $a_n = \frac{1}{n}$ for all $n \in \mathbb{N}^+$, there exists an open ball in $E$ of center $p$ and the corresponding radius such that $d'(f(x), f(y)) < \frac{a_n}{2}$ for all $x$, $y$ in this open ball.
+            \iffalse
+            \begin{align*}
+                d'(f(x), f(y)) \leq d'(f(x), f(p)) + d'(f(p), f(y)) < \frac{a_n}{2} + \frac{a_n}{2} = a_n.
+            \end{align*}
+            \fi
+            Because $\text{g.l.b.}\{ a_n : n \in \mathbb{N}^+ \} = 0$ and $\{ a_n : n \in \mathbb{N}^+ \} \subset S_p$, $\text{g.l.b.} S_p \leq 0$. Also, for any $a \in S_p$, $a \geq 0$ from the distance axioms, which means that $0$ must be a lower bound of $S_p$. Then it must be that $\text{g.l.b.} S_p = 0$. \par
+            ($\Leftarrow$) Let $\varepsilon > 0$, and suppose for the purpose of contradiction that for any open ball in $E$ of center $p$, there exist some $x$, $y$ in this ball such that $d'(f(x), f(y)) \geq \varepsilon$. Then $\varepsilon$ is a lower bound of $S_p$, which contradicts $\text{g.l.b.} S_p = 0$. As a result of this contradiction, there must exist some open ball in $E$ of center $p$ such that for any $x$, $y$ in this ball, $d'(f(x), f(y)) < \varepsilon$. $\delta$ can be taken as the radius of the open ball, in which the result is $d(x, p) < \delta$. We have shown that $f$ is continuous at $p$. \par
+            For the last part, let $\varepsilon > 0$ and consider the set of points $T \subset E$ at which the oscillation of $f$ is less than $\varepsilon$. Let $p \in T$. Because $\varepsilon$ cannot be a lower bound of $S_p$, there exists $r \in \mathbb{R}$ such that for all $x$, $y$ in the open ball $B_r(p)$ we have $d'(f(x), f(y)) < \varepsilon$. If $q \in B_r(p)$, then from the Triangle Inequality, the open ball $B_{r - d(p, q)}(q)$ is contained in $B_r(p)$. Since any $x'$, $y' \in B_{r - d(p, q)}(q)$ are contained in $B_r(p)$, $d'(f(x'), f(y')) < \varepsilon$ as well, which shows that the oscillation of $f$ at $q$ is also less than $\varepsilon$. Because $q$ was an arbitrary element in an open ball around $p$ which is itself an arbitrary element of $T$, $T$ is open.
+
+        \item[6.]
+            Let $p \notin \overline{S} \cap \overline{\mathcal{C}S}$. Then $p$ is either in the interior of $S$ or in the interior of $\mathcal{C}S$, which are open sets. Without loss of generality, let $A = S$ in the former case and $A = \mathcal{C}S$ otherwise. Because $A$ is open, there exists $\delta > 0$ such that $B_\delta(p) \subset S$. If $q \in A$, then $|f(p) - f(q)| = 0$ which means that $|f(p) - f(q)| < \varepsilon$ for all $\varepsilon > 0$, and $f$ is continuous.
+
+        \item[10.]
+            \begin{enumerate}
+                \item
+                    Let $\varepsilon > 0$ and $(x_0, y_0) = (0, 0)$. For all $\delta > 0$, there exists $(x, y) \in \mathbb{R}^2$ such that $\sqrt{(x - x_0)^2 + (y - y_0)^2} = \sqrt{x^2 + y^2} < \delta$ but $|f(x, y) - f(x_0, y_0)| = \left| \frac{1}{x^2 + y^2} - 0 \right| = \left| \frac{1}{x^2 + y^2} \right| > \varepsilon$ if $\sqrt{x^2 + y^2} < \frac{1}{\sqrt{\varepsilon}}$. Therefore, $f$ is discontinuous at $(x, y) = (0, 0)$. Elsewhere, $f$ is continuous because it is a quotient of polynomial functions, which are continuous.
+
+                \item
+                    Let $0 < \varepsilon < \frac{1}{2}$ and $(x_0, y_0) = (0, 0)$. For all $\delta > 0$, there exists $(x, y) \in \mathbb{R}^2$ such that $\sqrt{(x - x_0)^2 + (y - y_0)^2} = \sqrt{x^2 + y^2} < \delta$ but $|f(x, y) - f(x_0, y_0)| = \left| \frac{xy}{x^2 + y^2} - 0 \right| = \left| \frac{xy}{x^2 + y^2} \right| > \varepsilon$ if $|x| = |y|$. Therefore, $f$ is discontinuous at $(x, y) = (0, 0)$. Elsewhere, $f$ is continuous because it is a quotient of polynomial functions, which are continuous.
+
+                \item
+                    Let $\varepsilon > 0$ and $(x_0, y_0) = (0, 0)$. For all $\delta > 0$, there exists $(x, y) \in \mathbb{R}^2$ such that $\sqrt{(x - x_0)^2 + (y - y_0)^2} = \sqrt{x^2 + y^2} < \delta$ but $|f(x, y) - f(x_0, y_0)| = \left| \frac{xy^2}{x^2 + y^2} - 0 \right| = \left| \frac{xy^2}{x^2 + y^2} \right| > \left| \frac{xy^2}{x^2} \right| = \frac{y^2}{|x|} >  \varepsilon$ if $\frac{|x|}{y^2} < \frac{1}{\varepsilon}$. Therefore, $f$ is discontinuous at $(x, y) = (0, 0)$. Elsewhere, $f$ is continuous because it is a quotient of polynomial functions, which are continuous.
+            \end{enumerate}
+
+        \item[13.]
+            If $f$ is not bounded, then the image $f(E)$ is not contained inside a ball, and consequently for $n = \mathbb{N}^+$ there is a point $p_n \in E$ such that $|f(p_n)| > n$. A contradiction arises from the existence of a convergent subsequence $\{ p_{n_k} \}$ of $\{ p_n : n \in \mathbb{N}^+ \}$ from the fact that $E$ is compact. Since $f$ is continuous and $\{ p_{n_k} \}$ converges to a limit $p$, for all $\varepsilon > 0$ there exists $\delta > 0$ such that if $|p_{n_k} - p| < \delta$, then $|f(p_{n_k}) - f(p)| < \varepsilon$, which shows that $\{ f(p_{n_k}) \}$ converges to $f(p)$ and is therefore bounded. But from the premise, $\{ f(p_{n_k}) \}$ is unbounded because $f(p_{n_k}) > n_k$ for all $n_k$ with $\{ n_k \}$ unbounded. Therefore, the proposition is false and $f$ is bounded. \par
+            From this conclusion, we can find a sequence of points $\{ q_n : n \in \mathbb{N}^+ \}$ of $E$ such that $\lim_{n \to \infty} f(q_n) = \text{l.u.b.} \{ f(p) : p \in E \}$ from the least upper bound property. Since compact subsets of metric spaces are closed, $E'$ contains its limit points, so the least upper bound is a maximum. Because convergence of $\{ q_n : n \in \mathbb{N}^+ \}$ implies convergence of $\{ q_n : n \in \mathbb{N}^+ \}$ from the continuity of $f$ and any subsequence of a convergent sequence converges to the same value, the limit of any subsequence will also be the maximum.
+
+        \item[17.]
+            Suppose, for the purpose of contradiction, that $x^2$ is uniformly continuous. Then for all $\varepsilon > 0$, there exists $\delta > 0$ such that if $x, y \in \mathbb{R}$ and $|x - y| < \delta$, then $|x^2 - y^2| < \varepsilon$. However, if $\varepsilon$ is fixed and $y$ is taken to be $x + \frac{\delta}{c}$ where $c > 1$, then
+            \begin{gather*}
+                \left| x^2 - (x + \frac{\delta}{c})^2 \right| < \varepsilon \\
+                \left| \frac{2x \delta}{c} + \frac{\delta^2}{4} \right| < \varepsilon.
+            \end{gather*}
+            $x$ is not fixed, which means that we can choose $x$ such that the above inequality does not hold. This shows that $x^2$ is not uniformly continuous. \par
+            Let $\varepsilon > 0$, $\delta = \varepsilon^2$ and $x, y \in \mathbb{R}$. Then if $|x - y| < \delta$,
+            \begin{gather*}
+                |\sqrt{x} - \sqrt{y}|^2 \leq |\sqrt{x} - \sqrt{y}| |\sqrt{x} + \sqrt{y}| = |x - y| < \delta = \varepsilon^2 \\
+                |\sqrt{x} - \sqrt{y}| < \varepsilon
+            \end{gather*}
+            which shows that $\sqrt{x}$ is uniformly continuous.
+
+    \end{enumerate}
+\end{document}

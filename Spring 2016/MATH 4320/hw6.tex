@@ -1,0 +1,537 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsmath, amssymb, amsthm, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{MATH 4320 - HW6 Solutions}
+\subsection*{7.86}
+\begin{enumerate}
+    \item[11.]
+        \begin{enumerate}
+            \item
+                The zeros of $q(z)$ occur where
+                \begin{gather*}
+                    (z^2 - a)^2 = -1
+                    \Leftrightarrow z^2 - a = \pm i
+                    \Leftrightarrow z^2 = a \pm i
+                    \Leftrightarrow z = \pm \sqrt{a \pm i}.
+                \end{gather*}
+                If $A = \sqrt{a^2 + 1}$, the square roots of $a + i$ are
+                \begin{gather*}
+                    \pm z_0 = \pm \frac{1}{\sqrt{2}}(\sqrt{A + a} + i\sqrt{A - a}).
+                \end{gather*}
+                Since
+                \begin{align*}
+                    a + i &= (\pm z_0)^2 = \frac{1}{2} \left( \sqrt{A + a} + i\sqrt{A - a} \right)^2 \\
+                    &= \frac{1}{2} \left[ (A + a) + i\sqrt{A + a}\sqrt{A - a} - (A - a) \right] \\
+                    &= a + \frac{i\sqrt{A + a} \sqrt{A - a}}{2},
+                \end{align*}
+                we have that $\sqrt{A + a}\sqrt{A - a}/2 = 1$, and because
+                \begin{align*}
+                    \pm \overline{z}_0 &= \pm \frac{1}{\sqrt{2}}(\sqrt{A + a} - i\sqrt{A - a}) \\
+                    (\pm \overline{z}_0)^2 &= \frac{1}{2} \left( \sqrt{A + a} - i\sqrt{A - a} \right)^2 \\
+                    &= \frac{1}{2} \left[ (A + a) - i\sqrt{A + a}\sqrt{A - a} - (A - a) \right] \\
+                    &= a - \frac{i\sqrt{A + a} \sqrt{A - a}}{2} = a - i,
+                \end{align*}
+                the square roots of $a - i$ are $\pm \overline{z}_0$. Because $z_0$ and $-\overline{z}_0$ are the only zeros with positive imaginary components, they exist in the upper half plane $\Im z \geq 0$.
+
+            \item
+                Now let $f(z) = 1/q^2(z)$. Because $q(z_0) = 0$,
+                \begin{align*}
+                    q'(z_0) = [2(z^2 - a)(2z)]_{z = z_0} = 4z_0(z_0^2 - a) = 4iz_0 \neq 0,
+                \end{align*}
+                and $q$ is analytic at $z_0$, we have that $z = z_0$ is a pole of order $2$ of $q$ with residue
+                \begin{align*}
+                    B_1 &= -\frac{q''(z_0)}{[q'(z_0)]^3} = -\frac{[12z^2 - 4a]_{z = z_0}}{(4iz_0)^3} = \frac{3z_0^2 - a}{16iz_0^3} \\
+                    &= \frac{3(a + i) - a}{16iz_0(a + i)} \cdot \frac{a - i}{a - i} = \frac{3(a^2 + 1) - a^2 + ia}{16iz_0A^2} \cdot \frac{1/i}{1/i} \\
+                    &= \frac{a - i(2a^2 + 3)}{16A^2 z_0}.
+                \end{align*}
+                We now observe that, if we write $z = x + iy$,
+                \begin{align*}
+                    q'(-\overline{z}) &= -4i\overline{z} = -4i(x - iy) = -4(y + ix) = \overline{-4(y - ix)} \\
+                    &= \overline{4i(x + iy)} = -\overline{q'(z)} \\
+                    q''(-\overline{z}) &= 4[3(-\overline{z})^2 - a] = 4(3\overline{z}^2 - a) = \overline{4(3z^2 - a)} = \overline{q''(z)}.
+                \end{align*}
+                Since $q(-\overline{z}_0) = 0$, $q'(-\overline{z}_0) = -\overline{q'(z_0)} = 4i\overline{z}_0 \neq 0$, and $q$ is analytic at $-\overline{z}_0$, we have that $z = -\overline{z}_0$ is a pole of order $2$ of $q$ with residue
+                \begin{align*}
+                    B_2 = -\frac{q''(-\overline{z}_0)}{[q'(-\overline{z}_0)]^3} = -\frac{-\overline{q''(z_0)}}{\overline{[q'(z_0)]^3}} = \overline{\left\{ \frac{q''(z_0)}{[q'(z_0)]^3} \right\}} = -\overline{B_1}.
+                \end{align*}
+                As a result,
+                \begin{align*}
+                    B_1 + B_2 &= B_1 - \overline{B_1} = 2i \Im B_1 = 2i \Im \left[ \frac{a - i(2a^2 + 3)}{16A^2 z_0} \right] \\
+                    &= \frac{1}{8A^2 i} \Im \left[ \frac{-a + i(2a^2 + 3)}{z_0} \right].
+                \end{align*}
+
+            \item
+                Suppose we have a contour in the upper half plane where $C_R$ denotes the semicircular portion and $R > |z_0|$. First, we will show that $\lim_{R \to \infty} \int_{C_R} dz / [q(z)]^2 = 0$. When $|z| = R$,
+                \begin{gather*}
+                    |z \pm z_0| \geq ||z| - |z_0|| = R - |z_0| \\
+                    |z \pm \overline{z}_0| \geq ||z| - |\overline{z}_0|| = R - |z_0|,
+                \end{gather*}
+                and thus
+                \begin{gather*}
+                    |q(z)| = |(z - z_0)(z + z_0)(z - \overline{z}_0)(z + \overline{z}_0)| \geq (R - |z_0|)^4
+                \end{gather*}
+                Then if $z$ is any point on $C_R$,
+                \begin{gather*}
+                    \left| \frac{1}{q^2(z)} \right| \leq \frac{1}{(R - |z_0|)^8} \\
+                    \Rightarrow \left| \int_{C_R} \frac{dz}{q^2(z)} \right| \leq \frac{1}{(R - |z_0|)^8} \pi R \to 0 \text{\quad as \quad} R \to \infty \\
+                    \Rightarrow \int_{C_R} \frac{dz}{q^2(z)} \to 0 \text{\quad as \quad} R \to \infty.
+                \end{gather*}
+                In the contour, the horizontal segment has the parametrization $z = x$ for $-R \leq x \leq R$. From Cauchy's residue theorem,
+                \begin{align*}
+                    \int_{-R}^R \frac{dx}{q^2(x)} + \int_{C_R} \frac{dz}{q^2(z)} = 2\pi i(B_1 + B_2)
+                \end{align*}
+                Because $f(x)$ is even, it follows from the residue method for improper integrals that in the limit as $R$ approaches $\infty$,
+                \begin{align*}
+                    \int_0^\infty \frac{dx}{q^2(x)} &= \pi i \left( B_1 + B_2 \right) = \frac{\pi}{8A^2} \Im \left[ \frac{-a + i(2a^2 + 3)}{z_0} \right] \\
+                    &= \frac{\pi}{8A^2} \Im \left[ \frac{\sqrt{2} [-a + i(2a^2 + 3)]}{\sqrt{A + a} + i\sqrt{A - a}} \cdot \frac{\sqrt{A - a} - i\sqrt{A - a}}{\sqrt{A - a} - i\sqrt{A - a}} \right] \\
+                    &= \frac{\pi}{8\sqrt{2} A^3} \left[ (2a^2 + 3) \sqrt{A + a} + a \sqrt{A - a} \right].
+                \end{align*}
+        \end{enumerate}
+\end{enumerate}
+
+\subsection*{7.88}
+\begin{enumerate}
+    \item[2.]
+        Let $C_R$ denote the semicircular portion of the usual contour, where $R > 1$, and let
+        \begin{align*}
+            f(z) = \frac{1}{z^2 + 1} = \frac{1}{(z - i)(z + i)}.
+        \end{align*}
+        $z = i$, the only isolated singularity interior to the contour, is a simple pole of $f(z) e^{iaz} = [e^{iaz} / (z + i)] / (z - i)$, with residue
+        \begin{align*}
+            \underset{z = i}{\text{Res}} \left[ f(z) e^{iaz} \right] = \frac{e^{i^2 a}}{i + i} = \frac{e^{-a}}{2i}.
+        \end{align*}
+        From Cauchy's residue theorem,
+        \begin{align*}
+            \int_{-R}^R f(x) e^{iax} dx + \int_{C_R} f(z) e^{iaz} dz = 2\pi i \underset{z = i}{\text{ Res}} \left[ f(z) e^{iaz} \right] = \pi e^{-a},
+        \end{align*}
+        and rearranging and taking the real part of both sides,
+        \begin{align}
+            \int_{-R}^R f(x) \cos(ax) dx = \pi e^{-a} - \Re \int_{C_R} f(z) e^{iaz} dz. \label{eq:real}
+        \end{align}
+        If $z$ is any point on $C_R$, so that $|z| = R$,
+        \begin{gather*}
+            |f(z)| \leq \frac{1}{R^2 - 1} \\
+            \Rightarrow \left| \Re \int_{C_R} f(z) e^{iaz} dz \right| \leq \left| \int_{C_R} f(z) e^{iaz} dz \right| \leq \frac{\pi R}{R^2 - 1} \to 0 \text{\quad as \quad} R \to \infty \\
+            \Rightarrow \Re \int_{C_R} f(z) e^{iaz} dz \to 0 \text{\quad as \quad} R \to \infty.
+        \end{gather*}
+        Therefore, taking the limit as $R$ approaches $\infty$ of (\ref{eq:real}), we have
+        \begin{align*}
+            \int_{-\infty}^\infty \frac{\cos(ax)}{x^2 + 1} dx = \pi e^{-a}
+        \end{align*}
+        and because the integrand is even,
+        \begin{align*}
+            \int_0^\infty \frac{\cos(ax)}{x^2 + 1} dx = \frac{\pi}{2} e^{-a}.
+        \end{align*}
+
+    \item[12.]
+        \begin{enumerate}
+            \item
+                Let $C_0$ denote the segment from $O$ to $R$, and $C_1$ denote the segment from $O$ to $Re^{i\pi/4}$. $C_0$ has parameterization $z = x$ and $C_1$ has parameterization $z = re^{i\pi/4}$ for $0 \leq x \leq R$. Note that $z^2 = ir^2$. Since $e^{iz^2}$ is entire, from the Cauchy-Goursat theorem,
+                \begin{gather*}
+                    \int_{C_0} e^{iz^2} dz + \int_{C_R} e^{iz^2} dz + \int_{-C_1} e^{iz^2} dz = 0 \\
+                    \int_0^R e^{ix^2} dx + \int_{C_R} e^{iz^2} dz - e^{i\pi/4} \int_0^R e^{-r^2} dr = 0
+                \end{gather*}
+                Taking the real and imaginary parts of each side and rearranging,
+                \begin{gather*}
+                    \int_0^R \cos(x^2) dx = \frac{1}{\sqrt{2}} \int_0^R e^{-r^2} dr - \Re \int_{C_R} e^{iz^2} dz \\
+                    \int_0^R \sin(x^2) dx = \frac{1}{\sqrt{2}} \int_0^R e^{-r^2} dr - \Im \int_{C_R} e^{iz^2} dz.
+                \end{gather*}
+
+            \item
+                If $C_R$ has parameterization $z = Re^{i\theta}$ for $0 \leq \theta \leq \pi/4$, then
+                \begin{align*}
+                    \int_{C_R} e^{iz^2} dz &= \int_0^{\pi/4} e^{iR^2 e^{2i\theta}} iRe^{i\theta} d\theta
+                    = iR \int_0^{\pi/4} e^{-R^2 \sin 2\theta} e^{iR^2 \cos 2\theta} e^{i\theta} d\theta \\
+                    \left| \int_{C_R} e^{iz^2} dz \right| &\leq |i|R \int_0^{\pi/4} e^{-R^2 \sin 2\theta} \left| e^{iR^2 \cos 2\theta} \right| \left| e^{i\theta} \right| d\theta \\
+                    &= R \int_0^{\pi/4} e^{-R^2 \sin 2\theta} d\theta
+                \end{align*}
+                Substituting $\theta' = 2\theta$ and applying Jordan's inequality yields
+                \begin{align*}
+                    \left| \int_{C_R} e^{iz^2} dz \right| \leq \frac{R}{2} \int_0^{\pi/2} e^{-R^2 \sin \theta'} d\theta' \leq \frac{R}{2} \left( \frac{\pi}{2R^2} \right) = \frac{\pi}{4R} \to 0 \\
+                    \text{\ as\ } R \to \infty.
+                \end{align*}
+
+            \item
+                In the limit as $R$ approaches $\infty$, we have, from part (b),
+                \begin{align*}
+                    \Re \int_{C_R} e^{iz^2} dz \to 0 \text{\quad and \quad} \Im \int_{C_R} e^{iz^2} dz \to 0,
+                \end{align*}
+                and therefore,
+                \begin{align*}
+                    \int_0^\infty \cos(x^2) dx = \frac{1}{\sqrt{2}} \int_0^\infty e^{-r^2} dr = \frac{1}{2} \sqrt{ \frac{\pi}{2} } \\
+                    \int_0^\infty \sin(x^2) dx = \frac{1}{\sqrt{2}} \int_0^\infty e^{-r^2} dr = \frac{1}{2} \sqrt{ \frac{\pi}{2} }.
+                \end{align*}
+        \end{enumerate}
+\end{enumerate}
+
+\subsection*{7.91}
+\begin{enumerate}
+    \item[1.]
+        Applying the Cauchy-Goursat theorem to $f(z)$ gives
+        \begin{align}
+            \int_{L_1} f(z) dz + \int_{C_R} f(z) dz + \int_{L_2} f(z) dz + \int_{C_\rho} f(z) dz = 0 \\
+            \Rightarrow \int_{L_1} f(z) dz + \int_{L_2} f(z) dz = -\int_{C_R} f(z) dz - \int_{C_\rho} f(z) dz. \label{eq:indentedpath}
+        \end{align}
+        Expanding $f(z)$, we have that
+        \begin{align*}
+            f(z) &= \frac{1}{z^2} \left[ \sum_{n = 0}^\infty \frac{(iaz)^n}{n!} - \sum_{n = 0}^\infty \frac{(ibz)^n}{n!} \right] = \sum_{n = 1}^\infty \frac{i^n (a^n - b^n) z^{n - 2}}{n!}
+        \end{align*}
+        and hence $z = 0$ is a simple pole of $f(z)$, with residue $B_0 = i(a - b)$, which shows that
+        \begin{align*}
+            \lim_{\rho \to 0} \int_{C_\rho} f(z) dz = -B_0 \pi i = \pi(a - b).
+        \end{align*}
+        Also, if $z$ is a point on $C_R$, so that $|z| = R$,
+        \begin{gather*}
+            f(z) \leq \frac{\left| e^{iaz} \right| + \left| e^{ibz} \right|}{|z|^2} \leq \frac{1 + 1}{R^2} = \frac{2}{R^2} \\
+            \Rightarrow \left| \int_{C_R} f(z) dz \right| \leq \frac{2}{R^2} \pi R = \frac{2 \pi}{R} \to 0 \text{\quad as \quad} R \to \infty \\
+            \Rightarrow \lim_{R \to \infty} \int_{C_R} f(z) dz = 0.
+        \end{gather*}
+        Since $L_1$ is parameterized by $z = x$ and $-L_2$ is parameterized by $z = -x$ for $\rho \leq x \leq R$, the left-hand side of (\ref{eq:indentedpath}) becomes
+        \begin{align*}
+            \int_{L_1} f(z) dz - \int_{-L_2} f(z) dz &= \int_\rho^R \frac{e^{iax} - e^{ibx}}{x^2} dx - \int_\rho^R \frac{e^{-iax} - e^{-ibx}}{x^2} (-dx) \\
+            &= \int_\rho^R \frac{\left( e^{iax} + e^{-iax} \right) - \left( e^{ibx} + e^{-ibx} \right)}{x^2} dx \\
+            &= 2\int_\rho^R \frac{\cos(ax) - \cos(bx)}{x^2} dx.
+        \end{align*}
+        As a result, in the limit as $\rho \to 0$ and $R \to \infty$,
+        \begin{gather*}
+            2\int_0^\infty \frac{\cos(ax) - \cos(bx)}{x^2} dx = 0 - \pi(a - b) \\
+            \int_0^\infty \frac{\cos(ax) - \cos(bx)}{x^2} dx = \frac{\pi}{2}(b - a).
+        \end{gather*}
+
+    \item[4.]
+        If we use the given contour, then the singular points $z = -a$ and $z = -b$ of $f(z)$ are interior to the region bounded by the circles $C_\rho$ and $C_R$. The upper edge of the branch cut from $\rho$ to $R$ is parameterized by $z = xe^{0i}$ for $\rho \leq x \leq R$ so we have that
+        \begin{align*}
+            \int_\rho^R \frac{e^{(1/3)(\ln x + 0i)}}{(x + a)(x + b)} dx = \int_\rho^R \frac{x^{1/3}}{(x + a)(x + b)} dx,
+        \end{align*}
+        and the lower edge is parameterized by $z = re^{2i\pi}$ so we have that
+        \begin{align*}
+            \int_\rho^R \frac{e^{(1/3)(\ln x + 2i\pi)}}{(x + a)(x + b)} dx = e^{2i\pi/3} \int_\rho^R \frac{x^{1/3}}{(x + a)(x + b)} dx,
+        \end{align*}
+        If $f(z) = \phi_1(z) / (x + a)$, then
+        \begin{align*}
+            \underset{z = -a}{\text{Res}} f(z) = \frac{\phi_1(z)}{0!} = \frac{e^{(1/3) \log(-a)}}{-a + b} = -\frac{e^{(1/3)(\ln a + i\pi)}}{a - b} = -\frac{e^{i\pi/3} a^{1/3}}{a - b},
+        \end{align*}
+        and if $f(z) = \phi_2(z) / (x + b)$, then
+        \begin{align*}
+            \underset{z = -b}{\text{Res}} f(z) = \frac{\phi_2(z)}{0!} = \frac{e^{(1/3) \log(-b)}}{-b + a} = \frac{e^{(1/3)(\ln b + i\pi)}}{a - b} = \frac{e^{i\pi/3} b^{1/3}}{a - b},
+        \end{align*}
+        Applying Cauchy's residue theorem, we have
+        \begin{align*}
+            \int_\rho^R \frac{x^{1/3}}{(x + a)(x + b)} dx + \int_{C_R} f(z) dz - e^{2i\pi/3} \int_\rho^R \frac{x^{1/3}}{(x + a)(x + b)} dx \\
+            + \int_{C_\rho} f(z) dz = 2\pi i \left[ -\frac{e^{i\pi/3} a^{1/3}}{a - b} + \frac{e^{i\pi/3} b^{1/3}}{a - b} \right].
+        \end{align*}
+        Since
+        \begin{gather*}
+            \left| \int_{C_\rho} f(z) dz \right| \leq \left| \frac{\rho^{1/3}}{(\rho - a)(\rho - b)} \right| 2\pi \rho = \frac{2\pi \rho^{4/3}}{(a - \rho)(b - \rho)} \to 0 \text{\quad as \quad} \rho \to 0 \\
+            \Rightarrow \int_{C_\rho} f(z) dz \to 0 \text{\quad as \quad} \rho \to 0 \\
+            \left| \int_{C_R} f(z) dz \right| \leq \left| \frac{R^{1/3}}{(R - a)(R - b)} \right| 2\pi R = \frac{2\pi R^{4/3}}{(R - a)(R - b)} \to 0 \text{\quad as \quad} R \to \infty \\
+            \Rightarrow \int_{C_R} f(z) dz \to 0 \text{\quad as \quad} R \to \infty,
+        \end{gather*}
+        in the limit as $\rho \to 0$ and $R \to \infty$,
+        \begin{align*}
+            \int_0^\infty \frac{x^{1/3}}{(x + a)(x + b)} dx &= -\frac{2\pi i e^{i\pi/3} \left( a^{1/3} - b^{1/3} \right)}{(1 - e^{2i\pi/3}) (a - b)} \cdot \frac{e^{-i\pi/3}}{e^{-i\pi/3}} \\
+            &= \frac{2\pi i \left( a^{1/3} - b^{1/3} \right)}{\left( e^{i\pi/3} - e^{-i\pi/3} \right)(a - b)} = \frac{\pi \left( a^{1/3} - b^{1/3} \right)}{\sin(\pi/3)(a - b)} \\
+            &= \frac{2\pi}{\sqrt{3}} \cdot \frac{a^{1/3} - b^{1/3}}{a - b}.
+        \end{align*}
+
+    \item[5.]
+        Substituting $t = 1/(x + 1)$ and $q = 1 - p$, we have
+        \begin{align*}
+            B(p, 1 - p) &= \int_\infty^0 \left( \frac{1}{x + 1} \right)^{p - 1} \left( 1 - \frac{1}{x + 1} \right)^{-p} \frac{-dx}{(x + 1)^2} \\
+            &= \int_0^\infty \frac{1}{(x + 1)^{p + 1}} \left( \frac{x}{x + 1} \right)^{-p} dx = \int_0^\infty \frac{x^{-p}}{x + 1} dx \\
+            &= \frac{\pi}{\sin p \pi}.
+        \end{align*}
+\end{enumerate}
+
+\subsection*{7.92}
+\begin{enumerate}
+    \item[4.]
+        The integration formula is clearly valid when $a = 0$, and henceforth we will assume $a \neq 0$. Letting $C$ denote the positively oriented circle $|z| = 1$ and substituting $\cos \theta = (z + z^{-1}) / 2$ and $d\theta = dz/(iz)$, we have
+        \begin{align*}
+            \int_0^{2\pi} \frac{d\theta}{1 + a\cos\theta} &= \int_C \frac{dz}{iz(1 + a(z + z^{-1})/2)} \\
+            &= \int_C \frac{dz}{iz + (ai/2)(z^2 + 1)} \cdot \frac{2/(ai)}{2/(ai)} \\
+            &= \int_C \frac{2/(ai)}{z^2 + (2/a)z + 1} dz.
+        \end{align*}
+        Using the quadratic formula, the denominator has the zeros
+        \begin{align*}
+            z_1 = \frac{-1 + \sqrt{1 - a^2}}{a}, \quad z_2 = \frac{-1 - \sqrt{1 - a^2}}{a}
+        \end{align*}
+        so
+        \begin{align*}
+            z^2 + \frac{2}{a}z + 1 = (z - z_1)(z - z_2).
+        \end{align*}
+        Because $|a| < 1$,
+        \begin{align*}
+            |z_1| = \frac{|{-1} + \sqrt{1 - a^2}|}{|a|} < 1, \quad |z_2| = \frac{|{-1} - \sqrt{1 - a^2}|}{|a|} > 1
+        \end{align*}
+        so only $z_1$ lies in the interior of $C$. If we let
+        \begin{align*}
+            f(z) = \frac{\phi(z)}{z - z_1} \text{\quad where \quad} \phi(z) = \frac{2/(ai)}{z - z_2},
+        \end{align*}
+        then we find that $z_1$ is a simple pole with residue
+        \begin{align*}
+            \underset{z = z_1}{\text{Res}} \frac{2/(ai)}{(z - z_1)(z - z_2)} = \frac{\phi(z_1)}{0!} = \frac{2/(ai)}{z_2 - z_1} = \frac{1}{i\sqrt{1 - a^2}}
+        \end{align*}
+        and thus from the residue theorem,
+        \begin{align*}
+            \int_0^{2\pi} \frac{d\theta}{1 + a\cos\theta} = \int_C \frac{2/(ai)}{(z - z_1)(z - z_2)} dz = \frac{2\pi i}{i\sqrt{1 - a^2}} = \frac{2\pi}{\sqrt{1 - a^2}}.
+        \end{align*}
+
+\end{enumerate}
+
+\subsection*{7.94}
+\begin{enumerate}
+    \item[5.]
+        Because $f$ is analytic inside and on $C$ and has no zeros on $C$, it has no poles inside $C$, and the integrand $zf'(z)/f(z)$ is analytic inside and on $C$ except at points in $C$ where the $n$ zeros inside $C$ of $f$ occur. If the $k$th zero of $f$ has order $m_k$ and occurs at $z_k$, then
+        \begin{align*}
+            f(z) = (z - z_k)^{m_k} \phi(z),
+        \end{align*}
+        where $\phi(z)$ is analytic and nonzero at $z_k$. Hence
+        \begin{align*}
+            f'(z) &= m_k(z - z_k)^{m_k - 1} \phi(z) + (z - z_k)^{m_k} \phi'(z) \\
+            \Rightarrow \frac{zf'(z)}{f(z)} &= z \left[ \frac{m_k}{z - z_k} + \frac{\phi'(z)}{\phi(z)} \right] = \frac{m_k(z - z_k) + m_k z_k}{z - z_k} + \frac{z\phi'(z)}{\phi(z)} \\
+            &= m_k + \frac{m_k z_k}{z - z_k} + \frac{z \phi'(z)}{\phi(z)}.
+        \end{align*}
+        Since $z\phi'(z)/\phi(z)$ is analytic at $z_k$, it has a Taylor series representation around that point, which means that the singular point $z = z_k$ of $zf'(z)/f(z)$ is a simple pole, with residue $m_k z_k$. From Cauchy's residue theorem,
+        \begin{align*}
+            \int_C \frac{zf'(z)}{f(z)} dz = 2\pi i \sum_{k = 1}^n m_k z_k.
+        \end{align*}
+
+    \item[7.]
+        \begin{enumerate}
+            \item
+                Let $f(z) = 9z^2$ and $g(z) = z^4 - 2z^3 + z - 1$. When $z$ is on the circle $|z| = 2$,
+                \begin{align*}
+                    |f(z)| &= 9|z^2| = 9|z|^2 = 36 \\
+                    |g(z)| &\leq |z|^4 + 2|z|^3 + |z| + |{-1}| = 16 + 16 + 2 + 1 = 35
+                \end{align*}
+                which shows that $|f(z)| > |g(z)|$. Since $f(z)$ has $2$ zeros, counting multiplicities, inside the circle, we have that the sum $z^4 - 2z^3 + 9z^2 + z - 1$ also has $2$ zeros, counting multiplicities, inside the circle.
+
+            \item
+                Let $f(z) = z^5$ and $g(z) = 3z^3 + z^2 + 1$. When $z$ is on the circle $|z| = 2$,
+                \begin{align*}
+                    |f(z)| &= |z|^5 = 32 \\
+                    |g(z)| &\leq 3|z|^3 + |z|^2 + 1 = 24 + 4 + 1 = 29
+                \end{align*}
+                which shows that $|f(z)| > |g(z)|$. Since $f(z)$ has $5$ zeros, counting multiplicities, inside the circle, we have that the sum $z^5 + 3z^3 + z^2 + 1$ also has $5$ zeros, counting multiplicities, inside the circle.
+        \end{enumerate}
+\end{enumerate}
+
+\subsection*{7.95}
+\begin{enumerate}
+    \item[4.]
+        \begin{enumerate}
+            \item
+                Because
+                \begin{align*}
+                    \frac{1}{s \sinh s} &= \frac{s}{s^2 \sinh s} = s \left( \frac{1}{s^3} - \frac{1}{6s} + \frac{7}{360} s + \cdots \right) \\
+                    &= \frac{1}{s^2} - \frac{1}{6} + \frac{7}{360} s^2 + \cdots \\
+                    F(s) &= \frac{1}{s^2} - \frac{s}{s^2 \sinh s} = \frac{1}{6} - \frac{7}{360} s^2 + \cdots
+                \end{align*}
+                when $0 < |s| < \pi$, the singularity at $s = s_0 = 0$ is removable, and hence has residue $0$.
+
+            \item
+                We have that
+                \begin{align*}
+                    e^{st} F(s) = \frac{e^{st}(\sinh s - s)}{s^2 \sinh s}.
+                \end{align*}
+                If we take
+                \begin{align*}
+                    p(s) &= e^{st}(\sinh s - s) \quad \text{and} \quad
+                    q(s) = s^2 \sinh s,
+                \end{align*}
+                then $p$ and $q$ are analytic at all $s = s_n$ and $s = \overline{s_n}$. For $s = s_n$,
+                \begin{gather*}
+                    p(s_n) = e^{in\pi t}(0 - n\pi i) = -n\pi i e^{in\pi t} \neq 0 \\
+                    q(s_n) = (n\pi i)^2 \sinh(n\pi i) = 0 \\
+                    q'(s_n) = [2s \sinh s + s^2 \cosh s]_{s = n\pi i} = 0 - (n\pi)^2(-1)^n \neq 0
+                \end{gather*}
+                and hence,
+                \begin{align*}
+                    \underset{s = s_n}{\text{Res}} \left[ e^{st} F(s) \right] = \underset{s = s_n}{\text{Res}} \frac{p(s)}{q(s)} = \frac{p(s_n)}{q'(s_n)} = \frac{(-1)^n ie^{in\pi t}}{n\pi}.
+                \end{align*}
+                For $s = \overline{s_n}$,
+                \begin{gather*}
+                    p(\overline{s_n}) = e^{-in\pi t}(0 + n\pi i) = n\pi i e^{-in\pi t} \neq 0 \\
+                    q(\overline{s_n}) = (-n\pi i)^2 \sinh(-n\pi i) = 0 \\
+                    q'(\overline{s_n}) = [2s \sinh s + s^2 \cosh s]_{s = -n\pi i} = 0 - (n\pi)^2(-1)^n \neq 0
+                \end{gather*}
+                and hence,
+                \begin{align*}
+                    \underset{s = \overline{s_n}}{\text{Res}} \left[ e^{st} F(s) \right] = \underset{s = \overline{s_n}}{\text{Res}} \frac{p(s)}{q(s)} = \frac{p(\overline{s_n})}{q'(\overline{s_n})} = \frac{-(-1)^n ie^{-in\pi t}}{n\pi}.
+                \end{align*}
+
+            \item
+                From the residue method for inverse Laplace transforms,
+                \begin{align*}
+                    f(t) &= \sum_{n = 1}^\infty \left\{ \underset{s = s_n}{\text{Res}} \left[ e^{st} F(s) \right] + \underset{s = \overline{s_n}}{\text{Res}} \left[ e^{st} F(s) \right] \right\} \\
+                    &= \sum_{n = 1}^\infty \frac{(-1)^n i \left( e^{in\pi t} - e^{-in\pi t} \right)}{n\pi}
+                    = \sum_{n = 1}^\infty \frac{(-1)^n i[2i \sin(n\pi t)]}{n\pi} \\
+                    &= \frac{2}{\pi} \sum_{n = 1}^\infty \frac{(-1)^{n + 1}}{n} \sin(n\pi t)
+                \end{align*}
+        \end{enumerate}
+\end{enumerate}
+
+\subsection*{8.98}
+\begin{enumerate}
+    \item[2.]
+        When $c_1 < 0$, from the equations describing mappings by $w = 1/z$, the half plane $x < c_1$ is transformed into the circle $-c_1(u^2 + v^2) + u < 0$. Since $-c_1 > 0$, dividing both sides by $-c_1$ and completing the square yields
+        \begin{align*}
+            \left( u - \frac{1}{2c_1} \right)^2 + v^2 < \left( \frac{1}{2c_1} \right)^2,
+        \end{align*}
+        which shows that the image is the interior of a circle centered at $(1/(2c_1), 0)$ and having radius $1/(2c_1)$. \par
+        When $c_1 = 0$, the image of $x < c_1$ is the half plane $u < 0$.
+\end{enumerate}
+
+\subsection*{8.100}
+\begin{enumerate}
+    \item[2.]
+        The expression for a linear fractional transformation is
+        \begin{align*}
+            w = \frac{az + b}{cz + d}.
+        \end{align*}
+        Since $i$ is the image of $0$, the expression tells us that $i = b/d$, or $id = b$, and thus
+        \begin{align*}
+            w = \frac{az + id}{cz + d}.
+        \end{align*}
+        Also, since $-i$ and $i$ are transformed into $-1$ and $1$, respectively, it follows that
+        \begin{align*}
+            ic - d = -ia + id \quad \text{and} \quad ic + d = ia + id.
+        \end{align*}
+        Adding the corresponding sides of these equations, we find that $c = d$, and subtracting the corresponding sides instead, we find that $d = ia$. Consequently,
+        \begin{align*}
+            w = \frac{-idz + id}{dz + d} = -i \frac{z - 1}{z + 1}. \qed
+        \end{align*}
+        Alternatively, we may use the implicit form to write
+        \begin{align*}
+            \frac{(w + 1)(i - 1)}{(w - 1)(i + 1)} = \frac{(z + i)(-i)}{(z - i)i},
+        \end{align*}
+        which, when solved for $w$, becomes
+        \begin{align*}
+            w = -i\frac{z - 1}{z + 1}. \qed
+        \end{align*}
+        The point $z = iy$ on the imaginary axis is transformed into
+        \begin{align*}
+            w = \frac{-i(iy - 1)}{iy + 1} = \frac{y + i}{iy + 1} = -i\frac{y + i}{y - i}.
+        \end{align*}
+\end{enumerate}
+
+\subsection*{8.102}
+\begin{enumerate}
+    \item[3.]
+        \begin{enumerate}
+            \item
+                Because the transformation
+                \begin{align*}
+                    w = \frac{i - z}{i + z}
+                \end{align*}
+                maps the half plane $\Im w \geq 0$ to the disk $|z| \leq 1$, the inverse transformation
+                \begin{align*}
+                    w = i \frac{1 - z}{1 + z},
+                \end{align*}
+                found by interchanging $w$ and $z$, maps the same disk back to the original half plane.
+
+            \item
+                We have that
+                \begin{align*}
+                    w = i \left[ i \frac{1 - (z - 1)}{1 + (z - 1)} \right] = -\frac{2 - z}{z} = \frac{z - 2}{z}.
+                \end{align*}
+                Composing the transformations, we find that \par
+                $Z = z - 1$ translates the disk $|z - 1| \leq 1$ to $|Z| \leq 1$ \par
+                $W = i(1 - Z)/(1 + Z)$ maps the disk $|Z| \leq 1$ onto the half plane $\Im W \geq 0$ (from part (a)), and \par
+                $w = iW$ rotates the half plane $\Im W \geq 0$ counterclockwise by one quarter of a revolution to $\Re w \leq 0$.
+        \end{enumerate}
+\end{enumerate}
+
+\subsection*{8.106}
+\begin{enumerate}
+    \item[9.]
+        Because any horizontal line segment $y = c$ ($a \leq c \leq b$, $-\pi \leq x \leq \pi$) is mapped by $w = \sin z$ to the ellipse
+        \begin{align*}
+            \frac{u^2}{\cosh^2 c} + \frac{v^2}{\sinh^2 c} = 1,
+        \end{align*}
+        and $\cosh^2 y$ and $\sinh^2 y$ are both increasing when $y$ is positive, the interior of the rectangular region is mapped to the interior of the region bounded between
+        \begin{align*}
+            \frac{u^2}{\cosh^2 a} + \frac{v^2}{\sinh^2 a} = 1
+        \end{align*}
+        and
+        \begin{align*}
+            \frac{u^2}{\cosh^2 b} + \frac{v^2}{\sinh^2 b} = 1,
+        \end{align*}
+        which describes an elliptical ring with a cut along the segment $-\sinh b \leq v \leq -\sinh a$.
+\end{enumerate}
+
+\subsection*{8.108}
+\begin{enumerate}
+    \item[4.]
+        The expressions for a mapping by $z^2$ are
+        \begin{align*}
+            u = x^2 - y^2, \quad v = 2xy.
+        \end{align*}
+        We know that the segments intersect at $A = (0, 0)$, $B = (1, -1)$ and $D = (1, 1)$. From the expressions, $A$ is mapped to $A' = (0, 0)$, $B$ is mapped to $B' = (0, -2)$, $C = (1, 0)$ is mapped to $C' = (1, 0)$, and $D$ is mapped to $D' = (0, 2)$. The segment $x = 1$ ($-1 \leq y \leq 1$) is mapped to
+        \begin{align*}
+            u = 1 - y^2, \quad v = 2y
+        \end{align*}
+        which describes the parabola $v^2 = -4(u - 1)$ with endpoints $(0, -2)$ and $(0, 2)$, the segment $y = x$ ($0 \leq x \leq 1$) is mapped to
+        \begin{align*}
+            u = 0, \quad v = 2x^2
+        \end{align*}
+        which describes the segment from $(0, 0)$ to $(0, 2)$, and the segment $y = -x$ ($0 \leq x \leq 1$) is mapped to
+        \begin{align*}
+            u = 0, \quad v = -2x^2
+        \end{align*}
+        which describes the segment from $(0, 0)$ to $(0, -2)$. Finally, any segment $x = c$ ($0 \leq c \leq 1, -c \leq y \leq c$) is mapped to
+        \begin{align*}
+            u = c^2 - y^2, \quad v = 2cy
+        \end{align*}
+        which describes the parabola $v^2 = -4c^2(u - c^2)$ with endpoints $(0, -2c^2)$ and $(0, 2c^2)$. It is clear that the images of all these segments fill up the region bounded by the parabola $v^2 = -4(u - 1)$ and the segment $B'D'$, and each point in that region is the image of only one point in the triangular region bounded by $ABD$. In conclusion, the former is the image of the latter, and there is a one-to-one correspondence between points in the two closed regions.
+\end{enumerate}
+
+\subsection*{8.109}
+\begin{enumerate}
+    \item[5.]
+        Let $r_1 > 0$ and $r_2 > 0$, with $\theta_1$ and $\Theta_2$ defined as before.
+        \begin{enumerate}
+            \item
+                Substituting, we have
+                \begin{align*}
+                    (z^2 - 1)^{1/2} &= (z - 1)^{1/2} (z + 1)^{1/2} = \sqrt{r_1} e^{i\theta_1/2} \sqrt{r_2} e^{i\Theta_2/2} \\
+                    &= \sqrt{r_1 r_2} e^{i(\theta_1 + \Theta_2)/2}.
+                \end{align*}
+                Thus the function is discontinuous only on the two rays $\theta_1 = 0$ and $\Theta_2 = \pi$.
+
+            \item
+                Substituting, we have
+                \begin{align*}
+                    \left( \frac{z - 1}{z + 1} \right)^{1/2} &= \frac{(z - 1)^{1/2}}{(z + 1)^{1/2}} = \frac{\sqrt{r_1} e^{i\theta_1/2}}{\sqrt{r_2} e^{i\Theta_2/2}} = \sqrt{\frac{r_1}{r_2}} e^{i(\theta_1 - \Theta_2)/2}.
+                \end{align*}
+                Thus the function is discontinuous only on the two rays $\theta_1 = 0$ and $\Theta_2 = \pi$.
+        \end{enumerate}
+\end{enumerate}
+
+\subsection*{8.110}
+\begin{enumerate}
+    \item[1.]
+        The $z$ plane is treated as a thin sheet $R_0$ which is cut along the negative real axis, and hence $\theta$ ranges from $-\pi$ to $\pi$. Then a second sheet $R_1$, which is cut in the same way and has $\theta$ range from $\pi$ to $3\pi$, is placed in front of $R_0$, and the upper edge of the slit in $R_0$ is joined to the lower edge of the slit in $R_1$. Thus we inductively define the sheet $R_{n + 1}$ as being cut in the same way and having $\theta$ range from $(2n - 1)\pi$ to $(2n + 1)\pi$, being placed in front of $R_n$, and having the lower edge of its slit joined to the upper edge of the slit in $R_n$. \par
+        Likewise, for $n \leq 0$, the sheet $R_{n - 1}$ is cut in the same way, has $\theta$ range from $(2n - 1)\pi$ to $(2n - 3)\pi$, is placed behind $R_n$, and has the upper edge of its slit joined to the lower edge of the slit in $R_n$. We now have a connected surface of infinitely many sheets, on which $\log z$ becomes a single-valued function.
+\end{enumerate}
+
+\subsection*{8.111}
+\begin{enumerate}
+    \item[1.]
+        Let $r \geq 0$. Substituting, the triple-valued function becomes
+        \begin{align*}
+            (z - 1)^{1/3} = r^{1/3} e^{i\theta/3}.
+        \end{align*}
+        The $z$ plane is treated as a thin sheet $R_0$ which is cut along the positive real axis, and hence $\theta$ ranges from $0$ to $2\pi$. A second sheet $R_1$ and a third sheet $R_2$ are cut in the same way. $R_1$ has $\theta$ range from $2\pi$ to $4\pi$ and is placed in front of $R_0$, and the lower edge of the slit in $R_0$ is joined to the upper edge of the slit in $R_1$. $R_2$ has $\theta$ range from $4\pi$ to $6\pi$ and is connected to $R_1$ in exactly the same way. \par
+    Thus $R_0$ is mapped to the third of the $w$ plane with angle ranging from $0$ to $2\pi/3$, $R_1$ is mapped to the third of the $w$ plane with angle ranging from $2\pi/3$ to $4\pi/3$, and $R_2$ is mapped to the third of the $w$ plane with angle ranging from $4\pi/3$ to $2\pi$.
+\end{enumerate}
+
+\end{document}

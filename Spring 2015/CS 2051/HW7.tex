@@ -1,0 +1,40 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{CS 2051 - HW7 Solutions}
+
+\begin{enumerate}
+
+\item (a) False; $G$ may consist of several cycles that are disconnected components. For example, $G$ may consist of two disconnected instances of the triangular graph $T_3$. \par
+(b) True; suppose $G$ is the disconnected graph and $\bar{G}$ is the complement of $G$. If every pair of vertices have a path between them in $\bar{G}$, then $\bar{G}$ is connected. \\
+Let $v, w$ be vertices in $G$. \\
+Case 1: $vw$ is not an edge in $G$. \\
+Then $vw$ is an edge in $\bar{G}$ by definition, and there exists a path between $v$ and $w$ in $\bar{G}$. \\
+Case 2: $vw$ is an edge in $G$. \\
+Then, because $G$ is disconnected, there exists a vertex $u$ such that $uv$ or $uw$ are not edges in $G$, so $uv$ and $uw$ must be edges in $\bar{G}$. Through $u$, there exists a path between $v$ and $w$ in $\bar{G}$. \par
+
+\item If a graph $G$ has a unique bipartition, then each vertex $v \in G$ falls in exactly one of the two partitions, with its neighbors on the other. This requires that $G$ consist of $1$ component, because otherwise the elements of any of the components could swap partitions, thereby changing $G$. Then $G$ is connected. \\
+If a graph $G$ is connected, then there exists a $vw$-path for all pairs of vertices $v, w \in G$. If $G$ is bipartite, then $v$ and $w$ fall in opposite partitions if the path is of odd length, and fall in the same partition if the path is of even length. Moving any vertex from one partition to the other would violate this property, so the bipartition is unique.
+
+\item (a) False; for example, $G$ may be the graph referred to in the answer for part (1a), where each vertex is of degree $2$. \par
+(b) True; by definition for a closed graph, each vertex is connected to every other vertex. \par
+(c) True; every vertex in a closed trail is of even degree. If no vertices other than the starting vertex are repeated, then the closed trail is itself a cycle, and if vertices other than the starting vertex are repeated, then the graph can be partitioned at each of these vertices into a set of partitions, each of which begins and ends at the repeated vertex, whose cardinality exactly matches the number of repetitions of that vertex. Because the trail is partitioned only at vertices and not edges, the resultant partitions fulfill the path property. As a result, they also fulfill the cycle property. \par
+(d) True; the trail initially leaves from each endpoint once. In order for the trail not to be closed, it must leave again every time it returns to the endpoint through a different edge. Each of these occurrences increases the degree of the endpoint by 2, so the endpoint must remain odd in degree.
+
+\item Clique: 4 \\
+Independent set: 2 \par
+
+\item The degree of a cut-vertex $v$ in $G$ must be at least the number of connected components in $G - v$, because $v$ has at least one edge connecting it to every such connected component. $G - v$ must have at least $2$ components to be disconnected, so the degree of $v$ must also be at least $2$.
+
+\item Due to symmetry, a vertex $v$ can be chosen WLOG from 5 vertices for both the inner vertices and the outer vertices. \\
+Case 1: $v$ is an inner vertex. \\
+Then $2$ other inner vertices and $4$ outer vertices are non-adjacent to $v$. Each of the non-adjacent inner vertices shares only one of the remaining inner vertices as a common neighbor with $v$. $v$ also has only one neighbor that is an outer vertex. Among the non-adjacent outer vertices, two of them share this unique outer vertex as a common neighbor with $v$. The remaining two outer vertices each shares one inner vertex as a common neighbor with $v$. \\
+Case 2: $v$ is an outer vertex. \\
+Then $2$ other outer vertices and $4$ inner vertices are non-adjacent to $v$. Each of the non-adjacent outer vertices shares only one of the remaining outer vertices as a common neighbor with $v$. $v$ also has only one neighbor that is an inner vertex. Among the non-adjacent inner vertices, two of them share this unique inner vertex as a common neighbor with $v$. The remaining two inner vertices each shares one outer vertex as a common neighbor with $v$. \\
+
+\end{enumerate}
+
+\end{document}

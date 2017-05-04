@@ -1,0 +1,134 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr, graphicx}
+\usepackage[margin=1in, includehead, includefoot, heightrounded]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\newcommand*\dist{\mathop{\!\mathrm{d}}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\DeclareMathOperator*{\argmax}{\arg\!\max}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+\DeclareMathOperator*{\vol}{vol}
+\DeclareMathOperator*{\esssup}{ess\,sup}
+\DeclareMathOperator*{\BV}{BV}
+\DeclareMathOperator*{\Lip}{Lip}
+\DeclareMathOperator*{\AC}{AC}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\begin{document}
+
+\section*{MATH 6337 -- HW9 Solutions}
+\begin{enumerate}
+    \item[5.1.7.]
+        \boldmath\textbf{Given $f : [a, b] \to \mathbb{C}$, write $f = f_r + if_i$ where $f_r$ and $f_i$ are real-valued. Prove that
+        \begin{align*}
+            f \in \AC[a, b] \quad\Longleftrightarrow\quad f_r, f_i \in \AC[a, b].
+        \end{align*}
+        }\unboldmath \par
+        ($\Rightarrow$) For every $\varepsilon > 0$, there exists a $\delta > 0$ such that for any finite or countably infinite collection of nonoverlapping subintervals $\{[a_j, b_j]\}$ of $[a, b]$ satisfying $\sum_j (b_j - a_j) < \delta$, we have
+        \begin{align*}
+             \sum_j |f(b_j) - f(a_j)| = \sum_j |f_r(b_j) - f_r(a_j) + i(f_i(b_j) - f_i(a_j))| < \varepsilon.
+        \end{align*}
+        Since $|f_r(b_j) - f_r(a_j)|, |f_i(b_j) - f_i(a_j)| \leq |f_r(b_j) - f_r(a_j) + i(f_i(b_j) - f_i(a_j))|$ for all $j$ by the Pythagorean theorem, $\sum_j |f_r(b_j) - f_r(a_j)|, \sum_j|f_i(b_j) - f_i(a_j)| < \varepsilon$ as well, meaning that $f_r, f_i \in \AC[a, b]$. \par
+        ($\Leftarrow$) For every $\varepsilon > 0$, there exists $\delta_1, \delta_2 > 0$ such that for any finite or countably infinite collection of nonoverlapping subintervals $\{[a_j, b_j]\}$ of $[a, b]$,
+        \begin{gather*}
+            \sum_j (b_j - a_j) < \delta_1 \quad\Longrightarrow\quad \sum_j |f_r(b_j) - f_r(a_j)| < \frac{\varepsilon}{2} \\
+            \sum_j (b_j - a_j) < \delta_2 \quad\Longrightarrow\quad \sum_j |f_i(b_j) - f_i(a_j)| < \frac{\varepsilon}{2}.
+        \end{gather*}
+        Since $|f(b_j) - f(a_j)| = |f_r(b_j) - f_r(a_j) + i(f_i(b_j) - f_i(a_j))| \leq |f_r(b_j) - f_r(a_j)| + |f_i(b_j) - f_i(a_j)|$ for all $j$ by the triangle inequality, if we take $\delta = \min\{ \delta_1, \delta_2 \}$, then
+        \begin{gather*}
+            \sum_j (b_j - a_j) < \delta \quad\Longrightarrow\quad \sum_j |f(b_j) - f(a_j)| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.
+        \end{gather*}
+        Hence, $f \in \AC[a, b]$.
+
+    \item[5.1.10.]
+        \boldmath\textbf{Prove that $f \in \AC[a, b]$ if and only if for every $\varepsilon > 0$ there exists a $\delta > 0$ such that for any \emph{finite} collection of nonoverlapping subintervals $\{[ a_j, b_j ]\}_{j = 1, \cdots, N}$ of $[a, b]$, we have
+        \begin{align*}
+            \sum_{j = 1}^N (b_j - a_j) < \delta \quad\Longrightarrow\quad \sum_{j = 1}^N |f(b_j) - f(a_j)| < \varepsilon.
+        \end{align*}
+        }\unboldmath \par
+        The forward implication follows from the definition of $\AC[a, b]$. \par
+        For the reverse implication, we must show that the countably infinite case reduces to the finite case, so consider a countably infinite collection of nonoverlapping subintervals $\{[ a_j, b_j ]\}_{j \in \mathbb{N}}$ of $[a, b]$. Since
+        \begin{align*}
+            \sum_{j = 1}^N (b_j - a_j) < \delta \quad\Longrightarrow\quad \sum_{j = 1}^N |f(b_j) - f(a_j)| < \varepsilon
+        \end{align*}
+        is true for all $N$ and the sequence obtained on the right is increasing and bounded by $\varepsilon$, the limit as $N \to \infty$ is
+        \begin{align*}
+            \sum_{j = 1}^\infty (b_j - a_j) < \delta \quad\Longrightarrow\quad \sum_{j = 1}^\infty |f(b_j) - f(a_j)| < \varepsilon.
+        \end{align*}
+        by convergence of monotone sequences. In other words, $f \in \AC[a, b]$.
+
+    \item[5.3.5.]
+        \boldmath\textbf{Assume that $g : [a, b] \to [c, d]$ and $f : [c, d] \to \mathbb{C}$ are continuous. Prove that
+        }\unboldmath
+        \begin{enumerate}
+            \item
+                \boldmath\textbf{if $f$ is Lipschitz and $g \in \AC[a, b]$, then $f \circ g \in \AC[a, b]$.
+                }\unboldmath \par
+                Let $K$ be a Lipschitz constant of $f$. Then for every $\varepsilon > 0$, there exists a $\delta > 0$ such that for any finite or countably infinite collection of nonoverlapping subintervals $\{[a_j, b_j]\}$ of $[a, b]$ satisfying $\sum_j (b_j - a_j) < \delta$,
+                \begin{align*}
+                    \sum_j |g(b_j) - g(a_j)| < \frac{\varepsilon}{K}.
+                \end{align*}
+                Since $|(f \circ g)(b_j) - (f \circ g)(a_j)| = |f(g(b_j)) - f(g(a_j))| \leq K|g(b_j) - g(a_j)|$ for all $j$, we have that
+                \begin{align*}
+                    \sum_j |(f \circ g)(b_j) - (f \circ g)(a_j)| \leq K\sum_j |g(b_j) - g(a_j)| < \varepsilon.
+                \end{align*}
+                Because $\varepsilon$ and $\{[a_j, b_j]\}$ are arbitrary, we conclude that $f \circ g \in \AC[a, b]$.
+        \end{enumerate}
+
+    \item[5.3.8.]
+        \boldmath\textbf{Assume $f \in \AC[a, b]$ and there is a continuous function $g$ such that $f' = g$ a.e. Show that $f$ is differentiable everywhere on $[a, b]$ and $f'(x) = g(x)$ for every $x$. Show by example that the hypothesis of absolute continuity is necessary.
+        }\unboldmath \par
+        %Define $E = \{ f' = g \}$ and $Z = [a, b] \setminus E$. Since $|Z| = 0$, the Banach-Zaretsky Theorem states that $|f(Z)| = 0$. \par
+        \iffalse
+            From the Fundamental Theorem of Calculus,
+            \begin{align*}
+                f(x) - f(a) = \int_a^x f'(t) dt = \int_a^x g(t) dt, \quad x \in [a, b]
+            \end{align*}
+            since $f'(t) = g(t)$ a.e, and the integral of a continuous function is continuously differentiable. \par
+        \fi
+        Since $g$ is continuous, $g \in L^1[a, b]$, so by Lemma 5.1.6,
+        \begin{align*}
+            G(x) = \int_a^x g(t) dt, \quad x \in [a, b]
+        \end{align*}
+        is absolutely continuous on $[a, b]$. Then $f - g \in \AC[a, b]$ because for every $\varepsilon > 0$, there exists $\delta_1, \delta_2 > 0$ such that for any finite or countably infinite collection of nonoverlapping subintervals $\{[a_j, b_j]\}$ of $[a, b]$,
+        \begin{gather*}
+            \sum_j (b_j - a_j) < \delta_1 \quad\Longrightarrow\quad \sum_j |f(b_j) - f(a_j)| < \frac{\varepsilon}{2} \\
+            \sum_j (b_j - a_j) < \delta_2 \quad\Longrightarrow\quad \sum_j |g(b_j) - g(a_j)| < \frac{\varepsilon}{2},
+        \end{gather*}
+        and since $|(f - g)(b_j) - (f - g)(a_j)| \leq |f(b_j) - f(a_j)| + |-1||g(b_j) - g(a_j)|$ for all $j$ by the triangle inequality, taking $\delta = \min\{ \delta_1, \delta_2 \}$ yields
+        \begin{gather*}
+            \sum_j (b_j - a_j) < \delta \quad\Longrightarrow\quad \sum_j |(f - g)(b_j) - (f - g)(a_j)| < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} < \varepsilon.
+        \end{gather*}
+        Because $(f - G)' = f' - g = 0$ a.e. by the hypothesis, Corollary 5.3.4 states that $f - G = c$ for some constant $c$. Taking the derivatives of both sides again gives $f' = g$ everywhere. \par
+        The Cantor-Lebesgue function $\varphi : [0, 1] \to [0, 1]$ is H\"older continuous with exponent $\alpha = \log_3 2$ (and hence uniformly continuous) on $[0, 1]$, and $\varphi' = 0$ a.e. However, $\varphi$ is not differentiable everywhere because otherwise, $\varphi' \neq 0$ on a set of measure zero, so $\varphi = \int_0^1 \varphi' = \int_0^1 0 = 0$ everywhere, a contradiction. (In particular, $\varphi$ is not differentiable on the Cantor set.)
+
+    \item[5.3.11.]
+        \boldmath\textbf{Define $g(x) = x^2\sin(1/x^2)$ for $x \neq 0$, and set $g(0) = 0$. Show that $g \in L^1[-1, 1]$, $g$ is differentiable everywhere on $[-1, 1]$, $g' \notin L^1[-1, 1]$, and $g \notin \AC[-1, 1]$.
+        }\unboldmath \par
+        %Exercise 4.2.3 (pg. 183) \par
+        $g \in L^1[-1, 1]$ because
+        \begin{align*}
+            \int_{-1}^1 |g(x)| dx = 2 \int_0^1 |x^2\sin(1/x^2)| dx \leq 2 \int_0^1 x^2 dx = 2 \frac{x^3}{3} \bigg|_0^1 = \frac{2}{3} < \infty.
+        \end{align*}
+        $g$, being the product of the functions $x^2$ and $\sin(1/x^2)$ (which are differentiable when $x \neq 0$), is differentiable when $x \neq 0$; also, $g$ is differentiable at $x = 0$ because $-x \leq x\sin(1/x^2) \leq x$ everywhere so by the Sandwich Theorem,
+        \begin{align*}
+            \lim_{h \to 0} \frac{g(0 + h) - g(0)}{h} = \lim_{h \to 0} h\sin(1/h^2) = 0.
+        \end{align*}
+        Differentiating gives $g'(0) = 0$ and $g'(x) = x\sin(1/x^2) + x^2\cos(1/x^2)(-2/x^3) = x\sin(1/x^2) - 2\cos(1/x^2)/x$ for all $x \neq 0$. \par
+        $g' \notin L^1[-1, 1]$ because using the change of variables $y = 1/x^2$,
+        \iffalse
+            From the same reasoning as in Exercise 4.2.21(a) (on the previous homework), the Mean Value Theorem for (Riemann) Integrals states that the above quantity diverges if and only if
+        \fi
+        \begin{align*}
+            \int_{-1}^1 |g'(x)| dx &= 2\int_0^1 |x\sin(1/x^2) - 2\cos(1/x^2)/x| dx \\
+            &= 2\int_1^\infty |\sin(y)/\sqrt{y} - 2\sqrt{y}\cos(y)| (x^3/2)dy = \infty.
+        \end{align*}
+        $g \notin \BV[-1, 1]$ by Exercise 4.2.21(a) with $a = 2$ and $b = 2$, and hence $g \notin \AC[-1, 1]$ by Lemma 5.1.3(b).
+\end{enumerate}
+
+\end{document}

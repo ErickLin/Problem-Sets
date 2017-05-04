@@ -1,0 +1,161 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{MATH 4032 - HW3 Solutions}
+\subsection*{4.}
+\boldmath
+\textbf{Let $F(n)$ denote the $n$th Fibonacci number.}
+\unboldmath
+\begin{enumerate}
+    \item[1.]
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{There are $n$ seating positions arranged in a line. Prove that the number of ways of choosing a subset of these positions, with no two chosen positions consecutive, is $F_{n + 1}$.} \par
+                \unboldmath
+                This formula will be proved by induction. Let $f(n)$ denote the desired number. For the base cases, we have that if $n = 1$, the position can be occupied or unoccupied, so $f(1) = 2 = F_2$, and that if $n = 2$, the only restriction is that both positions cannot be occupied so $f(2) = 2^2 - 1 = 3 = F_3$. \par
+                Now, if we assume that the formula holds for $n$ and $n - 1$, i.e., if $f(n) = F_{n + 1}$ and $f(n - 1) = F_n$, then the possibilities for $n + 1$ include those in which the last position is unoccupied and those in which it is occupied. The former case includes $f(n)$ possibilities, while the latter case includes $f(n - 1)$ possibilities because the second-to-last seat must be unoccupied. Thus, we have that $f(n + 1) = f(n) + f(n - 1) = F_{n + 1} + F_n = F_{n + 2}$, which proves the induction step.
+
+            \item
+                \boldmath
+                \textbf{If the $n$ positions are arranged around a circle, show that the number of choices is $F_n + F_{n - 2}$ for $n \geq 2$.} \par
+                \unboldmath
+                This formula will also be proved by induction. Let $g(n)$ denote the desired number. If $n = 2$, then $g(2) = 3 = F_2 + F_0$ for the same reasons as above, and if $n = 3$, then any one of the seats can be occupied or none of the seats can be occupied, so $g(3) = 3 + 1 = 4 = F_3 + F_1$. \par
+                Now, if we assume that the formula holds for $n$ and $n - 1$, $n - 1 \geq 2$, then the possibilities for $n + 1$ include those in which the new position is unoccupied and those in which the new position is occupied. The former case reduces to the number of subsets of positions arranged in a line with $n$ positions, the problem in part (a), so it contributes $F_{n + 1}$ possibilities. In the latter case, neither the seat to the left nor the seat to the right can be occupied, so the problem reduces to the problem in part (a) with $n - 2$ positions, which contributes $F_{n - 1}$ possibilities. Thus, we have that $g(n + 1) = F_{n + 1} + F_{n - 1}$, which proves the induction step.
+        \end{enumerate}
+
+    \item[2.]
+        \boldmath
+        \textbf{Prove the following identities:} \par
+        \unboldmath
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{$F_n^2 - F_{n + 1} F_{n - 1} = (-1)^n$ for $n \geq 1$.} \par
+                \unboldmath
+                Prove by induction.
+
+            \item
+                \boldmath
+                \textbf{$\sum_{i = 0}^n F_i = F_{n + 2} - 1$.} \par
+                \unboldmath
+                Prove by induction.
+
+            \item
+                \boldmath
+                \textbf{$F_{n - 1}^2 + F_n^2 = F_{2n}, \quad F_{n - 1} F_n + F_n F_{n + 1} = F_{2n + 1}$.} \par
+                \unboldmath
+                Prove by induction.
+
+            \item
+                \boldmath
+                \textbf{$F_n = \sum_{i = 0}^{\lfloor n/2 \rfloor} \binom{n - i}{i}$.} \par
+                \unboldmath
+                Since $F_n$ is the number of expressions for $n$ as an ordered sum of 1s and 2s, if we let $i$ denote the number of 2s in an expression, then we have $n - i$ positions in which to place the 2s. The result comes from the rule of sum over all the possible values of $i$.
+        \end{enumerate}
+
+    \item[6.]
+        Prove by induction.
+
+    \item[9.]
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{Solve the following recurrence relations.} \par
+                \unboldmath
+                \begin{enumerate}
+                    \item
+                        \boldmath
+                        \textbf{$f(n + 1) = f(n)^2, f(0) = 2$.} \par
+                        \unboldmath
+                        We will prove that $f(n) = 2^{2^n}$ by induction. For the base case, $f(0) = 2^{2^0} = 2^1 = 2$. Assuming that the formula holds for $n$, we have that
+                        \begin{align*}
+                            f(n + 1) = f(n)^2 = \left( 2^{2^n} \right)^2 = \left( 2^{2^n} \right) \left( 2^{2^n} \right) = 2^{2^n + 2^n} = 2^{2 \left( 2^n \right)} = 2^{2^{n + 1}},
+                        \end{align*}
+                        so the formula holds for $n + 1$.
+
+                    \item
+                        \boldmath
+                        \textbf{$f(n + 1) = f(n) + f(n - 1) + f(n - 2), f(0) = f(1) = f(2) = 1$.} \par
+                        \unboldmath
+                        The characteristic equation of this recurrence relation is $x^3 = x^2 + x + 1$, which has three distinct roots that we will denote by $r_1$, $r_2$, and $r_3$. From the standard technique for solving recurrence relations, the general solution is of the form
+                        \begin{align*}
+                            f(n) = ar_1^n + br_2^n + cr_3^n
+                        \end{align*}
+                        for constants $a$, $b$, and $c$, which are determined by the initial conditions. In particular, we have that $f(0) = 1 = a + b + c$, $f(1) = 1 = ar_1 + br_2 + cr_3$, and $f(2) = 1 = ar_1^2 + br_2^2 + cr_3^2$, so we have a system of linear equations for which we can solve for $a$, $b$, and $c$.
+
+                    \item
+                        \boldmath
+                        \textbf{$f(n + 1) = 1 + \sum_{i = 0}^{n - 1} f(i), f(0) = 1$.} \par
+                        \unboldmath
+                        Substituting,
+                        \begin{align*}
+                            f(n + 1) = \left( 1 + \sum_{i = 0}^{n - 2} f(i) \right) + f(n - 1) = f(n) + f(n - 1).
+                        \end{align*}
+                        Since we can see from the formula that $f(1) = 1$, $f(n)$ matches the form of the Fibonacci number $F(n)$.
+                \end{enumerate}
+
+            \item
+                \boldmath
+                \textbf{Show that the number of ways of writing $n$ as a sum of positive integers, where the order of the summands is significant, is $2^{n - 1}$ for $n \geq 1$.} \par
+                \unboldmath
+                $n$ can be written by itself, or it can be subdivided into two sums of positive integers, the first summing up to $k$ and the second summing up to $n - k$, for all possible values of $k$ such that there are at least two terms. The recurrence relation for this quantity is
+                \begin{align*}
+                    f(n) = 1 + \sum_{k = 1}^{n - 1} f(k).
+                \end{align*}
+                Thus,
+                \begin{align*}
+                    f(n) = \left( 1 + \sum_{k = 1}^{n - 2} f(k) \right) + f(n - 1) = 2f(n - 1).
+                \end{align*}
+                Since the general form is $f(n) = c2^n$ and $f(1) = 1$, we have that $c = 1/2$ and therefore that $f(n) = 2^{n - 1}$.
+        \end{enumerate}
+
+    \item[14.]
+        \boldmath
+        \textbf{Let
+        \begin{align*}
+            \prod_{n \geq 1} (1 + t^n) = \sum_{n \geq 0} a_n t^n.
+        \end{align*}
+        Prove that $a_n$ is the number of ways of writing $n$ as the sum of \textit{distinct} positive integers.} \par
+        \unboldmath
+        The left hand side is the generating function for $\{ a_n \}$, because each $(1 + t^k)$ factor contributes either $0$ or $k$ to the power of $t^n$, and the $k$ are unique. The number of ways to choose the power of $t$ other than $1$ among the factors so that the product of factors is $t^n$ is exactly the coefficient of $t^n$, which is $a_n$.
+
+    \item[17.]
+        \boldmath
+        \textbf{Using the definition of radius of convergence, prove that
+        \begin{align*}
+            \lim_{n \to \infty} \left( \frac{B_n}{n!} \right)^{1/n} = 0.
+        \end{align*}
+        } \par
+        \unboldmath
+        Because the radius of convergence of the power series $\sum_{n \geq 0} B_n t^n / n!$ is infinite, we have from the definition of radius of convergence that
+        \begin{align*}
+            \limsup_{n \to \infty} \left( \frac{B_n}{n!} \right)^{1/n} = 0.
+        \end{align*}
+        We can then deduce that, since all the terms are positive,
+        \begin{align*}
+            \lim_{n \to \infty} \left( \frac{B_n}{n!} \right)^{1/n} = 0.
+        \end{align*}
+
+    \item[18.]
+        \boldmath
+        \textbf{Let $s(n)$ denote the number of permutations of a set of $n$ elements having the property that all their cycles have length $1$ or $2$. Prove that the exponential generating function for $s(n)$ is $\exp(t + \frac{1}{2} t^2)$.} \par
+        \unboldmath
+        We have $s(0) = 1$ and $s(1) = 1$. If $n \geq 2$, then the recurrence relation for the number of involutions on a set of $n$ elements is
+        \begin{align}
+            s(n) = s(n - 1) + (n - 1)s(n - 2).
+        \end{align}
+        The exponential generating function for $s(n)$ and its derivative are written
+        \begin{align*}
+            G(t) = \sum_{n = 0}^\infty \frac{s(n) t^n}{n!} \qquad G'(t) = \sum_{n = 0}^\infty \frac{s(n) t^{n - 1}}{(n - 1)!}.
+        \end{align*}
+        Now we may notice that the coefficient of $t^{n - 1}/(n - 1)!$ is $s(n - 1) + (n - 1) s(n - 2)$ in $(1 + t)G(t)$, and $s(n)$ in $G'(t)$; because we have from (1) that the terms are equal, $(1 + t)G(t) = G'(t)$. Solving this separable differential equation yields $G(t) = \exp(t + \frac{1}{2} t^2)$.
+\end{enumerate}
+\end{document}

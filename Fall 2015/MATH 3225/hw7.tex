@@ -1,0 +1,141 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, dsfont, fancyhdr}
+\usepackage[margin=1in]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{MATH 3225 - HW7 Solutions}
+
+\begin{enumerate}
+    \subsection*{6.9}
+    \item[25.]
+        Let $A = X$ so that $(a(x, y), z(x, y)) = (x, \frac{y - \rho x}{\sqrt{1 - \rho^2}})$. Then from the Jacobian formula,
+        \begin{align*}
+            f_{A, Z}(a, z) &= f_{X, Y}(x(a, z), y(a, z)) |J(a, z)| \\
+            &= f_{X, Y}(a, z \sqrt{1 - \rho^2} + \rho a) \left| \text{det} \left( \begin{array}{cc}
+                \frac{\partial x}{\partial a} & \frac{\partial x}{\partial z} \\
+                \frac{\partial y}{\partial a} & \frac{\partial y}{\partial z}
+            \end{array} \right) \right| \\
+            &= \frac{1}{2\pi \sqrt{1 - \rho^2}} \exp \biggl( -\frac{1}{2(1 - \rho^2)} [a^2 - 2\rho a(z\sqrt{1 - \rho^2} + \rho a) \\
+            &\hspace{1cm}+ z^2(1 - \rho^2) + 2\rho az \sqrt{1 - \rho^2} + \rho^2 a^2 ] \biggr) \left| \text{det} \left( \begin{array}{cc}
+                1 & 0 \\
+                \rho & \sqrt{1 - \rho^2}
+            \end{array} \right) \right| \\
+            &= \frac{1}{2\pi \sqrt{1 - \rho^2}} \exp \left( -\frac{a^2 - \rho^2 a^2 + z^2(1 - \rho^2)}{2(1 - \rho^2)} \right) \sqrt{1 - \rho^2} \\
+            &= \frac{1}{2\pi} \exp \left( -\frac{(a^2 + z^2)(1 - \rho^2)}{2(1 - \rho^2)} \right) \\
+            &= \left[ \frac{1}{\sqrt{2 \pi}} \exp \left( -\frac{a^2}{2} \right) \right] \left[ \frac{1}{\sqrt{2 \pi}} \exp \left( -\frac{z^2}{2} \right) \right] = f_A(a) f_Z(z)
+        \end{align*}
+        and we have that $A = X$ and $Z$ are independent $\text{N}(0, 1)$ variables. Also,
+        \begin{align*}
+            \mathbb{P}(X > 0, Y > 0) &= \mathbb{P} \left( X > 0, Z > \frac{-\rho X}{\sqrt{1 - \rho^2}} \right) \\
+            &= \int_0^\infty \int_{-\rho X / \sqrt{1 - \rho^2}}^\infty \frac{1}{2 \pi} e^{-(x^2 + z^2)/2} dx dz \\
+            &= \frac{1}{2\pi} \int_{\tan^{-1} \left( -\rho / \sqrt{1 - \rho^2} \right)}^{\pi / 2} \int_0^\infty e^{-r^2/2} r dr d\theta \\
+            &= \frac{1}{2\pi} \int_{\tan^{-1} \left( -\rho / \sqrt{1 - \rho^2} \right)}^{\pi / 2} \left[ -e^{-r^2/2} \right]_0^\infty d\theta \\
+            &= \frac{1}{2\pi} \int_{\tan^{-1} \left( -\rho / \sqrt{1 - \rho^2} \right)}^{\pi / 2} d\theta \\
+            &= \frac{1}{4} + \frac{\sin^{-1} \rho}{2 \pi}.
+        \end{align*}
+
+    \subsection*{7.7}
+    \item[2.]
+        \begin{align*}
+            \mathbb{E} \left( \frac{1}{n - 1} \sum_{i = 1}^n (X_i - \overline{X})^2 \right)
+            &= \mathbb{E} \left( \frac{1}{n - 1} \sum_{i = 1}^n [X_i - \mu - (\overline{X} - \mu)]^2 \right) \\
+            &= \mathbb{E} \left( \frac{1}{n - 1} \left[ \sum_{i = 1}^n (X_i - \mu)^2 - n(\overline{X} - \mu)^2 \right] \right) \\
+            &= \frac{1}{n - 1} \left( \sum_{i = 1}^n \mathbb{E}[(X_i - \mu)^2] - n \mathbb{E}[(\overline{X} - \mu)^2] \right) \\
+            &= \frac{1}{n - 1} (n \sigma^2 - \sigma^2) \\
+            &= \sigma^2
+        \end{align*}
+
+    \item[3.] 
+        Because the $X_i$ are independent and identically distributed, $\mathbb{E}(S_n / S_n) = n \mathbb{E}(X_1 / S_n)$. Since $\mathbb{E}(S_n / S_n) = \mathbb{E}(1) = 1$, we have that
+        \begin{align*}
+            \mathbb{E} \left( \frac{X_1}{S_n} \right) = \frac{1}{n}.
+        \end{align*}
+        Then
+        \begin{align*}
+            \mathbb{E} \left( \frac{S_m}{S_n} \right) &= m \mathbb{E} \left( \frac{X_1}{S_n} \right) \\
+            &= \frac{m}{n}.
+        \end{align*}
+        if $m \leq n$. However, since $\mathbb{E}(X_i / S_n) \neq 1 / n$ for $i > n$, the result does not hold for $m > n$.
+
+    \item[8.] 
+        Using the partition theorem and the definition of the probability generating function,
+        \begin{align*}
+            M_S(t) &= \mathbb{E} \left[ e^{t(X_1 + \cdots + X_N)} \right] \\
+            &= \sum_{n = 0}^\infty \mathbb{E} \left[ e^{t(X_1 + \cdots + X_N)} | N = n \right] \mathbb{P}(N = n) \\
+            &= \sum_{n = 0}^\infty \mathbb{E} \left[ e^{t(X_1 + \cdots + X_n)} \right] \mathbb{P}(N = n) \\
+            &= \sum_{n = 0}^\infty M_{X_1}^n(t) \mathbb{P}(N = n) \\
+            &= G_N(M_{X_1}(t)).
+        \end{align*}
+
+    \item[10.] 
+        \begin{align*}
+            \text{cov}(X, Y) &= \mathbb{E}(XY) - \mathbb{E}(X) \mathbb{E}(Y) \\
+            &= \mathbb{E} \left( \sum_{i = 1}^n X_i \sum_{j = 1}^n Y_j \right) - \left[ \sum_{i = 1}^n \mathbb{E}(X_i) \right] \left[ \sum_{j = 1}^n \mathbb{E}(Y_j) \right] \\
+            &= \mathbb{E} \left[ \sum_{i = 1}^n \sum_{j = 1}^n X_i Y_j \right] - \sum_{i = 1}^n \sum_{j = 1}^n \mathbb{E}(X_i) \mathbb{E}(Y_j) \\
+            &= \sum_{i = 1}^n \sum_{j = 1}^n [ \mathbb{E}(X_i Y_j) - \mathbb{E}(X_i) \mathbb{E}(Y_j) ] \\
+            &= \sum_{i = 1}^n \sum_{j = 1}^n \text{cov}(X_i, Y_j) \\
+            &= \sum_{i = 1}^n \text{cov}(X_i, Y_i)
+        \end{align*}
+        The final step comes from the fact that $X_i$ and $Y_j$ are uncorrelated whenever $i \neq j$. \par
+        In this particular scenario,
+        \begin{align*}
+            \text{cov}(X, Y) &= \sum_{i = 1}^n \text{cov}(X_i, Y_i) \\
+            &= \sum_{i = 1}^n [\mathbb{E}(X_i Y_i) - \mathbb{E}(X_i) \mathbb{E}(Y_i)] \\
+            &= \sum_{i = 1}^n \bigl( [(2)(0)(p^2) + (1)(1)(2pq) + (0)(2)(q^2)] \\
+            &\hspace{1cm}- [(2)(p^2) + (1)(2pq) + (0)(q^2)][(0)(p^2) + (1)(2pq) + (2)(q^2)] \bigr) \\
+            &= n[2pq - 4pq(p + q)(q + p)] \\
+            &= -2npq.
+        \end{align*}
+
+    \item[14.] 
+        Let $X_i$ denote the number of additional coupons required to obtain the $i$th new color. Then
+        \begin{align*}
+            M_N(t) &= \mathbb{E} \left( e^{tN} \right) \\
+            &= \mathbb{E} \left( e^{t(X_1 + \cdots + X_c)} \right) \\
+            &= \prod_{i = 1}^c \mathbb{E} \left( e^{tX_c} \right) \\
+            &= \prod_{i = 1}^c \sum_{x \in \mathbb{N}^+} e^{tx} \mathbb{P}(X_i = x) \\
+            &= \prod_{i = 1}^c \sum_{x \in \mathbb{N}^+} e^{tx} \left( \frac{i - 1}{c} \right)^{x - 1} \left( \frac{c - i + 1}{c} \right).
+        \end{align*}
+
+    \item[18.]
+        $X_1$ is trivially a Cauchy random variable. For $n = 2$, we have
+        \begin{align*}
+            \phi_{X_1 + X_2}(t) &= \phi_{X_1}(t) \phi_{X_2}(t) \\
+            &= \left( \int_{-\infty}^\infty e^{itx} \frac{1}{\pi (1 + x^2)} dx \right)^2 \\
+            &= e^{-2|t|}.
+        \end{align*}
+        Using the inversion theorem,
+        \begin{align*}
+            f_{X_1 + X_2}(x) &= \frac{1}{2\pi} \int_{-\infty}^\infty e^{-itx} e^{-2|t|} dt \\
+            &= \frac{2}{\pi(4 + x^2)}.
+        \end{align*}
+        Since we have that $A_2 = (X_1 + X_2) / 2$, we find that $A_2$ is also a Cauchy random variable. Then by induction, $A_n$ is a Cauchy random variable for all $n \in \mathbb{N}^+$.
+
+    \item[21.]
+        Applying Theorem 7.87,
+        \begin{align*}
+            \phi_{Y_n}(t) = e^{ita_n} \phi^n (b_n t).
+        \end{align*}
+        From the uniqueness theorem, $Y_n$ and $X_1$ share the same distribution if their characteristic functions are set equal to one another: 
+        \begin{align*}
+            e^{ita_n} \phi^n (b_n t) &= \phi(t) \\
+            e^{ita_n} e^{-n|b_n t|^\alpha} &= e^{-|t|^\alpha}.
+        \end{align*}
+        Equality holds when $a_n = 0$ and $b_n = \pm 1/n$. The probability density function of $X_1$ is
+        \begin{align*}
+            f_X(x) = \frac{1}{2 \pi} \int_{-\infty}^\infty e^{-itX} e^{-|t|} dt = \frac{1}{\pi(x^2 + 1)}
+        \end{align*}
+        when $\alpha = 1$ and
+        \begin{align*}
+            f_X(x) = \frac{1}{2 \pi} \int_{-\infty}^\infty e^{-itX} e^{-|t|^2} dt = \frac{1}{2 \sqrt{\pi}} e^{-x^2 / 4}
+        \end{align*}
+        when $\alpha = 2$.
+
+\end{enumerate}
+
+\end{document}

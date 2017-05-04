@@ -1,0 +1,146 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr, graphicx}
+\usepackage[margin=1in, includehead, includefoot, heightrounded]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\newcommand*\dist{\mathop{\!\mathrm{d}}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\DeclareMathOperator*{\esssup}{ess\,sup}
+\DeclareMathOperator*{\argmax}{\arg\!\max}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\begin{document}
+
+\section*{MATH 6337 -- HW7 Solutions}
+\begin{enumerate}
+    \item[3.6.12.]
+        For each $y \in [0, 1]$, there is a unique $n$ such that $([0, 1] \times \{y\}) \cap Q_n \neq \emptyset$. The nonzero values of $f^y(x)$ include only $1/|Q_n|$ and $-1/|Q_n|$, and the subsets of $[0, 1]$ on which $f^y(x) = 1/|Q_n|$ and $f^y(x) = -1/|Q_n|$ are disjoint intervals of equal measure $\sqrt{|Q_n|}/2$, so $\int_0^1 f^y(x) dx = \sqrt{|Q_n|}/(2|Q_n|) - \sqrt{|Q_n|}/(2|Q_n|) = 0$ by countable additivity, and %\int_{f^y(x) = 1/|Q_n|} 1/|Q_n| dx + \int_{f^y(x) = -1/|Q_n|} (-1)/|Q_n| dx = 0$, and
+        \begin{align*}
+            \int_0^1 \left( \int_0^1 f(x, y) dx \right) dy = \int_0^1 0 dy = 0.
+        \end{align*}
+        By symmetry, the same argument also holds to show that $\int_0^1 \left( \int_0^1 f(x, y) dy \right) dx = 0$. \par
+        On the other hand, by countable additivity over the squares $Q_n$, $\iint_Q |f(x, y)| (dx dy) = \sum_{n = 1}^\infty |Q_n| / |Q_n| = \infty$, so $f$ is not integrable over $Q$. In particular, $\iint_Q f^+(x, y) (dx dy) = \iint_Q f^-(x, y) (dx dy) = \infty$, so $\iint_Q f(x, y) (dx dy)$ is undefined.
+
+    \item[3.6.21.]
+        \boldmath\textbf{Given $f, g, h \in L^1(\mathbb{R})$, prove the following statements.
+        }\unboldmath \par
+        \begin{enumerate}
+            \item
+                \boldmath\textbf{Convolution is commutative: $f * g = g * f$ a.e.
+                }\unboldmath \par
+                From the hypotheses, $(f * g)(x)$ exists for a.e. $x$. Then using the linear change of variable $y' = y - x$ (which takes on the same domain $\mathbb{R}$),
+                \begin{align*}
+                    (f * g)(x) &= \int_{-\infty}^\infty f(y) g(x - y) dy = \int_{-\infty}^\infty f(x + y') g(-y') dy' \\
+                    &= \int_{-\infty}^\infty f(x - y') g(y') dy' = \int_{-\infty}^\infty g(y') f(x - y') dy' = (g * f)(x)
+                \end{align*}
+                for a.e. $x$.
+            \item
+                \boldmath\textbf{Convolution is associative: $(f * g) * h = f * (g * h)$ a.e.
+                }\unboldmath \par
+                $L^1(\mathbb{R})$ is closed under convolution so $[(f * g) * h](x)$ exists for a.e. $x$. By Fubini's Theorem,
+                \begin{align*}
+                    [(f * g) * h](x) &= \int_{-\infty}^\infty \left( \int_{-\infty}^\infty f(z) g(y - z) dz \right) h(x - y) dy \\
+                    &= \int_{-\infty}^\infty \int_{-\infty}^\infty f(z) g(y - z) h(x - y) dy dz \\
+                    &= \int_{-\infty}^\infty f(z) \left( \int_{-\infty}^\infty g(y - z) h(x - y) dy \right) dz \\
+                    &= \int_{-\infty}^\infty f(z) \left( \int_{-\infty}^\infty g(y') h(x - z - y') dy' \right) dz \\
+                    &= \int_{-\infty}^\infty f(z) (g * h)(x - z) dz = [f * (g * h)](x)
+                \end{align*}
+                (where we use the linear change of variable $y' = y - z$) for a.e. $x$.
+            \item
+                \boldmath\textbf{Convolution distributes over addition: $f * (ag + bh) = af * g + bf * h$ a.e. for all scalars $a$ and $b$.
+                }\unboldmath \par
+                $ag + bh$ is integrable due to the linearity of the integral, so $[f * (ag + bh)](x)$ exists for a.e. $x$. Further by the linearity of the integral,
+                \begin{align*}
+                    [f * (ag + bh)](x) &= \int_{-\infty}^\infty f(y)(ag + bh)(x - y) dy \\
+                    &= \int_{-\infty}^\infty f(y) [ag(x - y) + bh(x - y)]dy \\
+                    &= a \int_{-\infty}^\infty f(y) g(x - y) dy + b \int_{-\infty}^\infty f(y) h(x - y) dy \\
+                    &= [a(f * g) + b(f * h)](x)
+                \end{align*}
+                for a.e. $x$.
+
+            \item
+                \boldmath\textbf{Convolution commutes with translation: $f * (T_a g) = (T_a f) * g = T_a(f * g)$ a.e. for all $a \in \mathbb{R}$.
+                }\unboldmath \par
+                We know that Lebesgue measure is invariant under translation, which means $L^1(\mathbb{R})$ is closed under translation and the three convolutions exist for a.e. $x$. Hence,
+                \begin{align*}
+                    [f * (T_a g)](x) &= \int_{-\infty}^\infty f(y) g(x - a - y) dy = T_a (f * g)(x) \\
+                    &= \int_{-\infty}^\infty f(y' - a) g(x - y') dy' = [(T_a f) * g](x)
+                \end{align*}
+                (using the linear change of variable $y' = y + a$) for a.e. $x$.
+        \end{enumerate}
+
+    \item[3.6.22.]
+        \boldmath\textbf{Given $f \in L^1(\mathbb{R})$ and $g \in L^\infty(\mathbb{R})$, prove the following statements.
+        }\unboldmath \par
+        \begin{enumerate}
+            \item
+                \boldmath\textbf{The integral defining $(f * g)(x)$ exists for \emph{every} $x \in \mathbb{R}$.
+                }\unboldmath \par
+                For all $x \in \mathbb{R}$,
+                \begin{align*}
+                    \int_{-\infty}^\infty |f(y)| |g(x - y)| dy \leq \norm{g}_\infty \int_{-\infty}^\infty |f(y)| dy = \norm{f}_1 \norm{g}_\infty < \infty
+                \end{align*}
+                so $f(y) g(x - y)$ is integrable and $\int_{-\infty}^\infty f(y) g(x - y) dy$ exists.
+            \item
+                \boldmath\textbf{$f * g$ is continuous on $\mathbb{R}$.
+                }\unboldmath \par
+                For all $x \in \mathbb{R}$,
+                \begin{align*}
+                    |(f * g)(x + h) - (f * g)(x)| &= |(g * f)(x + h) - (g * f)(x)| \\
+                    &= \left| \int_{-\infty}^\infty g(y) [f(x + h - y) - f(x - y)] dy \right| \\
+                    &\leq \norm{g}_\infty \int_{-\infty}^\infty |f(x + h - y) - f(x - y)| dy.
+                    %&= \norm{g}_\infty \int_{-\infty}^\infty |f(h - y') - f(-y')| dy' \to 0
+                \end{align*}
+                (using the change of variable $y' = y + x$) as $h \to 0$ %, noting that $\norm{f}_1 < \infty$. Because the quantity on the last line depends only on $h$ and not on $x$, $f * g$ is (uniformly) continuous on $\mathbb{R}$.
+                by strong continuity of translation (Exercise 3.5.8).
+            \item
+                \boldmath\textbf{$f * g$ is bounded on $\mathbb{R}$, and $\norm{f * g}_\infty \leq \norm{f}_1 \norm{g}_\infty$.
+                }\unboldmath \par
+                For all $x \in \mathbb{R}$, we have by part (a) that
+                \begin{align*}
+                    \left| (f * g)(x) \right| = \left| \int_{-\infty}^\infty f(y) g(x - y) dy \right| \leq \int_{-\infty}^\infty |f(y)| |g(x - y)| dy \leq \norm{f}_1 \norm{g}_\infty,
+                \end{align*}
+                which also shows that $f * g$ is bounded. Since $x$ was arbitrary,
+                \begin{align*}
+                    \norm{f * g}_\infty = \esssup_{x \in \mathbb{R}} |(f * g)(x)| \leq \norm{f}_1 \norm{g}_\infty.
+                \end{align*}
+        \end{enumerate}
+
+    \item[3.6.23.]
+        \boldmath\textbf{Let $E$ be a measurable subset of $\mathbb{R}$ such that $0 < |E| < \infty$.
+        }\unboldmath \par
+        \begin{enumerate}
+            \item
+                \boldmath\textbf{Prove that the convolution $\chi_E * \chi_{-E}$ is continuous.
+                }\unboldmath \par
+                %By regularity, for all $\epsilon > 0$ there exists a closed set $C \subset E$ such that $|E \setminus C| < \epsilon$, and since $|E| < \infty$, $C$ is hence compact.
+                First, we observe that $\norm{\chi_E}_\infty = \norm{\chi_{-E}}_\infty = 1 < \infty$ and $\norm{\chi_E}_1 = \norm{\chi_{-E}}_1 = |E| < \infty$, so $\chi_E, \chi_{-E} \in L^\infty(\mathbb{R}) \cap L^1(\mathbb{R})$. Then the result of Exercise 3(b) implies that $\chi_E * \chi_{-E}$ is continuous on $\mathbb{R}$.
+                \iffalse
+                    For all $x \in \mathbb{R}$, then,
+                    \begin{align*}
+                        |(\chi_E * \chi_{-E})(x + h) - (\chi_E * \chi_{-E})(x)|
+                        &= \left| \int_{-\infty}^\infty \chi_E(y) [\chi_{-E}(x + h - y) - \chi_{-E}(x - y)] dy \right| \\
+                        &\leq \norm{\chi_E}_\infty \int_{-\infty}^\infty |\chi_{-E}(x + h - y) - \chi_{-E}(x - y)| dy \\
+                        &= \int_{-\infty}^\infty |\chi_{-E}(h - y') - \chi_{-E}(-y')| dy' \to 0
+                    \end{align*}
+                    as $h \to 0$; because the quantity on the last line depends only on $h$ and not on $x$, $\chi_E * \chi_{-E}$ is (uniformly) continuous on $\mathbb{R}$.
+                \fi
+            \item
+                \boldmath\textbf{Prove the \emph{Steinhaus Theorem}: The set $E - E = \{ x - y : x, y \in E \}$ contains an open interval centered at the origin.
+                }\unboldmath \par
+                We have that
+                \begin{align*}
+                    (\chi_E * \chi_{-E})(x) &= \int_{-\infty}^\infty \chi_E(y) \chi_{-E}(x - y)dy = \int_{-\infty}^\infty \chi_E(y) \chi_E(y - x)dy \\
+                    &= |E \cap (E + x)|.
+                \end{align*}
+                Further, we know from part (a) that for all $0 < \epsilon < |E|$, there exists $\delta > 0$ such that if $|x - 0| = |x| < \delta$, then $|(\chi_E * \chi_{-E})(x) - (\chi_E * \chi_{-E})(0)| = ||E \cap (E + x)| - |E|| < \epsilon$, implying that $|E \cap (E + x)| > 0$ and so there exists $y \in E \cap (E + x)$. This can be rewritten as $y, y - x \in E$, giving $x = y - (y - x) \in E - E$. Because $x$ is an arbitrary point in $(-\delta, \delta)$, we conclude that $(-\delta, \delta) \subset E - E$.
+        \end{enumerate}
+\end{enumerate}
+
+\end{document}

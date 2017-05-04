@@ -1,0 +1,150 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amsthm, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{MATH 4032 - HW1 Solutions}
+\subsection*{2.}
+\begin{enumerate}
+    \item[1.]
+        \boldmath
+        \textbf{Criticize the proof that 1 is the largest natural number.} \par
+        \unboldmath
+        It makes the assumption that there exists a largest natural number, which can be disproved.
+
+    \item[3.]
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{Prove by induction that
+                \begin{align*}
+                    n! > \left( \frac{n}{e} \right)^n
+                \end{align*}
+                for $n \geq 1$, using the fact that $(1 + \frac{1}{n})^n < e$ for all $n$.} \par
+                \unboldmath
+                If $n = 1$, then it is true that $1! = 1 > \frac{1}{e} = \left( \frac{1}{e} \right)^1$. Now, if we assume the formula holds for $n \geq 1$, then we have that
+                \begin{align*}
+                    (n + 1)!= n!(n + 1) &> \left( \frac{n}{e} \right)^n (n + 1) \cdot \frac{e}{e} \\
+                    &> \frac{n^n(n + 1)}{e^n} \cdot \frac{\left( 1 + \frac{1}{n} \right)^n}{e} \\
+                    &= \frac{n^n(n + 1)}{e^{n + 1}} \cdot \frac{(n + 1)^n}{n^n} \\
+                    &= \left( \frac{n + 1}{e} \right)^{n + 1}.
+                \end{align*}
+
+            \item
+                \boldmath
+                \textbf{Use the arithmetic-geometric mean inequality to show that $n! < (\frac{n + 1}{2})^n$ for $n > 1$, and deduce that
+                \begin{align*}
+                    n! < e \left( \frac{n}{2} \right)^n
+                \end{align*}
+                for $n \geq 1$.} \par
+                \unboldmath
+                The general form of the AM-GM inequality for a set $\{ x_1, x_2, \cdots, x_n \}$ is as follows:
+                \begin{align*}
+                    \frac{x_1 + x_2 + \cdots + x_n}{n} \geq \sqrt[n]{x_1(x_2)\cdots(x_n)},
+                \end{align*}
+                with equality holding only if $x_1 = x_2 = \cdots = x_n$. If $\{ x_1, x_2, \cdots, x_n \} = \{ 1, 2, \cdots, n \}$ for $n > 1$, then the inequality becomes
+                \begin{gather*}
+                    \frac{1 + 2 + \cdots + n}{n} > \sqrt[n]{1(2)\cdots(n)} \\
+                    \frac{n(n + 1)}{2n} > \sqrt[n]{n!} \\
+                    \left( \frac{n + 1}{2} \right)^n > n!.
+                \end{gather*}
+                Also, since
+                \begin{gather*}
+                    \left( \frac{n + 1}{2} \right)^n = \left( \frac{n + 1}{2} \right)^n \cdot \frac{n^n}{n^n} = \left( \frac{n + 1}{n} \right)^n \left( \frac{n}{2} \right)^n < e \left( \frac{n}{2} \right)^n,
+                \end{gather*}
+                we have, from the fact that inequality of real numbers is a transitive relation,
+                \begin{align*}
+                    n! < e \left( \frac{n}{2} \right)^n.
+                \end{align*}
+        \end{enumerate}
+
+    \item[4.]
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{Prove that $\log x$ grows more slowly than $x^c$ for any positive number $c$.} \par
+                \unboldmath
+                If $c > 0$, then both $\log x$ and $x^c$ approach $\infty$ as $x \to \infty$. Then using L'Hospital's Rule,
+                \begin{align*}
+                    \lim_{x \to \infty} \frac{\log x}{x^c} = \lim_{x \to \infty} \frac{\frac{d}{dx} \log x}{\frac{d}{dx} x^c} = \lim_{x \to \infty} \frac{\frac{1}{x}}{cx^{c - 1}} = \lim_{x \to \infty} \frac{1}{cx^c} = 0,
+                \end{align*}
+                and hence $\log x$ grows more slowly than $x^c$.
+
+            \item
+                \boldmath
+                \textbf{Prove that, for any $c$, $d > 1$, we have $c^x > x^d$ for all sufficiently large $x$.} \par
+                \unboldmath
+                We can prove this by showing that $x^d / c^x \to 0$ as $x \to \infty$. Because the logarithmic function is increasing on the relevant domain, taking the logarithm of both functions does not change their relative rate of growth. Thus
+                \begin{align*}
+                    \lim_{x \to \infty} \frac{\log_x x^d}{\log_x c^x} = \lim_{x \to \infty} \frac{d}{x \log_x c} = \frac{d}{\log c} \lim_{x \to \infty} \frac{\log x}{x} = 0
+                \end{align*}
+                from part (a), and we have that $c^x$ grows faster than $x^d$.
+        \end{enumerate}
+
+    \item[5.]
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{We saw that there are $2^{2^3} = 256$ labelled families of subsets of a 3-set. How many unlabelled families are there?} \par
+                \unboldmath
+                The number of unlabelled configurations for the 1-sets and 2-sets is determined as follows. If a family contains either no 1-sets or all three 1-sets, then the three elements are indistinguishable from the perspective of the 2-sets, and the number of 2-sets is 0, 1, 2, or 3, for a total of 4 possible configurations. \par
+                If instead a family contains either one or two 1-sets, then one of the elements is distinguishable from the other two. There is still only one possible configuration if the number of 2-sets is 0 or 3, but if the number of 2-sets is 1, then the only 2-set may or may not contain the distinguishable element, and if the number of 2-sets is 2, then the number of 2-sets that contains the distinguishable element is either 1 or 2. This means the number of configurations here is 6. So far, we have enumerated $2(4) + 2(6) = 20$ configurations. \par
+                Finally, a family may or may not contain the empty set, which doubles the number of configurations; and a family may or may not contain the entire 3-set, which doubles the number again. In total, there are $20(2)(2) = 80$ possible unlabeled configurations.
+
+            \item
+                \boldmath
+                \textbf{Prove that the number $F(n)$ of unlabelled families of subsets of an $n$-set satisfies $\log_2 F(n) = 2^n + O(n\log n)$.} \par
+                \unboldmath
+                Since $2^{2^n}$ gives the number of labelled families of subsets of an $n$-set, we have that
+                \begin{align*}
+                    \frac{2^{2^n}}{n!} \leq F(n) \leq 2^{2^n},
+                \end{align*}
+                and using the inequality $n! \geq n^n$ gives the result
+                \begin{align*}
+                    \frac{2^{2^n}}{n^n} \leq F(n) \leq 2^{2^n},
+                \end{align*}
+                or (taking the base-2 log function of all sides)
+                \begin{align*}
+                    2^n - n\log_2 n \leq \log_2 F(n) \leq 2^n + 0.
+                \end{align*}
+                Both the left-hand and right-hand sides are contained in $2^n + O(n\log_2 n)$ because using $c = 1$ and $c = 0$ respectively, we have $|{-n}\log_2 n| \leq 1n\log_2 n$ and $0 \leq 0n\log_2 n$. Thus, $\log_2 F(n)$ is also contained in $2^n + O(n \log_2 n)$.
+        \end{enumerate}
+
+    \item[8.]
+        \boldmath
+        \textbf{A \textit{Boolean function} takes $n$ arguments, each of which can have the value TRUE or FALSE. The function takes the value TRUE or FALSE for each choice of values of its arguments. Prove that there are $2^{2^n}$ different Boolean functions. Why is this the same as the number of families of sets?} \par
+        \unboldmath
+        Because each argument has two choices of value, the number of choices of values for all arguments is $2^n$. Also, each function has two choices of output for each choice of values for all arguments, which means that the total number of possible functions is $2^{2^n}$. \par
+        A bijection may be drawn between any choice of values of arguments and some subset of a set of size $n$, consisting of all the elements which index into an argument with the value TRUE. Following this observation, we may draw another bijection between any Boolean function on these arguments and the family of subsets corresponding to the choices of values which cause the function to output true.
+
+    \item[10.]
+        \boldmath
+        \textbf{A function $f$ has \textit{polynomial growth} of degree $d$ if there exist positive real numbers $a$ and $b$ such that $an^d < f(n) < bn^d$ for all sufficiently large $n$. Suppose that $f$ has polynomial growth, and $g$ has exponential growth with exponential constant greater than 1 (as defined in the text). Prove that $f(n) < g(n)$ for all sufficiently large $n$. If $f(n) = 10^6 n^{10^6}$ and $g(n) = (1.000001)^n$, how large is 'sufficiently large'?} \par
+        \unboldmath
+        If $c$ denotes the exponential constant and $\epsilon < c$, then from the definitions of polynomial and exponential growth,
+        \begin{align*}
+            \lim_{n \to \infty} \frac{f(n)}{g(n)} \leq \lim_{n \to \infty} \frac{bn^d}{(c - \epsilon)^n} = \lim_{n \to \infty} \frac{bd!}{n(n - 1) \cdots (n - d + 1)(c - \epsilon)^{n - d}} = 0.
+        \end{align*}
+        Since we know the limit is nonnegative, the above is an equality, and thus $f(n)$ grows more slowly than $g(n)$. \qed \par
+        If $f(n) = 10^6 n^{10^6}$ and $g(n) = (1.000001)^n$, then setting $f(n) = g(n)$ allows us to find the value of $n$ for which $g(n)$ surpasses $f(n)$.
+
+    \item[11.]
+        \boldmath
+        \textbf{Let $\mathcal{B}$ be a set of subsets of the set $\{ 1, 2, \cdots, v \}$, containing exactly $b$ sets. Suppose that
+        \begin{itemize}
+            \item
+                every set in $\mathcal{B}$ contains exactly $k$ elements;
+            \item
+                for $i = 1, 2, \cdots, v$, the element $i$ is contained in exactly $r$ members of $\mathcal{B}$.
+        \end{itemize}
+        Prove that $bk = vr$, and give an example of such a system, with $v = 6$, $k = 3$, $b = 4$, $r = 2$.} \par
+        \unboldmath
+        Let $A = \{ 1, \cdots, v \}$, $B = \{ 1, \cdots, b \}$, and $S = \{ (i, j) : i$ is contained in the $j$th set of $\mathcal{B} \}$. Then every member of $A$ is in $r$ pairs in $S$, and every member of $B$ is in $k$ pairs of $S$. From the double counting principle, $vr = bk$. \par
+        One example of such a system is $\{ \{1, 2, 3\}, \{4, 5, 6\}, \{1, 2, 4\}, \{3, 5, 6\} \}$.
+\end{enumerate}
+\end{document}

@@ -1,0 +1,100 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr, graphicx}
+\usepackage[margin=1in, includehead, includefoot, heightrounded]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\newcommand*\dist{\mathop{\!\mathrm{d}}}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\begin{document}
+
+\section*{MATH 6337 -- HW2 Solutions}
+\begin{enumerate}
+    \item[0.1.24.(a)]
+        \boldmath\textbf{Prove that given $g : \mathbb{R}^d \to \mathbb{R}$ and given $r > 0$, the function
+        \begin{align*}
+            h(x) = \inf\{ g(y) : y \in B_r(x) \}
+        \end{align*}
+        is upper semicontinuous at every point.
+        }\unboldmath \par
+        Let $x \in \mathbb{R}^d$. Due to properties of the infimum, we know that for all $\epsilon > 0$, there exists $y_0 \in B_r(x)$ such that
+        \begin{align*}
+            g(y_0) - \epsilon \leq h(x) \Rightarrow g(y_0) \leq h(x) + \epsilon.
+        \end{align*}
+        Now take a sequence $\{x_n\}_{n = 1}^\infty \to x$. Since $y_0$ is contained in an open ball contained in $B_r(x)$, there exists some $N \in \mathbb{N}$ such that for all $n \geq N$, $y_0 \in B_r(x_n)$. By the definition of infimum, we have that
+        \begin{align*}
+            h(x_n) \leq g(y_0).
+        \end{align*}
+        Combining the inequalities gives $h(x_n) \leq h(x) + \epsilon$ for all $\epsilon > 0$, or $h(x_n) \leq h(x)$. Thus, $\lim\sup_{n \to \infty} h(x_n) \leq h(x)$, and hence $h(x)$ is upper semicontinuous at $x$.
+
+    \item[0.1.24.(b)]
+        \boldmath\textbf{Prove that if $f : \mathbb{R}^d \to \mathbb{R}$, then $f$ is continuous at $x$ if and only if $f$ is both upper semicontinuous and lower semicontinuous at $x$.
+        }\unboldmath \par
+        Let $x \in \mathbb{R}^d$. \par
+        ($\Rightarrow$) For all $\epsilon > 0$, we know that there exists $\delta > 0$ such that if $\dist(x, y) < \delta$, then $|f(x) - f(y)| \leq \epsilon$. This implies both that $f(y) \leq f(x) + \epsilon$ and that $f(y) \geq f(x) - \epsilon$. \par
+        ($\Leftarrow$) For all $\epsilon > 0$, we know that there exists $\delta_1, \delta_2 > 0$ such that if $\dist(x, y) < \delta_1$, then $f(y) \leq f(x) + \epsilon$, and if $\dist(x, y) < \delta_2$, then $f(y) \geq f(x) - \epsilon$. If we take $\delta = \min\{ \delta_1, \delta_2 \}$, then $|f(x) - f(y)| \leq \epsilon$ whenever $\dist(x, y) < \delta$.
+
+    \item[1.1.15.]
+        \boldmath\textbf{Given sets $E_k \subseteq \mathbb{R}^d$, prove the following statements.
+        }\unboldmath
+        \begin{enumerate}
+            \item
+                \boldmath\textbf{$\lim\sup E_k$ consists of those points $x \in \mathbb{R}^d$ that belong to infinitely many of the $E_k$.
+                }\unboldmath \par
+                There is no upper bound on the value of $k$ such that $x \in E_k$, which means that $x \in \bigcup_{k = j}^\infty E_k$ for all $j \in \mathbb{N}$. In other words, $x \in \bigcap_{j = 1}^\infty \bigcup_{k = j}^\infty E_k$. \par
+                Conversely, if a point is contained in $\lim\sup E_k$, then suppose for the purpose of contradiction that the values of $k$ such that $x \in E_k$ are bounded above by some $k_0 \in \mathbb{N}$. But then $x \notin \bigcup_{k = k' + 1}^\infty E_k$, and hence $x \notin \bigcap_{j = 1}^\infty \bigcup_{k = j}^\infty E_k$, a contradiction.
+            \item
+                \boldmath\textbf{$\lim\inf E_k$ consists of those $x$ which belong to all but finitely many $E_k$.
+                }\unboldmath \par
+                Let $k_0 \in \mathbb{N}$ be such that $x \in E_k$ for all $k \geq k_0$. Then $x \in \bigcap_{k = k_0}^\infty E_k$, and hence $x \in \bigcup_{j = 1}^\infty \bigcap_{k = j}^\infty E_k$. \par
+                Conversely, if a point is contained in $\lim\inf E_k$, then suppose for the purpose of contradiction that $x$ is missing from infinitely many of the $E_k$, meaning that there is no $k_0 \in \mathbb{N}$ such that $x \in E_k$ for all $k \geq k_0$. In other words, $x \notin \bigcap_{k = j}^\infty E_k$ for any $j \in \mathbb{N}$, and hence $x \notin \bigcup_{j = 1}^\infty \bigcap_{k = j}^\infty E_k$, a contradiction.
+        \end{enumerate}
+
+    \item[1.1.16.]
+        \boldmath\textbf{(Borel-Cantelli Lemma) Prove that if sets $E_k \subseteq \mathbb{R}^d$ satisfy $\sum|E_k|_e < \infty$, then $\lim\inf E_k$ and $\lim\sup E_k$ each have exterior measure zero.
+        }\unboldmath \par
+        We can deduce that $\lim_{k \to \infty} |E_k|_e = 0$, and hence we have
+        \begin{align*}
+            \left| \bigcap_{k = j}^\infty E_k \right|_e \leq \lim_{k \to \infty} |E_k|_e \Rightarrow \left| \bigcap_{k = j}^\infty E_k \right|_e = 0
+        \end{align*} \par
+        for all $j \geq 1$, since the intersection is contained in each of the $E_k$. By countable subadditivity,
+        \begin{align*}
+            \left| \bigcup_{j = 1}^\infty \bigcap_{k = j}^\infty E_k \right|_e \leq \sum_{j = 1}^\infty \left| \bigcap_{k = j}^\infty E_k \right|_e = 0 \Rightarrow \left| \bigcup_{j = 1}^\infty \bigcap_{k = j}^\infty E_k \right|_e = 0. \qed
+        \end{align*}
+        Next, another application of monotonicity and countable subadditivity gives
+        \begin{align*}
+            \left| \bigcap_{j = 1}^\infty \bigcup_{k = j}^\infty E_k \right|_e \leq \left| \bigcup_{k = j}^\infty E_k \right|_e \leq \sum_{k = j}^\infty \left| E_k \right|_e = \sum_{k = 1}^\infty \left| E_k \right|_e - \sum_{k = 1}^{j - 1} \left| E_k \right|_e
+        \end{align*}
+        for all $j \geq 1$. The right-hand side approaches $0$ as $j \to \infty$, which means that the left-hand side must also be $0$. \qed
+
+    \item[1.1.20.]
+        \boldmath\textbf{Show that if $Q_1, \cdots, Q_n$ are nonoverlapping boxes in $\mathbb{R}^d$, then
+        \begin{align*}
+            |Q_1 \cup \cdots \cup Q_n|_e = \text{vol}(Q_1) + \cdots + \text{vol}(Q_n).
+        \end{align*}
+        }\unboldmath \par
+        Due to subadditivity and the definition of exterior measure,
+        \begin{align*}
+            \left| \bigcup_{k = 1}^n Q_k \right|_e \leq \sum_{k = 1}^n |Q_k|_e \leq \sum_{k = 1}^n \text{vol}(Q_k).
+        \end{align*}
+        To prove the converse inequality, it is easy to see that every cover of $\cup_{i = 1}^n Q_i$ can be written in the form $\{Q_{i, k}\}_{1 \leq i \leq n, k \in \mathbb{N}}$, permitting duplicates. Let $\{Q_{i, k}\}_{k \in \mathbb{N}}$ be any cover of $Q_i$ by countably many boxes given $1 \leq i \leq n$, and given $\epsilon > 0$ and $k \in \mathbb{N}$, let $Q_{i, k}^*$ be a box containing $Q_{i, k}$ in its interior such that
+        \begin{align*}
+            \text{vol}(Q_{i, k}^*) \leq (1 + \epsilon) \text{vol}(Q_{i, k}),
+        \end{align*}
+        similar to that given in the proof of Theorem 1.1.17. Thus, the interiors of the $Q_{i, k}^*$ form an open cover of $Q_i$, and, since the latter is compact, a finite subcover $\{Q_{i, k}\}_{1 \leq k \leq N}$ where $N \in \mathbb{N}$. By Exercise 1.1.7,
+        \begin{align*}
+            \text{vol}(Q_i) \leq \sum_{k = 1}^N \text{vol}(Q_{i, k}^*) \leq (1 + \epsilon) \sum_{k = 1}^N \text{vol}(Q_{i, k}) \leq (1 + \epsilon) \sum_{k = 1}^\infty \text{vol}(Q_{i, k}),
+        \end{align*}
+        and thus
+        \begin{align*}
+            \sum_{i = 1}^n \text{vol}(Q_i) \leq (1 + \epsilon) \sum_{i = 1}^n \sum_{k = 1}^\infty \text{vol}(Q_{i, k}).
+        \end{align*}
+        Since the cover was arbitrary, we may take the infimum over all such covers to obtain $\sum_{i = 1}^n \text{vol}(Q_i) \leq (1 + \epsilon) |\cup_{i = 1}^n Q|_e$, where $\epsilon$ is arbitrary.
+\end{enumerate}
+
+\end{document}

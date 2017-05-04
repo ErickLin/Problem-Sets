@@ -1,0 +1,180 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, dsfont, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{MATH 3225 - HW8 Solutions}
+
+\begin{enumerate}
+    \item[1.]
+        \begin{enumerate}
+            \item
+                The cumulative distribution function of $Z_n$ is
+                \begin{align*}
+                    \mathbb{P}(Z_n \leq z) &= \mathbb{P}(X_1 \leq z, X_2 \leq z, \cdots, X_n \leq z) \\
+                    &= \prod_{i = 1}^n \mathbb{P}(X_i \leq z) \\
+                    &=  \begin{cases}
+                        0, &z \leq 0 \\
+                        \left( \frac{z}{a} \right)^n, &0 < z < a \\
+                        1, &z \geq a
+                    \end{cases}
+                \end{align*}
+                since the $X_i$ are independent. Then we have, for all $\epsilon > 0$,
+                \begin{align*}
+                    \mathbb{P}(Z_n - a > \epsilon) &= 1 - \mathbb{P}(Z_n - a \leq \epsilon) \\
+                    &= 1 - \mathbb{P}(Z_n \leq a + \epsilon) \\
+                    &= 0
+                \end{align*}
+                and
+                \begin{gather*}
+                    \mathbb{P}(a - Z_n > \epsilon) = \mathbb{P}(Z_n < a - \epsilon) = \left( \frac{a - \epsilon}{a} \right)^n,
+                \end{gather*}
+                so it is true that for all small positive $\epsilon$, $\mathbb{P}(|Z_n - a| > \epsilon) \to 0$ as $n \to \infty$.
+
+            \item
+                The cumulative distribution function of $\sqrt{Z_n}$ is
+                \begin{align*}
+                    \mathbb{P}(\sqrt{Z_n} \leq z) &= \mathbb{P}(\sqrt{X_1} \leq z, \sqrt{X_2} \leq z, \cdots, \sqrt{X_n} \leq z) \\
+                    &= \prod_{i = 1}^n \mathbb{P}(\sqrt{X_i} \leq z) \\
+                    &= \prod_{i = 1}^n \mathbb{P}(X_i \leq z^2) \\
+                    &=  \begin{cases}
+                        \left( \frac{z^2}{a} \right)^n, &0 \leq |z| < a \\
+                        1, &|z| \geq a
+                    \end{cases}
+                \end{align*}
+                where the first step is justified because the square root function is an increasing function on its domain, and thus the max and square root operators may be interchanged. Then we have, for all $\epsilon > 0$,
+                \begin{align*}
+                    \mathbb{P}(\sqrt{Z_n} - \sqrt{a} > \epsilon) &= 1 - \mathbb{P}(\sqrt{Z_n} - \sqrt{a} \leq \epsilon) \\
+                    &= 1 - \mathbb{P}(\sqrt{Z_n} \leq \sqrt{a} + \epsilon) \\
+                    &= 0
+                \end{align*}
+                and
+                \begin{gather*}
+                    \mathbb{P}(\sqrt{a} - \sqrt{Z_n} > \epsilon) = \mathbb{P}(\sqrt{Z_n} < \sqrt{a} - \epsilon) = \left( \frac{(\sqrt{a} - \epsilon)^2}{a} \right)^n,
+                \end{gather*}
+                so it is true that for all small positive $\epsilon$, $\mathbb{P}(|Z_n - a| > \epsilon) \to 0$ as $n \to \infty$.
+
+            \item
+                With $a = 1$ we have
+                \begin{align*}
+                    \mathbb{P}(U_n \leq x) &= \mathbb{P}(n(1 - Z_n) \leq x) \\
+                    &= \mathbb{P} \left( 1 - Z_n \leq \frac{x}{n} \right) \\
+                    &= \mathbb{P} \left( Z_n \geq 1 - \frac{x}{n} \right) \\
+                    &= 1 - \mathbb{P} \left( Z_n < 1 - \frac{x}{n} \right) \\
+                    &= \begin{cases}
+                        1, &1 - \frac{x}{n} \leq 0 \\
+                        1 - \left(1 - \frac{x}{n} \right)^n, &0 < 1 - \frac{x}{n} < 1 \\
+                        0, &1 - \frac{x}{n} \geq 1
+                    \end{cases}
+                \end{align*}
+                and
+                \begin{align*}
+                    \lim_{n \to \infty} \mathbb{P}(U_n \leq x) = \begin{cases}
+                        1 - e^{-x}, &x > 0 \\
+                        0 &\text{otherwise}
+                    \end{cases}.
+                \end{align*}
+        \end{enumerate}
+
+    \item[5.]
+        Let $X_1, X_2, \cdots$ be independent Poisson random variables with parameter $1$, and let $S_n = X_1 + X_2 + \cdots + X_n$. Then $S_n$ is a Poisson random variable with parameter $n$. The central limit theorem tells us that as $n \to \infty$, in particular,
+        \begin{align*}
+            \mathbb{P} \left( \frac{S_n - n}{\sqrt{n}} \leq 0 \right) &\to \int_{-\infty}^0 \frac{1}{\sqrt{2\pi}} e^{-u^2 / 2} du \\
+            \mathbb{P}(S_n \leq n) &\to \frac{1}{2} \\
+            e^{-n} \sum_{k = 0}^n \frac{n^k}{k!} &\to \frac{1}{2}.
+        \end{align*}
+
+    \item[7.]
+        Let $U_n = X_n - X$ and $V_n = Y_n - Y$. We have that
+        \begin{align*}
+            \lim_{n \to \infty} \mathbb{E}(U_n^2) = 0 \qquad \lim_{n \to \infty} \mathbb{E}(V_n^2) = 0
+        \end{align*}
+        and from the Cauchy-Schwarz inequality,
+        \begin{align*}
+            [\mathbb{E} (U_n V_n)]^2 &\leq \mathbb{E}(U_n^2) \mathbb{E}(V_n^2) \\
+            \lim_{n \to \infty}[\mathbb{E} (U_n V_n)]^2 &\leq \lim_{n \to \infty} \mathbb{E}(U_n^2) \mathbb{E}(V_n^2) \\
+            [\lim_{n \to \infty} \mathbb{E} (U_n V_n)]^2 &\leq \lim_{n \to \infty} \mathbb{E}(U_n^2) \lim_{n \to \infty} \mathbb{E}(V_n^2) \\
+            [\lim_{n \to \infty} \mathbb{E} (U_n V_n)]^2 &\leq 0 \\
+            \lim_{n \to \infty} \mathbb{E} (U_n V_n) &= 0
+        \end{align*}
+        where we have made use of the algebraic limit theorem and the trivial inequality. Thus
+        \begin{align*}
+            \lim_{n \to \infty} \mathbb{E}([U_n + V_n]^2) &= \lim_{n \to \infty} \mathbb{E}(U_n^2 + 2U_nV_n + V_n^2) \\
+            &= \lim_{n \to \infty} \mathbb{E}(U_n^2) + 2\lim_{n \to \infty} \mathbb{E}(U_n V_n) + \lim_{n \to \infty} \mathbb{E}(V_n^2) \\
+            &= 0.
+        \end{align*}
+        Since $U_n + V_n = (X_n + Y_n) - (X + Y)$, $X_n + Y_n$ converges to $X + Y$ in mean square.
+
+    \item[8.]
+        We have that
+        \begin{align*}
+            \lim_{n \to \infty} \mathbb{E} \left[ (X_n - X)^2 \right] = 0
+        \end{align*}
+        and from the Cauchy-Schwarz inequality,
+        \begin{gather*}
+            \left( \mathbb{E} \left[ 1(X_n - X) \right] \right)^2 \leq \mathbb{E}(1^2) \mathbb{E} \left[ (X_n - X)^2 \right] \\
+            [\mathbb{E}(X_n - X)]^2 \leq \mathbb{E} \left[ (X_n - X)^2 \right].
+        \end{gather*}
+        Taking the limit of both sides,
+        \begin{align*}
+            \lim_{n \to \infty} [\mathbb{E}(X_n - X)]^2 \leq \lim_{n \to \infty} \mathbb{E} \left[ (X_n - X)^2 \right] = 0.
+        \end{align*}
+        Applying the algebraic limit theorem and the trivial inequality,
+        \begin{align*}
+            \lim_{n \to \infty} \mathbb{E}(X_n - X) = 0
+        \end{align*}
+        and because expectation is linear,
+        \begin{align*}
+            \lim_{n \to \infty} \mathbb{E}(X_n) = \mathbb{E}(X).
+        \end{align*}
+
+        \iffalse
+        \begin{align*}
+            [\mathbb{E} (X_n X)]^2 \leq \mathbb{E} \left( X_n^2 \right) \mathbb{E} \left( X^2 \right).
+        \end{align*}
+        Because expectation is linear,
+        \begin{align*}
+            \mathbb{E} \left[ (X_n - X)^2 \right] &= \mathbb{E} \left( X_n^2 \right) - 2\mathbb{E}(X_n X) + \mathbb{E} \left( X^2 \right) \\
+            &\geq \mathbb{E} \left( X_n^2 \right) - 2\sqrt{\mathbb{E}(X_n^2) \mathbb{E}(X^2)} + \mathbb{E} \left( X^2 \right) \\
+            &= \left( \sqrt{\mathbb{E}(X_n^2)} - \sqrt{\mathbb{E}(X^2)} \right)^2
+        \end{align*}
+        and taking the limit of both sides,
+        \begin{align*}
+            \lim_{n \to \infty} \mathbb{E} \left[ (X_n - X)^2 \right] = 0 \geq \lim_{n \to \infty} \left( \sqrt{\mathbb{E}(X_n^2)} - \sqrt{\mathbb{E}(X^2)} \right)^2.
+        \end{align*}
+        Applying the composition rule for limits and the trivial inequality,
+        \begin{gather*}
+            \lim_{n \to \infty} \left( \sqrt{\mathbb{E}(X_n^2)} - \sqrt{\mathbb{E}(X^2)} \right) = 0 \\
+            \lim_{n \to \infty} \sqrt{\mathbb{E}(X_n^2)} = \sqrt{\mathbb{E}(X^2)} \\
+            \lim_{n \to \infty} \mathbb{E} \left( X_n^2 \right) = \mathbb{E} \left( X^2 \right).
+        \end{gather*}
+        \fi
+
+        \bigskip
+
+        Now suppose we construct a sequence $\{ X_n \}$ such that each $X_n$ is a random variable with mass function
+        \begin{align*}
+            \mathbb{P}(X_n = 0) = 1 - \frac{1}{n}, \qquad \mathbb{P}(X_n = n) = \frac{1}{n}.
+        \end{align*}
+        Then for all $\epsilon > 0$ and $n > \epsilon$,
+        \begin{align*}
+            \mathbb{P}(|X_n - 0| > \epsilon) = \mathbb{P}(X_n > \epsilon) = \mathbb{P}(X_n = n) = \frac{1}{n}
+        \end{align*}
+        and
+        \begin{align*}
+            \lim_{n \to \infty} \mathbb{P}(|X_n - 0| > \epsilon) = \lim_{n \to \infty} \frac{1}{n} = 0
+        \end{align*}
+        which shows that $\{ X_n \}$ converges to $0$ in probability. However,
+        \begin{align*}
+            \mathbb{E}(X_n) = 0 \left(1 - \frac{1}{n} \right) + n \left( \frac{1}{n} \right) = 1
+        \end{align*}
+        which means that $\{ \mathbb{E}(X_n) \}$ does not converge to $\mathbb{E}(0) = 0$.
+
+\end{enumerate}
+
+\end{document}

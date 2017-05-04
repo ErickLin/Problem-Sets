@@ -1,0 +1,193 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsmath, gensymb, mathrsfs, siunitx, textcomp}
+\usepackage[margin=1in]{geometry}
+
+\def\dbar{{\mathchar'26\mkern-12mu d}}
+
+\begin{document}
+
+\section*{PHYS 3141 - Problem Set 3 Solutions}
+
+\begin{enumerate}
+    \item
+        \begin{align*}
+            Q_P &= m c_P \Delta \theta \\
+            &= (\SI{12}{g}) (\SI{0.385}{J / g \degree C}) (\SI{35}{\degree C} - \SI{10}{\degree C}) \\
+            &= (\SI{115.5}{J}) (\SI{0.239}{cal / J}) \\
+            &\approx \SI{28}{cal}
+        \end{align*}
+
+    \item
+        \begin{align*}
+            Q_\text{w} &= m_\text{w} c_\text{w} \Delta \theta_\text{w} \\
+            &= (\SI{10.0}{L}) (\SI{1000.}{g / L}) (\SI{4.186}{J / g \degree C}) (\SI{21.3}{\degree C} - \SI{20.0}{\degree C}) \\
+            &= \SI{54418}{J} \\
+            Q_{\text{Al}} &= m_{\text{Al}} c_{\text{Al}} \Delta \theta_{\text{Al}} \\
+            \SI{-54418}{J} &= (\SI{1000.}{g}) c_{\text{Al}} (\SI{21.3}{\degree C} - \SI{80.0}{\degree C}) \\
+            c_{\text{Al}} &\equiv 0.927
+        \end{align*}
+
+    \item
+        \begin{align*}
+            \Delta \theta &= \frac{Q_P}{m c_P} \\
+            &= \frac{\SI{2000}{cal}}{(\SI{65}{kg}) (\SI{4.186}{J / g \degree C})} (\SI{4.184}{J / cal}) (\SI{0.001}{kg / g}) \\
+            &\approx \SI{0.031}{\degree C} \approx \SI{0.055}{\degree F}
+        \end{align*}
+
+    \item
+        \begin{align*}
+            \frac{W_P}{Q_P} &= \frac{\mathscr{P}t}{m c_P \Delta \theta} \\
+            &= \frac{(\SI{33e3}{ft{-lb}/min} \times \SI{2.205}{N / lb}) (\SI{2.5}{hr})}{(\SI{4.186}{J / g \degree C}) (\SI{27}{lb} \times \SI{2.205}{N / lb} \times \frac{1}{\SI{9.81}{m/s^2}} \times \SI{1000}{g / kg}) (\SI{100}{\degree C} - \SI{0}{\degree C})} \\
+            &\hspace{4cm} \times (\SI{60}{min / hr}) (\SI{2.54}{cm / in.}) (\SI{0.010}{m / cm}) (\SI{12}{in. / ft}) \\
+            &\approx 1.3 \approx \SI{5.5}{J / cal}
+        \end{align*}
+
+    \item
+        \begin{align*}
+            Q_P &= -W_P \\
+            &= Fd \\
+            &= mgd \\
+            &= m (\SI{9.81}{m / s^2}) (\SI{800}{ft}) (\SI{0.305}{m / ft}) \\
+            \Delta \theta &= \frac{Q_P}{m c_P} \\
+            &= \frac{m (\SI{9.81}{m / s^2}) (\SI{800}{ft}) (\SI{0.305}{m / ft})}{m (\SI{4.186}{J / g \degree C})} \left( \frac{\SI{1}{kg}}{\SI{1000}{g}} \right) \\
+            &= \SI{0.572}{\degree C}
+        \end{align*}
+
+    \item
+        \begin{align*}
+            \sum_{k = 1}^{4} W_k &= \sum_{k = 1}^{4} Q_k \\
+            \SI{50}{J} + \SI{30}{J} - \SI{80}{J} + W_4 &= (\SI{226}{cal} - \SI{100}{cal}) (\SI{4.184}{J / cal}) \\
+            W_4 &= \SI{530}{J}
+        \end{align*}
+
+    \item
+        \begin{enumerate}
+            \item A miniscule amount, unless the liquid and the stirring instrument are originally at the same temperature.
+
+            \item Yes.
+
+            \item Because work is done on the system and its magnitude exceeds that of the heat transferred, the First Law of Thermodynamics states that $\Delta U > 0$.
+        \end{enumerate}
+
+    \item
+        Because no work or heat is transferred across the boundary, the internal energy remains the same.
+
+    \item
+        \begin{align*}
+            Q &= n \Delta c_P \Delta \theta \\
+            &= n \left( b \theta_f - \frac{c}{\theta_f^2} - b \theta_i + \frac{c}{\theta_i^2} \right) (\theta_f - \theta_i)
+        \end{align*}
+        
+    \item
+        \begin{enumerate}
+            \item
+                From the First Law of Thermodynamics for a hydrostatic system,
+                \begin{align*}
+                    \dbar Q &= dU + PdV \\
+                    &= dU + P \left( \frac{\partial V}{\partial \theta} \right)_P d\theta + P \left( \frac{\partial V}{\partial P} \right)_P dP
+                \end{align*}
+                and since $U$ is a function of $\theta$ and $P$,
+                \begin{align*}
+                    dU = \left( \frac{\partial U}{\partial \theta} \right)_P d\theta + \left( \frac{\partial U}{\partial P} \right)_P dP.
+                \end{align*}
+                Then
+                \begin{align*}
+                    \dbar Q &= \left( \frac{\partial U}{\partial \theta} \right)_P d\theta + \left( \frac{\partial U}{\partial P} \right)_P dP + P \left( \frac{\partial V}{\partial \theta} \right)_P d\theta + P \left( \frac{\partial V}{\partial P} \right)_P dP \\
+                    &= \left[ \left( \frac{\partial U}{\partial \theta} \right)_P + P \left( \frac{\partial V}{\partial \theta} \right)_P \right] d\theta + \left[ \left( \frac{\partial U}{\partial P} \right)_P + P \left( \frac{\partial V}{\partial P} \right)_P \right] dP. \\
+                \end{align*}
+
+            \item
+                Dividing the result of (a) by $d\theta$ on both sides,
+                \begin{align*}
+                    \frac{\dbar Q}{d\theta} &= \left( \frac{\partial U}{\partial \theta} \right)_P + P \left( \frac{\partial V}{\partial \theta} \right)_P + \left[ \left( \frac{\partial U}{\partial P} \right)_P + P \left( \frac{\partial V}{\partial P} \right)_P \right] \frac{dP}{d\theta}. \\
+                \end{align*}
+                If $P$ is constant, $dP = 0$, and
+                \begin{align*}
+                    \frac{\dbar Q}{d\theta} = \left(\frac{\dbar Q}{d\theta} \right)_P &= \left( \frac{\partial U}{\partial \theta} \right)_P + P \left( \frac{\partial V}{\partial \theta} \right)_P.
+                \end{align*}
+                By definition, $(\dbar Q / d \theta)_P = C_P$ and $(\partial V / \partial \theta)_P = V \beta$. As a result
+                \begin{align*}
+                    \left( \frac{\partial U}{\partial \theta} \right)_P &= C_P - PV\beta.
+                \end{align*}
+
+            \item
+                Dividing the result of (a) by $dP$ on both sides,
+                \begin{align*}
+                    \frac{\dbar Q}{dP} &= \left[ \left( \frac{\partial U}{\partial \theta} \right)_P + P \left( \frac{\partial V}{\partial \theta} \right)_P \right] \frac{d\theta}{dP} + \left( \frac{\partial U}{\partial P} \right)_P + P \left( \frac{\partial V}{\partial P} \right)_P. \\
+                \end{align*}
+                If $\theta$ is constant, $d\theta = 0$, and
+                \begin{align*}
+                    \frac{\dbar Q}{dP} = \left( \frac{\dbar Q}{dP} \right)_\theta &= \left( \frac{\partial U}{\partial P} \right)_\theta + P \left( \frac{\partial V}{\partial P} \right)_\theta. \\
+                \end{align*}
+                By definition, $(\partial V / \partial P)_\theta = -V \kappa$ and $(\dbar Q / d \theta)_V = C_V$. As a result
+                \begin{align*}
+                    \left( \frac{\partial U}{\partial P} \right)_\theta &= PV\kappa + \left( \frac{\dbar Q}{dP} \right)_\theta \\
+                    &= PV\kappa + \left( \frac{\dbar Q}{d\theta} \right)_P \left( \frac{\partial \theta}{\partial V} \right)_P \left( \frac{\partial V}{\partial P} \right)_\theta - \left( \frac{\dbar Q}{d\theta} \right)_V \left( \frac{\partial V}{\partial P} \right)_\theta \left( \frac{\partial \theta}{\partial V} \right)_P \\
+                    &= PV\kappa + \left[ \left( \frac{\dbar Q}{d\theta} \right)_P - \left( \frac{\dbar Q}{d\theta} \right)_V \right] \left( \frac{\partial V}{\partial P} \right)_\theta \left( \frac{\partial \theta}{\partial V} \right)_P \\
+                    &= PV\kappa + (C_P - C_V) \left(-\frac{\kappa}{\beta} \right) \\
+                    &= PV\kappa + (C_V - C_P) \left(\frac{\kappa}{\beta} \right) \\
+                \end{align*}
+        \end{enumerate}
+
+    \item
+        \begin{enumerate}
+            \item
+                In the equilibrium state, the cylinder as a whole should have no temperature or pressure gradient, which means that the final temperature and pressure should be the same on both the left and the right. Because the initial temperature is $\theta_i$ on both sides, no heat is transferred and the final temperature is $\theta_f = \theta_i$. The total quantity of gas is given by the ideal gas equation:
+                \begin{align*}
+                    n = n_\text{left} + n_\text{right} &= \frac{P_\text{left} V_\text{left}}{R \theta_0} + \frac{P_\text{right} V_\text{right}}{R \theta_0} \\
+                    &= \frac{2 P_0 V_0}{R \theta_0} + \frac{3 P_0 V_0}{R \theta_0} \\
+                    &= \frac{5 P_0 V_0}{R \theta_0}
+                \end{align*}
+                In addition, the total volume is $V = V_0 + 3V_0 = 4V_0$. Then the final pressure is given by
+                \begin{align*}
+                    P_f &= \frac{n R \theta_f}{V} = \frac{5 P_0 V_0}{R \theta_0} \frac{R \theta_0}{4V_0} = \frac{5 P_0}{4}.
+                \end{align*}
+
+            \item
+                \begin{align*}
+                    V_{fl} &= \frac{n_\text{left} R \theta_f}{P_f} & V_{fr} &= \frac{n_\text{right} R \theta_f}{P_f} \\
+                    &= \frac{3 P_0 V_0}{R \theta_0} \frac{4 R \theta_0}{5 P_0} & &= \frac{2 P_0 V_0}{R \theta_0} \frac{4 R \theta_0}{5 P_0} \\
+                    &= \frac{8V_0}{5} & &= \frac{12V_0}{5} \\
+                \end{align*}
+
+            \item
+                The pressure in each partition causes a force to be exerted on the piston, and as the piston moves the force imbalance decreases until the net force is zero. This process is not quasistatic because it is permitted to happen at the natural rate and not constrained to large time-scales.
+        \end{enumerate}
+
+    \item
+        \begin{enumerate}
+            \item
+                Let $\theta_0$ denote the initial temperature of the partition between the piston and the closed end. Using the ideal gas equation,
+                \begin{align*}
+                    P &= \frac{nR \theta_0}{V} \\
+                    P(x) &= \frac{nR \theta_0}{A(l - x)} \\
+                    F(x) &= \frac{nR \theta_0}{l - x} \\
+                    \frac{F(x)}{x} &= \frac{nR \theta_0}{x(l - x)}
+                \end{align*}
+
+            \item
+                The temperature now varies with $x$, so
+                \begin{align*}
+                    \frac{F(x)}{x} &= \frac{nR \theta(x)}{x(l - x)}
+                \end{align*}
+
+            \item
+                The gas cushion does not experience mechanical strain, and in theory, there is no minimum volume to which it can be compressed.
+
+            \item
+                From equation (4-14),
+                \begin{align*}
+                    \left( \frac{\partial U}{\partial V} \right)_\theta &= \frac{C_P - C_V}{V \beta} - P. \\
+                \end{align*}
+                But in an ideal gas $(\partial U / \partial V)_\theta = 0$, so we have
+                \begin{align*}
+                    C_P - C_V &= PV \beta \\
+                    &= PV \left( \frac{1}{V} \right) \left( \frac{\partial V}{\partial \theta} \right)_P \\
+                    &= P \left( \frac{\partial}{\partial \theta} \right)_P \frac{nR \theta}{P} \\
+                    &= nR
+                \end{align*}
+        \end{enumerate}
+\end{enumerate}
+
+\end{document}

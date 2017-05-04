@@ -1,0 +1,167 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amsthm, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{MATH 4032 - HW2 Solutions}
+\subsection*{3.}
+\begin{enumerate}
+    \item[1.]
+        \boldmath
+        \textbf{A restaurant near Vancouver offered Dutch pancakes with 'a thousand and one combinations' of toppings. What do you conclude?} \par
+        \unboldmath
+        It happens that $1001 = \binom{14}{4}$, so there may be $14$ toppings with $4$ choices of toppings per order.
+
+    \item[2.]
+        \boldmath
+        \textbf{Using the numbering of subsets of $\{ 0, 1, \cdots, n - 1 \}$ defined in Section 3.1, prove that, if $X_k \subset X_l$, then $k \leq l$ (but not conversely).} \par
+        \unboldmath
+        If $X_k \subset X_l$, then all elements in $X_k$ contribute $2^i$, where $i$ is the position of the element, to $k$ and $l$. However, any element in $X_l \setminus X_k$ (if any) contributes only to $l$; thus, $k \leq l$. The converse is not true, because for example, if $k = 7$ and $l = 8$, then $k < l$, but $X_k \cap X_l = \emptyset$.
+
+    \item[3.]
+        \boldmath
+        \textbf{Prove the following identities:} \par
+        \unboldmath
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{$\dbinom{n}{k} \dbinom{k}{l} = \dbinom{n}{l} \dbinom{n - l}{k - l}$.} \par
+                \unboldmath
+                If $A$ is a set with $n$ elements, then the number of ways to choose a set $B \subset A$ with $k$ elements and a set $C \subset B$ with $l$ elements is the same as the number of ways to choose a set $C \subset A$ with $l$ elements and a set $B \subset A \setminus C$ (which has cardinality $n - l$) with $k - l$ elements.
+
+            \item
+                \boldmath
+                \textbf{$\displaystyle\sum_{i = 0}^k \dbinom{m}{i} \dbinom{n}{k - i} = \dbinom{m + n}{k}$, \\ assuming that $\binom{n}{k} = 0$ if $k < 0$ or $k > n$.} \par
+                \unboldmath
+                Let $A \cap B = \emptyset$. Then the number of ways to choose $k$ elements from $A \cup B$ is the same as the number of ways to choose $i$ elements from $A$ and $k - i$ elements from $B$ for all possible values of $i$.
+
+            \item
+                \boldmath
+                \textbf{$\displaystyle\sum_{i = 0}^k \dbinom{n + i}{i} = \dbinom{n + k + 1}{k}$.} \par
+                \unboldmath
+                This is proved by induction. For the base case, it is apparent that both sides become $1$ when $k = 0$. Now, if we assume that the formula holds for $k = a$, then
+                \begin{align*}
+                    \sum_{i = 0}^{a + 1} \binom{n + i}{i} = \dbinom{n + a + 1}{a} + \dbinom{n + a + 1}{a + 1} = \dbinom{n + a + 2}{a + 1},
+                \end{align*}
+                which shows that the formula holds for $k = a + 1$. Thus the formula holds for all nonnegative values of $k$.
+
+            \item
+                \boldmath
+                \textbf{$\displaystyle\sum_{k = 1}^n k \dbinom{n}{k} = n2^{n - 1}$.} \par
+                \unboldmath
+                Differentiating both sides of the Binomial Theorem expression, we have
+                \begin{align*}
+                    \sum_{k = 1}^n k \dbinom{n}{k} t^{k - 1} = n(1 + t)^{n - 1},
+                \end{align*}
+                and the result follows from the special case when $t = 1$.
+
+            \item
+                \boldmath
+                \textbf{$\displaystyle\sum_{k = 0}^n (-1)^k \dbinom{n}{k}^2 = \begin{cases}
+                    0 & \text{if } n \text{ is odd}; \\
+                    (-1)^m \binom{2m}{m} & \text{if } n = 2m.
+                \end{cases}$} \par
+                \unboldmath
+                This follows from equating the coefficient of $t^n$ on both sides of the equation
+                \begin{align*}
+                    (1 + t)^n (1 - t)^n = \left( 1 - t^2 \right)^n.
+                \end{align*}
+                For the left-hand side, the coefficient of $t^{n - k}$ in $(1 + t)^n$, which is $\binom{n}{n - k} = \binom{n}{k}$, is multiplied by the coefficient of $t^k$ in $(1 - t)^n$, which is $(-1)^k \binom{n}{k}$, over all possible values of $k$. \par
+                For the right-hand side, the coefficient of $t^n$ is nonzero only for even $n$, and is given by $(-1)^{n/2} \dbinom{n}{n/2}$.
+        \end{enumerate}
+
+    \item[5.]
+        \boldmath
+        \textbf{Let $k$ be a given positive integer. Show that any non-negative integer $N$ can be written uniquely in the form
+        \begin{align*}
+            N = \binom{x_k}{k} + \binom{x_{k - 1}}{k - 1} + \cdots + \binom{x_1}{1},
+        \end{align*}
+        where $0 \leq x_1 < \cdots < x_{k - 1} < x_k$.} \par
+        \unboldmath
+        Let $x$ be such that $\binom{x}{k} \leq N < \binom{x + 1}{k}$. Then $x_k \leq x$ so that the sum does not exceed $N$. Since the inequality $x_i \leq x_k - k + i$ is always true, by applying Exercise 3(c),
+        \begin{align*}
+            \sum_{i = 1}^k \binom{x_i}{i} \leq \sum_{i = 1}^k \binom{x_k - k + i}{i} \leq \binom{x_k + 1}{k} - 1.
+        \end{align*}
+        If $x_k < x$, then $\binom{x_k + 1}{k} - 1 < \binom{x}{k} \leq N$, and it would be impossible for the series to sum up to $N$; thus, $x_k = x$. We can repeat this process by finding $x$ such that $\binom{x}{k - 1} \leq N - \binom{x_k}{k} < \binom{x + 1}{k - 1}$, and setting $x_{k - 1} = x$; we know from fact that $\binom{x_k}{k} + \binom{x_k}{k - 1} > N$; thus, $x_{k - 1} < x_k$ so that $\binom{x_k}{k} + \binom{x_{k - 1}}{k - 1} \leq N$. The representation is unique because the $x_i$ are all chosen uniquely, and existence for any $N$ is proven by the fact that $\binom{x_1}{1} = x_1$, so that in the final step we can set $x_1 = N - \sum_{i = 2}^k \binom{x_i}{i}$. \par
+        \boldmath
+        \textbf{Show that the order of $k$-subsets corresponding in this way to the usual order of the natural numbers is the same as the reverse lexicographic order of $k$-subsets of $\{ 1, \cdots, n \}$.} \par
+        \unboldmath
+        \iffalse
+            Then any possible representation has $x_k = x$, because if $x_k < x$, then we would have $\binom{x_k}{k} \leq N/k$, and because the $k - 1$ remaining terms are smaller than $\binom{x_k}{k}$, the terms would not be able to sum up to $N$. Also, we know from fact that $N - \binom{x_k}{k} < \binom{x_k}{k - 1}$. Thus, if we assume that
+            \begin{align} \label{eq:assumption}
+                N - \sum_{i = 0}^{m} \binom{x_{k - i}}{k - i} < \binom{x_{k - m}}{k - m - 1}
+            \end{align}
+            holds for all $m \geq 0$ and choose $x_{k - m - 1}$ such that
+            \begin{align} \label{eq:choose}
+                \binom{x_{k - m - 1}}{k - m - 1} \leq N - \sum_{i = 0}^m \binom{x_{k - i}}{k - i} < \binom{x_{k - m}}{k - m - 1},
+            \end{align}
+            then subtracting (\ref{eq:choose}) from (\ref{eq:assumption}) gives
+            \begin{align*}
+            \end{align*}
+        \fi
+
+    \item[6.]
+        \boldmath
+        \textbf{Use the fact that $(1 + t)^p \equiv 1 + t^p \ (\text{mod } p)$ to prove by induction that $n^p \equiv n \ (\text{mod } p)$ for all positive integers $n$.} \par
+        \unboldmath
+        We can write
+        \begin{align*}
+            n^p \equiv (1 + (n - 1))^p \equiv 1 + (n - 1)^p \ (\text{mod } p),
+        \end{align*}
+        so from induction we can show that $n^p \equiv k + (n - k)^p \ (\text{mod } p)$ for all $1 \leq k \leq n$. In particular, if $k = n$, then we have that $n^p \equiv n\ (\text{mod } p)$.
+
+    \item[8.]
+        \boldmath
+        \textbf{Show that there are $(n - 1)!$ cyclic permutations of a set of $n$ points.} \par
+        \unboldmath
+
+    \item[9.]
+        \boldmath
+        \textbf{The \textit{order} of a permutation $\pi$ is the least positive integer $m$ such that $\pi^m$ is the identity permutation. Prove that the order of a cycle on $n$ points is $n$. Prove that the order of an arbitrary permutation is the least common multiple of the lengths of the cycles in its cycle decomposition.} \par
+        \unboldmath
+
+    \item[13.]
+        \boldmath
+        \textbf{The line segments from $(i, \log i)$ to $(i + 1, \log(i + 1))$ lie below the curve $y = \log x$, since it is convex. The area under these line segments from $i = 1$ to $i = n$ is $\log n! + \frac{1}{2} \log(n + 1)$, which comes from summing the areas of the rectangles and right triangles separately. Deduce that}
+        \begin{align*}
+            n! \leq e \sqrt{n + 1} \left( \frac{n}{e} \right)^n.
+        \end{align*}
+        \unboldmath
+        Comparing the area under these line segments with the area under the curve from $x = 1$ to $x = n + 1$ gives
+        \begin{align*}
+            \log n! + \frac{1}{2} \log(n + 1) &\leq \int_1^{n + 1} \log x dx = [x \log x - x]_1^{n + 1} \\
+            &= (n + 1)\log(n + 1) - n.
+        \end{align*}
+        Taking the exponential function of both sides,
+        \begin{gather*}
+            n! \sqrt{n + 1} \leq \frac{(n + 1)^{n + 1}}{e^n} \\
+            n! \leq \sqrt{n + 1} \frac{(n + 1)^n}{e^n} \\
+            n! < e \sqrt{n + 1} \left( \frac{n}{e} \right)^n.
+        \end{gather*}
+        The last step comes from the fact that $(n + 1)^n = n^n \left( 1 + \frac{1}{n} \right)^n < en^n$.
+
+    \item[16.]
+        \boldmath
+        \textbf{How many relations on an $n$-set are there? How many are (a) reflexive, (b) symmetric, (c) reflexive and symmetric, (d) reflexive and antisymmetric?} \par
+        \unboldmath
+        Since a relation is a subset of all the ordered pairs consisting of elements in the $n$-set, of which there are $n^2$, there are $2^{n^2}$ relations.
+        \begin{enumerate}
+            \item
+                Any reflexive relation must contain all the pairs for which the member elements are the same. However, it can either include or not include each ordered pair for which the member elements differ, of which there are $n(n - 1)$. Therefore, there are $2^{n(n - 1)}$ reflexive relations.
+
+            \item
+                A symmetric relation can either include or not include each unordered pair (counting both cases in which the member elements are distinct and the member elements are indistinct), of which there are $\binom{n}{2} + n = n(n - 1)/2 + n = n(n + 1)/2$. Therefore, there are $2^{n(n + 1)/2}$ symmetric relations.
+
+            \item
+                Now, the relation must contain all the pairs for which the first and second elements are the same, but can either include or not include each unordered pair in which the member elements are distinct, of which there are $\binom{n}{2} = n(n - 1)/2$. Therefore, there are $2^{n(n - 1)/2}$ reflexive and symmetric relations.
+
+            \item
+                The relation must still contain all the pairs for which the first and second elements are the same, but for each $x$, $y$ with $x \neq y$, of which there are $\binom{n}{2} = n(n - 1)/2$ pairs, the relation may include $(x, y)$, $(y, x)$, or neither. Therefore, there are $3^{n(n - 1)/2}$ reflexive and antisymmetric relations.
+        \end{enumerate}
+\end{enumerate}
+\end{document}

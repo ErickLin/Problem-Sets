@@ -1,0 +1,116 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsmath, gensymb, mathrsfs, siunitx, textcomp}
+
+\begin{document}
+
+\section*{PHYS 3141 - Problem Set 1 Solutions}
+
+\begin{enumerate}
+	
+	\item (a) Work is done on the system, and the boundary is adiabatic. \\
+	(b) No work is done, and the boundary is diathermal. \\
+	(c) The system does work on its surroundings. \\
+	(d) Work is done on the system (if the source of electric power is assumed to be outside the room), and the boundary is adiabatic. \\
+	(e) The system does work on its surroundings, and the boundary is diathermal (no work is done because the volume of the gas is held constant).
+	
+	\item (a)
+	\begin{align*}
+		R(0.000 \degree C) &= R_0 (1 + a(0.000 \degree C) + b(0.000 \degree C)^2) = R_0 = \SI{7.000}{\Omega} \\
+		R(100.0 \degree C) &= \SI{7.000}{\Omega} (1 + a(100.0 \degree C) + b(100.0 \degree C)^2) = \SI{9.705}{\Omega} \\
+		R(444.1 \degree C) &= \SI{7.000}{\Omega} (1 + a(444.1 \degree C) + b(444.1 \degree C)^2) = \SI{18.39}{\Omega} \\
+		\Rightarrow a &= \SI{3.923e-3}{(\degree C)^{-1}}, b = \SI{-5.823e-7}{(\degree C)^{-2}}
+	\end{align*}
+	(b)
+	\begin{align*}
+		\frac{R}{R_0} &= \SI{1}{\Omega} + aT + bT^2 \\
+		T^2 + \frac{a}{b} T + \frac{1}{b} &= \frac{R}{R_0 b} \\
+		T^2 + \frac{a}{b} T + \frac{a^2}{4b^2} &= \frac{R}{R_0 b} - \frac{1}{b} + \frac{a^2}{4b^2} \\
+		\left( T + \frac{a}{2b} \right)^2 &= \frac{R}{R_0 b} - \frac{1}{b} + \frac{a^2}{4b^2} \\
+		T &= \pm \sqrt{\frac{R}{R_0 b} - \frac{1}{b} + \frac{a^2}{4b^2}} - \frac{a}{2b} \\
+		T(R) &= - \sqrt{\frac{-R}{\SI{4.076e-6}{\Omega / \left(\degree C\right)^2}} + \SI{1.306e7}{\left(\degree C\right)^2}} + \SI{3.368e3}{\degree C}
+	\end{align*}
+	(c)
+	\begin{align*}
+		R(0.000 \degree C) &= R_0 (1 + a(0.000 \degree C)) = R_0 = \SI{7.000}{\Omega} \\
+		R(100.0 \degree C) &= \SI{7.000}{\Omega} (1 + a(100.0 \degree C)) =  \SI{9.705}{\Omega} \\
+		\Rightarrow a &= \SI{3.864e-3}{(\degree C)^{-1}} \\
+		\SI{18.39}{\Omega} &= \SI{7.000}{\Omega} (1 + \left( \SI{3.864e-3}{(\degree C)^{-1}} \right) T(\SI{18.39}{\Omega})) \\
+		\Rightarrow T(\SI{18.39}{\Omega}) &= 421.1 \degree C
+	\end{align*}
+	
+	\item (a)
+	\begin{align*}
+		\frac{PV}{NR} &= \theta \\
+		V &= \frac{NR\theta}{P} \\
+		\beta &= \frac{1}{V} \left( \frac{\partial V}{\partial \theta} \right)_P \\
+		&= \frac{1}{V} \left( \frac{NR}{P} \right) \\
+		&= \frac{NR}{PV} \\
+		&= \frac{1}{\theta}
+	\end{align*}
+	(b)
+	\begin{align*}
+		P &= \frac{NR\theta}{V} \\
+		\kappa &= - \frac{1}{V} \left( \frac{\partial V}{\partial P} \right)_\theta \\
+		&= - \frac{1}{V} \left( -\frac{NR\theta}{P^2} \right) \\
+		&= \frac{NR\theta}{P^2 V} \\
+		&= \frac{1}{P}
+	\end{align*}
+	
+	\item (a)
+	\begin{align*}
+		\int_{\SI{1}{atm}}^{P_f} dP &= \int_{20\degree C}^{32\degree C} \frac{\beta}{\kappa} d\theta - \int_{V_i}^{V_i} \frac{1}{\kappa V} dV\\
+		P_f - \SI{1}{atm} &= \frac{\beta}{\kappa} (32\degree C - 20\degree C) - 0 \\
+		P_f &= \frac{\SI{5.0e-5}{(\degree C)^{-1}}}{\SI{1.2e-6}{atm^{-1}}} (12\degree C) + \SI{1}{atm} \\
+		&= \SI{501}{atm} \\
+		&\approx \SI{5.0e2}{atm}
+	\end{align*}
+	(b)
+	\begin{align*}
+		\int_{\SI{1}{atm}}^{\SI{1200}{atm}} dP &= \int_{20\degree C}^{T_f} \frac{\beta}{\kappa} d\theta \\
+		\SI{1200}{atm} - \SI{1}{atm} &= \frac{\SI{5.0e-5}{(\degree C)^{-1}}}{\SI{1.2e-6}{atm^{-1}}} (T_f - 20\degree C) \\
+		T_f &= 49\degree C
+	\end{align*}
+	
+	\item (a)
+	\begin{align*}
+		V &= \frac{M}{\rho} \\
+		\beta &= \frac{1}{V} \left( \frac{\partial V}{\partial \theta} \right)_P \\
+		&= \frac{\rho}{M} \left( \frac{\partial \rho}{\partial \theta} \right)_P \left( \frac{dV}{d\rho} \right) \\
+		&= \frac{\rho}{M} \left( \frac{\partial \rho}{\partial \theta} \right)_P \left( \frac{-M}{\rho^2} \right) \\
+		&= \frac{-1}{\rho} \left( \frac{\partial \rho}{\partial \theta} \right)_P \\
+		\kappa &= - \frac{1}{V} \left( \frac{\partial V}{\partial P} \right)_\theta \\
+		&= - \frac{\rho}{M} \left( \frac{\partial \rho}{\partial P} \right)_\theta \left( \frac{dV}{d\rho} \right) \\
+		&= - \frac{\rho}{M} \left( \frac{\partial \rho}{\partial P} \right)_\theta \left( \frac{-M}{\rho^2} \right) \\
+		&= \frac{1}{\rho} \left( \frac{\partial \rho}{\partial P} \right)_\theta
+	\end{align*}
+	(b)
+	\begin{align*}
+		dV &= \left( \frac{\partial V}{\partial \theta} \right)_P d\theta + \left( \frac{\partial V}{\partial P} \right)_\theta dP \\
+		\beta &= \frac{1}{V} \left( \frac{\partial V}{\partial \theta} \right)_P \\
+		\kappa &= - \frac{1}{V} \left( \frac{\partial V}{\partial P} \right)_\theta \\
+		\Rightarrow \frac{dV}{V} &= \beta d\theta - \kappa dP
+	\end{align*}
+	
+	\setcounter{enumi}{6}
+	\item
+	\begin{align*}
+		dL &= \left( \frac{\partial L}{\partial \theta} \right)_\mathscr{T} d\theta + \left( \frac{\partial L}{\partial \mathscr{T}} \right) _\theta d\mathscr{T} \\
+		\alpha &= \frac{1}{L} \left( \frac{\partial L}{\partial \theta} \right)_\mathscr{T} \\
+		\frac{1}{Y} &= \frac{A}{L} \left( \frac{\partial L}{\partial \mathscr{T}} \right)_\theta \\
+		\Rightarrow dL &= \alpha L d\theta + \frac{L}{AY} d\mathscr{T} \\
+		d\mathscr{T} &= \frac{AY}{L} dL - \alpha AY d\theta
+	\end{align*}
+	
+	\item
+	\begin{align*}
+		\int_{\SI{2e6}{dyn}}^{\mathscr{T}_f} d\mathscr{T} &= \frac{AY}{L} \int_{\SI{1.2}{m}}^{\SI{1.2}{m}} dL -\alpha AY \int_{20\degree C}^{8\degree C} d\theta \\
+		\mathscr{T}_f - \SI{2e6}{dyn} &= 0 - \left( \SI{1.5e-5}{(\degree C)^{-1}} \right) (\SI{0.0085}{cm^2}) \\
+		&\phantom{{}=1} \left( \SI{2.0e12}{\frac{dyn}{cm^2}} \right) (8\degree C - 20\degree C) \\
+		&= \SI{5.06e6}{dyn} \\
+		&\approx \SI{5e6}{dyn}
+	\end{align*}
+
+\end{enumerate}
+
+\end{document}

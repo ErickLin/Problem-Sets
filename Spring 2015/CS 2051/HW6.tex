@@ -1,0 +1,56 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{CS 2051 - HW6 Solutions}
+
+\begin{enumerate}
+
+\item If he wins the first time, then he will gain $\$2 - \$1 = \$1$ and if he wins the second time, then he will gain $\$4 - \$2 - \$1 = \$1$, so the expected payoff is the same for both turns. The probability that he wins the first time is $\frac{1}{2}$, and the probability that he loses the first time and wins the second time is $\frac{1}{2} \times \frac{1}{2} = \frac{1}{4}$, so the probability of a winning outcome is $\frac{3}{4}$.
+
+\item According to the Inclusion-Exclusion Principle,
+\[ P[FE^c] = P[F \cap E^c] = P[F] + P[E^c] - P[F \cup E^c] \]
+so
+\[ P[F] = P[F \cup E^c] - P[E^c] + P[FE^c]. \]
+Because $E \subset F$,
+\begin{gather*}
+P[E \cup E^c] = 1 \subset P[F \cup E^c] \\
+\mbox{so } P[F \cup E^c] = 1.
+\end{gather*}
+Finally,
+\begin{align*}
+P[F] &= 1 - P[E^c] + P[FE^c] \\
+&= P[E] + P[FE^c].
+\end{align*}
+
+\item Following the hint, the outcome in which event $E$ takes place during the $n$th trial requires that neither event $E$ nor event $F$ occurs in the first $n - 1$ trials, which has probability $1 - P[E] - P[F] + P[E \cup F] = 1 - P[E] - P[F] = 1 - p$ since $P[E]$ and $P[F]$ are independent. Then the intersection of all $n$ events is
+\[ P[E](1 - p)^{n - 1}. \]
+Summing over all possible $n$ in which $E$ can first occur,
+\[ \sum_{n = 1}^{\infty} P[E](1 - p)^{n - 1} = P[E]\left( \frac{1}{1 - (1 - p)} \right) = \frac{P[E]}{P[E] + P[F]}. \]
+
+\item According to the Inclusion-Exclusion Principle, the probability that at least one die is a 6 is the sum of the probabilities for the dice separately minus the probability for both dice combined, which is $\frac{1}{6} + \frac{1}{6} - \frac{1}{36} = \frac{11}{36}$. In the case of the two dice always having different faces in the outcome, the probability that both dice are $6$'s is $0$, so the new probability is $\frac{1}{6} + \frac{1}{6} = \frac{1}{3}$.
+
+\item (a) Using Bayes' Rule,
+\[ P(George|One) = \frac{P(One|George)P(George)}{P(One)}. \]
+$P(One|George)$ is the probability that only one hits given that George hits (so Bill misses), which is $1 - 0.7 = 0.3$, and $P(One)$ is the probability that either George hits and Bill misses or Bill hits and George misses, which is $0.7(1 - 0.4) + 0.4(1 - 0.7) = 0.54$. Then
+\[ P(George|One) = \frac{0.3(0.4)}{0.54} = \frac{2}{9}. \]
+(b) Because the outcomes in which the target was not hit are removed, this is the probability that George hit the target divided by the probability that the target was hit. This can be explained by using Bayes' Rule,
+\[ P(George|Hit) = \frac{P(Hit|George)P(George)}{P(Hit)}. \]
+$P(Hit)$ is calculated by taking the complement of the probability that neither Bill nor George hit the target, which is $1 - (1 - 0.7)(1 - 0.4) = 0.82$. Then the desired probability is
+\[ P(George|Hit) = \frac{1(0.4)}{0.82} = \frac{20}{41}. \]
+
+\item (a) Listing out all the possibilities: \\
+Fair: H, T \\
+Two-headed: H, H \\
+One out of three outcomes with heads comes from the fair coin, so the probability is $\frac{1}{3}$. \par
+(b) Listing out all the possibilities: \\
+Fair: HH, HT, TH, TT \\
+Two-headed: HH, HH, HH, HH \\
+One out of five outcomes with both heads comes from the fair coin, so the probability is $\frac{1}{5}$. \par
+(c) The probability is $1$, since only the fair coin can show tails.
+
+\end{enumerate}
+
+\end{document}

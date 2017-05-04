@@ -1,0 +1,40 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, dsfont, fancyhdr}
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{MATH 3225 - HW5 Solutions}
+\begin{enumerate}
+    \item[1.] 
+        Splitting the integral, and letting $u = x$ and $dv = e^{-c|x|dx}$ and integrating by parts,
+        \begin{align*}
+            \mu(X) = \mathbb{E}(X) &= \int_{-\infty}^\infty \frac{1}{2} cxe^{-c|x|} dx \\
+            &= \int_{-\infty}^0 \frac{1}{2} cxe^{cx} dx + \int_{0}^\infty \frac{1}{2} cxe^{-cx} dx \\
+            &= \frac{1}{2}c \left[ \left( \frac{xe^{cx}}{c} \right) \biggr\rvert_{-\infty}^0 - \int_{-\infty}^{0} \frac{e^{cx}}{c} dx + \left( \frac{xe^{-cx}}{-c} \right) \biggr\rvert_{0}^\infty + \int_{0}^{\infty} \frac{e^{-cx}}{c} dx \right] \\
+            &= \frac{1}{2}c \left[ 0 - 0 - \left( \frac{e^{cx}}{c^2} \right) \biggr\rvert_{-\infty}^0 + 0 - 0 + \left( \frac{e^{-cx}}{-c^2} \right) \biggr\rvert_{0}^\infty \right] \\
+            &= \frac{1}{2}c (0 - 0 - 0 + 0) \\
+            &= 0
+        \end{align*}
+        Letting $u = x^2$ and $dv = e^{-c|x|dx}$ and integrating by parts,
+        \begin{align*}
+            \mathbb{E}(X^2) &= \int_{-\infty}^\infty \frac{1}{2} cx^2 e^{-c|x|} dx \\
+        \end{align*}
+
+    \item[2.] 
+
+    \item[4.] 
+
+    \item[5.] 
+
+    \item[9.] 
+
+    \item[10.] 
+
+    \item[14.] 
+
+\end{enumerate}
+
+\end{document}

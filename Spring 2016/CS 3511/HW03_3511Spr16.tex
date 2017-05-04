@@ -1,0 +1,199 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{amsfonts, amsmath, enumitem}
+
+\textheight=9.5in
+\textwidth=6.5in
+\topmargin=-.8in
+\headsep=0pt
+\oddsidemargin=0truecm
+\evensidemargin=0truecm
+\footskip=20pt
+%\footheight=20pt
+\pretolerance=1600
+\tolerance=1600
+\hbadness=1600
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{problem}[theorem]{Problem}
+
+\begin{document}
+
+\title{
+}
+
+%\author{Assigned 1-13-16 , Due 1-19-16 (in class)
+%}
+
+
+\date{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author's definitions
+
+\newcommand{\DEF}[1]{{\em #1\/}}
+
+\newcommand\chic{\chi_c}
+\newcommand\C{\hbox{${\cal C}$}}
+\newcommand{\RR}{\mbox{$\mathbb R$}}
+\newcommand{\NN}{\mbox{$\mathbb N$}}
+\newcommand{\ZZ}{\mbox{$\mathbb Z$}}
+\newcommand{\eopf}{\raisebox{0.8ex}{\framebox{}}}
+\newcommand{\dist}{\hbox{\rm d}}
+\renewcommand\a{\alpha}
+\renewcommand\b{\beta}
+\renewcommand\c{\gamma}
+\renewcommand\d{\delta}
+\newcommand\D{\Delta}
+\newcommand{\directedchi}{\mbox{$\vec{\chi}$}}
+\newcommand{\directedE}{\mbox{$\vec{E}$}}
+\newcommand{\directedG}{\mbox{$\vec{G}$}}
+\newcommand{\directedK}{\mbox{$\vec{K}$}}
+
+\newenvironment{proof}%
+{\noindent{\bf Proof.}\ }%
+{\hfill\eopf\par\bigskip}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\maketitle
+
+\noindent{\bf  Last Name:} $Lin \quad$
+\noindent{\bf First Name:} $Erick \quad$
+\noindent{\bf Email:}          $elin42@gatech.edu$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 3, 2/04/16 Due 2/11/16 5pm Klaus 2138 $~~$Page 1/5}
+
+\bigskip
+
+\noindent{\bf Problem 1: Generalized shortest-paths problem (20 points)}\\
+In Internet routing, there are delays on lines but also, more
+significantly, delays at routers. This motivates a generalized shortest-paths problem.
+Suppose that in addition to having edge costs $c(e)$, a graph also has vertex costs $c(v)$.
+Now define the cost of a path to be the sum of its edge costs, plus the costs of
+all vertices on the path (including the endpoints). Give an efficient algorithms for the following problem:\\
+Input: A directed graph $G(V,E)$, positive edge costs $c(e)$ and positive vertex costs $c(v)$.\\
+Output: A matrix $D$ such that $d_{u,v}$ is the cost of the cheapest path from $u$ to $v$.\\
+{\bf Answer:}\\
+First, we produce a modified graph $G'(V', E')$, which has only the edge costs
+\begin{align*}
+    c'(E') = \{ c'(e') : e' \in E' \}.
+\end{align*}
+We will use the convention of labeling directed edges by ordered pairs of vertices. Also, we will use the notation $c((a, b)) = c(a, b)$ for edge costs. \par
+For each vertex $v$ in $V$, two vertices $v_1'$ and $v_2'$ are produced in $V'$, along with an edge $(v_1', v_2')$ in $E'$ with cost $c(v)$. We will hereafter use this convention of denoting the two vertices corresponding to the original vertex $v$ as $v_1'$ and $v_2'$. Afterward, for each edge $(v, w)$ in $E$, the corresponding edge $(v_2', w_1')$ is produced in $E'$ with cost $c(v, w)$. Now the transformed graph $G'$ is equivalent to the original graph $G$ under the action of the Floyd-Warshall algorithm, with the exception that paths may only start at vertices denoted with subscript $1$ and end at vertices denoted with subscript $2$. \par
+This algorithm is correct because for any directed path in $G$ that includes a vertex $v$ in $V$, the corresponding directed path in $G'$ must pass through the vertices $v_1'$ and $v_2'$ and the edge $(v_1', v_2')$, thereby incurring the cost $c'(v_1', v_2') = c(v)$. Also, any directed path that includes an edge $(v, w)$ in $E$ is transformed into a directed path that includes the corresponding edge $(v_2', w_1')$ of cost $c'(v_2, w_1') = c(v, w)$. Thus, the sum of costs of any path from $u$ to $v$ in $V$ is the same as the sum of costs of any path from $u_1'$ to $v_2'$ in $V'$. \par
+Transforming the vertices requires $O(|V|)$ operations, and transforming the edges requires $O(|E|)$ operations. The Floyd-Warshall algorithm runs in $O(|V|^3)$. The total complexity is $O(|V|) + O(|E|) + O(|V|^3) = O(|V|^3)$, since $|E| \leq |V|^2$.
+
+\pagebreak
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 3, 2/04/16 Due 2/11/16 5pm Klaus 2138 $~~$Page 2/5}
+
+\bigskip
+\noindent{\bf Problem 2: DAG Dynamic Programming Application (20 points) }\\
+You are given a DAG $G(V,E)$ in which each node $v\in V$ has an associated price $p_v$ which is a
+positive integer. Define the array \textit{cost} as follows: For each $v \in V$, 
+$cost(v)$ is the price of the cheapest node reachable from $v$ (including $v$ itself.) 
+Assuming that the vertices of $G$ are presented in ordering $v_1 , \ldots , v_n$ 
+so that all edges are directed from lower order vertices to higher order vertices, 
+give a linear time algorithm that computes $cost(v)$, $\forall v \in V$.\\
+{\bf Answer:}\\
+for $i := n$ to $1$ \\
+\indent if $E = \emptyset$ then \\
+\indent \indent $cost(v_i) = p_{v_i}$ \\
+\indent else \\
+\indent \indent $cost(v_i) = \min\{p_{v_i}, \; \min_{e \in E} \{ cost(v_2) : e = (v_1, v_2) \} \}$ \par
+This is correct because for every vertex $v$, if the minimum-cost reachable vertex $v_m$ is not $v$ itself, then it will always be the case that $cost(v_2) = p_{v_m}$ for some neighbor $v_2$ of $v$, since $v_m$ is either $v_2$ itself or a descendant of $v_2$. Iterating through the vertex array in backward order ensures that all of the descendants of $v$ have already been processed when $v$ is being processed. \par
+Since the procedure iterates through all the vertices in $V$ once and, for each vertex, the procedure iterates through all of its outgoing edges, all of the edges in $E$ are iterated through once. Thus the time complexity is $O(|V| + |E|)$.
+
+\pagebreak
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 3, 2/04/16 Due 2/11/16 5pm Klaus 2138 $~~$Page 3/5}
+
+\bigskip
+\noindent{\bf Problem 3:  Longest Increasing Subsequence (20 points)}\\
+In the longest increasing subsequence problem, the input is a sequence of numbers $a_1, \ldots , a_n$.
+A subsequence is any subset of these numbers taken in order, of the form $a_{i_1} , a_{i_2} , \ldots , a_{i_k}$ where
+$1 \leq i_1 < i_2 < \ldots < i_k$, and an increasing subsequence is one in which the numbers are getting strictly larger
+ $a_{i_1} < a_{i_2} < \ldots < a_{i_k}$. 
+Give a polynomial time algorithm to find an increasing subsequence of maximum length.\\
+{\bf Answer:}\\
+We begin by initializing the maximum length $maxLen$ for the entire sequence to 1, as well as an array $maxLengthAt$ of size $n$ describing the maximum length of all increasing subsequences ending at each $a_i$ for each index $i$. This array is initialized to all $1$s because each element is an increasing subsequence of length $1$. We also keep track of the index $end$ which ends the longest increasing subsequence seen so far. Finally, we initialize another array of size $n$ that keeps track of the predecessor of each element. \par
+The procedure iterates through all $n$ elements. For each element $a_i$, we iterate through $a_j$ for all $j \in [i - 1]$, comparing $a_j$ to $a_i$; if $a_j < a_i$, then we also compare $maxLengthAt[j] + 1$ to $maxLengthAt[i]$; if the former is greater, then it replaces the previous value of the latter, and $j$ is set to the predecessor of $i$. If the new value of $maxLengthAt[i]$ is greater than $maxLen$, then the latter value is replaced with the former as well, and we update $end$ with $i$. We only have to examine elements with indices less than $i$ due to the order property, since any elements with indices greater than $i$ will eventually examine the element at $i$. \par
+At the end of the procedure, we produce a $result$ array with $maxLen$ elements, and examine $end$ as the current index. Then, while the current index has a predecessor, we put its corresponding element in the last empty position of $result$. The procedure outputs $result$. \par
+Because the algorithm iterates through $n$ elements, and for each element $a_i$ it iterates through $i - 1$ elements, this part requires $O(0 + 1 + \cdots + (n - 1)) = O((n - 1)n/2) = O(n^2)$ iterations. Producing the $result$ array requires $maxLen$ iterations, and $maxLen \leq n$. Thus the time complexity is $O(n^2)$. It can be remarked that $O(n^2)$ is not the lower bound for this problem, but it suffices as being polynomial time.
+
+
+\pagebreak
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 3, 2/04/16 Due 2/11/16 5pm Klaus 2138 $~~$Page 4/5}
+
+\bigskip
+\noindent{\bf Problem 4:  Mincost Vertex Cover in Theta Graphs (20 points)}\\
+Let $(x_1 , \ldots , x_n)$ and $(y_1 , \ldots , y_n )$ be line graphs with endpoints 
+$x_1$, $x_n$, $y_1$ and $y_n$, as usual. 
+Let $A$ and $B$ be two additional vertices that are connected with the following edges:
+$\{ A , x_1 \}$ and $\{ A , y_1 \}$ are edges, $\{ B , x_n \}$ and $\{ B , y_n \}$ are edges, 
+and $\{ A , B \}$ is also an edge. 
+In addition, every vertex $x_i$ and $y_i$ has associated positive costs $c(x_i)$ and $c(y_i)$, $1 \leq i \leq n$, 
+and the vertices $A$ and $B$ have associated positive costs $c(A)$ and $c(B)$. 
+Give a linear time algorithm that finds a mincost vertex cover of the resulting theta graph.\\
+{\bf Answer:}\\
+We know that finding the minimum cost vertex cover $VC(G)$ for a linear graph $G$ can be done in $O(n)$ time. First, we can compute the minimum cost vertex covers for the linear graphs $(A, x_1, \cdots, x_n, B)$, $(A, y_1, \cdots, y_n, B)$, $(x_1, \cdots, x_n, B)$, $(A, x_1, \cdots, x_n)$, $(x_1, \cdots, x_{n})$, $(y_1, \cdots, B)$, $(A, \cdots, y_n)$, and $(y_1, \cdots, y_n)$. Let $\Theta$ denote the theta graph. We can consider the two cases of whether the vertex cover of $\Theta$ includes the edge $\{ A, B \}$ or not. In the former case, the minimum vertex cover is
+\begin{align*}
+    VC(x_1, \cdots, x_n) \cup VC(y_1, \cdots, y_n) \cup \{ A, B \}.
+\end{align*}
+In the latter case, the minimum vertex cover is whichever of
+\begin{align*}
+    VC(A, x_1, \cdots, x_n) \cup VC(y_1, \cdots, y_n, B), \\
+    VC(x_1, \cdots, x_n, B) \cup VC(A, y_1, \cdots, y_n), \\
+    VC(A, x_1, \cdots, x_n, B) \cup VC(y_1, \cdots, y_n), \\
+    VC(x_1, \cdots, x_n) \cup VC(A, y_1, \cdots, y_n, B)
+\end{align*}
+has the minimum total cost of the member vertices. These five sets enumerate all the possibilities of minimum vertex covers, so $VC(\Theta)$ is whichever one has the minimum total cost. \par
+Because we compute the minimum cost vertex cover for a constant number of subgraphs and compute the union of subgraphs a constant number of times, with both being linear time algorithms, the resultant algorithm runs in linear time.
+
+\pagebreak
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 3, 2/04/16 Due 2/11/16 5pm Klaus 2138 $~~$Page 5/5}
+
+\bigskip
+\noindent{\bf Problem 5: Cutting Cloth (20 points)}\\
+You are given a rectangular piece of cloth with dimensions $X\times Y$ , where $X$ and
+$Y$ are positive integers, and a list of $n$ products that can be made using the cloth. For each
+product $i$ you know that a rectangle of cloth of dimensions $a_i \times b_i$ is needed and that the final selling price of the product is $c_i$.
+Assume that all $a_i$, $b_i$ and $c_i$ are positive integers. 
+You have a machine that can cut any rectangular piece of cloth into two pieces either horizontally or
+vertically. 
+Design a polynomial time algorithm that determines the best return on the $X\times Y$ piece of cloth, that
+is, a strategy for cutting the cloth so that the products made from the resulting pieces give the
+maximum sum of selling prices. You are free to make as many copies of a given product as you
+wish, or none if desired.\\
+{\bf Answer:}\\
+INPUT: $X, Y, n, \{ a_i \}, \{ b_i \}, \{ c_i \}$ \\
+OUTPUT: $maxSum$ \\
+$maxSum = 0$ \\
+for $col := 0$ to $X$ \\
+\indent for $row := 0$ to $Y$ \\
+\indent \indent $best(col, row) = 0$ \\
+for $col := 1$ to $X$ \\
+\indent for $row := 1$ to $Y$ \\
+\indent \indent for $i := 1$ to $n$ \\
+\indent \indent \indent if $a_i \leq col$ and $b_i \leq row$ \\
+\indent \indent \indent \indent $best(col, row) = \min\{ best(col, row), \; c_i + best(col - a_i, row - b_i) \}$ \\
+\indent \indent \indent \indent if $best(col, row) > maxSum$ \\
+\indent \indent \indent \indent \indent $maxSum = best(col, row)$ \par
+Let $P$ denote the set of ordered triples $(i, col_i, row_i)$ consisting of the set of products along with the column and row of their upper right corners such that the sum of the prices of these products is the maximum revenue. The recurrence shown in the third-to-last line is correct because if a product $i$ can be cut out of the rectangular cloth such that there are unused vertical segments running from $row_i$ to $row_i + b_i$ at some column left of $col_i$, or unused horizontal segments running from $col_i$ to $col_i + a_i$ at some row below $row_i$, then it is always advantageous to shift the region of the product left and down such that these unused columns and rows disappear, so that there is more room to the right and above to increase the possibility of cutting out more products. \par
+Due to the nested loops, the time complexity is $O(XY + XYn) = O(XYn)$.
+
+
+\end{document}

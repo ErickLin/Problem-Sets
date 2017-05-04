@@ -1,0 +1,107 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\renewcommand{\thesubsection}{\arabic{subsection}}
+
+\begin{document}
+
+\section*{MATH 4431 -- HW2 Solutions}
+\begin{enumerate}
+    \item[5.]
+        \boldmath\textbf{Let $X = \mathbb{R}^2 \setminus \{ (0, 0) \}$. Show that the decomposition space of $X$ defined as
+            \begin{align*}
+                \mathcal{D} = \{ S_r \mid r > 0 \},
+            \end{align*}
+            where $S_r = \{ (x, y) \mid x^2 + y^2 = r^2 \}$, is homeomorphic to $\mathbb{R}$.
+        }\unboldmath \par
+        We first show that $\mathcal{D}$ is homeomorphic to $(0, \infty)$ under the subspace topology. Consider the map $f : X \to (0, \infty)$ given by
+        \begin{align*}
+            f(x, y) = \sqrt{x^2 + y^2}.
+        \end{align*}
+        Since $f^{-1}(r) = S_r$, we can see that $f$ is the function that induces a continuous bijection $g : \mathcal{D} \to (0, \infty)$. Showing that $f$ is a quotient map shows equivalently that $g$ is a homeomorphism. \par 
+        $f$ is surjective because for any $r \in (0, \infty)$, $f(\sqrt{r}, 0) = r$ for instance, and we also know that $f$ is continuous on its domain. For $f$ to be a quotient map, what remains to be proved is that if $U$ is open in $X$, then $f(U)$ is open in $(0, \infty)$. This is true because $U$ is a union of open balls
+        \begin{align*}
+            B_\epsilon((x_1, x_2)) = \{ (y_1, y_2) : \sqrt{(x_1 - y_1)^2 + (x_2 - y_2)^2} < \epsilon \}
+        \end{align*}
+        each of which gets mapped to the open interval
+        \begin{align*}
+            (|\sqrt{x_1^2 + x_2^2} - \epsilon|, \sqrt{x_1^2 + x_2^2} + \epsilon),
+        \end{align*}
+        and so $U$ gets mapped to a union of open intervals which is open. \par
+        Finally, because they are bijective, continuous, and have continuous inverses, $x/(x + 1)$ is a homeomorphism from $(0, \infty)$ to $(0, 1)$, and $\tan(\pi(x - 1/2))$ is a homeomorphism from $(0, 1)$ to $\mathbb{R}$. Because compositions of homeomorphisms are homeomorphisms, $\mathcal{D}$ is hence homeomorphic to $\mathbb{R}$.
+
+    \item[6.]
+        \boldmath\textbf{Show that $S^1$ is not homeomorphic to $[0, 1]$.
+        }\unboldmath \par
+        $S^1$ is homeomorphic to $\mathcal{D} = \{\{x\} \mid x \in (0, 1) \} \cup \{\{0, 1\}\}$, the quotient space of $[0, 1]$ where $0$ and $1$ have been identified together. Under the quotient topology, the open sets in $\mathcal{D}$ are those whose inverse quotient maps are open sets in $[0, 1]$ under the subspace topology, which are in this case open intervals. \par
+        We show that for any $a, b \in \mathcal{D}$ with $a \neq b$, $\mathcal{D} \setminus \{ a, b \}$ is disconnected as follows. At least one of $a$ or $b$ must not be $\{\{0, 1\}\}$, which we take to be $a$ without loss of generality. If
+        \begin{itemize}
+            \item
+                $b = \{\{0, 1\}\}$, then $a = \{a'\}$ for some $a' \in (0, 1)$, and the inverse quotient map of $\mathcal{D} \setminus \{ a, b \}$ is $(0, a') \cup (a', 1)$, which is disconnected under the subspace topology.
+            \item
+                $b \neq \{\{0, 1\}\}$, then $a = \{a'\}$ and $b = \{b'\}$ for some $a' \neq b' \in (0, 1)$. Without loss of generality, let $a' < b'$. Then the inverse quotient map of $\mathcal{D} \setminus \{ a, b \}$ is $[(0, a') \cup (a', 1)] \setminus \{ b' \} = (0, a') \cup (a', b') \cup (b', 1)$, which is disconnected under the subspace topology.
+        \end{itemize}
+        In either case, the quotient map is bijective on the disconnected domain by the definition of $\mathcal{D}$, so it takes unions of disjoint, nonempty, open intervals to unions of disjoint, nonempty sets which are open by the definition of quotient topology; hence, the latter (with $\mathcal{D} \setminus \{ a, b \}$ being one example) are disconnected. \par
+        Being homeomorphic to $\mathcal{D}$, $S^1$ shares the same property. \par
+        However, if $S^1$ and $[0, 1]$ were homeomorphic, then $[0, 1]$ would also have this property, but the fact that $[0, 1] \setminus \{ 0, 1 \} = (0, 1)$ is still connected provides a contradiction.
+
+    \item[7.]
+        \boldmath\textbf{Show that if $U$ is an open connected subset of $\mathbb{R}^2$, then it is path connected.
+        }\unboldmath \par
+        Let $x \in U$, and let $P \subset \mathbb{R}^2$ be the set of all points such that there exists a path from that point to $x$. For any point $p \in P$, there exists an open ball $B_\epsilon(p) \subset U$ for some $\epsilon > 0$ under the subspace topology, and there exists a path $\gamma_2 : [0, 1] \to U$ from $p$ to any $q \in B_\epsilon(p)$ given by $\gamma_2(t) = (1 - t)p + tq$. Then there exists a path $\gamma : [0, 1] \to U$ from $x$ to $q$ given by
+        \begin{align*}
+            \gamma(t) = \begin{cases}
+                \gamma_1(2t), &t \in [0, 1/2] \\
+                \gamma_2(2t - 1), &t \in [1/2, 1]
+            \end{cases}
+        \end{align*}
+        where $\gamma_1 : [0, 1] \to U$ is a path from $x$ to $p$ ($\gamma$ is a path because the piecewise paths agree on their intersection). Therefore, $B_\epsilon(p) \subset U$, so $P$ is open. \par
+        Similarly, $U \setminus P$ is open, because for any point $p \in U \setminus P$, there exists an open ball $B_\epsilon(p) \subset U$ for some $\epsilon > 0$ under the subspace topology, and there exists a path $\gamma_2 : [0, 1] \to U$ from any $q \in B_\epsilon$ to $p$ given by $\gamma_2(t) = (1 - t)q + tp$. There exists no path $\gamma_1 : [0, 1] \to U$ from $x$ to $q$, because otherwise, there would exist $\gamma : [0, 1] \to U$ given by
+        \begin{align*}
+            \gamma(t) = \begin{cases}
+                \gamma_1(2t), &t \in [0, 1/2] \\
+                \gamma_2(2t - 1), &t \in [1/2, 1]
+            \end{cases}
+        \end{align*}
+        which is a path from $x$ to $p$, contradicting the fact that $p \in U \setminus P$. Thus, $q \in U \setminus P$ also, implying that $B_\epsilon(p) \subset U \setminus P$ and $U \setminus P$ is open. \par
+        $P$ and $U \setminus P$ are disjoint sets whose union is $U$, but $U$ is connected, so either $P$ or $U \setminus P$ must be empty. We know that $x \in P$ trivially, so it must be $U \setminus P$ that is empty. Therefore, $P = U$, which means there exists a path from any point in $U$ to $x$. Because $x$ was arbitrary, this states that $U$ is path connected.
+
+    \item[8.]
+        \boldmath\textbf{Show that a closed subspace of a normal space is normal.
+        }\unboldmath \par
+        Let $X$ be a normal space, and let $C$ be closed in $X$. We claim that any set $H$ closed in $C$ is closed in $X$ also, which is true because by the subspace topology, $H$ is the intersection of some closed set in $X$ with $C$, but such a closed set must be $H$ because $H \subset C$. \par
+        Now let $H$, $K$ be disjoint, closed sets in $C$. Then $H$, $K$ are disjoint and closed in $X$ also, so $H \subset U$ and $K \subset V$ where $U$, $V$ are open in $X$. Then by the subspace topology, $U \cap C$ and $V \cap C$ are open in $C$, and $H \subset U \cap C$ and $K \subset V \cap C$. Thus, $C$ is a $T_4$ space. \par
+        Lastly, $C$ is also $T_1$ because for any $x, y \in C$, there exists open $U, V \in X$ such that $x \in U$, $y \in V$, $x \notin V$, and $y \notin U$, but by the subspace topology $U \cap C$ and $V \cap C$ are open in $C$, and we know that $x \in U \cap C$, $y \in V \cap C$, $x \notin V \cap C$, and $y \notin U \cap C$.
+
+    \item[9.]
+        \boldmath\textbf{Show that a connected normal space having more than one point is uncountable.
+        }\unboldmath \par
+        Let $X$ be a connected normal space. Being finite, $\{a\}, \{b\} \subset X$ are closed since $X$ is a $T_1$ space, and we can see directly that $\{a\}$ and $\{b\}$ are disjoint. Then Urysohn's lemma applies; here it states that there exists a continuous function $f : X \to [0, 1]$ such that $\{a\} \subset f^{-1}(0)$ and $\{b\} \subset f^{-1}(1)$, meaning $f(a) = 0$ and $f(b) = 1$. \par
+        Because $X$ is connected, the intermediate value theorem states that for all $r \in [0, 1]$, there exists $c \in X$ such that $f(c) = r$, or in other words, $f$ is surjective. We can conclude by set theory that $|X| \geq |[0, 1]|$, and since $[0, 1]$ is uncountable, the larger set $X$ must be also.
+
+    \item[10.]
+        \boldmath\textbf{Show that a space $X$ is Hausdorff if and only if $\Delta = \{ (x, x) \mid x \in X \}$ is closed in $X \times X$.
+        }\unboldmath \par
+        %($\Rightarrow$) Since products of Hausdorff spaces are Hausdorff, $X \times X$ in particular is Hausdorff.
+        \iffalse
+            Then for any $y \in X \setminus \Delta$, there exists an open set $U_y$ disjoint from $\Delta$, and thus,
+            \begin{align*}
+                X \setminus \{a\} = \bigcup_{b \in X \setminus \{a\}} U_b,
+            \end{align*}
+            being a union of open sets, is open.
+        \fi
+        If we assume that $|X| = 1$, then $X$ is trivially Hausdorff, and also $|\Delta| = 1$. Being finite, $\Delta$ is closed since $X$ is a $T_1$ space. We now assume otherwise. \par
+        ($\Rightarrow$) For any $(a, b) \in X \times X \setminus \Delta$, $a \neq b$, so there exists disjoint $U_a$, $U_b$ such that $a \in U_a$ and $b \in U_b$. $U_a \times U_b$ is disjoint with $\Delta$, because otherwise they would have a point $(x, x)$ in common, contradicting the separation condition on $U_a$ and $U_b$. We have that
+        \begin{align*}
+            X \times X \setminus \Delta = \bigcup_{(a, b) \in X \times X \setminus \Delta} U_a \times U_b,
+        \end{align*}
+        so $X \times X \setminus \Delta$ is open, and $\Delta$ is closed. \par
+        ($\Leftarrow$) $X \times X \setminus \Delta$ is open, which means that for any $a, b \in X$ with $a \neq b$, $(a, b) \in X \times X$, and there exists a basis element $U \times V$ of the topology on $X \times X$ such that $(a, b) \in U \times V \subset X \times X \setminus \Delta$. $U \times V$ being disjoint with $\Delta$ implies that $U$ and $V$ are disjoint, because otherwise if $x \in U \cap V$, then $(x, x) \in (U \times V) \cap \Delta$. Because $a$ and $b$ are separated by open sets $U$ and $V$, $X$ is Hausdorff.
+\end{enumerate}
+
+\end{document}

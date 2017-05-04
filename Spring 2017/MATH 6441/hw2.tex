@@ -1,0 +1,67 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, dsfont, enumitem, fancyhdr, graphicx}
+\usepackage[margin=0.9in, includehead, includefoot, heightrounded]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand*\dist{\mathop{\!\mathrm{d}}}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\newcommand*\sq{\mathbin{\vcenter{\hbox{\rule{.3ex}{.3ex}}}}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\begin{document}
+
+\section*{MATH 6441 Exercises -- Chapter 1}
+\begin{enumerate}
+    \item[3.]
+        \boldmath\textbf{For a path-connected space $X$, show that $\pi_1(X)$ is abelian iff all basepoint-change homomorphisms $\beta_h$ depend only on the endpoints of the path $h$.
+        }\unboldmath \par
+        Let $x_0, x_1 \in X$. \par
+        ($\Rightarrow$) Take paths $h_0, h_1 : I \to X$ from $x_0$ to $x_1$. If $f$ is a loop based at $x_1$, then $[h_0 \sq f \sq \overline{h_1}]$ and $[h_1 \sq \overline{h_0}]$ are loops based at $x_0$, so using commutativity,
+        \begin{align*}
+            \beta_{h_0}[f] &= [h_0 \sq f \sq \overline{h_0}] \\
+            &= [(h_0 \sq f \sq \overline{h_1}) \sq (h_1 \sq \overline{h_0})] \\
+            &= [(h_1 \sq \overline{h_0}) \sq (h_0 \sq f \sq \overline{h_1})] \\
+            &= [h_1 \sq f \sq \overline{h_1}] = \beta_{h_1}[f].
+        \end{align*}
+        ($\Leftarrow$) Given path $h : I \to X$ from $x_0$ to $x_1$ and loops $f, g$ based at $x_1$, we know that $\overline{h} f$ is a path from $x_1$ to $x_0$. Therefore,
+        \begin{align*}
+            \beta_{\overline{h} f}[g] &= \beta_{\overline{h}}[g] \\
+            [\overline{h} \sq f \sq g \sq \overline{f} \sq h] &= [\overline{h} \sq g \sq h] \\
+            [f \sq g \sq \overline{f}] &= [g].
+        \end{align*}
+
+    \item[5.]
+        \boldmath\textbf{Show that for a space $X$, the following three conditions are equivalent:
+            \begin{enumerate}[label=(\alph*)]
+                \item
+                    Every map $S^1 \to X$ is homotopic to a constant map, with image a point.
+                \item
+                    Every map $S^1 \to X$ extends to a map $D^2 \to X$.
+                \item
+                    $\pi_1(X, x_0) = 0$ for all $x_0 \in X$.
+            \end{enumerate}
+        Deduce that a space $X$ is simply-connected iff all maps $S^1 \to X$ are homotopic (without regard to basepoints).
+        }\unboldmath \par
+        We can regard $\pi_1(X, x_0)$ as the set of basepoint-preserving homotopy classes of maps $(S^1, s_0) \to (X, x_0)$. \par
+        ((a) $\Rightarrow$ (b)) If $f : S^1 \to X$, then we are given a homotopy $H : S^1 \times I \to X$ from $f$ to a constant map, so there is a quotient map identifying the points of $S^1 \times I$ along $S^1 \times \{1\}$, and this induces a map $(S^1 \times I) / (S^1 \times \{1\}) \to X$. Taking the cone of the circle, we have $CS^1 = (S^1 \times I) / (S^1 \times \{1\}) \cong D^2$, and composing with this homeomorphism gives a map $D^2 \to X$. \par
+        ((b) $\Rightarrow$ (c)) Let $f : (S^1, s_0) \to (X, x_0)$, which extends to a map $(D^2, s_0) \to (X, x_0)$ by assumption, so we can take a deformation retraction $r_t$ of $D^2$ onto $s_0$. This means that $fr_t$ is a basepoint-preserving homotopy of $f$ to the constant map with image $x_0$. Because all such maps $f$ are nullhomotopic, $\pi_1(X, x_0)$ is trivial. \par
+        ((c) $\Rightarrow$ (a)) Since all maps $S^1 \to X$ are homotopic with respect to preserving basepoints, they are in particular homotopic to the constant map with the basepoint as the image. \par
+        Any simply-connected space $X$ is path-connected and satisfies (c) by definition. Then it also satisfies (a), and all constant maps $S^1 \to X$ are homotopic due to path-connectedness. \par
+        Conversely, we have that (a) is satisfied, implying that (c) is satisfied. Furthermore, all constant maps are homotopic, and hence $X$ is path-connected.
+
+    \item[6.]
+        \boldmath\textbf{Let $[S^1, X]$ be the set of homotopy classes of maps $S^1 \to X$, with no conditions on basepoints. Thus there is a natural map $\Phi : \pi_1(X, x_0) \to [S^1, X]$ obtained by ignoring basepoints. Show that $\Phi$ is onto if $X$ is path-connected, and that $\Phi([f]) = \Phi([g])$ iff $[f]$ and $[g]$ are conjugate in $\pi_1(X, x_0)$. Hence $\Phi$ induces a one-to-one correspondence between $[S^1, X]$ and the set of conjugacy classes in $\pi_1(X)$, when $X$ is path-connected.
+        }\unboldmath \par
+        Let $[\varphi]$ be some element of $[S_1, X]$ with representative $f$ based at point $x_1 \in X$. Because there exists a path $h$ from $x_0$ to $x_1$, $hf\overline{h}$ is a path based at $x_0$. There exists a homotopy from $hf\overline{h}$ to $f$ given by continuously moving the basepoint from $x_0$ to $x_1$ through $h$, so we conclude that $[\varphi] = \Phi[hf\overline{h}]$. \par
+        Now let $f$ be a loop based at $x_1$ and $g$ a loop based at $x_2$. \par
+        %First, assume that $\Phi([f]) = \Phi([g])$. Because we can disregard basepoints, we can let $f$ For any path $h$ from $x_1 \to x_2$, the change-of-basepoint map $\beta_h[f] = [h \sq f \sq \overline{h}]$ is a loop based at $x_2$, so it is also $[g]$, which means that $[f]$ and $[g]$ are conjugate. \par
+        If $\Phi([f]) = \Phi([g])$, then lemma 1.19 implies that $[f]$ and $[g]$ are conjugate according to the definition of conjugacy. \par 
+        Conversely, the conjugacy of $[f]$ and $[g]$ implies the existence of a path $h$ from $x_1$ to $x_2$ such that $\beta_h[f] = [h \sq f \sq \overline{h}] = [g]$. Since we can disregard basepoints, $\Phi([f]) = \Phi([g])$.
+\end{enumerate}
+
+\end{document}

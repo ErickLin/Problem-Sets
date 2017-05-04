@@ -1,0 +1,177 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage{amsmath}
+\allowdisplaybreaks
+\usepackage{amssymb}
+\usepackage{bm}
+
+\begin{document}
+	\section*{MATH 2406 - HW6 Solutions}
+	
+	\subsection*{6.4}
+	\begin{enumerate}
+		\setcounter{enumi}{4}
+		\item Due to both of the facts that $T$ is linear and $ax + by$ is an eigenvector,
+		\[ T(ax + by) = aT(x) + bT(y) = \lambda(ax + by) \]
+		where $\lambda$ is a constant. Also, since $x$ and $y$ are eigenvectors,
+		\[ aT(x) + bT(y) = a\lambda_1x + b\lambda_2y \]
+		where $\lambda_1$ and $\lambda_2$ are constants. \par
+		Because $ax + by$ is in the same eigenspace as $x$ and $y$, it must share an eigenvalue with either $x$ or $y$. If $\lambda = \lambda_1$ then $b = 0$, and if $\lambda = \lambda_2$ then $a = 0$.
+		
+		\item Let $x$ and $y$ be elements of $S$, so $T(x) = \lambda_1x$ and $T(y) = \lambda_2y$ where $\lambda_1$ and $\lambda_2$ are constants. $S$ is linear because it is a vector space, so
+		\[ T(ax + by) = aT(x) + bT(y) = \lambda(ax + by) \]
+		where $\lambda$ is a constant. Also,
+		\[ aT(x) + bT(y) = a\lambda_1x + b\lambda_2y. \]
+		where $a$ and $b$ are real numbers. In order for the above equations to be consistent, the following must be true:
+		\[ \lambda = \lambda_1 = \lambda_2 = c. \]
+		
+		\item Let $f \in p$. Then
+		\[ T(f) = f(t + 1) = \lambda f(t). \]
+		If $\lambda = 0$, then $f$ is trivial and cannot be an eigenfunction by definition. Otherwise, if $\lambda \neq 1$, then $f$ grows exponentially. Therefore, $f \in p$ only if $\lambda = 1$. Then the space of eigenfunctions consists of all nontrivial polynomial functions of degree $0$.
+		
+		\setcounter{enumi}{10}
+		\item By definition,
+		\[ \{y_n\} = \{\lim_{m \to \infty}x_m - x_n\} = \lambda\{x_n\}. \]
+		This suggests that
+		\begin{gather*}
+		\lim_{m \to \infty}x_m - x_n = \lambda x_n \; \forall \; n \geq 1 \\ 
+		\lim_{m \to \infty}x_m = (\lambda + 1)x_n \; \forall \; n \geq 1
+		\end{gather*}
+		If $\lambda = 0$, then $\{x_n\}$ is a constant sequence, which must be nonzero in order to be an eigenvector. If $\lambda = -1$, then $\{x_n\}$ converges to zero and is an eigenvector if not all the elements are zero.
+	\end{enumerate}
+	
+	\subsection*{6.10}
+	\begin{enumerate}
+		\item (a) $\lambda = 1 ;\;
+		t\left[ \begin{array}{c}
+			1 \\
+			0
+		\end{array} \right] ,
+		t\left[ \begin{array}{c}
+		0 \\
+		1
+		\end{array} \right] ;\;
+		2$ \par
+		(b) $\lambda = 1 ;\;
+		t\left[ \begin{array}{c}
+		1 \\
+		0
+		\end{array} \right] ;\;
+		1$ \par
+		(c) $\lambda = 1 ;\;
+		t\left[ \begin{array}{c}
+		0 \\
+		1
+		\end{array} \right] ;\;
+		1$ \par
+		(d) $\lambda = 0 ;\;
+		t\left[ \begin{array}{c}
+		1 \\
+		-1
+		\end{array} \right] ;\;
+		1 \\
+		\lambda = 2 ;\;
+		t\left[ \begin{array}{c}
+		1 \\
+		1
+		\end{array} \right] ;\;
+		1$
+		
+		\setcounter{enumi}{5}
+		\item \begin{gather*}
+		(1 - \lambda_1) + 1 + 1 = 0 \\
+		a + (b - \lambda_1) + c = 0 \\
+		d + e + (f - \lambda_1) = 0 \\\\
+		(1 - \lambda_2) - 1 = 0 \\
+		a - c = 0 \\
+		d - (f - \lambda_2) = 0 \\\\
+		(1 - \lambda_3) - 1 = 0 \\
+		a - (b - \lambda_3) = 0 \\
+		d - e = 0 \\\\
+		\Rightarrow \lambda_1 = 3,\; \lambda_2 = 0,\; \lambda_3 = 0 \\
+		a = b = c = d = e = f = 1
+		\end{gather*}
+		
+		\item (a) $\lambda = 1 ;\;
+		t\left[ \begin{array}{c}
+		0 \\
+		0 \\
+		1
+		\end{array} \right] ;\;
+		1$ \par
+		(b) $\lambda = 1 ;\;
+		t\left[ \begin{array}{c}
+		1 \\
+		-1 \\
+		0
+		\end{array} \right] ;\;
+		1 \\
+		\lambda = 2 ;\;
+		t\left[ \begin{array}{c}
+		3 \\
+		3 \\
+		-1
+		\end{array} \right] ;\;
+		1 \\
+		\lambda = 21 ;\;
+		t\left[ \begin{array}{c}
+		1 \\
+		1 \\
+		6
+		\end{array} \right] ;\;
+		1$ \par
+		(c) $\lambda = 1 ;\;
+		t\left[ \begin{array}{c}
+		3 \\
+		-1 \\
+		3
+		\end{array} \right] ;\;
+		1 \\
+		\lambda = 2 ;\;
+		t\left[ \begin{array}{c}
+		2 \\
+		2 \\
+		-1
+		\end{array} \right] ;\;
+		1$
+		
+		\setcounter{enumi}{9}
+		\item The following derivation uses a previously proved identity and the fact that $I$ is diagonal:
+		\begin{align*}
+		\mbox{det}(\lambda I - A) &= \mbox{det}((\lambda I - A)^T) \\
+		&= \mbox{det}((\lambda I)^T - A^T) \\
+		&= \mbox{det}(\lambda I - A^T)
+		\end{align*}
+		Because the characteristic polynomials of $A$ and of $A^T$ are equal, the two matrices share the same eigenvalues.
+		
+		\item
+		\begin{align*}
+		\mbox{det}(\lambda I - AB) &= \mbox{det}(\lambda I - IAB) \\
+		&= \mbox{det}(\lambda AA^{-1} - AA^{-1}AB) \\
+		&= \mbox{det}(A(\lambda A^{-1} - B)) \\
+		&= \mbox{det}(A(\lambda A^{-1}AA^{-1} - BAA^{-1})) \\
+		&= \mbox{det}(A(\lambda I - BA)A^{-1}) \\
+		&= \mbox{det}(A)\mbox{det}(\lambda I - BA)\mbox{det}(A^{-1}) \\
+		&= \mbox{det}(\lambda I - BA)
+		\end{align*}
+	\end{enumerate}
+	
+	\subsection*{6.12}
+	\begin{enumerate}
+		\item The matrices are both upper-triangular and have the same elements along their diagonals, so they share these elements as the same eigenvalues. However, from computing the eigenvectors it can be determined that the former matrix has an eigenspace of 1 while the latter has an eigenspace of 2, which shows that they are not similar.
+		
+		\setcounter{enumi}{7}
+		\item (a) $A^2$ can only be diagonal if the columns of $A$ are orthogonal to one another, and since $n$ orthogonal vectors form a basis of dimension $n$, $A$ is nonsingular. \par
+		(b) $\mbox{det}(A^2) = \mbox{det}(A)^2 = \mbox{det}(-I)$ is the product of the diagonals of $-I$, which is $1$ if $n$ is even and $-1$ if $n$ is odd. If $\mbox{det}(A)^2 = -1$, then $\mbox{det}(A)$ must be complex, which contradicts the property that $A$ has real entries. Then $\mbox{det}(A) = 1$ and $n$ is even. \par
+		(c) Following the definition of an eigenvector $v$ and using $A^2v = -Iv = -v$,
+		\begin{align*}
+		A^2v &= A(Av) \\
+		&= A(Av) \\
+		&= A(\lambda v) \\
+		&= \lambda Av \\
+		&= \lambda^2v
+		\end{align*}
+		Then $\lambda^2 = -1$, so both of the eigenvalues are imaginary. \par
+		(d) (follows from (b))
+	\end{enumerate}
+\end{document}

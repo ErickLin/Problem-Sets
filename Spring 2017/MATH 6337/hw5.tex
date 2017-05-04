@@ -1,0 +1,107 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr, graphicx}
+\usepackage[margin=0.8in, includehead, includefoot, heightrounded]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\newcommand*\dist{\mathop{\!\mathrm{d}}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\DeclareMathOperator*{\esssup}{ess\,sup}
+\DeclareMathOperator*{\argmax}{\arg\!\max}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\begin{document}
+
+\section*{MATH 6337 -- HW5 Solutions}
+\begin{enumerate}
+    \item[3.1.11.]
+        \begin{enumerate}
+            \item
+                \boldmath\textbf{Assume $f : E \to [0, \infty]$ is measurable, where $E \subseteq \mathbb{R}^d$ is measurable. Show that if $\int_E f < \infty$, then $f(x)$ is finite for a.e. $x \in E$.
+                }\unboldmath \par
+                %This is exactly the statement of Lemma 3.1.8(d).
+                We prove the contrapositive: if $f = \infty$ on a measurable subset $A \subseteq E$ of positive measure, then for each $n \in \mathbb{N}$,
+                \begin{align*}
+                    \int_E f \geq \int_E f \chi_A \geq \int_A n = n|A|.
+                \end{align*}
+                Since $n$ is arbitrary, we must have that $\int_E f = \infty$.
+            \item
+                \boldmath\textbf{Exhibit a set $E$ and a nonnegative measurable $f$ such that $\int_E f = \infty$ yet $f(x) < \infty$ for every $x \in E$.
+                }\unboldmath \par
+                Let $E = \mathbb{R}$, $f(x) = 1$ for all $x \in E$. Then $\int_E f = 1|E| = \infty$.
+        \end{enumerate}
+
+    \item[3.2.8.]
+        \boldmath\textbf{Deduce the Monotone Convergence Theorem from Fatou's Lemma.
+        }\unboldmath \par
+        Let $\{f_n\}_{n \in \mathbb{N}}$ be a sequence of measurable, nonnegative, extended real-valued functions on a measurable set $E \subseteq \mathbb{R}^d$ such that $f_n \nearrow f$. Lemma 3.1.8(b) then implies that
+        \begin{align*}
+            0 \leq \int_E f_1 \leq \int_E f_2 \leq \cdots \leq \int_E f \leq \infty
+        \end{align*}
+        and so
+        \begin{align*}
+            \lim_{n \to \infty} \int_E f_n \leq \int_E f.
+        \end{align*}
+        Conversely, Fatou's Lemma and the observation that any increasing sequence of nonnegative extended real scalars (such as $\{ \int_E f_n \}_{n \in \mathbb{N}}$) must converge to a nonnegative extended real number yields the result
+        \begin{align*}
+            \int_E f \leq \liminf_{n \to \infty} \int_E f_n = \lim_{n \to \infty} \int_E f_n.
+        \end{align*}
+
+    \setcounter{enumi}{2}
+    \item
+        \boldmath\textbf{Let $\{f_n\}_{n = 1}^\infty$ be a sequence of nonnegative measurable functions on a measurable set $E \subseteq \mathbb{R}^d$. Prove that
+        \begin{align*}
+            \int_E \sum_{n = 1}^\infty f_n = \sum_{n = 1}^\infty \int_E f_n.
+        \end{align*}
+        }\unboldmath \par
+        \sloppy
+        Using the fact that $\sum_{n = 1}^N f_n \nearrow \sum_{n = 1}^\infty f_n$ as $N \to \infty$, an application of the MCT gives $\int_E \sum_{n = 1}^N f_n \to \int_E \sum_{n = 1}^\infty f_n$ as $N \to \infty$. Also, Theorem 3.2.3 inductively implies that $\int_E \sum_{n = 1}^N f_n = \sum_{n = 1}^N \int_E f_n$ for all $N$, of which we can take the limit. The result follows from combining these two observations.
+
+    \item
+        \boldmath\textbf{Consider a nonnegative integrable function $f : E \to \mathbb{R}_+$, where $E \subseteq \mathbb{R}^d$ is measurable. Show that
+        \begin{align*}
+            \int_E f = \int_0^\infty |\{ x \in E : f(x) > t \}| dt
+        \end{align*}
+        where the last integral is a Riemann integral.
+        }\unboldmath \par
+        ($\geq$) First, consider the Riemann integral $\int_0^N |\{ x \in E : f(x) > t \}| dt$ where $N \in \mathbb{N}$ is fixed. Given a partition $\Gamma = \{ 0 = t_0 < t_1 < \cdots < t_n = N\}$, let
+        \begin{align*}
+            m_j = \inf_{t \in [t_{j - 1}, t_j]} |\{ x \in E : f(x) > t \}|.
+        \end{align*}
+        Then the lower Riemann sum is given by
+        \begin{align*}
+            L_\Gamma = \sum_{j = 1}^n m_j (t_j - t_{j - 1}),
+        \end{align*}
+        and we know that as $n \to \infty$, $L_\Gamma \to \int_0^N |\{ x \in E : f(x) > t \}| dt$. \par
+        Furthermore, the function $\phi(x) = \argmax_{t_j} \{ f(x) > t_j \} \leq f(x)$ is simple, and hence its Lebesgue integral is given by $\int_E \phi = \sum_{j = 1}^n t_j |E_j|$ where $E_j = \phi^{-1}\{t_j\}$. We can see by inspection that $\int_E \phi = L_\Gamma$, and so $\int_E \phi \to \int_0^N |\{ x \in E : f(x) > t \}| dt$. \par
+        Since $N$ was chosen arbitrarily, we have such a function $\phi$ for all $N$. Taking the limit as $N \to \infty$, we have that $\int_0^\infty |\{ x \in E : f(x) > t \}| dt \leq \int_E f$ by the definition of the Lebesgue integral of $f$. \par
+        ($\leq$) Fix $N \in \mathbb{N}$, and let
+        \begin{align*}
+            f_N(x) = \begin{cases}
+                f(x), &f(x) \leq N \\
+                N,    &f(x) > N
+            \end{cases},
+        \end{align*}
+        noting that $f_N \to f$. Since $f_N$ is bounded, its Lebesgue and Riemann integrals are the same, and inspection shows that $\int_0^N |\{ x \in E : f(x) > t \}| dt = \int_E f_N$. For any simple function $\phi : E \to \mathbb{R}_+$ such that $0 \leq \phi \leq f_N$, $\int_E \phi \leq \int_E f_N$, and this continues to hold as $N \to \infty$. Combining the previous two observations, we can see from the definition of the Lebesgue integral that $\int_E f \leq \int_0^\infty |\{ x \in E : f(x) > t \}| dt$.
+
+    \item
+        \boldmath\textbf{Use the result of Problem 4 to compute the Lebesgue integral
+        \begin{align*}
+            \int_{-1}^1 |x|^{-1/2} dx
+        \end{align*}
+        }\unboldmath \par
+        $f(x) = |x|^{-1/2}$ is nonnegative and integrable on the measurable set $E = [-1, 1]$, and so
+        \begin{align*}
+            \int_{-1}^1 |x|^{-1/2} dx &= \int_0^\infty |\{ x \in [-1, 1] : |x|^{-1/2} > t \}| dt \\
+            &= \int_0^1 |[-1, 1]| dt + \int_1^\infty |\{ |x| < t^{-2} \}| dt \\
+            &= \int_0^1 2dt + \int_1^\infty \left( \frac{1}{t^2} - \frac{-1}{t^2} \right) dt \\
+            &= 2 + 2(-0 + 1) = 4.
+        \end{align*}
+\end{enumerate}
+
+\end{document}

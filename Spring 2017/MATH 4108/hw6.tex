@@ -1,0 +1,252 @@
+\documentclass[12pt]{article}
+
+%Packages Used%
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{latexsym}
+\usepackage{amsfonts,setspace}
+\usepackage{fullpage}
+%\usepackage[pdftex,pagebackref,hypertexnames=false, colorlinks, citecolor=black, linkcolor=blue, urlcolor=red]{hyperref}
+\usepackage{comment}
+\usepackage{enumitem}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{lemma}{Lemma}
+
+\setlength{\abovedisplayskip}{3mm}
+\setlength{\belowdisplayskip}{3mm}
+\setlength{\abovedisplayshortskip}{0mm}
+\setlength{\belowdisplayshortskip}{2mm}
+\setlength{\baselineskip}{12pt}
+\setlength{\normalbaselineskip}{12pt}
+
+\setlength\parindent{0pt} % paragraph indentation
+
+\newcommand{\blank}{\underline{~~~~~~~~~}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\kk}{\mathbf{k}}
+\newcommand{\cP}{\mathcal{P}}
+
+\newcommand{\bu}{\mathbf{u}}
+\newcommand{\bv}{\mathbf{v}}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\by}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\bc}{\mathbf{c}}
+\newcommand{\bp}{\mathbf{p}}
+\newcommand{\bq}{\mathbf{q}}
+\newcommand{\be}{\mathbf{e}}
+\newcommand{\bzero}{\mathbf{0}}
+\DeclareMathOperator{\Nul}{Nul}
+\DeclareMathOperator{\Mod}{mod}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\lcm}{lcm}
+
+\renewcommand{\And}{\wedge}
+\newcommand{\Or}{\vee}
+\newcommand{\Implies}{\Rightarrow}
+\newcommand{\Not}{\sim}
+
+
+
+\normalbaselines
+\pagestyle{empty}
+\raggedbottom
+\begin{document}
+
+\noindent
+\textbf{Name: Erick Lin} \smallskip  \\
+\textbf{Collaborators:} \smallskip \\ %%% List anyone with whom you discussed the problems
+\textbf{Outside resources: Dummit and Foote (Exercise 1(b)), Rotman (Exercise 3), Stack Exchange (Exercises 5 and 6)} \smallskip \\ %%% List all resources used OTHER than the textbook, lecture notes, quizzes, worksheets, and previous homework assignments.
+
+\begin{center}
+{
+Math 4108, Algebra II \\
+HW 6 --- Due on March 31, 2017 (Friday)
+}
+\end{center}
+
+For problems 1 and 2, please don't just say that this is Theorem ... in the book.  If you use the proofs from the textbook, please explain them in a way that you understand it.
+
+\begin{enumerate}
+    \item
+        \boldmath\textbf{Let $K$ be a field of characteristic $0$.  
+        }\unboldmath
+        \begin{enumerate}
+            \item
+                \boldmath\textbf{For every finite extension $L:K$, prove that there is an extension $M:L$ such that $M:K$ is Galois.
+                }\unboldmath \par
+                \iffalse
+                    Let $A \subset L$ be the smallest finite set such that $L = K(A)$. Let
+                    \begin{align*}
+                        B = \{ \sigma(\alpha) \mid \sigma \in \Gal(L : K), \alpha \in A \}
+                    \end{align*}
+                    and $q(x) = \prod_{\beta \in B} (x - \beta)$. $q(x)$ is invariant under $\Gal(L : K)$.
+                \fi
+                By induction, $L$ can be obtained from $K$ by adjoining a finite number of algebraic elements, because the degree of $L$ over $K$ is finite and
+                \begin{align*}
+                    [L : K] = [L : K(a_1, \cdots, a_i)][K(a_1, \cdots, a_i) : K(a_1, \cdots, a_{i - 1})].
+                \end{align*}
+                for all $a_i$. By the Primitive Element Theorem and induction, there exists $b \in L$ such that $L = K(b)$. \par
+                The splitting field $M$ of the minimal polynomial of $b$ over $K$ is a normal extension of $K$ by Theorem 7.13. By Corollary 7.23, $K$ is perfect, so every element in $M$ is separable over $K$, meaning $M:K$ is separable. In conclusion, $M:K$ is Galois.
+
+            \item
+                \boldmath\textbf{For every finite radical extension $L:K$, prove that there is an extension $M:L$ such that $M:K$ is Galois and radical.
+                }\unboldmath \par
+                We will show that the normal closure $M$ of $L$ is a radical extension of $K$; it follows that $M$ is Galois (since $M:K$ is separable). \par
+                By the hypothesis,
+                \begin{align*}
+                    K \subset K(\alpha_1) \subset K(\alpha_1, \alpha_2) \subset \cdots \subset K(\alpha_1, \alpha_2, \cdots, \alpha_m) = L
+                \end{align*}
+                where $\alpha_i^{n_i} \in K(\alpha_1, \cdots, \alpha_{i - 1})$ for some integer $n_i \geq 2$. 
+                \begin{lemma}
+                    $M = K(\sigma(\alpha_1), \cdots, \sigma(\alpha_m) : \sigma \in \Gal(M : K))$.
+                \end{lemma}
+                \begin{proof}
+                    Let $p_i(x) \in K[x]$ be the irreducible polynomial of $\alpha_i$ over $K$. For any $p_i(x)$ and any pair of roots $\alpha_i' \neq \alpha_i''$, $K(\alpha_i') \cong K[x]/\langle p_i(x) \rangle \cong K(\alpha_i'')$, so there exists an isomorphism $\sigma : K(\alpha_i') \to K(\alpha_i'')$ that fixes $K$ and takes $\alpha_i' \to \alpha_i''$, which extends to an automorphism $\sigma$ of $\Gal(M : K)$. Then $K(\sigma(\alpha_1), \cdots, \sigma(\alpha_m) : \sigma \in \Gal(M : K))$ is the splitting field of $\lcm(p_1, \cdots, p_m)$, and hence must be $M$.
+                \end{proof}
+                %For any $\sigma \in \Gal(M : K)$, $\sigma(L) = K(\sigma(\alpha_1), \cdots, \sigma(\alpha_m))$ is a radical extension of $K$. \par
+                We claim that
+                \begin{align*}
+                    L_1 = K(\sigma(\alpha_1) : \sigma \in \Gal(M : K))
+                \end{align*}
+                \sloppy
+                is a radical extension of $K$; this is true because $\sigma(\alpha_1)^{n_1} = \sigma(\alpha_1^{n_1}) \in \sigma(K) = K$ for any $\sigma$. Proceeding by induction, if
+                \begin{align*}
+                    L_i = K(\sigma(\alpha_1), \cdots, \sigma(\alpha_i) : \sigma \in \Gal(M : K))
+                \end{align*}
+                is a radical extension of $K$, then we claim that
+                \begin{align*}
+                    L_{i + 1} = L_i(\sigma(\alpha_{i + 1}) : \sigma \in \Gal(M : K))
+                \end{align*}
+                is also a radical extension of $K$; this is true because $\sigma(\alpha_{i + 1}^{n_{i + 1}}) \in K(\sigma(\alpha_1), \cdots, \sigma(\alpha_i)) \subseteq L_i$. Because $L_m = M$, we conclude that $M$ is a radical extension of $K$.
+        \end{enumerate}
+
+    \item
+        \boldmath\textbf{Let $L_1$ and $L_2$ be two Galois extensions of a field $K$ (in a common extension field).  Prove that $L_1 \cap L_2$ is also Galois over $K$.
+        }\unboldmath \par
+        $L_1 \cap L_2$ is a subfield of both $L_1$ and $L_2$ but an extension of $K$. Let $L$ be the common (Galois) extension of $L_1$ and $L_2$, and let $G = \Gal(L : K)$, $G_1 = \Gal(L_1 : K)$, and $G_2 = \Gal(L_2 : K)$. $\Gamma(L_1 \cap L_2) \cong G_1 G_2$ because any $K$-automorphism of $L$ fixing every element in $L_1 \cap L_2$ necessarily fixes elements that are in both $L_1$ and $L_2$ (which is what $G_1 G_2 = G_2 G_1$ does) and vice versa. Also, $G_1 G_2 \triangleleft G$ because if $g_1 g_2, g_3 g_4 \in G_1 G_2$, then $(g_1 g_2)(g_3 g_4)^{-1} = g_1 g_2 g_4^{-1} g_3^{-1} \in G_1 G_2$, and if $g \in G$, then $g G_1 G_2 = G_1 g G_2 = G_1 G_2 g$. By the Fundamental Theorem of Galois Theory, $G_1 \cap G_2$ is a Galois extension of $K$.
+
+    \item
+        \boldmath\textbf{If $M:L$ is Galois and $L:K$ is Galois, does $M:K$ have to be Galois?
+        }\unboldmath
+        Let $K = \mathbb{Q}$, $L = \mathbb{Q}(\sqrt{2})$, $M = \mathbb{Q}(\sqrt[4]{2})$. Then $L : K$ is Galois because $L$ is the splitting field of $x^2 - 2$, and $M : L$ is Galois because $M$ is the splitting field of $x^2 - \sqrt{2}$. However, $M : K$ is not Galois because a $K$-automorphism can send $\sqrt[4]{2}$ to an element in $\{ \pm \sqrt[4]{2}, \pm i \sqrt[4]{2} \}$, but $\pm i \sqrt[4]{2} \notin M$.
+
+    \item
+        \boldmath\textbf{Let $\alpha_1, \alpha_2, \alpha_3$ be roots of the polynomial $x^3+2x^2-3x+7$.  Find the cubic polynomial whose roots are
+        }\unboldmath
+        \begin{enumerate}
+            \item
+                \boldmath\textbf{$\alpha_1^2, \alpha_2^2, \alpha_3^2$.
+                }\unboldmath \par
+                By Descarte's Rule of Signs, $x^3 + 2x^2 - 3x + 7$ has 1 positive real root, 1 negative real root, and $3 - 1 - 1 = 1$ complex root. \par
+                By Vieta's formulas, the coefficients of the original polynomial are given by the elementary symmetric functions (with alternating sign)
+                \begin{align*}
+                    -2 &= \alpha_1 + \alpha_2 + \alpha_3 \\
+                    -3 &= \alpha_1\alpha_2 + \alpha_1\alpha_3 + \alpha_2\alpha_3 \\
+                    -7 &= \alpha_1\alpha_2\alpha_3.
+                \end{align*}
+                and the coefficients of the desired polynomial are given by (with alternating sign)
+                \begin{align*}
+                    e_1 &= \alpha_1^2 + \alpha_2^2 + \alpha_3^2 \\
+                    e_2 &= \alpha_1^2\alpha_2^2 + \alpha_1^2\alpha_3^2 + \alpha_2^2\alpha_3^2 \\
+                    e_3 &= \alpha_1^2\alpha_2^2\alpha_3^2.
+                \end{align*}
+                We can deduce immediately that $e_3 = (-7)^2 = 49$. To find $e_2$, we multiply out
+                \begin{align*}
+                    (\alpha_1\alpha_2 + \alpha_1\alpha_3 + \alpha_2\alpha_3)^2 = \alpha_1^2\alpha_2^2 + \alpha_1^2\alpha_3^2 + \alpha_2^2\alpha_3^2 + 2\alpha_1\alpha_2\alpha_3(\alpha_1 + \alpha_2 + \alpha_3),
+                \end{align*}
+                and substituting the previous values gives
+                \begin{align*}
+                    (-3)^2 = e_2 + 2(-7)(-2) \Rightarrow e_2 = -19.
+                \end{align*}
+                Lastly, we follow a similar approach for finding $e_1$ by multiplying out
+                \begin{align*}
+                    (\alpha_1 + \alpha_2 + \alpha_3)^2 = \alpha_1^2 + \alpha_2^2 + \alpha_3^2 + 2(\alpha_1\alpha_2 + \alpha_1\alpha_3 + \alpha_2\alpha_3)
+                \end{align*}
+                and so we have
+                \begin{align*}
+                    (-2)^2 = e_1 + 2(-3) \Rightarrow e_1 = 10.
+                \end{align*}
+                In summary, the desired polynomial is $x^3 - 10x^2 - 19 - 49$.
+
+            \item
+                \boldmath\textbf{$\frac{1}{\alpha_1}, \frac{1}{\alpha_2}, \frac{1}{\alpha_3}$.
+                }\unboldmath \par
+                Here, we have
+                \begin{align*}
+                    e_1 &= \alpha_1^{-1} + \alpha_2^{-1} + \alpha_3^{-1} \\
+                    e_2 &= \alpha_1^{-1}\alpha_2^{-1} + \alpha_1^{-1}\alpha_3^{-1} + \alpha_2^{-1}\alpha_3^{-1} \\
+                    e_3 &= \alpha_1^{-1}\alpha_2^{-1}\alpha_3^{-1},
+                \end{align*}
+                from which we can immediately deduce $e_3 = -1/7$. To find $e_2$, we note that
+                \begin{align*}
+                    \frac{1}{\alpha_1\alpha_2} + \frac{1}{\alpha_1\alpha_3} + \frac{1}{\alpha_2\alpha_3} = \frac{\alpha_3}{\alpha_1\alpha_2\alpha_3} + \frac{\alpha_2}{\alpha_1\alpha_2\alpha_3} + \frac{\alpha_1}{\alpha_1\alpha_2\alpha_3} = \frac{\alpha_1 + \alpha_2 + \alpha_3}{\alpha_1\alpha_2\alpha_3},
+                \end{align*}
+                and substituting gives
+                \begin{align*}
+                    e_2 = \frac{-2}{-7} = \frac{2}{7}.
+                \end{align*}
+                Similarly, with $e_1$,
+                \begin{align*}
+                    \frac{1}{\alpha_1} + \frac{1}{\alpha_2} + \frac{1}{\alpha_3} = \frac{\alpha_2\alpha_3}{\alpha_1\alpha_2\alpha_3} + \frac{\alpha_1\alpha_3}{\alpha_1\alpha_2\alpha_3} + \frac{\alpha_1\alpha_2}{\alpha_1\alpha_2\alpha_3} = \frac{\alpha_1\alpha_2 + \alpha_1\alpha_3 + \alpha_2\alpha_3}{\alpha_1\alpha_2\alpha_3},
+                \end{align*}
+                giving
+                \begin{align*}
+                    e_1 = \frac{-3}{-7} = \frac{3}{7}.
+                \end{align*}
+                The desired polynomial is $x^3 - 3x^2/7 + 2x/7 + 1/7$.
+
+            \item
+                \boldmath\textbf{$\alpha_1^3, \alpha_2^3, \alpha_3^3$.
+                }\unboldmath \par
+                Now, we have
+                \begin{align*}
+                    e_1 &= \alpha_1^3 + \alpha_2^3 + \alpha_3^3 \\
+                    e_2 &= \alpha_1^3\alpha_2^3 + \alpha_1^3\alpha_3^3 + \alpha_2^3\alpha_3^3 \\
+                    e_3 &= \alpha_1^3\alpha_2^3\alpha_3^3.
+                \end{align*}
+                from which we can immediately deduce $e_3 = -343$. The method for finding $e_1$ and $e_2$ is similar to in (a), but we multiply out $(\alpha_1 + \alpha_2 + \alpha_3)^3$ and $(\alpha_1\alpha_2 + \alpha_1\alpha_3 + \alpha_2\alpha_3)^3$ instead.
+        \end{enumerate}
+
+    \item
+    \begin{enumerate}
+        \item
+            \boldmath\textbf{If $p > 2$ is prime, prove that any $p$-cycle and any transposition generate $S_p$.
+            }\unboldmath \par
+            Given an arbitrary $p$-cycle and transposition, we can relabel the elements so that the $p$-cycle becomes $\sigma = (1 \quad 2 \quad \cdots \quad n)$ while the transposition remains a transposition $\tau = (a \quad b)$. \par
+            We can see that (taking everything modulo $p$) $\sigma^k(i) = i + k$ for any $i$ and $k$, so $\sigma^{b - a}(a) = b$, meaning that $\sigma^{b - a}$ is a $p$-cycle that takes $a$ to $b$. Hence, we can again relabel the elements so that $\sigma^{b - a}$ becomes $\sigma' = (1 \quad 2 \quad \cdots \quad n)$ while the transposition becomes $\tau' = (1 \quad 2)$. \par
+            Finally, by Theorem 9.23, $\sigma'$ and $\tau'$ generate $S_p$, and because the relabelings are bijective, the original $p$-cycle and transposition do as well.
+
+        \item
+            \boldmath\textbf{Show that the statement above is false if $p$ is not prime. 
+            }\unboldmath \par
+            Using the definitions of $\sigma$ and $\tau$ from part (a), let $d = \gcd(p, b - a) > 1$. We claim that $(i \quad j) \in S_p$ with $i \not\equiv j$ (mod $d$) is not generated by $\sigma$ and $\tau$, which we show as follows. \par
+            Define the relation $f : \langle \sigma, \tau \rangle \to S_d$ by $g \mapsto f_g$, where $f_g(k) = g(k)$ (mod $d$) for all elements $k$. $f_\tau$ is well-defined because $b \equiv a$ (mod $d$), and $f_\sigma$ is well-defined because since $d \mid p$,
+            \begin{align*}
+                k \equiv l \text{ (mod $d$)} \Leftrightarrow k + 1 \equiv l + 1 \text{ (mod $d$)}.
+            \end{align*}
+            For all $g, h \in \langle \sigma, \tau \rangle$, if $f_g$ and $f_h$ are well-defined, then $f_g f_h = f_{gh}$ is also, and thus $f$ is a well-defined function. \par
+            Because $f_{(i \; j)}$ is not well-defined, $(i \quad j)$ is not in the domain of $f$. Thus, $\langle \sigma, \tau \rangle \subsetneq S_p$.
+    \end{enumerate}
+
+    \item
+        \boldmath\textbf{Construct a polynomial of degree $7$ with rational coefficients whose Galois group over $\QQ$ is isomorphic to $S_7$.
+        }\unboldmath \par
+        $f = x^7 + 10000007(x - 2)(x - 1)(x + 1)(x + 2)(x + 3)$ has 5 real roots (approximately $-3, -2, -1, 1, 2$) and hence 2 complex roots by the Fundamental Theorem of Algebra, and is also irreducible over $\mathbb{Q}$ by Eisenstein's criterion with $p = 10000007$. We know that the Galois group $G$ of $f$ over $\mathbb{Q}$ is isomorphic to a subgroup of $S_7$ because it is characterized by permutations of roots of $f$. One such permutation is the transposition of the two complex roots. Since $f$ is irreducible, $G$ acts transitively on the $7$ roots by the orbit-stabilizer theorem. Being divisible by $7$, $G$ contains an element of order $7$ by a Sylow theorem. Therefore, $G$ is isomorphic to a subgroup of $S_7$ containing a 7-cycle and a transposition, so $G \cong S_7$.
+\end{enumerate}
+\end{document}

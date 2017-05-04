@@ -1,0 +1,248 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{amsfonts, amsmath, enumitem}
+
+\textheight=9.5in
+\textwidth=6.5in
+\topmargin=-.8in
+\headsep=0pt
+\oddsidemargin=0truecm
+\evensidemargin=0truecm
+\footskip=20pt
+%\footheight=20pt
+\pretolerance=1600
+\tolerance=1600
+\hbadness=1600
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{problem}[theorem]{Problem}
+
+\DeclareMathOperator*{\argmax}{argmax}
+
+\begin{document}
+
+\title{
+}
+
+\date{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author's definitions
+
+\newcommand{\DEF}[1]{{\em #1\/}}
+
+\newcommand\chic{\chi_c}
+\newcommand\C{\hbox{${\cal C}$}}
+\newcommand{\RR}{\mbox{$\mathbb R$}}
+\newcommand{\NN}{\mbox{$\mathbb N$}}
+\newcommand{\ZZ}{\mbox{$\mathbb Z$}}
+\newcommand{\eopf}{\raisebox{0.8ex}{\framebox{}}}
+\newcommand{\dist}{\hbox{\rm d}}
+\renewcommand\a{\alpha}
+\renewcommand\b{\beta}
+\renewcommand\c{\gamma}
+\renewcommand\d{\delta}
+\newcommand\D{\Delta}
+\newcommand{\directedchi}{\mbox{$\vec{\chi}$}}
+\newcommand{\directedE}{\mbox{$\vec{E}$}}
+\newcommand{\directedG}{\mbox{$\vec{G}$}}
+\newcommand{\directedK}{\mbox{$\vec{K}$}}
+
+\newenvironment{proof}%
+{\noindent{\bf Proof.}\ }%
+{\hfill\eopf\par\bigskip}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\maketitle
+
+\noindent{\bf  Last Name:} $Lin \quad$
+\noindent{\bf First Name:} $Erick \quad$
+\noindent{\bf Email:}          $elin42@gatech.edu$\\
+\noindent{\bf CS 4540, Fall 2016, Homework 2, 9/15/16 Due 9/22/16 in class $~~~~~~~$ Page 1/5}
+
+\bigskip
+
+
+\noindent{\bf Problem 1:  NP-complete special cases (20 points)}.  \\
+In class we say a polynomial time dynamic programming algorithm for finding a maximum weight independent set
+for an undirected graph $G(V,E)$ with positive weights on its vertices $c(v) > 0$, for all $v\in V$, for the case where 
+$G$ is a tree (also in DPV textbook.) \\
+(a) Give a polynomial time algorithm for finding a maximum weight independent set
+for an undirected graph $G(V,E)$ with positive weights on its vertices $c(v) > 0$, for all $v\in V$, for the case where 
+$G$ is a cycle. That is: $V= \{ v_1 , \ldots v_n \}$ and $E = \{  \{ v_1 , v_2  \} , \{  v_2 , v_3 \} , \ldots \{  v_{n-1} , v_n\}  \}\cup \{ \{ v_n , v_1\} \}$. \\
+(b) Give a polynomial time algorithm for finding a maximum weight independent set
+for an undirected graph $G(V,E)$ with positive weights on its  for the case where 
+$G$ is a Theta. That is: 
+$V= \{ x_1 , \ldots x_n \} \cup  \{ y_1 , \ldots y_n \} \cup \{ a , b\}$ 
+and $E = \{  \{ x_1 , x_2  \} , \{  x_2 , x_3 \} , \ldots \{  x_{n-1} , x_n\}     \}
+\cup \{  \{ y_1 , y_2  \} , \{  y_2 , y_3 \} , \ldots \{  y_{n-1} , y_n\}     \} 
+\cup \{ \{ a, x_1 \} \}  \cup \{ \{ a, y_1 \} \}  \cup \{ \{ b, x_n\} \}  \cup \{ \{ b , y_n\} \} 
+$. \\
+
+\noindent
+{\bf Answer:} 
+\begin{enumerate}[label=(\alph*)]
+    \item
+        Let
+        \begin{itemize}
+            \item
+                $G_i(\{ v_1, \cdots, v_i \}, \{ \{ v_1, v_2 \}, \cdots, \{ v_{i - 1}, v_i \} \})$ be the subgraph of $G(V, E)$,
+            \item
+                $opt(i)$ be the maximum-weight independent set on $G_i$,
+            \item
+                $opt(n + 1)$ be the maximum-weight independent set on $G$, the object of output.
+        \end{itemize}
+        $opt(1)$ is trivially $v_1$, and $opt(2)$ is $\argmax_{i \in [1, 2]} c(v_i)$. Then the recurrence relation for $3 \leq i \leq n + 1$ is given by
+        \begin{align*}
+            opt(i) = \argmax_{S \in \{ opt(i - 1), opt(i - 2) \cup v_i \}} \sum_{v_j \in S} c(v_j)
+        \end{align*}
+        because if the maximum-weight independent set for $G_i$ does not contain $v_{i - 1}$, which is the only vertex adjacent to $v_i$, then it must contain $v_i$ because $c(v_i)$ contributes a positive value to the weight. Additionally, if $opt(i - 1)$ does not contain $v_{i - 1}$, then it is the same as $opt(i - 2)$, and $opt(i - 2) \cup v_i$ would be the argument chosen for $S$. \par
+        Computing $opt(i)$ for all $i$ in order while keeping a running sum of the weights of the vertices in $opt(i)$ takes $O(n)$ time, because only one addition and one comparison is made at each iteration.
+
+    \item
+        The algorithm from part (a) also gives the maximum-weight independent set on any linear graph $G_n$ by $opt(n)$. \par
+        Thus, we have a linear-time subroutine for finding the maximum-weight independent sets (which we denote by $opt(G')$ for any graph $G'$ hereafter) on the subgraphs induced by $\{ x_1, \cdots, x_n \}$, $\{ y_1, \cdots, y_n \}$, $\{ x_2, \cdots, x_n \}$, $\{ y_2, \cdots, y_n \}$, $\{ x_1, \cdots, x_{n - 1} \}$, and $\{ y_1, \cdots, y_{n - 1} \}$. If the maximum-weight independent set on $G$
+        \begin{itemize}
+            \item
+                contains neither $a$ nor $b$, then it is given by $opt(\{ x_1, \cdots, x_n \}) \cup opt(\{ y_1, \cdots, y_n \})$.
+            \item
+                contains $a$ and necessarily not $b$, then it is given by $a \cup opt(\{ x_2, \cdots, x_n \}) \cup opt(\{ y_2, \cdots, y_n \})$.
+            \item
+                contains $b$ and necessarily not $a$, then it is given by $opt(\{ x_1, \cdots, x_{n - 1} \}) \cup opt(\{ y_1, \cdots, y_{n - 1} \}) \cup b$.
+        \end{itemize}
+        Out of these three, we take the one with the maximum sum of weights. The algorithm consists of a constant number of $O(n)$-time subroutines, so it runs in $O(n)$ time.
+\end{enumerate}
+
+
+\pagebreak 
+
+\noindent{\bf  Last Name:} $Lin \quad$
+\noindent{\bf First Name:} $Erick \quad$
+\noindent{\bf Email:}          $elin42@gatech.edu$\\
+\noindent{\bf CS 4540, Fall 2016, Homework 2, 9/15/16 Due 9/22/16 in class $~~~~~~~$ Page 2/5}
+
+\bigskip
+
+
+\noindent{\bf Problem 2:  Knapsack Algorithm ? (20 points)}.  \\
+Consider the following greedy algorithm for the knapsack problem (without repetition.)
+Sort the items by decreasing ratio of profit to size,
+and then greedily pick items in this order, while capacity is not violated. 
+Show that this algorithm can be made to perform arbitrarily bad.\\
+
+\noindent
+{\bf Answer:}
+\iffalse
+    Imagine a scenario with a knapsack of capacity $c$, $n$ items of size $s$ and profit $p$ where $c = ns$ and $s \mid p$, and $1$ item of size $c - s + 1$ and profit $(c - s + 1)p/s$. \par
+    Then the last item has the highest profit-to-size ratio, so it would be chosen first, leaving no room in the knapsack for other items to be added -- the total profit of the knapsack would then be $(c - s + 1)p/s = (c + 1)p/s - 1$. \par
+    However, the maximum total profit possible is $np = cp/s$, which is made by adding the $n$ items of size $s$.
+\fi
+Imagine a scenario with a knapsack of capacity $c$ and two items, one of size $c$ and profit $c$ and the other of size $1$ and profit $2$. \par
+The second item has the highest profit-to-size ratio, so it would be chosen first, leaving no room in the knapsack for other items to be added -- the total profit of the knapsack would then be $2$. \par
+However, the maximum total profit possible is $c$, which is made by adding the first item. As $c$ gets arbitrarily large, the error $c - 2$ also increases arbitrarily.
+
+
+\pagebreak 
+
+\noindent{\bf  Last Name:} $Lin \quad$
+\noindent{\bf First Name:} $Erick \quad$
+\noindent{\bf Email:}          $elin42@gatech.edu$\\
+\noindent{\bf CS 4540, Fall 2016, Homework 2, 9/15/16 Due 9/22/16 in class $~~~~~~~$ Page 3/5}
+
+\bigskip
+
+
+\noindent{\bf Problem 3:  Knapsack 2 Approximation  (20 points)}.  \\
+Consider the following modification to the algorithm given in Problem 2. 
+Let the sorted order of items be $a_1 , a_2 , \ldots , a_n$. 
+Find the lowest $k$ such that the size of the first $k$ items exceeds the capacity. 
+Now pick the more profitable of the two sets
+$\{ a_1 , \ldots, a_{k-1} \}$ and $\{ a_k \}$ (we have assumed that each item's size is smaller than the total capacity.) 
+Show that, if the profit of the optimal solution is OPT, then the profit of the picked set is at least OPT/2. \\
+
+\noindent
+{\bf Answer:}
+Assume otherwise, that the profit of the chosen set is less than OPT/2. The other set is even less profitable, so the combined profit of $\{ a_1, \cdots, a_{k - 1} \}$ and $\{ a_k \}$ is less than OPT/2 + OPT/2 = OPT, and by definition the combined size of items in this union exceeds the capacity. Some other set whose combined size of items is at most the capacity must give a profit of OPT, but then this set has a higher profit-to-size ratio, contradicting the fact that the items are indexed in decreasing order of their profit-to-size ratios.
+
+
+\pagebreak 
+
+\noindent{\bf  Last Name:} $Lin \quad$
+\noindent{\bf First Name:} $Erick \quad$
+\noindent{\bf Email:}          $elin42@gatech.edu$\\
+\noindent{\bf CS 4540, Fall 2016, Homework 2, 9/15/16 Due 9/22/16 in class $~~~~~~~$ Page 4/5}
+
+\bigskip
+\noindent{\bf Problem 4:  2Partition,  Pseudopolynomial (20 points)}.  \\
+2Partition is the following problem: Input $n$ distinct positive integers $a_1, \ldots , a_n$ (written in binary.)
+Is there a subset $S \subset \{ 1 , 2 , \ldots , n \}$ such that $\sum_{i\in S} a_i  = \sum_{i \not\in S} a_i$? \\
+This is a well known NP-complete problem. \\
+Give a pseudopolynomial algorithm to solve 2Partition; i.e., your algorithm should run in time polynomial 
+in $n$ and $A$, where $A=\sum_{i=1}^{n} a_i$.\\
+
+\noindent
+{\bf Answer:}
+The approach is to mark all the numbers from $0$ to $A$ that are the sum of any subset of the given integers by going through the integers $a_i$ one at a time. \par
+We know that $0$ is trivally the sum of the empty subset, so it is marked initially. Then for all integers $a_i$ in order, we iterate over all numbers $m$, from $A - a_i$ to $0$, in decreasing order. If $m$ is marked, then we know that it is the sum of some subset of $\{ a_1, \cdots, a_{i - 1} \}$, and the sum of the union of this subset with $\{ a_i \}$ is $m + a_i$, so we can mark $m + a_i$. \par
+At the end of this procedure, all possible sums that can be obtained from some subset are marked. In particular, we know that there is a 2Partition if $A/2$ is marked (this means $A$ must be even). \par
+We can see that the procedure runs in $O(\sum_{i = 1}^n (A - a_i)) = O(An - A) = O(An)$ time.
+
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $Lin \quad$
+\noindent{\bf First Name:} $Erick \quad$
+\noindent{\bf Email:}          $elin42@gatech.edu$\\
+\noindent{\bf CS 4540, Fall 2016, Homework 2, 9/15/16 Due 9/22/16 in class $~~~~~~~$ Page 5/5}
+
+\bigskip
+\noindent{\bf Problem 5:  Knapsack with Repetition, Fully Polynomial Approximation (20 points)}.  \\
+Consider the knapsack problem for $n$ items, with capacity $W$ and maximum item profit $P$.\\
+For knapsack without repetition, we saw an algorithm that produces a solution with profit $(1- \epsilon )$OPT, 
+and runs in time polynomial in $n$, $\log P$, $\log W$ and $\frac{1}{\epsilon}$, 
+where OPT is the profit of an optimal solution. \\
+Consider knapsack with repetition; i.e., each item can be picked multiple times, 
+but the capacity of valid solutions is still bounded by $W$. 
+Give an algorithm that produces a solution with profit $(1- \epsilon )$OPT, 
+and runs in time polynomial in $n$, $\log P$, $\log W$ and $\frac{1}{\epsilon}$, 
+where OPT is the profit of an optimal solution. \\
+
+\noindent
+{\bf Answer:}
+\iffalse
+    One algorithm for knapsack with repetition is given by computing the maximum profit for each size. Each item can potentially be added up to $W$ times (depending on the size of the item) instead of just once, so the running time is $O(nW^2)$. \par
+    We now present a fully polynomial approximation scheme for knapsack with repetition:
+    \begin{enumerate}[itemsep=-0.5ex]
+        \item
+            Given $\epsilon > 0$, let $K = \frac{\epsilon W}{n}$.
+        \item
+            Define $W' = \left\lfloor \frac{W}{K} \right\rfloor$, and for each item $a$, define $\text{size}'(a) = \left\lfloor \frac{\text{size}(a)}{K} \right\rfloor$.
+            %For each item $a$, define $\text{profit}'(a) = \left\lfloor \frac{\text{profit}(a)}{K} \right\rfloor$.
+        \item
+            With these as sizes of items, use the dynamic programming algorithm given above to find the most profitable set, say $S'$.
+        \item
+            Output $S'$.
+    \end{enumerate}
+    We show that $S'$ satisfies $\text{profit}(S') \geq (1 - \epsilon) \cdot \text{OPT}$ as follows. Let $O$ denote the optimal set. For any item $a$, $0 \leq \text{size}(a) - K \cdot \text{size}'(a) \leq K$, so
+    \begin{align*}
+        0 \leq \text{size}(O) - K \cdot \text{size}'(O) \leq nK.
+    \end{align*}
+    The dynamic programming subroutine must return a set at least as good as $O$ under $\text{size}'$. Thus,
+    \begin{align*}
+        \text{profit}(S') &\geq K \cdot \text{profit}'(S') \geq K \cdot \text{profit}'(O) \\
+        &\geq \text{profit}(O) - nK = \text{OPT} - \epsilon P \\
+        &\geq (1 - \epsilon) \cdot \text{OPT}
+    \end{align*}
+    where the last step comes from the fact that $P$ is a lower bound on $\text{OPT}$.
+    The running time of the algorithm is $O(n \lfloor \frac{W}{K} \rfloor^2) = $.
+\fi
+One observation that can be made is that each item will appear in the knapsack at most $W$ times, since the size of each item is at least $1$. If we replace each item $a$ with $\log_2 W$ items $a_1, a_2, \cdots, a_{\log_2 W}$ where the size and profit of $a_i$ are respectively $2^i$ times the size and profit of $a$, then any number of repetitions of $a$ in the knapsack can be simulated by some combination of the $a_i$ because any integer can be represented as the sum of different powers of $2$. \par
+Using the $n \log_2 W$ new items, we can then reduce this problem to the knapsack problem without repetition in which the capacity is $W$ and the maximum item profit is $PW$. \par
+Substituting these values into the known time complexity of the fully polynomial approximation scheme for knapsack without repetition gives a time complexity of $O((n \log_2 W)^2 \lfloor n \log_2 W/\epsilon \rfloor) = O((n \log W)^2 \lfloor n \log W/\epsilon \rfloor)$, which is polynomial in the quantities required.
+
+
+\end{document}

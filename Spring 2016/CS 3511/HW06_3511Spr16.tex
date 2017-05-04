@@ -1,0 +1,256 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{amsfonts, amsmath, courier, enumitem}
+
+\textheight=9.5in
+\textwidth=6.5in
+\topmargin=-.8in
+\headsep=0pt
+\oddsidemargin=0truecm
+\evensidemargin=0truecm
+\footskip=20pt
+%\footheight=20pt
+\pretolerance=1600
+\tolerance=1600
+\hbadness=1600
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{problem}[theorem]{Problem}
+
+\begin{document}
+
+\title{
+}
+
+%\author{Assigned 1-13-16 , Due 1-19-16 (in class)
+%}
+
+
+\date{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author's definitions
+
+\newcommand{\DEF}[1]{{\em #1\/}}
+
+\newcommand\chic{\chi_c}
+\newcommand\C{\hbox{${\cal C}$}}
+\newcommand{\RR}{\mbox{$\mathbb R$}}
+\newcommand{\NN}{\mbox{$\mathbb N$}}
+\newcommand{\ZZ}{\mbox{$\mathbb Z$}}
+\newcommand{\eopf}{\raisebox{0.8ex}{\framebox{}}}
+\newcommand{\dist}{\hbox{\rm d}}
+\renewcommand\a{\alpha}
+\renewcommand\b{\beta}
+\renewcommand\c{\gamma}
+\renewcommand\d{\delta}
+\newcommand\D{\Delta}
+\newcommand{\directedchi}{\mbox{$\vec{\chi}$}}
+\newcommand{\directedE}{\mbox{$\vec{E}$}}
+\newcommand{\directedG}{\mbox{$\vec{G}$}}
+\newcommand{\directedK}{\mbox{$\vec{K}$}}
+
+\newenvironment{proof}%
+{\noindent{\bf Proof.}\ }%
+{\hfill\eopf\par\bigskip}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\maketitle
+
+\noindent{\bf  Last Name:} $Lin \quad$
+\noindent{\bf First Name:} $Erick \quad$
+\noindent{\bf Email:}          $elin42@gatech.edu$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 5, 3/5/16 Due 3/11/16 5pm Klaus 2138 $~~$Page 1/10}
+
+\bigskip
+
+\noindent{\bf Problem 1: Hamilton Path in DAGs (10 points)}\\
+Show that the Directed Hamilton Path problem can be solved in polynomial time in directed acyclic graphs. \\
+Give an efficient algorithm, justify correctness and running time. \\
+{\bf Answer:} \par
+The graph must be a linear graph in order to have a Hamiltonian path, because for a given vertex it is not possible to visit more than one neighbor. Thus, if any vertex has more than one neighbor, the algorithm returns false. We first reverse the edges and employ DFS/BFS on the reversed graph to find the root, and then we run DFS/BFS on the original graph starting from the root. If not all vertices are visited, then the graph is not connected and does not have a Hamiltonian path. Otherwise, the edges of the DFS/BFS tree form the desired Hamiltonian path. The time complexity is $O(|V| + |E|)$, with DFS/BFS being the most expensive step.
+
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{ CS 3511, Spring 2016, Homework 6, 4/6/16 Due 4/14/16 Due 3/14/16 5pm Klaus 2138 $~~$Page 2/10}
+
+\bigskip
+
+\noindent{\bf Problem 2: Decision implies Construction (10 points)}\\
+Suppose that someone gives you a polynomial-time algorithm to decide 3SAT. 
+Describe how to use this algorithm to find a satisfying assignment in
+polynomial time (if such an assignment exists.) \\
+{\bf Answer:} \par
+The given algorithm will return with a negatory result if and only if no such assignment exists. Otherwise, let $n$ be the number of variables in the boolean expression. One by one, we may assign each variable $x$ to either \textit{true} or \textit{false} and use the given algorithm to answer whether the simplified expression given by the remaining unknown variables is satisfiable; if it is not, then we know from the assertion that the expression is satisfiable if the value for $x$ is flipped. Without loss of generality, assume $x$ is first set to \textit{true}. Then more specifically, the simplified expression is described by removing disjunctive clauses that contain $x$ (because this satisfies the clause) and removing $\neg x$ from the remaining clauses. This algorithm requires at most $2n$ uses of the given subroutine.
+
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{ CS 3511, Spring 2016, Homework 6, 4/6/16 Due 4/14/16 5pm Klaus 2138 $~~$Page 3/10}
+
+\bigskip
+
+\noindent{\bf Problem 3: Vertex Cover, Greedy Heuristic (10 points)}\\
+Consider the following heuristic to solve the vertex-cover
+problem. Repeatedly select a vertex of highest degree, and remove all of its incident
+edges. Give an example to show that this heuristic does not have
+an approximation ratio of 2.\\
+{\bf Answer:} \par
+One example is the graph containing the 6-clique containing the vertex $A, B, C, D, E, F$, with additional points $G, H, I$ and edges $\{ A, G \}, \{ G, H \}, \{ H, I \}$. It can be verified that one example of a minimum vertex cover consists of $A$ and $I$, since the union of the edges adjacent to these points is all of the edges. \par
+However, the heuristic will instead select $A$ (with degree 6), then (without loss of generality with respect to points in the clique) $B$ (now with degree 4), $C$ (now with degree 3), $D$ (now with degree 2), and finally $I$ (which now has degree 1) in the best case. This vertex cover contains 5 elements, which is more than twice the size of the minimum vertex cover.
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{ CS 3511, Spring 2016, Homework 6, 4/6/16 Due 4/14/16 5pm Klaus 2138 $~~$Page 4/10}
+
+\bigskip
+
+\noindent{\bf Problem 4: Hamilton Cycles in Undirected and Directed Graphs (10 points)}\\
+Recall that a Hamilton Cycle in a directed graph is a cycle that visits all vertices of the graph exactly once.
+Similarly, a Hamilton Cycle in an undirected graph is a cycle that visits all vertices of the graph exactly once.
+In class and in DPV book we showed that 3SAT$\leq_P$Directed Hamilton Cycle. 
+Show that Directed Hamilton Cycle $\leq_P$ Undirected Hamilton Cycle.\\
+{\bf Answer:} \par
+The desired undirected graph is constructed as follows. Let $G(V, E)$ denote the directed graph, and $G'(V', E')$ denote the undirected graph to be constructed. For each vertex $v \in G$, create three vertices $v_{\text{in}}, v, v_{\text{out}} \in G'$. For all $u$ such that $(u, v) \in E$, create the undirected edge $\{ u, v_{\text{in}} \} \in E'$, and for all $w$ such that $(v, w) \in E$, create the edge $\{ v_{\text{out}}, w \} \in E'$; finally, add the edges $\{ v_{\text{in}}, v \}, \{ v, v_\text{out} \}$. \par
+If a Hamiltonian cycle in $G$ travels through a vertex $v$, then the corresponding Hamiltonian cycle in $G'$ travels through all three vertices $v_{\text{in}}, v, v_{\text{out}}$, and hence must contain $\{ v_{\text{in}}, v \}, \{ v, v_\text{out} \}$, because it is not possible to reach $v$ otherwise. It is necessary to construct $v \in G'$ (in addition to $v_{\text{in}}, v_{\text{out}}$) because otherwise, it would be possible to have vertices $u, w \in V$ with $(u, v), (w, v) \in E$ such that the Hamiltonian cycle in $G'$ contains $\{ u_\text{out}, v_\text{in} \}$ and $\{ v_\text{in}, w_\text{out} \}$; however, this would correspond to a Hamiltonian cycle in $G$ containing $(u, v), (w, v)$, which we know is a contradiction since $v$ can be visited only once. \par
+Constructing the new graph takes time linear in the number of vertices and edges, and is contained in $O(|V| + |E|)$.
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{ CS 3511, Spring 2016,Homework 6, 4/6/16 Due 4/14/16 5pm Klaus 2138 $~~$Page 5/10}
+
+\bigskip
+
+\noindent{\bf Problem 5: Hamilton Paths (10 points)}\\
+Recall that a Hamilton Cycle in a directed graph is a cycle that visits all vertices of the graph exactly once.
+Similarly, a Hamilton Path in a directed graph is a path that starts 
+from some vertex $v$, ends in some vertex $u\neq v$, and visits all vertices of the graph exactly once.
+In class we showed that 3SAT$\leq_P$Directed Hamilton Cycle. 
+Show that 3SAT$\leq_P$ Directed Hamilton Path. \\
+{\bf Answer:} \par
+Let $n$ denote the number of variables, and $k$ denote the number of clauses. The reduction is very similar to that showing 3SAT $\leq_P$ Directed Hamiltonian Cycle, with source and sink vertices $s$ and $t$, $k$ vertices corresponding to clauses, and a linear subgraph corresponding to each variable with a number of vertices linear in the number of times the vertex appears in all the clauses. Let $S_i$ denote the linear subgraph corresponding to the variable $x_i$. Then $s$ is connected by directed edges to the first and last vertices of $S_1$, the first and last vertices of $S_i$ are connected to the first and last vertices of $S_{i + 1}$ for all $1 \leq i \leq n - 1$, and the first and last vertices of $S_n$ are connected to $t$. The only difference now is that there is no directed edge from $t$ to $s$. Then a Hamiltonian path from $s$ to $t$ corresponds to a corresponding assignment by the same reasoning as in the 3SAT $\leq_P$ Directed Hamiltonian Cycle case. \par
+Construction of the new graph requires $O(n + k)$ time, because the total number of appearances of variables in all the clauses is $3k$, and the number of edges is linear in the number of vertices, which is linear in $n$.
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{ CS 3511, Spring 2016, Homework 6, 4/6/16 Due 4/14/16 5pm Klaus 2138 $~~$Page 6/10}
+
+\bigskip
+
+\noindent{\bf Problem 6: Hardness of TSP Approximation (10 points)}\\
+In class we showed that Undirected Hamilton Cycle $\leq_P$ TSP.\\
+Define the 2-Approx-TSP problem as follows: \\
+Input: $G$, the complete graph on $n$ vertices, cost $c(e)>0$ for every edge of $G$. \\
+$~~~~~~$ Let OPT be the cost of a minimum cost cycle that visits every vertex exactly once.\\
+Output: A cycle $c$ of $G$ that visits all the vertices of $G$ exactly once
+and has cost at most 2OPT.\\
+Show that Undirected Hamilton Cycle $\leq_P$ 2-Approx-TSP. \\
+{\bf Answer:} \par
+Let $G(V, E)$ be the original graph, and let $G'(V, E')$ denote the complete graph on $V$. Thus, $G$ is a subgraph of $G'$. For all $e \in E'$, set $c(e) := 0$ if $e \in E$, and $c(e) := 1$ otherwise. Then if $G$ has a Hamiltonian cycle, the corresponding cycle in $G'$ is a Hamiltonian cycle with a total cost of $0$, which is OPT. The converse is also obviously true. Since $0 \leq 2$OPT, Undirected Hamiltonian Cycle reduces to 2-Approx-TSP as well.
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{ CS 3511, Spring 2016, Homework 6, 4/6/16 Due 4/14/16 5pm Klaus 2138 $~~$Page 7/10}
+
+\bigskip
+
+\noindent{\bf Problem 7: Cliques (10 points)}\\
+Let $G(V,E)$ be an undirected graph.\\
+Definition: Let $X \subseteq V$ be a subset of the vertices of $G$. 
+We say that $X$ is a {\em clique} if and only if, for all vertices $u\in X$ and $v\in X$, 
+the edge $\{ u , v \} \in E$ ie there is an edge from $u$ to $v$ in the graph $G$. 
+We say that the {\em size} of the clique is the number of vertices in $X$: $|X|$. \\
+{\em Clique} is the following problem:\\
+Input: Undirected graph $G(V,E)$ and a number $k$ with $1\leq k \leq n$. \\
+Output: YES if the graph $G$ has a clique of size {\em at least } $k$.\\
+$~~~~~~~~~~~~$ NO if all cliques of $G$ have size strictly smaller than $k$.\\
+Show that Independent Set$\leq_P$Clique. \\
+{\bf Answer:} \par
+Define the $\textit{opposite graph}$ $G'(V, E')$ as a transformation of $G(V, E)$ in which for all $u, v \in V$, if $\{ u, v \} \in E'$ if and only if $\{ u, v \} \notin E$. Then an independent set $X$ in $G$ is by definition a clique in $G'$. Performing the transformation determines the time complexity, and it takes $O(|E|)$ time.
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{ CS 3511, Spring 2016, Homework 6, 4/6/16 Due 4/14/16 5pm Klaus 2138 $~~$Page 8/10}
+
+\bigskip
+
+\noindent{\bf Problem 8: Stingy SAT (10 points)}\\
+STINGY SAT is the following problem: given a set of clauses (each a disjunction of literals) and
+an integer $k$ with $1 \leq k \leq n$, find a satisfying assignment in which at most $k$ variables are true, if such an
+assignment exists. Prove that STINGY SAT is NP-complete. (Hint: Reduce SAT to Stingy SAT.)\\
+{\bf Answer:} \par
+A boolean expression with exactly $k$ variables, an instance of SAT, has at most $k$ that are \textit{true}, so it is also an instance of STINGY SAT. Conversely, an instance of STINGY SAT with a satisfying assignment having at most $k$ variables that are \textit{true} is also an instance of SAT.
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{ CS 3511, Spring 2016, Homework 6, 4/6/16 Due 4/14/16 5pm Klaus 2138 $~~$Page 9/10}
+
+\bigskip
+
+\noindent{\bf Problem 9: Subgraph Isomorphism (10 points)}\\
+Subgraph Isomorphism is the following problem:\\
+Input: Undirected graph $G(V,E)$, and undirected graph $H(V^\prime , E^\prime)$, with $|V^\prime | \leq |V|$.\\
+Output: YES if $G$ has a subgraph isomorphic to $H$, ie for some $V^\prime \subseteq V$, the subgraph of $G$ induced 
+by the vertices in $V^\prime$ is isomorphic to $H$.\\
+$~~~~~~~~~$ NO if $G$ has no subgraph isomorphic to $V^\prime$. \\
+Prove that Subgraph Isomorphism is NP-complete. \\
+{\bf Answer:} \par
+Subgraph Isomorphism is in NP because given a subgraph $G_0(V_0, E_0) \subseteq G(V, E)$ and a mapping $\varphi : V_0 \to V'$, we can verify that $G_0$ is isomorphic to $H$ by checking that $|V_0| = |V'|$, and $\{ u, v \} \in E_0$ if and only if $\{ \varphi(u), \varphi(v) \} \in E'$. This requires $O(|E_0|) = O(|E'|)$ time. \par
+Also, we will show that Clique $\leq_P$ Subgraph Isomorphism. For if we are given an integer $k$ with $1 \leq k \leq n$, then a clique of size $k$ exists in $G$ if and only if $G$ has a subgraph isomorphic to the complete graph on $k$ vertices. Since the complete graph has $O(k^2)$ edges, this is the time complexity of constructing the complete graph, and hence of the entire reduction.
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{ CS 3511, Spring 2016, Homework 6, 4/6/16 Due 4/14/16 5pm Klaus 2138 $~~$Page 10/10}
+
+\bigskip
+
+\noindent{\bf Problem 10: Hardness of Set Cover (10 points)}\\
+Recall the unweighted Set Cover problem. $X = \{ e_1 , e_2 , \ldots, e_n \}$ is a ground set of $n$ elements. 
+$F = \{   S_1, S_2, \ldots , S_m  \}$ is a collection of subsets of $X$, 
+ie $S_j \subseteq X$, for $1 \leq j \leq m  $.
+A {\em set cover} $C$ is a subset of $F$ such that every element of $X$ belongs to a set in $C$. 
+Given $k$, such that $1 \leq k \leq m$, we want to know if there exists a set cover that has at most $k$ sets.\\
+Recall the unweighted Vertex Cover (VC) problem. $G(V,E)$ is an undirected graph. 
+A {\em vertex cover} $C_V$ is a subset of $V$ such that every edge in $E$ has at least one of its endpoints 
+in $C_V$. Given $k$, such that $1 \leq k \leq |V|$, we want to know if there exists a vertex cover that has at most $k$ vertices.\\
+Show that VC$\leq_P$Set-Cover.\\
+{\bf Answer:} \par
+Let $X = E$, $m = |V|$, and let the elements $e_i$ correspond to the edges in $E$. For each vertex $v_i$, construct a set $S_i$ consisting of all the edges that contain $v_i$ as an endpoint.
+\iffalse
+    Isolated vertices are a special case -- we will handle them by adding the isolated vertices to every $S_i$.
+\fi
+Then if a subset $C_V$ of vertices is such that $\bigcup_{v_i \in C_v} S_i = E$, $\bigcup_{v_i \in C_v} S_i = X$ as well. Conversely, if the union of a family of sets $S_i$ is all of $X$, then the vertices corresponding to these sets cover $E$. Thus, we have constructed a Set Cover problem from a general Vertex Cover problem where edges correspond to elements and vertices correspond to sets. \par
+The time complexity of constructing the new problem depends on the representation of $G(V, E)$. If edges are represented as adjacency lists, no computation is required.
+\end{document}

@@ -1,0 +1,74 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr, graphicx}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\begin{document}
+
+\section*{MATH 4431 -- Midterm 2 Corrections}
+\begin{enumerate}
+    \item[1.]
+        \boldmath\textbf{Show that any subspace of a separable metric space is separable.
+        }\unboldmath \par
+        If $X$ is a separable metric space, then there exists some $Q \subset X$ that is dense and countable. Suppose $A$ is a subspace of $X$. For all $q \in Q$, $n \in \mathbb{N}$ in which $A \cap B_{1/n}(q) \neq \emptyset$, let $a_{n, q} \in A \cap B_{1/n}(q)$. The set $P$ consisting of all these $a_{n, q}$'s is clearly countable and by its definition a subset of $A$, and we also show that $P$ is dense in $A$ by showing that any open subset $U \subset A$ contains some point in $P$. For it is indeed the case by the subspace topology that $U$ is open in $X$ and hence must intersect $Q$ at some point $q$ since $Q$ is dense in $X$. Furthermore, some open ball $B_\epsilon(q)$ is contained in $U$, and if $n > 1/\epsilon$, then we conclude that $a_{n, q} \in U$ also. Thus, $P$ is a dense and countable subset of $A$, so $A$ is separable.
+
+    \item[2.]
+        \boldmath\textbf{If $C$ is a Cantor set, then show that any two nonempty compact open subsets of $C$ are homeomorphic.
+        }\unboldmath \par
+        \begin{lemma} \label{lem:perfect}
+            Open subspaces of perfect topological spaces are perfect.
+        \end{lemma}
+        \begin{proof}
+            Let $S$ be an open subspace of a perfect topological space $X$. Any open set $U \subset S$ is open in $X$ also, so it cannot contain exactly one point in $X$ since $X$ is perfect. The number of points that $U$ contains in $S$ is of course the same, which means it also cannot contain exactly one point in $S$; thus, $S$ is perfect.
+        \end{proof}
+        \begin{lemma} \label{lem:disconnected}
+            Subspaces of totally disconnected topological spaces are totally disconnected.
+        \end{lemma}
+        \begin{proof}
+            Let $S$ be a subspace of a totally disconnected topological space $X$. Any nonempty connected subset $U \subset S$ is a nonempty connected subset of $X$ also -- the connectedness property is preserved because any disjoint open subsets of $X$ that are not disjoint open subsets of $S$ are, more specifically, not subsets of $S$. Since $X$ is totally disconnected, $U$ must be a singleton in $X$, so $U$ must of course be a singleton in $S$ also, and $S$ is totally disconnected.
+        \end{proof}
+        Using Lemmas \ref{lem:perfect} and \ref{lem:disconnected} as well as the fact that subsets of metric spaces are metric spaces, we have that any two nonempty compact open subsets of $C$ are perfect, totally disconnected, compact metric spaces, so they are Cantor sets, and by definition, all Cantor sets are homeomorphic to one another.
+
+    \item[3.]
+        \boldmath\textbf{Show that any compact, Hausdorff space is regular.
+        }\unboldmath \par
+        Let $X$ be a compact, Hausdorff space, and let $C \subset X$ be closed with $x \in X \setminus C$. Because $X$ is Hausdorff, for all $y \in C$, there exist disjoint open subsets $U_y \ni y$ and $V_y \ni x$, and we have that $\bigcup_{y \in C} U_y \supset C$. Since $C$ is closed in a compact Hausdorff space, it is compact, so $\{ U_y \}_{y \in C}$, being an open cover of $C$, has a finite subcover $\{ U_{y_i} \}_{y_i \in C, 1 \leq i \leq n}$. Thus, the sets
+        \begin{gather*}
+            U = \bigcup_{i = 1}^n U_{y_i} \supset C \\
+            V = \bigcap_{i = 1}^n V_{y_i} \ni x
+        \end{gather*}
+        are open (being a finite union and a finite intersection of open sets respectively) and disjoint (because each $U_{y_i}$ is disjoint with the intersection of $V_{y_i}$'s), so they separate $C$ and $x$, and $X$ is regular.
+
+    \item[4.]
+        \boldmath\textbf{An \emph{arc} in a topological space $X$ is an embedding of $[0, 1]$ into $X$. We say $p$ and $q$ are connected by an arc if there is an arc $f : [0, 1] \to X$ such that $f(0) = p$ and $f(1) = q$.
+        }\unboldmath \par
+        \begin{enumerate}
+            \item
+                \boldmath\textbf{Show that if $p$ and $q$ are connected by an arc and $q$ and $r$ are connected by an arc, then $p$ and $r$ are connected by an arc.
+                }\unboldmath \par
+                Let $f$ be some arc that connects $p$ and $q$, and $g$ be some arc that connects $q$ and $r$. If $f$ and $g$ intersect only at $q$, then the function $h : [0, 1] \to X$ defined by
+                \begin{align*}
+                    h(t) = \begin{cases}
+                        f(2t), &t \in [0, 1/2] \\
+                        g(2t - 1), &t \in [1/2, 1]
+                    \end{cases}
+                \end{align*}
+                is injective. The piecewise images are homeomorphic to $[0, 1]$ which is homeomorphic to the closed interval, and since they agree on their intersection at $t = 1/2$, the entire image is homeomorphic to the closed interval which is in turn homeomorphic to $[0, 1]$; hence, $h$ is an arc. \par
+                Otherwise, $h$ still parameterizes a path, since if the piecewise continuous functions on a closed set agree on their intersection, then $h$ is continuous. \textit{Sketch of rest of proof}: We could reparameterize this path to $h'$ by taking it piecewise splitting on all the points of intersection other than $q$, and re-combining the pieces such that each piece either immediately follows a different piece from before, or immediately follows the same piece but with either piece in the opposite orientation from before (such a reparameterization exists because if the pieces are edges and the endpoints and intersection points are vertices in a graph, then an Eulerian tour can be formed by iteratively adding edges in any order with the only invariant being the number of edges entering and leaving each vertex). Also, each intersection point could be replaced with a number of distinct points equal to half the number of pieces containing the original point. Define a \emph{waypoint} as any point that is either an endpoint, an intersection point in $h'$, or one of the replacement points. Then a new path $h''$ could be constructed that passes through each waypoint exactly once and passes through all waypoints in the same order as $h'$. Because $h'$ and $h''$ have the same endpoints, there is some homotopy $h_t$ such that $h_0 = h'$ and $h_1 = h''$. We claim that for some $h'$ and $h''$ as constructed above, and for some $t > 0$ small enough, the intersection points from $h_0$ are removed but none of the new intersection points from $h_1$ appear, so this $h_t$ is injective and hence an arc by the same reasoning as above.
+            \item
+                \boldmath\textbf{Prove that a connected open subset of $\mathbb{R}^n$ is arc connected; that is, given any two points $p$ and $q$ in a connected open subset of of $\mathbb{R}^n$, there is an arc connecting them.
+                }\unboldmath \par
+                Let $U \subset \mathbb{R}^n$ be connected and open with $x \in U$, and let $P \subset \mathbb{R}^2$ be the set of all points such that there exists an arc from that point to $x$. For any point $p \in P$, there exists an open ball $B_\epsilon(p) \subset U$ for some $\epsilon > 0$ on the subspace topology, and there exists an arc $\gamma : [0, 1] \to U$ from $p$ to any $q \in B_\epsilon(p)$ given by $\gamma(t) = (1 - t)p + tq$. Then by part (a), there also exists an arc from $x$ to $q$. Therefore, $B_\epsilon(p) \subset U$, so $P$ is open. \par
+                Similarly, $U \setminus P$ is open, because for any point $p \in U \setminus P$, there exists an open ball $B_\epsilon(p) \subset U$ for some $\epsilon > 0$ on the subspace topology, and there exists a arc $\gamma : [0, 1] \to U$ from any $q \in B_\epsilon(p)$ to $p$ given by $\gamma(t) = (1 - t)q + tp$. There exists no arc from $x$ to $q$ because otherwise there would exist an arc from $x$ to $p$ by part (a), contradicting the fact that $p \in U \setminus P$. Thus, $q \in U \setminus P$ also, implying that $B_\epsilon(p) \subset U \setminus P$ and $U \setminus P$ is open. \par
+                $P$ and $U \setminus P$ are disjoint sets whose union is $U$, but $U$ is connected, so either $P$ or $U \setminus P$ must be empty. We know that $x \in P$ since the function that maps all of $[0, 1]$ to $x$ is an arc connecting $x$ to itself, so it must be $U \setminus P$ that is empty. Thus, we have $P = U$ and so there exists an arc from any point in $U$ to $x$; since $x$ is arbitrary, $U$ is arc connected.
+        \end{enumerate}
+\end{enumerate}
+
+\end{document}

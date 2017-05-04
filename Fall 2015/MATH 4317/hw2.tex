@@ -1,0 +1,272 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, enumitem}
+\usepackage[margin=3.5cm]{geometry}
+
+\begin{document}
+
+    \section*{MATH 4317 - HW2 Solutions}
+    \begin{enumerate}
+        \item[A)]
+            \begin{enumerate}[label = (\roman*)]
+                \item
+                    $d(f, g) = \sup_x|f(x) - g(x)| \geq |f(x) - g(x)| \geq 0 \; \forall x \in [0, 1]$ and thereby $f, g \in E$.
+
+                \item
+                    ($\Rightarrow$) Since $\sup_x|f(x) - g(x)| = 0$ and is an upper bound for $|f(x) - g(x)| \; \forall x \in [0, 1]$, $0 \geq |f(x) - g(x)| \geq 0$ which implies that $|f(x) - g(x)| = 0$. Then $f(x) = g(x)$ over all $x$, and $f = g$. \par
+                    ($\Leftarrow$) If $f = g$, then $f(x) = g(x)$ which implies that $|f(x) - g(x)| = 0 \; \forall x \in [0, 1]$. Let $b = 0$. Because $|f(x) - g(x)| \leq b$, $b$ is an upper bound for $|f(x) - g(x)|$. Also, because $b - \varepsilon < 0 \; \forall \varepsilon > 0, b - \varepsilon$ cannot be an upper bound for the function. Then $b$ is the l.u.b. and $b = d(f, g)$.
+
+                \item
+                    $d(f, g) = \sup_x|f(x) - g(x)| = \sup_x|g(x) - f(x)| = d(g, f)$.
+
+                \item
+                    From the Triangle Inequality,
+                    \begin{align*}
+                        |f(x) - h(x)| \leq |f(x) - g(x)| + |g(x) - h(x)|
+                    \end{align*}
+                    and
+                    \begin{align*}
+                        |f(x) - g(x)| &\leq \sup_x|f(x) - g(x)| \\
+                        |g(x) - h(x)| &\leq \sup_x|g(x) - h(x)|
+                    \end{align*}
+                    Then
+                    \begin{align*}
+                        |f(x) - h(x)| \leq \sup_x|f(x) - g(x)| + \sup_x|g(x) - h(x)|
+                    \end{align*}
+                    which means that $d(f, g) + d(g, h)$ is an upper bound for $|f(x) - h(x)|$. Since this is true for all $x$, from the definition of least upper bound $\sup_x|f(x) - h(x)| = d(f, h) \leq d(f, g) + d(g, h)$.
+            \end{enumerate}
+
+        \item[B)]
+            Let $d(x, A)$ denote the nearest distance from point $x$ to set $A$, or $\inf_{y \in A} d(x, y)$. $d(x, A) \geq 0$ because $d(x, y)$ fulfills the properties of distance and has $0$ as a lower bound, which is the minimum value of the greatest lower bound. If $d(x, A) = 0$, then $d(x, y) = 0$ for some $y \in A$, and consequently, $x = y$ so $x \in A$.
+            \begin{enumerate}[label = (\roman*)]
+                \item
+                    Because $d(x, A) \geq 0$ and $d(x, B) \geq 0$ and suprema are upper bounds, \\
+                    $\max\{ \sup_{x \in A} d(x, B), \sup_{x \in B} d(x, A) \} \geq 0$ as well.
+
+                \item
+                    ($\Rightarrow$) If $d_H(A, B) = 0$, then $\sup_{x \in A} d(x, B) = \sup_{x \in B} d(x, A) = 0$, which implies that
+                    \begin{gather*}
+                        d(x, B) = 0 \; \forall x \in A \qquad d(x, A) = 0 \; \forall x \in B \\
+                        A \subset B \qquad B \subset A \\
+                        A = B.
+                    \end{gather*}
+                    ($\Leftarrow$) If $A = B$, then
+                    \begin{align*}
+                        d_H(A, B) &= \max\{ \sup_{x \in A} d(x, B), \sup_{x \in B} d(x, A) \} \\
+                        &= \max\{ \sup_{x \in A} d(x, A), \sup_{x \in A} d(x, A) \} \\
+                        &= \sup_{x \in A} d(x, A) \\
+                        &= \sup_{x \in A} 0 \\
+                        &= 0.
+                    \end{align*}
+                    To see the last step, let $b = 0$. Then $b$ is an upper bound for $d(x, A) \; \forall x$. Because $b - \varepsilon < 0 \; \forall \varepsilon \in \mathbb{R}$, $b - \varepsilon$ cannot be a lower bound, so $b$ is the supremum.
+
+                \item
+                    $d_H(A, B) = \max\{ \sup_{x \in A} d(x, B), \sup_{x \in B} d(x, A) \} = \max\{ \sup_{x \in B} d(x, A), \\
+                    \sup_{x \in A} d(x, B) \} = d_H(B, A)$.
+
+                \item
+                    $d(x, z) \leq d(x, y) + d(y, z) \; \forall x \in A, y \in B, z \in C$. Taking the infimum of both sides and using the definition of suprema,
+                    \begin{align*}
+                        \inf_{z \in C} d(x, z) &\leq \inf_{z \in C} d(x, y) + \inf_{z \in C} d(y, z) \\
+                        d(x, C) &\leq d(x, y) + d(y, C) \\
+                        d(x, C) &\leq d(x, y) + \sup_{y \in B} d(y, C) \\
+                        \inf_{y \in B} d(x, C) &\leq \inf_{y \in B} d(x, y) + \inf_{y \in B} d_H(B, C) \\
+                        d(x, C) &\leq d(x, B) + d_H(B, C) \\
+                        d(x, C) &\leq \sup_{x \in A} d(x, B) + d_H(B, C) \\
+                        d(x, C) &\leq d_H(A, B) + d_H(B, C)
+                    \end{align*}
+                    Because $d_H(A, B) + d_H(B, C)$ is an upper bound for $d(x, C)$, it must be that the least upper bound $d_H(A, C) \leq d_H(A, B) + d_H(B, C)$.
+                    \iffalse
+                    \begin{align*}
+                        \sup_{x \in A} d(x, C) &\leq \sup_{x \in A} d(x, B) + \sup_{x \in B} d(x, C) \\
+                        &\leq \max\{\sup_{x \in A} d(x, B), \sup_{x \in B} d(x, A)\} + \max\{\sup_{x \in B} d(x, C), \sup_{x \in C} d(x, B)\} \\
+                        &= d(A, B) + d(B, C) \\
+                        \sup_{x \in C} d(x, A) &\leq \sup_{x \in C} d(x, B) + \sup_{x \in B} d(x, A) \\
+                        &\leq \max\{\sup_{x \in C} d(x, B), \sup_{x \in B} d(x, C)\} + \max\{\sup_{x \in B} d(x, A), \sup_{x \in A} d(x, B)\} \\
+                        &= d(C, B) + d(B, A) \\
+                        \Rightarrow d_H(A, C) &= \max\{ \sup_{x \in A} d(x, C), \sup_{x \in C} d(x, A) \} \leq d_H(A, B) + d_H(B, C)
+                    \end{align*}
+                    \fi
+            \end{enumerate}
+
+        \item[1)]
+            \begin{enumerate}
+                \item
+                    \begin{enumerate}[label=(\roman*)]
+                        \item
+                            Because $|x_i - y_i| \geq 0 \; \forall i$, $\sum_{i = 1}^{n} |x_i - y_i| = d\left( (x_1, \cdots, x_n), (y_1, \cdots, y_n) \right) \geq 0$.
+
+                        \item
+                            ($\Rightarrow$) If $\sum_{i = 1}^{n} |x_i - y_i| = 0$ then each term $|x_i - y_i| = 0$, which implies that $x_i = y_i \; \forall i$. This can be rewritten as $(x_1, \cdots, x_n) = (y_1, \cdots, y_n)$. \par
+                            ($\Leftarrow$) $(x_1, \cdots, x_n) = (y_1, \cdots, y_n)$ means that $x_i = y_i \; \forall i$. Then $|x_i - y_i| = 0 \; \forall i$ and $\sum_{i = 1}^{n} |x_i - y_i| = 0$.
+
+                        \item
+                            $d\left( (x_1, \cdots, x_n), (y_1, \cdots, y_n) \right) = \sum_{i = 1}^{n} |x_i - y_i| = \sum_{i = 1}^{n} |y_i - x_i| = \\
+                            d\left( (y_1, \cdots, y_n), (x_1, \cdots, x_n) \right)$.
+
+                        \item
+                            Let $(z_1, \cdots, z_n)$ be another $n$-tuple of real numbers. From the Triangle Inequality, $|x_i - z_i| \leq |x_i - y_i| + |y_i - z_i| \; \forall i$, so
+                            $d\left( (x_1, \cdots, x_n), (z_1, \cdots, z_n) \right) = \sum_{i = 1}^{n} |x_i - z_i| \leq \sum_{i = 1}^{n} |x_i - y_i| + \sum_{i = 1}^{n} |y_i - z_i| = d\left( (x_1, \cdots, x_n), (y_1, \cdots, y_n) \right) + d\left( (y_1, \cdots, y_n), (z_1, \cdots, z_n) \right)$.
+                    \end{enumerate}
+
+                \item
+                    \begin{enumerate}[label=(\roman*)]
+                        \item
+                            From the definition of least upper bound, $d(x, y) \geq |x_i - y_i| \; \forall i$. In addition, $|x_i - y_i| \geq 0 \; \forall i$, so from the transitive order property $d(x, y) \geq 0$.
+
+                        \item
+                            ($\Rightarrow$) $|x_i - y_i| \leq d(x, y) = 0 \; \forall i$, so the only possibility is that $|x_i - y_i| = 0$. This implies that $x_i = y_i \; \forall i$ and, equivalently, that $x = y$. \par
+                            ($\Leftarrow$) $x = y$, or $x_i = y_i \; \forall i$, implies that $|x_i - y_i| = 0 \; \forall i$. Now let $b = 0$. Because $|x_i - y_i| \leq b \; \forall i$, $b$ is an upper bound for the set $\{ |x_1 - y_1|, |x_2 - y_2|, \cdots \}$. Also, because $b - \varepsilon < 0 \; \forall \varepsilon > 0, b - \varepsilon$ cannot be an upper bound for that set. Then $b$ is the l.u.b. and $b = d(x, y)$.
+
+                        \item
+                            $d(x, y) = \{ |x_1 - y_1|, |x_2 - y_2|, \cdots \} = \{ |y_1 - x_1|, |y_2 - x_2|, \cdots \} = d(y, x)$.
+
+                        \item
+                            Because $|x_i - y_i| \leq d(x, y)$ and $|y_i - z_i| \leq d(y, z) \; \forall i$ from the definition of least upper bound and $|x_i - z_i| \leq |x_i - y_i| + |y_i - z_i| \; \forall i$ from the Triangle Inequality, $|x_i - z_i| \leq d(x, y) + d(y, z) \; \forall i$, and $d(x, y) + d(y, z)$ is an upper bound for the set $\{ |x_1 - y_1|, |x_2 - y_2|, \cdots \}$. Because $d(x, z)$ is the least upper bound for the same set, $d(x, z) \leq d(x, y) + d(y, z)$.
+                    \end{enumerate}
+
+                \item
+                    \begin{enumerate}[label=(\roman*)]
+                        \item
+                            Because $E_1$ and $E_2$ are metric spaces, $d_1$ and $d_2$ satisfy the properties of distance, so $d_1(x_1, y_1) \geq 0$ and $d_2(x_2, y_2) \geq 0$. Then \\
+                            $\max\{ d_1(x_1, y_1), d_2(x_2, y_2) \} \geq \max\{0, 0\} = 0$.
+
+                        \item
+                            ($\Rightarrow$) Because $\max\{ d_1(x_1, y_1), d_2(x_2, y_2) \} = 0$, $d_1(x_1, y_1) = d_2(x_2, y_2) = 0$, and from the properties of distance, $x_1 = y_1$ and $x_2 = y_2$. Then $(x_1, x_2) = (y_1, y_2)$. \par
+                            ($\Leftarrow$) Since $x_1 = y_1$ and $x_2 = y_2$, $d_1(x_1, y_1) = d_2(x_2, y_2) = 0$. Then $\max\{ d_1(x_1, y_1), d_2(x_2, y_2) \} = 0$.
+
+                        \item
+                            $d\left( (x_1, x_2), (y_1, y_2) \right) = \max\{ d_1(x_1, y_1), d_2(x_2, y_2) \} = \\
+                            \max\{ d_1(y_1, x_1), d_2(y_2, x_2) \} = d\left( (y_1, y_2), (x_1, x_2) \right)$.
+
+                        \item
+                            From the Triangle Inequality,
+                            \begin{align*}
+                                d_1(x_1, z_1) &\leq d_1(x_1, y_1) + d_1(y_1, z_1) \\
+                                d_2(x_2, z_2) &\leq d_2(x_2, y_2) + d_2(y_2, z_2),
+                            \end{align*}
+                            and
+                            \begin{align*}
+                                d_1(x_1, y_1) &\leq \max\{ d_1(x_1, y_1), d_2(x_2, y_2) \} \\
+                                d_1(y_1, z_1) &\leq \max\{ d_1(y_1, z_1), d_2(y_2, z_2) \} \\
+                                d_2(x_2, y_2) &\leq \max\{ d_1(x_1, y_1), d_2(x_2, y_2) \} \\
+                                d_2(y_2, z_2) &\leq \max\{ d_1(y_1, z_1), d_2(y_2, z_2) \}.
+                            \end{align*}
+                            Then
+                            \begin{align*}
+                                d_1(x_1, z_1) &\leq \max\{ d_1(x_1, y_1), d_2(x_2, y_2) \} + \max\{ d_1(y_1, z_1), d_2(y_2, z_2) \} \\
+                                d_2(x_2, z_2) &\leq \max\{ d_1(x_1, y_1), d_2(x_2, y_2) \} + \max\{ d_1(y_1, z_1), d_2(y_2, z_2) \}
+                            \end{align*}
+                            and this shows that
+                            \begin{align*}
+                                \max\{ d_1(x_1, z_1), d_2(x_2, z_2) \} &\leq \\
+                                \max\{ d_1(x_1, y_1), &d_2(x_2, y_2) \} + \max\{ d_1(y_1, z_1), d_2(y_2, z_2) \}.
+                            \end{align*}
+                    \end{enumerate}
+            \end{enumerate}
+
+        \item[2)]
+            \begin{enumerate}[label=(\roman*)]
+                \item
+                    $|y| + |y'| + |x - x'| \geq 0$ and $|y - y'| \geq 0$ so in all cases $d\left( (x, y), (x', y') \right) \geq 0$.
+
+                \item
+                    ($\Rightarrow$) Assume that $x \neq x'$. Then $|x - x'| > 0$ thereby making $d\left( (x, y), (x', y') \right) > 0$. Then it must be that $x = x'$, and instead $d\left( (x, y), (x', y') \right) = |y - y'| = 0$. This implies that $y = y'$ and overall $(x, y) = (x', y')$. \par
+                    ($\Leftarrow$) $x = x'$ and $y = y'$, so $d\left( (x, y), (x', y') \right) = |y - y'| = 0$.
+
+                \item
+                    $|y| + |y'| + |x - x'| = |y'| + |y| + |x' - x|$ and $|y - y'| = |y' - y|$, so in all cases $d\left( (x, y), (x', y') \right) = d\left( (x', y'), (x, y) \right)$.
+
+                \item If $x = x'$ and $z = z'$, then $(x, z) = (x', z')$ and this property holds from properties (i) and (iv). \par
+                    Otherwise, if $x = x'$, then $d\left( (x, z), (x', z') \right) = |z - z'| \leq |y - y'| + |z - z'| = d\left( (x, y), (x', y') \right) + d\left( (y, z), (y', z') \right)$. \par
+                    Finally, if $x \neq x'$, then $d\left( (x, z), (x', z') \right) = |x| + |x'| + |z - z'| \leq |x| + |x'| + |y - y'| + |y| + |y'| + |z - z'| = d\left( (x, y), (x', y') \right) + d\left( (y, z), (y', z') \right)$.
+            \end{enumerate}
+            The open balls around each point $P, Q, R$ in the plane with a specific value for $r$ are shown in the diagram below. The ``width'' of the ``diamonds'' decreases as distance from the $x$-axis increases, until $|y| \geq \frac{r}{2}$, when the open balls simply become vertical line segments. \\[1.5in]
+
+        \item[15)]
+            Let $T$ be the interior, or set of interior points, of $S$. Because $T$ contains an open ball in $E$ of center $p \; \forall p \in T$, $T$ is open by definition. Now let $R$ be an open subset of $S \subset E$. Any point $q \in R$ is contained in the center of some open ball in $R \subset S$, so $q$ is an interior point of $S$ by definition, and $q \in T$. This shows that $R \subset T$.
+
+        \item[16)]
+            \begin{enumerate}
+                \item
+                    Let $C_i$ denote the $i$th closed subset of $E$ containing $S$, such that $\bigcap_i C_i = \overline{S}$. For any $p \in S$, $p \in C_i \; \forall i$. Then $p \in \bigcap_i C_i = \overline{S}$, so $S \subset \overline{S}$. \par
+                    ($\Rightarrow$) We need to show that $\overline{S} \subset S$. If $S$ is closed, then $S = C_i$ for some $i$ since $S \supset S$. Because any $p \in \overline{S}$ is contained in $C_i$ for all $i$, $p \in S$. \par
+                    ($\Leftarrow$) Because any intersection of closed sets is closed, $\bigcap_i C_i = \overline{S} = S$ is closed.
+
+                \item
+                    Let $p$ be the limit of a sequence of points $p_1, p_2, \cdots$ of $S$ that converges in $E$. Because $S \subset \overline{S}$, $p_1, p_2, \cdots$ are in $\overline{S}$ as well. Now assume that $p \notin \overline{S}$. Then $p \in \mathcal{C} \overline{S}$ which is open, so there exists some $\varepsilon > 0$ such that $\mathcal{C} \overline{S}$ contains the open ball of center $p$ and radius $\varepsilon$. If $N$ is a positive integer such that $d(p, p_n) < \varepsilon \; \forall n > N$, then $p_n \in \mathcal{C} \overline{S}$, which is a contradiction. Therefore, $p \in \overline{S}$.
+
+                \item
+                    ($\Rightarrow$) Let $p \in \overline{S}$. Then from (b), $p$ is the limit of a sequence of points $p_1, p_2, \cdots \in S$ that converges in $E$. For any open ball of radius $\varepsilon > 0$, there exists $N$ such that $d(p, p_n) < \varepsilon \; \forall n \geq N$, so $p_n, p_{n + 1}, \cdots \in S$ are contained in the open ball, and $p$ is not an interior point of $\mathcal{C} S$. \par
+                    ($\Leftarrow$) We will prove the contrapositive statement, so assume $p \notin \overline{S}$. Then $p \in \mathcal{C} \overline{S}$, which is open, and there exists an open ball in $E$ of center $p$ which is contained in $\mathcal{C} \overline{S}$. Because $S \subset \overline{S}$, $\mathcal{C} \overline{S} \subset \mathcal{C} S$, and the open ball is also contained in $\mathcal{C} S$. Then by definition, $p$ is an interior point of $\mathcal{C} S$.
+            \end{enumerate}
+
+        \item[17)]
+            \begin{enumerate}
+                \item
+                    Let $\underline{S}$ denote the interior of $S$, and define $p$ to be a point in $E$. If $p \in \overline{S}$ and $p \in \overline{\mathcal{C} S}$, then $p$ is in the boundary of $S$. Otherwise, if $p \notin \overline{S}$, then $p \in \underline{\mathcal{C}S}$ by exercise 16(c). Likewise, if $p \notin \overline{\mathcal{C} S}$, then $p \in \underline{\mathcal{C} \mathcal{C} S} = \underline{S}$. Finally, it cannot be that $p \notin \overline{S} \cup \overline{\mathcal{C} S}$, because $S \in \overline{S}$, $\mathcal{C} S \in \overline{\mathcal{C} S}$ and $S \cup \mathcal{C} S = \overline{S} \cup \overline{\mathcal{C} S} = E$. This shows that $(\overline{S} \cap \overline{\mathcal{C} S}) \cup \underline{\mathcal{C} S} \cup \underline{S} = E$, and that $\overline{S} \cap \overline{\mathcal{C} S}$ is disjoint from $\underline{\mathcal{C} S}$ and $\underline{S}$. Because $\mathcal{C} S$ and $S$ are disjoint from one another and $\underline{\mathcal{C} S} \in \mathcal{C} S$, $\underline{S} \in S$, $\underline{\mathcal{C} S}$ and $\underline{S}$ are disjoint from one another as well.
+
+                \item
+                    ($\Rightarrow$) $\overline{S} \cap \overline{\mathcal{C} S} \subset \overline{S}$, and $\overline{S} = S$ from exercise 16(a). \par
+                    ($\Leftarrow$) We have that $\overline{S} \cap \overline{\mathcal{C} S} \subset S$ and $\underline{S} \subset S$, and from exercise 16(c), $\overline{\mathcal{C} S} = \mathcal{C} \underline{\mathcal{C} \mathcal{C} S} = \mathcal{C} \underline{S}$. Putting it together,
+                    \begin{align*}
+                        (\overline{S} \cap \mathcal{C} \underline{S}) \cup \underline{S} &\subset S \\
+                        \overline{S} \cup \underline{S} &\subset S \\
+                        \overline{S} &\subset S
+                    \end{align*}
+                    and from exercise 16(a), $S$ is closed.
+
+                \item
+                    ($\Rightarrow$) Because $\mathcal{C} S$ is closed, it contains the boundary ($S$ and $\mathcal{C} S$ share the same boundary because $\overline{S} \cap \overline{\mathcal{C} S} = \overline{\mathcal{C} S} \cup \overline{S}$). If a point $p$ is in the boundary, then $p \in \mathcal{C} S$ so $p \notin S$. Then $S$ must be disjoint from the boundary. \par
+                    ($\Leftarrow$) If $S$ is disjoint from the boundary, then any point $p$ in the boundary is in $\mathcal{C} S$, which means that $\mathcal{C} S$ contains the boundary and is thereby closed; then $S$ is open.
+            \end{enumerate}
+
+        \item[33)]
+            Suppose, for the purpose of contradiction, that for any $\varepsilon > 0$ there exists a closed ball in $E$ of radius $\varepsilon$ that is not contained in any open set $U_i$ for $i \in I$. Now take $\varepsilon = 1 / n$ for $n \in \mathbb{N^+}$. Then there exists $x_n \in E$ such that if $C$ denotes the closed ball of center $x_n$ and radius $\varepsilon = 1 / n$ then $C \cap U_i^c \neq \emptyset$ for all $i \in I$. \par
+            Because $E$ is compact, $\{ x_n : n \in \mathbb{N} \}$ has a subsequence $\{ x_{n_k} \}$ that converges to a limit point $p \in E$. Furthermore, $p \in U_j$ for some $j \in I$. \par
+            Because $U_j$ is open, there exists $r > 0$ such that $B_r(p) \subset U_j$. Then there exists $N_1 \in \mathbb{N}$ such that
+            \[
+                \frac{1}{n'} < \frac{r}{4} \; \forall n' \geq N_1,
+            \]
+            and because $\lim{x_{n_k}} = p$, there exists $N_2 \in \mathbb{N}$ such that
+            \[
+                d(x_{n_k}, p) < \frac{r}{4} \; \forall n_k \geq N_2.
+            \]
+            If we let $N = \max\{ N_1, N_2 \}$, then from a distance property and the equivalence of convergent and Cauchy sequences,
+            \begin{align*}
+                d(x_n, p) &\leq d(x_n, x_N) + d(x_N, p) \\
+                          &< \left| \frac{1}{n} - \frac{1}{N} \right| + \frac{r}{4} \\
+                          &< \frac{r}{4} + \frac{r}{4} \\
+                          &= \frac{r}{2}
+            \end{align*}
+            for all $n \geq N$, which shows that $C \subset B_r(p)$. $B_r(p) \subset U_j$ implies $C \subset U_j$, which is a contradiction to the earlier statement that $C \cap U_i^c \neq \emptyset$ for all $i \in I$. In conclusion, there exists $\varepsilon > 0$ such that any closed ball in $E$ of radius $\varepsilon$ is contained inside $U_i$ for some $i$.
+
+            \iffalse
+            Because $E$ is compact, $E = \bigcup_{i = 1}^{k} U_i$ where $U_i$ are open subsets of $E$ and $k \in \mathbb{N}$. For any point $p \in E$, $p \in U_i$ for some $i$. Because $U_i$ is open, there exists an open ball $B$ in $E$ of center $p$ and radius $r \in \mathbb{R}$ that is entirely contained in $U_i$. \par
+            Now suppose there exists a point $p \in E$ such that no closed ball in $E$ of center $p$ and any radius $\varepsilon > 0$ is contained in $U_i$ for any $i$. If we take $\varepsilon = 1 / n$ for $n \in \mathbb{N}$, there exists $N \in \mathbb{N}$ such that $1 / n < r \; \forall n \geq N$. This implies that any point $p' \in E$ such that $d(p - p') \leq \varepsilon < r$ is contained in the open ball $B$. Because the set of all such points $\{ p' \}$ is a closed ball in $E$ of center $p$ contained in $B \in U_i$ for some $i$, this contradicts the assumption that no closed ball of center $p$ is contained in $U_i$ for any $i$. This shows that for all points $p \in E$, there is a closed ball in $E$ of center $p$ and radius $\varepsilon$ that is contained in $U_i$ for some $\varepsilon > 0$ and $1 \leq i \leq k$.
+            \fi
+            \iffalse
+            Suppose that for any $\varepsilon > 0$, there exists a closed ball in $E$ of radius $\varepsilon$ that is not contained in $U_i$ for any $i$.
+            \fi
+            \iffalse
+            Let $\varepsilon = 1 / n$ for $n \in \mathbb{N}$, $C$ be any closed ball of center $x_n \in E$ and radius $\varepsilon = 1 / n$, and $S = \{ x_n \}$ be a sequence in $E$. Because $E$ is compact, $S$ has a subsequence $\{ x_{n_k} \}$ that converges to a limit point $p \in E$. Also, $E = \bigcup_{i = 1}^{k} U_i$ where $k \in \mathbb{N}$, so $p \in U_i$ for some $i$. \par
+            Because $U_i$ is open, there exists an open ball $B$ in $E$ of center $p$ and radius $r \in \mathbb{R}$ that is entirely contained in $U_i$. There exists $N_1 \in \mathbb{N}$ such that
+            \[
+                \varepsilon = \frac{1}{n'} < \frac{r}{4} \; \forall n' \geq N_1,
+            \]
+            and because $\lim{x_{n_k}} = p$, there exists $N_2 \in \mathbb{N}$ such that
+            \[
+                d(x_{n_k}, p) < \frac{r}{4} \; \forall n_k \geq N_2.
+            \]
+            If we let $N = \max\{ N_1, N_2 \}$, then from a distance property and the equivalence of convergent and Cauchy sequences,
+            \begin{align*}
+                d(x_n, p) &\leq d(x_n, x_{N}) + d(x_{N}, p) \\
+                          &< \varepsilon + \frac{r}{4} \\
+                          &< \frac{r}{4} + \frac{r}{4} \\
+                          &= \frac{r}{2}
+            \end{align*}
+            for all $n \geq N$, which shows that $C$ (which has center $x_n$ and radius $\varepsilon$) is contained inside $B$ (which has center $p$ and radius $r$). In conclusion, for $\varepsilon \leq 1 / N$, there is no closed ball $C$ of radius $\varepsilon$ that is not contained inside $B \in U_i$ for some $i$.
+            \fi
+    \end{enumerate}
+
+\end{document}

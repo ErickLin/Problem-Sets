@@ -1,0 +1,500 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsmath, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{MATH 4320 - HW2 Solutions}
+\subsection*{2.14}
+\begin{enumerate}
+    \item[1.]
+        \begin{enumerate}
+            \item
+                The function is defined everywhere in the complex plane except where $z^2 + 1 = 0$, or $z = \pm i$.
+
+            \item
+                The function is defined everywhere in the complex plane except $z = 0$.
+
+            \item
+                The function is defined everywhere in the complex plane except where $z + \overline{z} = 0$. If $z = x + iy$, then this is also $x + iy + x - iy = 2x = 0$, or $\Re(z) = 0$.
+
+            \item
+                The function is defined everywhere in the complex plane except where $1 - |z|^2 = 0$, or $|z| = 1$.
+        \end{enumerate}
+
+    \item[2.]
+        \begin{enumerate}
+            \item
+                \begin{align*}
+                    f(z) &= (x + iy)^3 + (x + iy) + 1 \\
+                    &= x^3 + 3x^2(iy) + 3x(iy)^2 + (iy)^3 + x + iy + 1 \\
+                    &= (x^3 - 3xy^2 + x + 1) + i(3x^2y - y^3 + y)
+                \end{align*}
+
+            \item
+                \begin{align*}
+                    f(z) &= \frac{\overline{z}^2}{z} \cdot \frac{\overline{z}}{\overline{z}} = \frac{\overline{z}^3}{|z|^2} \\
+                    &= \frac{(x - iy)^3}{x^2 + y^2} \\
+                    &= \frac{x^3 - 3x^2(iy) + 3x(iy)^2 - (iy)^3}{x^2 + y^2} \\
+                    &= \frac{x^3 - 3xy^2}{x^2 + y^2} + i \frac{y^3 - 3x^2y}{x^2 + y^2}
+                \end{align*}
+        \end{enumerate}
+
+    \item[3.]
+        Regrouping terms,
+        \begin{align*}
+            f(z) &= (x^2 - 2ixy - y^2) + (2ix - 2y) \\
+            &= (x - iy)^2 + 2i(x + iy) \\
+            &= \overline{z}^2 + 2iz.
+        \end{align*}
+\end{enumerate}
+
+\subsection*{2.18}
+\begin{enumerate}
+    \item[5.]
+        When $z = (x, 0)$ is a nonzero point on the real axis,
+        \begin{align*}
+            f(z) = \left( \frac{x + i0}{x - i0} \right)^2 = 1,
+        \end{align*}
+        and when $z = (0, y)$ is a nonzero point on the imaginary axis,
+        \begin{align*}
+            f(z) = \left( \frac{0 + iy}{0 - iy} \right)^2 = 1.
+        \end{align*}
+        However, when $z = (x, x)$ is a nonzero point on the line $y = x$,
+        \begin{align*}
+            f(z) = \left( \frac{x + ix}{x - ix} \right)^2 = \left( \frac{1 + i}{1 - i} \cdot \frac{1 + i}{1 + i} \right)^2 = \left( \frac{1 + 2i + i^2}{1 - i^2} \right)^2 = i^2 = -1,
+        \end{align*}
+        and hence the limit of $f(z)$ as $z$ approaches $0$ does not exist because limits are unique.
+
+    \item[10.]
+        \begin{enumerate}
+            \item
+                \begin{align*}
+                    \lim_{z \to \infty} \frac{4z^2}{(z - 1)^2} &= \lim_{z \to 0} \frac{4 \left( \frac{1}{z} \right)^2}{\left( \frac{1}{z} - 1 \right)^2} \\
+                    &= \lim_{z \to 0} \frac{4 \left( \frac{1}{z^2} \right)}{\frac{1}{z^2} - \frac{2}{z} + 1} \cdot \frac{z^2}{z^2} \\
+                    &= \lim_{z \to 0} \frac{4}{1 - 2z + z^2} \\
+                    &= \frac{4}{1 - 2(0) + 0^2} \\
+                    &= 4
+                \end{align*}
+
+            \item
+                \begin{align*}
+                    \lim_{z \to 1} (z - 1)^3 = (1 - 1)^3 = 0 \Leftrightarrow \lim_{z \to 1} \frac{1}{(z - 1)^3} = \infty
+                \end{align*}
+
+            \item
+                \begin{align*}
+                    \lim_{z \to 0} \frac{\frac{1}{z} - 1}{\left( \frac{1}{z} \right)^2 + 1} = \lim_{z \to 0} \frac{z - z^2}{1 + z^2} = \frac{0 - 0^2}{1 + 0^2} = 0 \Leftrightarrow \lim_{z \to \infty} \frac{z^2 + 1}{z - 1} = \infty
+                \end{align*}
+        \end{enumerate}
+
+    \item[11.]
+        \begin{enumerate}
+            \item
+                If $c = 0$, we have
+                \begin{align*}
+                    \lim_{z \to 0} \frac{1}{T(1/z)} = \lim_{z \to 0} \frac{0 \left( \frac{1}{z} \right) + d}{a \left( \frac{1}{z} \right) + b} \cdot \frac{z}{z} = \lim_{z \to 0} \frac{dz}{a + bz} = \frac{d(0)}{a + b(0)} = 0
+                \end{align*}
+                which implies that
+                \begin{align*}
+                    \lim_{z \to \infty} T(z) = \infty.
+                \end{align*}
+
+            \item
+                If $c \neq 0$, we have
+                \begin{align*}
+                    \lim_{z \to \infty} T(z) = \lim_{z \to 0} T \left( \frac{1}{z} \right) = \lim_{z \to 0} \frac{a \left( \frac{1}{z} \right) + b}{c \left( \frac{1}{z} \right) + d} \cdot \frac{z}{z} = \lim_{z \to 0} \frac{a + bz}{c + dz} = \frac{a}{c};
+                \end{align*}
+                also, we have
+                \begin{align*}
+                    \lim_{z \to -d/c} \frac{1}{T(z)} = \lim_{z \to -d/c} \frac{cz + d}{az + b} = \frac{c \left( -\frac{d}{c} \right) + d}{a \left( -\frac{d}{c} \right) + b} = 0
+                \end{align*}
+                which implies that
+                \begin{align*}
+                    \lim_{z \to -d/c} T(z) = \infty.
+                \end{align*}
+        \end{enumerate}
+\end{enumerate}
+
+\subsection*{2.20}
+\begin{enumerate}
+    \item[1.]
+        \begin{align*}
+            \frac{dw}{dz} &= \lim_{\Delta z \to 0} \frac{\Delta w}{\Delta z} \\
+            &= \lim_{\Delta z \to 0} \frac{(z + \Delta z)^2 - z^2}{\Delta z} \\
+            &= \lim_{\Delta z \to 0} \frac{z^2 + 2z \Delta z + (\Delta z)^2 - z^2}{\Delta z} \\
+            &= \lim_{\Delta z \to 0} (2z + \Delta z) \\
+            &= 2z
+        \end{align*}
+
+    \item[3.]
+        \begin{enumerate}
+            \item
+                $P(z)$ is differentiable everywhere because the derivative at any point $z$ is given by the following value which is unique:
+                \begin{align*}
+                    P'(z) &= \frac{d}{dz} \left( a_0 + a_1 z + a_2 z^2 + \cdots + a_n z^n \right) \\
+                    &= \frac{d}{dz} \left( a_0 \right) + \frac{d}{dz} \left( a_1 z \right) + \frac{d}{dz} \left( a_2 z^2 \right) + \cdots + \frac{d}{dz} \left( a_n z^n \right) \\
+                    &= 0 + a_1 \frac{d}{dz} \left( z \right) + a_2 \frac{d}{dz} \left( z^2 \right) + \cdots + a_n \frac{d}{dz} \left( z^n \right) \\
+                    &= a_1 + 2 a_2 z + \cdots + n a_n z^{n - 1}.
+                \end{align*}
+
+            \item
+                Repeated application of the result of part (a) shows that the $k$th derivative of $P(z)$ for $0 \leq k \leq n$ is given by
+                \begin{align*}
+                    P^{(k)}(z) = k! a_k + \frac{(k + 1)!}{1!} a_{k + 1} z + \frac{(k + 2)!}{2!} a_{k + 2} z^2 + \cdots + \frac{n!}{(n - k)!} a_n z^{n - k}
+                \end{align*}
+                and hence
+                \begin{align*}
+                    P^{(k)}(0) = k! a_k \Leftrightarrow a_k = \frac{P^{(k)}(0)}{k!}.
+                \end{align*}
+        \end{enumerate}
+
+    \item[10.]
+        From the binomial formula,
+        \begin{align*}
+            P_n(z) &= \frac{1}{n! 2^n} \frac{d^n}{dz^n} \sum_{k = 0}^n \dbinom{n}{k} \left( z^2 \right)^k (-1)^{n - k} \\
+            &= \frac{1}{n! 2^n} \sum_{k = \lceil n/2 \rceil}^n \dbinom{n}{k} \frac{(2k)!}{(2k - n)!} z^{2k - n} (-1)^{n - k}.
+        \end{align*}
+        The term with the highest degree has degree $2n - n = n$; hence, the polynomial is of degree $n$.
+\end{enumerate}
+
+\subsection*{2.24}
+\begin{enumerate}
+    \item[1.]
+        \begin{enumerate}
+            \item
+                If $z = x + iy$, then
+                \begin{align*}
+                    f(z) = x - iy
+                \end{align*}
+                so we have $u(x, y) = x, v(x, y) = -y$. Because
+                \begin{align*}
+                    u_x &= \frac{\partial}{\partial x}(x) = 1 \\
+                    \neq v_y &= \frac{\partial}{\partial y}(-y) = -1,
+                \end{align*}
+                the first-order partial derivatives do not satisfy the Cauchy-Riemann equation $u_x = v_y$, and hence $f'(z)$ does not exist for any $z$.
+
+            \item
+                Since
+                \begin{align*}
+                    f(z) = x + iy - (x - iy) = 2iy,
+                \end{align*}
+                we have $u(x, y) = 0, v(x, y) = 2y$. Because
+                \begin{align*}
+                    u_x &= \frac{\partial}{\partial x}(0) = 0 \\
+                    \neq v_y &= \frac{\partial}{\partial y}(2y) = 2,
+                \end{align*}
+                the first-order partial derivatives do not satisfy the Cauchy-Riemann equation $u_x = v_y$, and hence $f'(z)$ does not exist for any $z$.
+
+            \item
+                We have $u(x, y) = 2x, v(x, y) = xy^2$, and
+                \begin{align*}
+                    u_x &= \frac{\partial}{\partial x}(2x) = 2 &v_y &= \frac{\partial}{\partial y}(xy^2) = 2xy \\
+                    u_y &= \frac{\partial}{\partial y}(2x) = 0 &-v_x &= -\frac{\partial}{\partial x}(xy^2) = -y^2.
+                \end{align*}
+                In order for $u_y = -v_x$ to be true, we must have $y = 0$. However, this would require that $2 = 0$ in order for $u_x = v_y$ to be true, which is clearly a contradiction. This shows that the Cauchy-Riemann equations cannot be simultaneously satisfied, and $f'(z)$ does not exist for any $z$.
+
+            \item
+                Since
+                \begin{align*}
+                    f(z) = e^x(\cos y - i \sin y),
+                \end{align*}
+                we have $u(x, y) = e^x \cos y, v(x, y) = -e^x \sin y$, and
+                \begin{align*}
+                    u_x &= \frac{\partial}{\partial x}(e^x \cos y) = e^x \cos y &v_y &= \frac{\partial}{\partial y}(-e^x \sin y) = -e^x \cos y \\
+                    u_y &= \frac{\partial}{\partial y}(e^x \cos y) = -e^x \sin y &-v_x &= -\frac{\partial}{\partial x}(-e^x \sin y) = e^x \sin y.
+                \end{align*}
+                Because $\cos y = -\cos y$ only when $\cos y = 0$ and $\sin y = -\sin y$ only when $\sin y = 0$, and $\cos y$ and $\sin y$ are never simultaneously zero while $e^x$ is never zero, the Cauchy-Riemann equations $u_x = v_y$ and $u_y = -v_x$ cannot be simultaneously satisfied, and $f'(z)$ does not exist for any $z$.
+        \end{enumerate}
+
+    \item[2.]
+        \begin{enumerate}
+            \item
+                Since
+                \begin{align*}
+                    f(z) = i(x + iy) + 2 = (2 - y) + ix,
+                \end{align*}
+                we have $u(x, y) = 2 - y, v(x, y) = x$, and
+                \begin{align*}
+                    u_x &= \frac{\partial}{\partial x}(2 - y) = 0 &
+                    v_y &= \frac{\partial}{\partial y}(x) = 0 \\
+                    u_y &= \frac{\partial}{\partial y}(2 - y) = -1 &
+                    -v_x &= -\frac{\partial}{\partial x}(x) = -1.
+                \end{align*}
+                Because $u_x = v_y$ and $u_y = -v_x$ everywhere and these derivatives are everywhere continuous, $f'(z)$ exists everywhere and is given by
+                \begin{align*}
+                    f'(z) = u_x + iv_x = 0 + i(1) = i.
+                \end{align*}
+                Now, if we write
+                \begin{align*}
+                    f'(z) = s(x, y) + it(x, y),
+                \end{align*}
+                we have $s(x, y) = 0$ and $t(x, y) = 1$. Because $s_x = t_y = 0$ and $s_y = -t_x = 0$ and these derivatives are everywhere continuous, $f''(z)$ also exists everywhere and is given by
+                \begin{align*}
+                    f''(z) = s_x + it_x = 0 + i(0) = 0.
+                \end{align*}
+
+            \item
+                Since
+                \begin{align*}
+                    f(z) = e^{-x}(\cos y - i \sin y),
+                \end{align*}
+                we have $u(x, y) = e^{-x} \cos y, v(x, y) = -e^{-x} \sin y$, and
+                \begin{align*}
+                    u_x &= \frac{\partial}{\partial x}(e^{-x} \cos y) = -e^{-x} \cos y &
+                    v_y &= \frac{\partial}{\partial y}(-e^{-x} \sin y) = -e^{-x} \cos y \\
+                    u_y &= \frac{\partial}{\partial y}(e^{-x} \cos y) = -e^{-x} \sin y &
+                    -v_x &= -\frac{\partial}{\partial x}(-e^{-x} \sin y) = -e^{-x} \sin y.
+                \end{align*}
+                Because $u_x = v_y$ and $u_y = -v_x$ everywhere and these derivatives are everywhere continuous, $f'(z)$ exists everywhere and is given by
+                \begin{align*}
+                    f'(z) = u_x + iv_x = -e^{-x} \cos y + i e^{-x} \sin y,
+                \end{align*}
+                which means we have $s(x, y) = -e^{-x} \cos y$ and $t(x, y) = e^{-x} \sin y$. Because $s_x = t_y = e^{-x} \cos y$ and $s_y = -t_x = e^{-x} \sin y$ and these derivatives are everywhere continuous, $f''(z)$ also exists everywhere and is given by
+                \begin{align*}
+                    f''(z) = s_x + it_x = e^{-x} \cos y - i e^{-x} \sin y = f(z).
+                \end{align*}
+
+            \item
+                Since
+                \begin{align*}
+                    f(z) &= (x + iy)^3 \\
+                    &= x^3 + 3x^2(iy) + 3x(iy)^2 + (iy)^3 \\
+                    &= (x^3 - 3xy^2) + i(3x^2y - y^3),
+                \end{align*}
+                we have $u(x, y) = x^3 - 3xy^2, v(x, y) = 3x^2y - y^3$, and
+                \begin{align*}
+                    u_x &= \frac{\partial}{\partial x}(x^3 - 3xy^2) = 3x^2 - 3y^2 &
+                    v_y &= \frac{\partial}{\partial y}(3x^2y - y^3) = 3x^2 - 3y^2 \\
+                    u_y &= \frac{\partial}{\partial y}(x^3 - 3xy^2) = -6xy &
+                    -v_x &= -\frac{\partial}{\partial x}(3x^2y - y^3) = -6xy.
+                \end{align*}
+                Because $u_x = v_y$ and $u_y = -v_x$ everywhere and these derivatives are everywhere continuous, $f'(z)$ exists everywhere and is given by
+                \begin{align*}
+                    f'(z) = u_x + iv_x = (3x^2 - 3y^2) + 6ixy,
+                \end{align*}
+                which means we have $s(x, y) = 3x^2 - 3y^2$ and $t(x, y) = 6xy$. Because $s_x = t_y = 6x$ and $s_y = -t_x = -6y$ and these derivatives are everywhere continuous, $f''(z)$ also exists everywhere and is given by
+                \begin{align*}
+                    f''(z) = s_x + it_x = 6x + 6iy = 6z.
+                \end{align*}
+
+            \item
+                We have $u(x, y) = \cos x \cosh y, v(x, y) = -\sin x \sinh y$, and
+                \begin{align*}
+                    u_x &= \frac{\partial}{\partial x}(\cos x \cosh y) = -\sin x \cosh y \\
+                    v_y &= \frac{\partial}{\partial y}(-\sin x \sinh y) = -\sin x \cosh y \\
+                    u_y &= \frac{\partial}{\partial y}(\cos x \cosh y) = \cos x \sinh y \\
+                    -v_x &= -\frac{\partial}{\partial x}(-\sin x \sinh y) = \cos x \sinh y.
+                \end{align*}
+                Because $u_x = v_y$ and $u_y = -v_x$ everywhere and these derivatives are everywhere continuous, $f'(z)$ exists everywhere and is given by
+                \begin{align*}
+                    f'(z) = u_x + iv_x = -\sin x \cosh y - i \cos x \sinh y,
+                \end{align*}
+                which means we have $s(x, y) = -\sin x \cosh y$ and $t(x, y) = -\cos x \sinh y$. Because $s_x = t_y = -\cos x \cosh y$ and $s_y = -t_x = -\sin x \sinh y$ and these derivatives are everywhere continuous, $f''(z)$ also exists everywhere and is given by
+                \begin{align*}
+                    f''(z) = s_x + it_x = -\cos x \cosh y + i \sin x \sinh y = -f(z).
+                \end{align*}
+        \end{enumerate}
+
+    \item[8.]
+        \begin{enumerate}
+            \item
+                \begin{align*}
+                    \frac{\partial F}{\partial \overline{z}} &= \frac{\partial F}{\partial x} \frac{\partial x}{\partial \overline{z}} + \frac{\partial F}{\partial y} \frac{\partial y}{\partial \overline{z}} \\
+                    &= \frac{\partial F}{\partial x} \frac{\partial}{\partial \overline{z}} \left( \frac{z + \overline{z}}{2} \right) + \frac{\partial F}{\partial y} \frac{\partial}{\partial \overline{z}} \left( \frac{z - \overline{z}}{2i} \right) \\
+                    &= \frac{\partial F}{\partial x} \left( \frac{1}{2} \right) + \frac{\partial F}{\partial y} \left( \frac{-1}{2i} \cdot \frac{i}{i} \right) \\
+                    &= \frac{1}{2} \left( \frac{\partial F}{\partial x} + i \frac{\partial F}{\partial y} \right)
+                \end{align*}
+
+            \item
+                Applying the operator $\partial / \partial \overline{z}$ to the function $f(z)$,
+                \begin{align*}
+                    \frac{\partial f}{\partial \overline{z}} &= \frac{1}{2} \left( \frac{\partial f}{\partial x} + i\frac{\partial f}{\partial y} \right) \\
+                    &= \frac{1}{2} \left[ (u_x + iv_x) + i(u_y + iv_y) \right] \\
+                    &= \frac{1}{2} \left[ (u_x - v_y) + i(u_y + v_x) \right].
+                \end{align*}
+                If the first-order partial derivatives satisfy $u_x = v_y$ and $u_y = -v_x$, then the above quantity is zero.
+        \end{enumerate}
+\end{enumerate}
+
+\subsection*{2.26}
+\begin{enumerate}
+    \item[1.]
+        \begin{enumerate}
+            \item
+                We have $u(x, y) = 3x + y, v(x, y) = 3y - x$, and
+                \begin{align*}
+                    u_x &= 3 &
+                    v_y &= 3 \\
+                    u_y &= 1 &
+                    -v_x &= 1.
+                \end{align*}
+                Because $u_x = v_y$ and $u_y = -v_x$ everywhere, $f$ is entire.
+
+            \item
+                We have $u(x, y) = \cosh x \cos y, v(x, y) = \sinh x \sin y$, and
+                \begin{align*}
+                    u_x &= \sinh x \cos y &
+                    v_y &= \sinh x \cos y \\
+                    u_y &= -\cosh x \sin y &
+                    -v_x &= -\cosh x \sin y.
+                \end{align*}
+                Because $u_x = v_y$ and $u_y = -v_x$ everywhere, $f$ is entire.
+
+            \item
+                We have $u(x, y) = e^{-y} \sin x, v(x, y) = -e^{-y} \cos x$, and
+                \begin{align*}
+                    u_x &= e^{-y} \cos x &
+                    v_y &= e^{-y} \cos x \\
+                    u_y &= -e^{-y} \sin x &
+                    -v_x &= -e^{-y} \sin x.
+                \end{align*}
+                Because $u_x = v_y$ and $u_y = -v_x$ everywhere, $f$ is entire.
+
+            \item
+                Since
+                \begin{align*}
+                    f(x, y) = (x^2 + 2ixy - y^2 - 2) e^{-x} (\cos y - i \sin y),
+                \end{align*}
+                we have
+                \begin{align*}
+                    u(x, y) &= e^{-x} [ (x^2 - y^2 - 2) \cos y + 2xy \sin y ] \\
+                    v(x, y) &= e^{-x} [ (-x^2 + y^2 + 2) \sin y + 2xy \cos y ],
+                \end{align*}
+                and
+                \begin{align*}
+                    u_x &= e^{-x}(2x \cos y + 2y \sin y) - e^{-x} [ (x^2 - y^2 - 2) \cos y + 2xy \sin y ] \\
+                    &= e^{-x}(2 \cos y + 2x \cos y + 2y \sin y - x^2 \cos y + y^2 \cos y - 2xy \sin y) \\
+                    v_y &= e^{-x}(2 \cos y + 2x \cos y + 2y \sin y - x^2 \cos y + y^2 \cos y - 2xy \sin y) \\
+                    u_y &= e^{-x} [ (x^2 - y^2 - 2)(-\sin y) + (-2y) \cos y + 2xy \cos y + 2x \sin y ] \\
+                    &= e^{-x}(-x^2 \sin y + y^2 \sin y + 2 \sin y - 2y \cos y + 2xy \cos y + 2x \sin y) \\
+                    -v_x &= -e^{-x} [(-2x) \sin y + 2y \cos y] + e^{-x} [ (-x^2 + y^2 + 2) \sin y + 2xy \cos y] \\
+                    &= e^{-x}(2x \sin y - 2y \cos y - x^2 \sin y + y^2 \sin y + 2 \sin y + 2xy \cos y).
+                \end{align*}
+                Because $u_x = v_y$ and $u_y = -v_x$ everywhere, $f$ is entire.
+        \end{enumerate}
+
+    \item[2.]
+        \begin{enumerate}
+            \item
+                We have $u(x, y) = xy, v(x, y) = y$, and
+                \begin{align*}
+                    u_x &= y &
+                    v_y &= 1 \\
+                    u_y &= x &
+                    -v_x &= 0.
+                \end{align*}
+                Because $u_x = v_y$ and $u_y = -v_x$ only at the point $x = 0, y = 1$ (or $z = i$) and not throughout any neighborhood, $f$ is nowhere analytic.
+
+            \item
+                We have $u(x, y) = 2xy, v(x, y) = x^2 - y^2$, and
+                \begin{align*}
+                    u_x &= 2y &
+                    v_y &= -2y \\
+                    u_y &= 2x &
+                    -v_x &= -2x.
+                \end{align*}
+                Because $u_x = v_y$ and $u_y = -v_x$ only at the point $z = 0$ and not throughout any neighborhood, $f$ is nowhere analytic.
+
+            \item
+                Since
+                \begin{align*}
+                    f(z) = e^y (\cos x + i \sin x),
+                \end{align*}
+                we have $u(x, y) = e^y \cos x, v(x, y) = e^y \sin x$, and
+                \begin{align*}
+                    u_x &= -e^y \sin x &
+                    v_y &= e^y \sin x \\
+                    u_y &= e^y \cos x &
+                    -v_x &= -e^y \cos x.
+                \end{align*}
+                Because $u_x = v_y$ and $u_y = -v_x$ only at the point $z = 0$ and not throughout any neighborhood, $f$ is nowhere analytic.
+        \end{enumerate}
+
+    \item[4.]
+        \begin{enumerate}
+            \item
+                Due to the existence of differentiation formulas for products and quotients of functions, $f(z)$ is analytic everywhere except at the singular points $z = 0, \pm i$, where $f(z)$ is undefined.
+
+            \item
+                Due to the existence of differentiation formulas for products and quotients of functions, $f(z)$ is analytic everywhere except at the singular points $z = 1, 2$, where $f(z)$ is undefined.
+
+            \item
+                Due to the existence of differentiation formulas for products and quotients of functions, $f(z)$ is analytic everywhere except at the singular points $z = -2, -1 \pm i$, where $f(z)$ is undefined.
+        \end{enumerate}
+
+    \item[6.]
+        We have $u(r, \theta) = \ln r, v(r, \theta) = \theta$, and
+        \begin{align*}
+            r u_r &= r \left( \frac{1}{r} \right) = 1 &
+            v_\theta &= 1 \\
+            u_\theta &= 0 &
+            -r v_r &= -r(0) = 0.
+        \end{align*}
+        Because $r u_r = v_\theta$ and $u_\theta = -r v_r$ for all $r$ and $\theta$, $f$ is analytic in the domain $r > 0, 0 < \theta < 2\pi$. Hence $g'(z)$ exists and is given by
+        \begin{align*}
+            g'(z) = e^{-i \theta} (u_r + iv_r) = e^{-i \theta} \left( \frac{1}{r} + i(0) \right) = \frac{1}{re^{i \theta}} = \frac{1}{z}.
+        \end{align*}
+        Furthermore, let $f(z) = z^2 + 1 = (x^2 - y^2 + 1) + 2ixy$. If $f(x, y) = s(x, y) + it(x, y)$, then we have $s(x, y) = x^2 - y^2 + 1, t(x, y) = 2xy$, and
+        \begin{align*}
+            s_x &= 2x &
+            t_y &= 2x \\
+            s_y &= -2y &
+            -t_x &= -2y.
+        \end{align*}
+        Because $s_x = t_y$ and $s_y = -t_x$ everywhere, $f$ is analytic in the domain $x > 0, y > 0$, which is contained in the domain previously mentioned, and
+        \begin{align*}
+            f'(z) = s_x + it_x = 2x + 2iy = 2z.
+        \end{align*}
+        Then $G = g \circ f$, being a composition of analytic functions, is also analytic, and
+        \begin{align*}
+            G'(z) = g'[f(z)] f'(z) = g'(z^2 + 1) (z) = \frac{2z}{z^2 + 1}.
+        \end{align*}
+\end{enumerate}
+
+\subsection*{2.27}
+\begin{enumerate}
+    \item[2.]
+        If the conditions hold, then the normal vectors to the level curves are given by
+        \begin{align*}
+            \nabla u(x, y) = \left( \frac{\partial u}{\partial x}, \frac{\partial u}{\partial y} \right) \qquad
+            \nabla v(x, y) = \left( \frac{\partial v}{\partial x}, \frac{\partial v}{\partial y} \right).
+        \end{align*}
+        Because $f(x, y)$ is analytic, we have
+        \begin{align*}
+            \frac{\partial u}{\partial x} = \frac{\partial v}{\partial y} \qquad
+            \frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x}
+        \end{align*}
+        and hence
+        \begin{align*}
+            \nabla u(x, y) \cdot \nabla v(x, y) = \frac{\partial u}{\partial x} \frac{\partial v}{\partial x} + \frac{\partial u}{\partial y} \frac{\partial v}{\partial y} = -\frac{\partial u}{\partial x} \frac{\partial u}{\partial y} + \frac{\partial u}{\partial y} \frac{\partial u}{\partial x} = 0,
+        \end{align*}
+        which implies that normal vectors are perpendicular. This means that the tangent lines to the level curves are perpendicular as well.
+
+    \item[6.]
+        Since
+        \begin{align*}
+            f(x, y) &= \frac{(x - 1) + iy}{(x + 1) + iy} \cdot \frac{(x + 1) - iy}{(x + 1) - iy} \\
+            &= \frac{x^2 - 1 + 2iy + y^2}{(x + 1)^2 + y^2} \\
+            &= \frac{x^2 + y^2 - 1}{x^2 + y^2 + 2x + 1} + i\frac{2y}{x^2 + y^2 + 2x + 1} \\
+            &= \left( 1 - \frac{2x}{x^2 + y^2 + 2x + 1} \right) + i\frac{2y}{x^2 + y^2 + 2x + 1},
+        \end{align*}
+        we have $u(x, y) = 1 - \frac{2x}{x^2 + y^2 + 2x + 1}$ and $v(x, y) = \frac{2y}{x^2 + y^2 + 2x + 1}$. \par
+        A sketch of some families of level curves is shown below. Note that wherever the curves meet, their tangent lines are perpendicular to one another.
+        \vspace{5cm}
+\end{enumerate}
+
+\subsection*{2.29}
+\begin{enumerate}
+    \item[2.]
+        $f_2$ is an analytic continuation of $f_1$ because $f_2(z) = f_1(z)$ for all $z = re^{i \theta}$ in the intersection $r > 0, \pi/2 < \theta < \pi$, and $f_3$ is an analytic continuation of $f_2$ because $f_3(z) = f_2(z)$ for all $z = re^{i \theta}$ in the intersection $r > 0, \pi < \theta < 2\pi$. However, the intersection of the domains of $f_1$ and $f_2$ is empty -- any $z$ in the first quadrant has $\theta_3 = \theta_1 + 2\pi$. Hence,
+        \begin{align*}
+            f_3(z) = \sqrt{r} e^{i \theta_3 / 2} = \sqrt{r} e^{i (\theta_1 + 2\pi) / 2} = \sqrt{r} e^{i \theta_1 / 2} e^{i \pi} = -\sqrt{r} e^{i \theta_1 / 2} = -f_1(z).
+        \end{align*}
+\end{enumerate}
+
+\end{document}

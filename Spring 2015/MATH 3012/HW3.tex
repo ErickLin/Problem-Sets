@@ -1,0 +1,67 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{MATH 3012 - HW3 Solutions}
+
+\begin{enumerate}
+
+\item The explicit formula holds for the base cases $n = 0$, $n = 1$, $n = 2$, and $n = 3$ -- for $n = 2$, by the recursive formula,
+\[ f(2) = 2f(1)-f(0)+6 = 2(4)-2+6 = 12 \]
+and according to the explicit formula,
+\[ f(2) = 3(2)^2 - 2 + 2 = 12.\]
+For $n = 3$, by the recursive formula,
+\[ f(3) = 2f(2)-f(1)+6 = 2(12)-4+6 = 26 \]
+and according to the explicit formula,
+\[ f(3) = 3(3)^2 - 3 + 2 = 26.\]
+Now we must show that the explicit formula also holds for every successive value of $n$ starting from the base cases. This can be done by proving that if the explicit formula holds for $n = n' - 1$ and $n = n'$ for any integer $n' > = 1$, then it also holds for $n = n' + 1$. According to the recursive formula,
+\[ f(n' + 1) = 2f(n') - f(n' - 1) + 6.\]
+Following the assumptions that $f(n') = 3(n')^2 - n' + 2$ and $f(n' - 1) = 3 (n' - 1)^2 - (n' - 1) + 2$,
+\begin{equation*}
+\begin{split}
+f(n' + 1) &= 2[3(n')^2 - n' + 2] - [3 (n' - 1)^2 - (n' - 1) + 2] + 6 \\
+&= 3(n')^2 + 5n' + 4 \\
+&= [3(n')^2 + 6(n') + 3] - [n' + 1] + 2 \\
+&= 3(n' + 1)^2 - (n' + 1) + 2
+\end{split}
+\end{equation*}
+This proves the induction step and shows that the explicit formula holds for, in addition to the base cases, all integer $n > 3$ as well.
+
+\item The base case $n = 0$ holds because
+\[ (1 + x)^0 = 1 \geq 1 + n(0) = 1.\]
+Now we assume that
+\[ (1 + x)^{n'} \geq (1 + n'x) \]
+for any integer $n' \geq 0$. For the induction step, the left-hand side is
+\[ (1 + x)^{(n' + 1)} = (1 + x)(1 + x)^{n'} = (1 + x)^{n'} + x(1 + x)^{n'} \]
+and the right-hand side is
+\[ 1 + (n' + 1)x = (1 + n'x) + x. \]
+Following from the assumption, $(1 + x)^{n'}$ from the left-hand side is greater than or equal to $(1 + n'x)$ from the right-hand side. In addition, $x(1 + x)^{n'} \geq x$ because $(1 + x)^{n'} \geq 1$ for all real $x > -1$ and $n \geq 0$ (when $x < 0$, $x(1 + x)^{n'}$ is less negative than $x$). Since all parts of the left-hand side are greater than or equal to a corresponding part of the right-hand side, the inequality holds for $n = n' + 1$. This completes the induction step and the proof.
+
+\item For $n = 0$, there is only $1$ region in the plane, which can be colored with either color. For $n = 1$, a single line divides the plane into $2$ regions, each of which can be colored with the opposite color. Now, if we assume that the statement holds for $n = n'$ for any integer $n' \geq 0$, we can show that the statement also holds for $n = n' + 1$, because it is always possible to add a line and preserve the property that adjacent regions are oppositely colored. This can be done by flipping the color of every region on one side of the added line. \par
+
+\item For $n = 0$, there is only one region in the hyperplane, and $n = 1$ plane divides the hyperplane into $2$ regions. Whenever an additional non-parallel, non-intersecting plane is added to a set of $n = n'$ planes, it divides each region it passes through into two. This means that the number of new regions in the hyperplane is equal to the number of regions in the added plane determined by its intersection with the existing planes, which is exactly $n'$ non-parallel, non-intersecting lines, or $a(n')$. The recursion is then given by
+\[ b(n' + 1) = b(n') + a(n') = b(n') + \frac{n'(n' + 1)}{2} + 1 \]
+Taking the base cases into account, the formula can also be written as
+\begin{equation*}
+\begin{split}
+b(n' + 1) &= 1 + \sum_{k = 0} ^ {n'} \left[\frac{k(k + 1)}{2} + 1\right] \\
+&= n' + 2 + \sum_{k = 0} ^ {n'} \frac{k(k + 1)}{2}
+\end{split}
+\end{equation*}
+which can be simplified using knowledge of the formulas
+\[ \sum_{k = 0} ^ {m} k = \frac{m(m + 1)}{2} ,\; \sum_{k = 0} ^ {m} k^2 = \frac{m^3}{3} + \frac{m^2}{2} + \frac{m}{6} \]
+into the form
+\begin{equation*}
+\begin{split}
+b(n' + 1) &= n' + 2 + \frac{(n')^3}{6} + \frac{(n')^2}{2} + \frac{n'}{3} \\
+&= \frac{(n')^3}{6} + \frac{(n')^2}{2} + \frac{4n'}{3} + 2.
+\end{split}
+\end{equation*}
+Therefore, for $n \geq 1$ in general,
+\[ b(n) = \frac{(n - 1)^3}{6} + \frac{(n - 1)^2}{2} + \frac{4(n - 1)}{3} + 2 \]
+
+\end{enumerate}
+
+\end{document}

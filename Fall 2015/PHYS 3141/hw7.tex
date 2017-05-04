@@ -1,0 +1,180 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsmath, enumitem, fancyhdr, gensymb, mathrsfs, siunitx, textcomp}
+\usepackage[margin=3cm]{geometry}
+\allowdisplaybreaks
+
+\def\dbar{{\mathchar'26\mkern-12mu \mathrm{d}}}
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{PHYS 3141 - Problem Set 7 Solutions}
+
+\begin{enumerate}[label=\textbf{[\arabic*]}]
+    \item
+        \begin{enumerate}
+            \item
+                From the first law, $dU = TdS - PdV$. Taking the partial derivatives,
+                \begin{align*}
+                    \left( \frac{\partial U}{\partial S} \right)_V = T(S, V) \qquad \left( \frac{\partial U}{\partial V} \right)_S = -P(S, V).
+                \end{align*}
+                Meanwhile, the partial derivatives of $U(S, V)$ are given by
+                \begin{align*}
+                    \left( \frac{\partial U}{\partial S} \right)_V = \frac{2aS}{V} \qquad \left( \frac{\partial U}{\partial V} \right)_S = a S^2 \ln V
+                \end{align*}
+                so we have
+                \begin{align*}
+                    T(S, V) = \frac{2aS}{V} \qquad -P(S, V) = aS^2 \ln V.
+                \end{align*}
+        
+            \item
+                Taking the appropriate partial derivatives yields
+                \begin{align*}
+                    \left( \frac{\partial T}{\partial V} \right)_S = 2aS \ln V \qquad -\left( \frac{\partial P}{\partial S} \right)_V = 2aS \ln V
+                \end{align*}
+                which supports the proposition that the two expressions always represent the same quantity.
+        \end{enumerate}
+
+        \item
+            \begin{enumerate}
+                \item
+                    Taking the partial derivatives,
+                    \begin{align*}
+                        \left( \frac{\partial V}{\partial S} \right)_U = \frac{T}{P} \qquad \left( \frac{\partial V}{\partial U} \right)_S = -\frac{1}{P}.
+                    \end{align*}
+                    Using the reciprocal rule and the triple product rule, we have
+                    \begin{align}
+                        P &= -\left( \frac{\partial U}{\partial V} \right)_S \\
+                        T &= P \left( \frac{\partial V}{\partial S} \right)_U = -\left( \frac{\partial U}{\partial V} \right)_S \left( \frac{\partial V}{\partial S} \right)_U = \left( \frac{\partial U}{\partial S} \right)_V.
+                    \end{align}
+                    
+                \item
+                    If we assume smoothness, then
+                    \begin{align*}
+                        \left( \frac{\partial}{\partial S} \left( \frac{\partial U}{\partial V} \right)_S \right)_V = \left( \frac{\partial}{\partial V} \left( \frac{\partial U}{\partial S} \right)_V \right)_S
+                    \end{align*}
+                    and substituting (1) and (2),
+                    \begin{align*}
+                        -\left( \frac{\partial P}{\partial S} \right)_V = \left( \frac{\partial T}{\partial V} \right)_S.
+                    \end{align*}
+            \end{enumerate}
+
+        \item
+            Since $\Delta H = Q + V \Delta P$ and $\Delta U = Q - P \Delta V$, we have
+            \begin{enumerate}
+                \item
+                    $\Delta H = \SI{26000}{\text{cal}} = \SI{1.1e5}{\J}$
+
+                \item
+                    $\Delta U = \SI{110000}{\J} - \SI{101325}{\Pa} (\SI{740}{\L} + \SI{0.011}{L} - \SI{0.028}{\L}) (\SI{10e-3}{\m\cubed\per\L)} = \SI{3.4e4}{\J}$.
+            \end{enumerate}
+
+        \item
+            The derivation of the first Maxwell relation is given in Exercise 2. For the second Maxwell relation, we use the definition of enthalpy to obtain
+            \begin{align*}
+                dH = dU + PdV + VdP.
+            \end{align*}
+            Since $dU + PdV = \dbar Q = TdS$, the above equation becomes
+            \begin{align*}
+                dH = TdS + VdP
+            \end{align*}
+            and taking the partial derivatives, we have
+            \begin{align*}
+                \left( \frac{\partial H}{\partial S} \right)_P = T \qquad \left( \frac{\partial H}{\partial P} \right)_S = V.
+            \end{align*}
+            Assuming smoothness,
+            \begin{align*}
+                \left( \frac{\partial}{\partial P} \left( \frac{\partial H}{\partial S} \right)_P \right)_S = \left( \frac{\partial}{\partial S} \left( \frac{\partial H}{\partial P} \right)_S \right)_P
+            \end{align*}
+            and substituting,
+            \begin{align*}
+                \left( \frac{\partial T}{\partial P} \right)_S = \left( \frac{\partial V}{\partial S} \right)_P.
+            \end{align*}
+            For the third relation, we use the Helmholtz function to obtain
+            \begin{align*}
+                dF = dU - TdS - SdT.
+            \end{align*}
+            Since $dU - TdS = -\dbar W = -PdV$, the above equation becomes
+            \begin{align*}
+                dF = -PdV - SdT
+            \end{align*}
+            and taking the partial derivatives, we have
+            \begin{align*}
+                \left( \frac{\partial F}{\partial V} \right)_T = -P \qquad \left( \frac{\partial F}{\partial T} \right)_V = -S.
+            \end{align*}
+            Assuming smoothness,
+            \begin{align*}
+                \left( \frac{\partial}{\partial T} \left( \frac{\partial F}{\partial V} \right)_T \right)_V = \left( \frac{\partial}{\partial V} \left( \frac{\partial F}{\partial T} \right)_V \right)_T
+            \end{align*}
+            and substituting,
+            \begin{align*}
+                \left( \frac{\partial P}{\partial T} \right)_V = \left( \frac{\partial S}{\partial V} \right)_T.
+            \end{align*}
+            For the last relation, we use the Gibbs function to obtain
+            \begin{align*}
+                dG = dU + PdV + VdP - TdS - SdT = VdP - SdT
+            \end{align*}
+            and taking the partial derivatives, we have
+            \begin{align*}
+                \left( \frac{\partial G}{\partial P} \right)_T = V \qquad \left( \frac{\partial G}{\partial T} \right)_P = -S.
+            \end{align*}
+            Assuming smoothness,
+            \begin{align*}
+                \left( \frac{\partial}{\partial T} \left( \frac{\partial G}{\partial P} \right)_T \right)_P = \left( \frac{\partial}{\partial P} \left( \frac{\partial G}{\partial T} \right)_P \right)_T
+            \end{align*}
+            and substituting,
+            \begin{align*}
+                \left( \frac{\partial V}{\partial T} \right)_P = -\left( \frac{\partial S}{\partial P} \right)_T.
+            \end{align*}
+
+        \item
+            ((a) and (b) follow from Exercise 4.)
+            \begin{enumerate}
+                \item
+                    $P = -{\left( \frac{\partial F}{\partial V} \right)_T}$
+
+                \item
+                    $S = -{\left( \frac{\partial F}{\partial T} \right)_V}$
+
+                \item
+                    $U = F + TS = F - T\left( \frac{\partial F}{\partial T} \right)_V$
+
+                \item
+                    $C_V = \left( \frac{\partial Q}{\partial T} \right)_V = T \left( \frac{\partial S}{\partial T} \right)_V = -T \left( \frac{\partial^2 F}{\partial T^2} \right)_V$ \\
+                    The last equality comes from differentiating (b).
+
+                \item
+                    $\kappa_T = -{\frac{1}{V} \left( \frac{\partial V}{\partial P} \right)_T} = \frac{1}{V} \left( \frac{\partial^2 V}{\partial F^2} \right)_T$ \\
+                    The last equality comes from differentiating (a) and using the reciprocal rule.
+
+                \item
+                    $\alpha_P = \frac{1}{V} \left( \frac{\partial V}{\partial T} \right)_P$
+
+                \item
+                    $\alpha_V = \frac{1}{P} \left( \frac{\partial P}{\partial T} \right)_V = -{\left( \frac{\partial V}{\partial F} \right)_T} \left( \frac{\partial S}{\partial V} \right)_T = {\left( \frac{\partial V}{\partial F} \right)_T} \frac{\partial^2 F}{\partial V \partial T}$ \\
+                    A Maxwell relation is used in the second equality, and the last equality comes from differentiating (b).
+            \end{enumerate}
+
+        \item
+            Expressing $dU$ in terms of $dV$ and $dT$ gives
+            \begin{align*}
+                dU &= \left[ T \left( \frac{\partial S}{\partial V} \right)_T - P \right] dV + T \left( \frac{\partial S}{\partial T} \right)_V dT.
+            \end{align*}
+            Using $C_V = \left( \frac{\partial Q}{\partial T} \right)_V = T \left( \frac{\partial S}{\partial T} \right)_V$ and the Maxwell relation $\left( \frac{\partial S}{\partial V} \right)_T = \left( \frac{\partial P}{\partial T} \right)_V$, we have
+            \begin{align*}
+                dU &= \left[ T \left( \frac{\partial P}{\partial T} \right)_V - P \right] dV + C_V dT
+            \end{align*}
+            and substituting $\alpha_V \equiv \frac{1}{P} \left( \frac{\partial P}{\partial T} \right)_V$ gives
+            \begin{align*}
+                dU &= P(T \alpha_V - 1) dV + C_V dT.
+            \end{align*}
+            Finally, taking the partial derivative yields
+            \begin{align*}
+                \left( \frac{\partial T}{\partial V} \right)_U = \frac{P(1 - T \alpha_V)}{C_V}.
+            \end{align*}
+
+\end{enumerate}
+
+\end{document}

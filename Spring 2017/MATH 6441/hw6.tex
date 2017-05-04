@@ -1,0 +1,123 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, dsfont, enumitem, fancyhdr, graphicx}
+\usepackage[margin=0.9in, includehead, includefoot, heightrounded]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand*\dist{\mathop{\!\mathrm{d}}}
+\DeclareMathOperator{\im}{Im}
+%\let\ker\relax %RedeclareMathOperator
+%\DeclareMathOperator{\ker}{Ker}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\newcommand*\sq{\mathbin{\vcenter{\hbox{\rule{.3ex}{.3ex}}}}}
+\newcommand{\iso}{\approx}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\begin{document}
+
+\section*{MATH 6441 -- HW6 Solutions}
+\subsection*{Section 2.2}
+\begin{enumerate}
+    %http://www.math.wisc.edu/~maxim/Topnotes2.pdf
+    %http://tarunchitra.com/papers/6510/hw10.pdf
+    \item[9.]
+        \boldmath\textbf{Compute the homology groups of the following 2-complexes:
+        }\unboldmath \par
+        \begin{enumerate}[label=(\alph*)]
+            \item
+                \boldmath\textbf{The quotient of $S^2$ obtained by identifying north and south poles to a point.
+                }\unboldmath \par
+                The CW structure of this space $X$ has one vertex $v$, one edge $a$ attached from $v$ to itself, and one 2-simplex $A$ attached via $aa^{-1}$, giving the associated cellular chain complex
+                \begin{align*}
+                    0 \rightarrow \mathbb{Z} \xrightarrow{d_2} \mathbb{Z} \xrightarrow{d_1} \mathbb{Z} \rightarrow 0
+                \end{align*}
+                $d_1 = 0$ because there is only one $0$-cell, and likewise $d_2 = 0$ because there is only one $1$-cell. Thus, the homology groups are the same as the cellular chain groups, namely, $H_0(X) \approx H_1(X) \approx H_2(X) \approx \mathbb{Z}$, whereas $H_n(X) = 0$ for all $n > 2$.
+
+            \item
+                \boldmath\textbf{$S^1 \times (S^1 \lor S^1)$.
+                }\unboldmath \par
+                This space $X$ can be viewed as two tori identified along either their meridians or their longitudes, giving the CW structure with one vertex, three edges, and two 2-simplices shown below:
+                \vspace{4cm} \\
+                The associated cellular chain complex is hence
+                \begin{align*}
+                    0 \rightarrow \mathbb{Z}^2 \xrightarrow{d_2} \mathbb{Z}^3 \xrightarrow{d_1} \mathbb{Z} \rightarrow 0.
+                \end{align*}
+                $d_1 = 0$ since there is only one $0$-cell. Also, $d_2 = 0$ because $a$, $b$, and $c$ each appears with its inverse in the attaching maps of the $2$-cells $A$ and $B$ (by the commutators $[a, b]$ and $[c, b]$, respectively). Thus, as before, the homology groups are the same as the cellular chain groups, and we have
+                \begin{align*}
+                    H_k(X) \approx \begin{cases}
+                        \mathbb{Z}, &k = 0 \\
+                        \mathbb{Z}^3, &k = 1 \\
+                        \mathbb{Z}^2, &k = 2 \\
+                        0 &\text{otherwise}.
+                    \end{cases}
+                \end{align*}
+
+            \item
+                \boldmath\textbf{The space obtained from $D^2$ by first deleting the interiors of two disjoint subdisks in the interior of $D^2$ and then identifying all three resulting boundary circles together via homeomorphisms preserving clockwise orientations of these circles.
+                }\unboldmath \par
+                A CW structure for this space $X$ with one vertex, three edges, and one 2-simplex is given below:
+                \vspace{4cm} \\
+                from which we obtain the associated cellular chain complex
+                \begin{align*}
+                    0 \rightarrow \mathbb{Z} \xrightarrow{d_2} \mathbb{Z}^3 \xrightarrow{d_1} \mathbb{Z} \rightarrow 0.
+                \end{align*}
+                $d_1 = 0$ since there is only one $0$-cell, so $\ker d_1 = \mathbb{Z}^3$. The attaching map of the 2-cell $A$ is $[a, b]ca^{-1}c^{-1}$, from which we can see that the overall exponent of $a$ is $-1$ while both $b$ and $c$ appear with their inverses. Hence, $d_2(A) = -a + 0b + 0c = -a$ and $d_2(1) = (1, 0, 0)$, so $\im d_2 \approx \mathbb{Z}$ and $\ker d_2 = 0$. Therefore, $H_1(X) \approx \ker d_1 / \im d_2 \approx \mathbb{Z}^3 / \mathbb{Z} \approx \mathbb{Z}^2$ and $H_2(X) \approx \ker d_2 = 0$, and overall,
+                \begin{align*}
+                    H_k(X) \approx \begin{cases}
+                        \mathbb{Z}, &k = 0 \\
+                        \mathbb{Z}^2, &k = 1 \\
+                        0 &\text{otherwise}.
+                    \end{cases}
+                \end{align*}
+
+            \item
+                \boldmath\textbf{The quotient space of $S^1 \times S^1$ obtained by identifying points in the circle $S^1 \times \{x_0\}$ that differ by $2\pi/m$ rotation and identifying points in the circle $\{x_0\} \times S^1$ that differ by $2\pi/n$ rotation.
+                }\unboldmath \par
+                We can use the same CW structure as for the torus, except with the modification of the sole 2-cell now being attached via the word $[a^m, b^n]$ where $a$ and $b$ are the $1$-cells. The associated cellular chain complex is
+                \begin{align*}
+                    0 \rightarrow \mathbb{Z} \xrightarrow{d_2} \mathbb{Z}^2 \xrightarrow{d_1} \mathbb{Z} \rightarrow 0.
+                \end{align*}
+                $d_1 = 0$ since this CW structure has only one $0$-cell. Because $a^m$ cancels with $a^{-m}$ and $b^n$ cancels with $b^{-n}$ in the attaching word of the $2$-cell, $d_2 = 0$, and so we have
+                \begin{align*}
+                    H_k(X) \approx \begin{cases}
+                        \mathbb{Z}, &k = 0 \\
+                        \mathbb{Z}^2, &k = 1 \\
+                        \mathbb{Z}, &k = 2 \\
+                        0 &\text{otherwise}.
+                    \end{cases}
+                \end{align*}
+        \end{enumerate}
+
+    %https://www2.math.ethz.ch/education/bachelor/lectures/hs2014/math/alg_topo/Solution7.pdf
+    %http://people.clas.ufl.edu/dranish/files/solmts14.pdf
+    \item[12.]
+        \boldmath\textbf{Show that the quotient map $S^1 \times S^1 \to S^2$ collapsing the subspace $S^1 \lor S^1$ to a point is not nullhomotopic by showing that it induces an isomorphism on $H_2$. On the other hand, show via covering spaces that any map $S^2 \to S^1 \times S^1$ is nullhomotopic.
+        }\unboldmath \par
+        If $j$ is the quotient map, the exact sequence of the pair $(S^1 \times S^1, S^1 \vee S^1)$ is given by
+        \begin{align*}
+            \cdots \rightarrow H_2(S^1 \vee S^1) \rightarrow H_2(S^1 \times S^1) \xrightarrow{j_*} H_2(S^1 \times S^1 / (S^1 \vee S^1)) \xrightarrow{\partial} H_1(S^1 \vee S^1) \rightarrow \cdots.
+        \end{align*}
+        Since $H_2(S^1 \times S^1 / (S^1 \vee S^1)) \approx H_2(S^2)$, $\partial$ is the trivial map, so by exactness $\im j_* = \ker \partial \approx H_2(S^2)$, which establishes that $j_*$ is an isomorphism. We know that $H_2(S^1 \times S^1) \approx \mathbb{Z} \approx H_2(S^2)$, so $j_*$ is nonzero and $j$ is not nullhomotopic. \par
+        On the other hand, given any map $\varphi : S^2 \to S^1 \times S^1$, the universal covering space $p : \mathbb{R}^2 \to S^1 \times S^1$ guarantees the existence of a lift $\tilde{\varphi} : S^2 \to \mathbb{R}^2$ of $\varphi$ by the lifting criterion. Since $\mathbb{R}^2$ is contractible, $\tilde{\varphi}$ is nullhomotopic by some homotopy $h_t$, and so $\varphi$ is also nullhomotopic, by the homotopy $ph_t$.
+
+    %http://math.ucr.edu/~res/math205B-2012/helpfile.pdf
+    \item[22.]
+        \boldmath\textbf{For $X$ a finite CW complex and $p : \tilde{X} \to X$ an $n$-sheeted covering space, show that $\chi(\tilde{X}) = n\chi(X)$.
+        }\unboldmath \par
+        $\tilde{X}$ is also a CW complex whose $k$-cells consist of the lifts of $k$-cells of $X$ for all $k \in \mathbb{N}$; more precisely, for each $k$-cell $e_\alpha^k$, the characteristic map $\Phi_\alpha : D_\alpha^k \to X$ lifts to $n$ different choices of maps $D_\alpha^k \to \tilde{X}$ (since the covering space is $n$-sheeted) whose images are pairwise disjoint and form $k$-cells of $\tilde{X}$. Thus, $\tilde{X}$ has $n$ times as many $k$-cells as $X$, and hence from the definition of Euler characteristic, $\chi(\tilde{X}) = n\chi(X)$.
+
+    \item[23.]
+        \boldmath\textbf{Show that if the closed orientable surface $M_g$ of genus $g$ is a covering space of $M_h$, then $g = n(h - 1) + 1$ where $n$ is the number of sheets in the covering. [Conversely, if $g = n(h - 1) + 1$ then we know that there is an $n$-sheeted covering $M_g \to M_h$.]
+        }\unboldmath \par
+        We know that for any $j \in \mathbb{N}$, $M_j$ has one $0$-cell, $2j$ $1$-cells, and one $2$-cell, giving us the formula $\chi(M_j) = 1 - 2j + 1 = 2(1 - j)$. From Exercise 22, we have that
+        \begin{gather*}
+            \chi(M_g) = n\chi(M_h) \\
+            \Rightarrow 2(1 - g) = 2n(1 - h) \\
+            \Rightarrow g = n(h - 1) + 1.
+        \end{gather*}
+\end{enumerate}
+\end{document}

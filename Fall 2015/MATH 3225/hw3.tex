@@ -1,0 +1,82 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{amsfonts, amsmath, dsfont}
+\begin{document}
+\section*{MATH 3225 - HW3 Solutions}
+\begin{enumerate}
+    \item[1.]
+        Since $X + Y$ is a sum of independent discrete random variables,
+        \begin{align*}
+            \mathbb{P}(X = k | X + Y = n) &= \frac{\mathbb{P}(\{ X = k \} \cap \{ X + Y = n \})}{\mathbb{P}(X + Y = n)} \\
+            &= \frac{\mathbb{P}(\{ X = k \} \cap \{ Y = n - k \})}{\sum_{x \in \text{Im}X} \mathbb{P}(X = x) \mathbb{P}(Y = n - x)} \\
+            &= \frac{\mathbb{P}(X = k) \mathbb{P}(Y = n - k) }{\sum_{x \in \text{Im}X} \mathbb{P}(X = x) \mathbb{P}(Y = n - x)} \\
+            &= \frac{(pq^k) (pq^{n - k})}{\sum_{x = 0}^{n} (pq^x pq^{n - x})} \\
+            &= \frac{p^2 q^n}{(n + 1) p^2 q^n} \\
+            &= \frac{1}{n + 1}.
+        \end{align*}
+
+    \item[4.]
+        Consider
+        \begin{align*}
+            \mathbb{P}(X_i \geq k) &= \mathbb{P}\left( \bigcap_{x = k}^{n} \{ X_i = x \} \right) \\
+            &= \sum_{x = k}^{n} \mathbb{P} (X_i = x) \\
+            &= (N - (k - 1))\left( \frac{1}{N} \right) \\
+            &= \frac{N - k + 1}{N}.
+        \end{align*}
+        Then
+        \begin{align*}
+            \mathbb{P}(U_n \geq k) &= \mathbb{P}\left( \bigcup_{i = 1}^{n} \{ X_i \geq k \} \right) \\
+            &= \prod_{i = 1}^{n} \mathbb{P}(X_i \geq k) \\
+            &= \left( \frac{N - k + 1}{N} \right)^n
+        \end{align*}
+        and
+        \begin{align*}
+            \mathbb{P}(U_n = k) &= \mathbb{P}(U_n \geq k) - \mathbb{P}(U_n \geq k + 1) \\
+            &= \left( \frac{N - k + 1}{N} \right)^n - \left( \frac{N - k}{N} \right)^n.
+        \end{align*}
+        Likewise,
+        \begin{align*}
+            \mathbb{P}(V_n = k) &= \mathbb{P}(V_n \leq k) - \mathbb{P}(V_n \leq k - 1) \\
+            &= \prod_{i = 1}^{n} \mathbb{P}(X_i \leq k) - \prod_{i = 1}^{n} \mathbb{P}(X_i \leq k - 1) \\
+            &= \left( \frac{k}{N} \right)^n - \left( \frac{k - 1}{N} \right)^n.
+        \end{align*}
+
+    \item[6.]
+        Let $A_k$ denote the event that the next pair chosen from $2k$ ends forms a hoop, and $\mathds{1}_{A_k}$ denote the indicator function of $A_k$. Then $\mathbb{E}(\mathds{1}_{A_k}) = \mathbb{P}(A_k) = k / \binom{2k}{2}$ because $2k$ ends can form $k$ possible hoops. The expected number of hoops formed from $n$ strands ($2n$ ends) is the sum of the expected number of hoops formed from $2k$ ends for all iterated values of $k$, or
+        \begin{align*}
+            \sum_{k = 1}^{n} \mathbb{E}(\mathds{1}_{A_k}) &= \sum_{k = 1}^{n} \frac{k}{\binom{2k}{2}} \\
+            &= \sum_{k = 1}^{n} \frac{1}{2k - 1}.
+        \end{align*}
+
+    \item[7.]
+        Using the fact that $N$ is independent of $X_i$ as well as noting that $\mathbb{E}(X_i) = \mu$ for all $i$,
+        \begin{align*}
+            \mathbb{E}\left( \sum_{i = 1}^{N} X_i \right) &= \sum_{k \in \mathbb{N}} \mathbb{E}\{(\sum_{i = 1}^{N} X_i) | N = k \} \mathbb{P}(N = k) \\
+            &= \sum_{k \in \mathbb{N}} \mathbb{E}\left( \sum_{i = 1}^{k} X_i \right) \mathbb{P}(N = k) \\
+            &= \sum_{k \in \mathbb{N}} \left( \sum_{i = 1}^{k} \mathbb{E}(X_i) \right) \mathbb{P}(N = k) \\
+            &= \sum_{k \in \mathbb{N}} \mu k \mathbb{P}(N = k) \\
+            &= \mu \mathbb{E}(N).
+        \end{align*}
+
+    \item[11.]
+        \begin{enumerate}
+            \item
+                The number of edges in a complete graph on $n$ vertices is $\binom{n}{2} = \frac{n(n - 1)}{2}$. Let $A_i$ denote the event that edge $i$ appears in the graph. Because each edge has a probability $p$ of appearing, the expected number of edges is $\frac{n(n - 1)}{2} \mathbb{E}(\mathds{1}_{A_i}) = \frac{n(n - 1)}{2} \mathbb{P}(A_i) = \frac{n(n - 1)}{2} p$.
+
+            \item
+                Following part (a), the number of triangles in a complete graph on $n$ vertices is $\binom{n}{3} = \frac{n(n - 1)(n - 2)}{6}$. Let $B_i$ denote the event that triangle $i$ appears in the graph. Because every triangle consists of 3 edges, each has a probability $p^3$ of appearing. Then the expected number of triangles is $\frac{n(n - 1)(n - 2)}{6} \mathbb{E}(\mathds{1}_{B_i}) = \frac{n(n - 1)(n - 2)}{6} \mathbb{P}(B_i) = \frac{n(n - 1)(n - 2)}{6} p^3$.
+        \end{enumerate}
+
+    \item[12.]
+        A bijection can be drawn between $Y_i$ and the event that heads appears for the first time in the random experiment involving coin flips. This can be seen by considering the event of obtaining a coupon whose type has already been collected to be equivalent to the event in which tails appears. The parameter of the geometric distribution is the probability that heads appears on a given coin flip, and is equivalent to the probability that the next coupon obtained is a new type, which is $\frac{c - i}{c}$ since the type of coupon obtained is uniformly distributed. Then the expected value, considering both outcomes, is
+        \begin{align*}
+            \mathbb{E}(Y_i) &= (1) \frac{c - i}{c} + [1 + \mathbb{E}(Y_i)] \frac{i}{c} \\
+            &= 1 + \frac{i}{c} \mathbb{E}(Y_i) \\
+            &= \frac{c}{c - i}.
+        \end{align*}
+        Summing up the expected value for all iterated values of $i$, we have
+        \begin{align*}
+            \sum_{i = 0}^{c - 1} \mathbb{E}(Y_i) &= \sum_{i = 0}^{c - 1} \frac{c}{c - i} \\
+            &= c \sum_{k = 1}^{c} \frac{1}{k}.
+        \end{align*}
+\end{enumerate}
+\end{document}

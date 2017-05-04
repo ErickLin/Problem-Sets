@@ -1,0 +1,169 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+
+\begin{document}
+
+\section*{MATH 2406 - HW2 Solutions}
+
+\subsection*{2.6}
+
+\begin{enumerate}
+
+\setcounter{enumi}{7}
+\item If $P - Q \in \mbox{span}\{A, B\}$, then $c_1A + c_2B = P - Q$ for some $c_1, c_2 \in \mathbb{R}$. Then
+\[ P - c_1A = Q + c_2B. \]
+In addition, $L(P;A) = \{P + sA : s \in \mathbb{R}\}$ and $L(Q;B) = \{Q + tB : t \in \mathbb{R}\}$ by the definition of a line. If $L(P:A)$ intersects $L(P:B)$, then
+\[ P + s_1A = Q + t_1B\]
+for some $s_1, t_1 \in \mathbb{R}$. \par
+Now, if $s_1$ is taken to equal $-c_1$ and $t_1$ is taken to equal $c_2$, then the two above equations are equivalent. This shows that the two statements are interchangeable.
+
+\setcounter{enumi}{9}
+\item If $Q$ is not on the line $L(P;A)$, then $Q \not= P + tA$ for $t \in \mathbb{R}$, which guarantees that $f(t) \not= 0$. Then
+\begin{align*}
+f(t) &= \left(\sqrt{(q_1 - p_1 - ta_1)^2 + (q_2 - p_2 - ta_2)^2 + \cdots + (q_n - p_n - ta_n)^2}\right)^2 \\
+&= (q_1 - p_1 - ta_1)^2 + (q_2 - p_2 - ta_2)^2 + \cdots + (q_n - p_n - ta_n)^2.
+\end{align*}
+It can be seen that $f(t)$ is quadratic, because it is of degree two. In addition, every term in $f(t)$ is positive, because $f(t)$ is a sum of squared quantities. This means that the coefficient of the $t^2$ term is positive, and quadratic expressions of this form always have exactly one minimum value.
+
+\setcounter{enumi}{11}
+\item Because $L(P;A)$ and $L(Q;B)$ are not parallel, $A \not= cB$ for any $c \in \mathbb{R}$, so $A$ and $B$ are linearly independent. From Exercise 8, $L(P;A)$ and $L(P;B)$ intersect iff $P - Q \in \mbox{span}\{A, B\}$. Otherwise, the intersection of $L(P;A)$ and $L(P;B)$ is empty. In the former case,
+\[ P - Q = c_1A + c_2B \not= 0 \]
+for unique $c_1$ and $c_2$. Then $P$ and $Q$ intersect at
+\[ P + t_1A = Q + t_2B, \]
+a uniquely determined point where $t_1 = -c_1$ and $t_2 = c_2$.
+
+\end{enumerate}
+
+\subsection*{2.9}
+
+\begin{enumerate}
+
+\item Points (c) and (e) are on $M$.
+
+\setcounter{enumi}{13}
+\item $L = \{Q + sA, s \in \mathbb{R}\}$, where Q is a point contained in $L$. $X = \{P + tA + uB, \; t, u \in \mathbb{R}\}$ with linearly independent $A$, $B$ defines any plane that contains the point $P$ and is either parallel to or contains the line $L$. In order for $X$ to contain $L$, $L$ must equal $P + tA + u_0B$ for some $u_0 \in u$. This can be written as
+\begin{gather*}
+Q + sA = P + tA + u_0B \\
+Q - P = (t - s)A + u_0B
+\end{gather*}
+As can be seen from the result, $Q - P$ is a unique linear combination of $A$ and $B$ because $A$ and $B$ are linearly independent. Because $Q - P$ is fixed and $A$ has a fixed direction, $B$ must have a fixed direction as well. Then the plane determined by $P$, $A$, and $B$ is unique.
+
+\end{enumerate}
+
+\subsection*{2.12}
+
+\begin{enumerate}
+
+\setcounter{enumi}{3}
+\item $(-\bm{i} + 2\bm{j} - 3\bm{k}) \times (2\bm{j} + \bm{k}) = 8\bm{i} + \bm{j} - 2\bm{k}$
+\setcounter{enumi}{7}
+\item (a) If $A \times B = \vec{0}$, then without loss of generality, $A = cB$ for some real $c$. If $c = 0$, then $A = \vec{0}$. Otherwise, $A \cdot B = A \cdot (cA) = c(A \cdot A) = c\|A\|^2 = 0$, so $A = 0$. $A$ and $B$ can also be interchanged to show that $B = 0$ if $A \not= 0$. Geometrically, if two vectors are simultaneously parallel and orthogonal, then at least one of the vectors must be the zero vector. \par
+(b) If $A$ is crossed with both sides of the first equation, then we have
+\[ A \times (A \times B) = A \times (A \times C). \]
+Taking the vector triple product and using the given property that $A \cdot B = A \cdot C$, the above equation becomes
+\begin{align*}
+A(A \cdot B) - B(A \cdot A) &= A(A \cdot C) - C(A \cdot A) \\
+-B(A \cdot A) &= -C(A \cdot A) \\
+B &= C.
+\end{align*}
+
+\end{enumerate}
+
+\subsection*{2.18}
+
+\begin{enumerate}
+
+\setcounter{enumi}{1}
+\item (a) $\vec{n} = \frac{\bm{i} + 2\bm{j} - 2\bm{k}}{\|{\bm{i} + 2\bm{j} - 2\bm{k}\|}} = \frac{1}{3}(\bm{i} + 2\bm{j} - 2\bm{k})$ \par
+(b) $x$-intercept: $x = -7$ \newline
+	$y$-intercept: $y = -\frac{7}{2}$ \newline
+	$z$-intercept: $z = \frac{7}{2}$ \par
+(c) The distance of a plane from a point $P$ is equal to
+\[ |(P - Q) \cdot \vec{n}|, \]
+where $Q$ is an arbitrarily chosen point on the plane and $\vec{n}$ is the unit normal vector. $(-3, 0, 2)$ is one such point for $Q$. Then the distance from the plane to the origin is
+\[ d = |(3\bm{i} - 2\bm{k}) \cdot \frac{1}{3}(\bm{i} + 2\bm{j} - 2\bm{k})| = \frac{7}{3}. \]
+(d) $Q = P - \vec{n}d = -\frac{1}{3}(1, 2, -2)\left(\frac{7}{3}\right) = \frac{7}{9}(-1, -2, 2)$
+
+\setcounter{enumi}{10}
+\item From the dot product, $N \cdot \vec{i} = \|N\|\|\vec{i}\|\cos{\frac{\pi}{3}} = \frac{1}{2}$. This is the component of $N$ in the direction of $\vec{i}$, the $x$-direction. Likewise, $N \cdot \vec{j} = \frac{\sqrt{2}}{2}$ and $N \cdot \vec{k} = \frac{1}{2}$ are the components of $N$ in the $y$- and $z$-directions, respectively. Then the equation of the plane is
+\begin{gather*}
+\frac{1}{2}(x - 1) + \frac{\sqrt{2}}{2}(y - 1) + \frac{1}{2}(z - 1) = 0 \\
+(x - 1) + \sqrt{2}(y - 1) + (z - 1) = 0.
+\end{gather*}
+
+\setcounter{enumi}{19}
+\item The equation of the second plane is $2x - y + 2z + C = 0$ for some $C \in \mathbb{R}$. First, note that $\vec{n} = \frac{(2, -1, 2)}{\|2, -1, 2\|} = \frac{1}{3}(2, -1, 2)$ and that $d = |((3, 2, -1) - Q) \cdot \vec{n}|$ where $Q$ is a point on the first plane. One such $Q$ can be chosen to be $(0, 4, 0)$. Then
+\[ d = |(3, -2, -1) \cdot \frac{1}{3}(2, -1, 2)| = 2. \]
+Now, the nearest point from the second plane to $(3, 2, -1)$ is computed to be
+\[ (3, 2, -1) + \vec{n}d = (3, 2, -1) + \frac{1}{3}(2, -1, 2)(2) = \left(\frac{13}{3}, \frac{4}{3}, \frac{1}{3}\right). \]
+To find $C$, substitute the known point for $(x, y, z)$:
+\begin{gather*}
+2\left(\frac{13}{3}\right) - \frac{4}{3} + 2\left(\frac{1}{3}\right) + C = 0 \\
+C = -8
+\end{gather*}
+The final equation for the second plane is
+\[ 2x - y + 2z - 8 = 0. \]
+
+\end{enumerate}
+
+\subsection*{3.5}
+
+\begin{enumerate}
+
+\item Yes
+
+\setcounter{enumi}{2}
+\item Yes
+
+\setcounter{enumi}{6}
+\item Yes
+
+\setcounter{enumi}{8}
+\item Yes
+
+\setcounter{enumi}{9}
+\item Yes, by Exercise 9
+
+\setcounter{enumi}{10}
+\item Yes
+
+\setcounter{enumi}{12}
+\item No, axioms 1, 2, and 5 fail to hold.
+
+\item Yes
+
+\setcounter{enumi}{15}
+\item Yes
+
+\item Yes
+
+\item No, axiom 2 fails to hold.
+
+\item Yes
+
+\setcounter{enumi}{20}
+
+\item Axiom 1: For every pair of elements $x$ and $y$ in $V$, $xy$ is a unique element also in $\mathbb{R^+}$. \newline
+Axiom 2: For every $x$ in $V$ and every real number $c$, $x^c$ is a unique element also in $\mathbb{R^+}$. \newline
+Axiom 3: $xy = yx$ by the commutative property of multiplication of real numbers. \newline
+Axiom 4: $(xy)z = x(yz)$ by the associative property of multiplication. \newline
+Axiom 5: $x(1) = x$ due to the identity property of multiplication. \newline
+Axiom 6: $x(x^{-1}) = 1$ \newline
+Axiom 7: ${(x^b)}^a = x ^ {ba} = x ^ {ab}$ \newline
+Axiom 8: $(x + y)^a = x^a y^a$ \newline
+Axiom 9: $x^{a + b} = x^a x^b$ \newline
+Axiom 10: $x^1 = x$ by the identity property of exponentiation.
+
+\setcounter{enumi}{24}
+
+\item (a) Yes \newline
+(b) No, axiom 2 fails to hold. \newline
+(c) Yes \newline
+(d) Yes
+
+\end{enumerate}
+
+\end{document}

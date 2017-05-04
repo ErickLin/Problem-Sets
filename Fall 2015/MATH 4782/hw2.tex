@@ -1,0 +1,758 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[margin=3.5cm]{geometry}
+\usepackage{amsfonts, amsmath, physics}
+\allowdisplaybreaks
+
+\begin{document}
+	
+\section*{MATH/PHYS 4782 - HW2 Solutions}
+
+\begin{enumerate}
+
+	\item[4.2.] Using Taylor expansions and splitting the summation,
+        \begin{align*}
+            \mbox{exp}(iAx) &= \sum_{k = 0}^{\infty} \frac{(iAx)^k}{k!} \\
+            &= \sum_{k = 0}^{\infty} \frac{(iAx)^{2k}}{(2k)!} + \sum_{k = 0}^{\infty} \frac{(iAx)^{2k + 1}}{(2k + 1)!} \\
+            &= \sum_{k = 0}^{\infty} \frac{(A^2)^k (-1)^k x^{2k}}{(2k)!} + \sum_{k = 0}^{\infty} \frac{iA(A^2)^k (-1)^k x^{2k + 1}}{(2k + 1)!} \\
+            &= I \sum_{k = 0}^{\infty} \frac{(-1)^k x^{2k}}{(2k)!} + iA \sum_{k = 0}^{\infty} \frac{(-1)^k x^{2k + 1}}{(2k + 1)!} \\
+            &= \cos(x) I + i\sin(x)A.
+        \end{align*}
+
+    \item[4.4.] Assume $H$ takes the form $\frac{1}{-e^{i\varphi}} R_x(\varphi) R_y(\varphi) R_z(\varphi)$ with $\varphi = -\frac{\pi}{2}$. Verifying that the quantities are indeed equal (using equations (4.4) and (4.6), as well as the properties of the Pauli matrices $X^2 = I$, $XZ + ZX = 0 \Rightarrow XZ = -ZX \Rightarrow XZX = -ZX^2 = -Z$),
+        \begin{align*}
+            &\frac{R_x(-\frac{\pi}{2}) R_y(-\frac{\pi}{2}) R_z(-\frac{\pi}{2})}{-e^{-i\pi/2}} \\
+            &= \frac{e^{i\pi X/4} e^{i\pi Z / 4} e^{i\pi X /4}}{-e^{-i\pi/2}} \\
+            &= \frac{\left[ \cos{\left( \frac{\pi}{4} \right)} I + i\sin{\left( \frac{\pi}{4} \right)} X \right] \left[ \cos{\left( \frac{\pi}{4} \right)} I + i\sin{\left( \frac{\pi}{4} \right)} Z \right] \left[ \cos{\left( \frac{\pi}{4} \right)} I + i\sin{\left( \frac{\pi}{4} \right)} X \right]}{-e^{-i\pi/2}} \\
+            &= \frac{(I + iX)(I + iZ)(I + iX)}{-2\sqrt{2}e^{-i\pi/2}} \\
+            &= \frac{I + iX + iZ - ZX + iX - X^2 - XZ - iXZX}{-2\sqrt{2}e^{-i\pi/2}} \\
+            &= \frac{i(X + Z)}{-\sqrt{2}e^{-i\pi/2}} \\
+            &= \frac{i}{-e^{-i\pi/2}} \left( \frac{1}{\sqrt{2}} \right) \left(
+            \left[ \begin{array}{cc}
+                0 & 1 \\
+                1 & 0
+            \end{array} \right]
+            + \left[ \begin{array}{cc}
+                1 & 0 \\
+                0 & -1
+            \end{array} \right] \right) \\
+            &= \frac{1}{\sqrt{2}}
+            \left[ \begin{array}{cc}
+                1 & 1 \\
+                1 & -1
+            \end{array} \right] \\
+            &= H.
+        \end{align*}
+
+    \item[4.5.] Using the property of the Pauli matrices that $\sigma_i \sigma_j = -\sigma_j \sigma_i$ when $i \neq j$ and $\sigma_i \sigma_j = I$ when $i = j$,
+        \begin{align*}
+            (\hat{n} \cdot \vec{\sigma})^2 &= \left( \sum_{i = x}^{z} n_i \sigma_i \right)^2 \\
+            &= \sum_{i = x}^{z} \sum_{j = x}^{z} n_i n_j \sigma_i \sigma_j \\
+            &= \sum_{i = x}^{z} n_i^2 I \\
+            &= \norm{\hat{n}} I \\
+            &= I.
+        \end{align*}
+        Now, writing the Taylor expansion for $R_{\hat{n}}(\theta)$ and splitting the summation,
+        \begin{align*}
+            e^{-i\theta \hat{n} \cdot \vec{\sigma} / 2} &= \sum_{k = 0}^{\infty} \frac{(-i\theta \hat{n} \cdot \vec{\sigma} / 2)^k}{k!} \\
+            &= \sum_{k = 0}^{\infty} \frac{(-i\theta \hat{n} \cdot \vec{\sigma} / 2)^{2k}}{(2k)!} + \sum_{k = 0}^{\infty} \frac{(-i\theta \hat{n} \cdot \vec{\sigma} / 2)^{2k+ 1}}{(2k + 1)!} \\
+            &= \sum_{k = 0}^{\infty} \frac{(-1)^{2k} (\hat{n} \cdot \vec{\sigma})^{2k} (-1)^k (\theta / 2)^{2k}}{(2k)!} \\
+            &\qquad+ \sum_{k = 0}^{\infty} \frac{(-1)^{2k + 1} i (\hat{n} \cdot \vec{\sigma})^{2k + 1} (-1)^k (\theta / 2)^{2k + 1}}{(2k + 1)!} \\
+            &= \cos{\left(\frac{\theta}{2}\right)} I - i(\hat{n} \cdot \vec{\sigma}) \sin{\left(\frac{\theta}{2}\right)} \\
+            &= \cos{\left(\frac{\theta}{2}\right)} I - i\sin{\left(\frac{\theta}{2}\right)} (n_x X + n_y Y + n_z Z).
+        \end{align*}
+
+    \item[4.7.]
+        \begin{align*}
+            XYX &=
+            \left[ \begin{array}{cc}
+                0 & 1 \\
+                1 & 0
+            \end{array} \right]
+            \left[ \begin{array}{cc}
+                0 & -i \\
+                i & 0
+            \end{array} \right]
+            \left[ \begin{array}{cc}
+                0 & 1 \\
+                1 & 0
+            \end{array} \right] \\
+            &=
+            \left[ \begin{array}{cc}
+                i & 0 \\
+                0 & -i 
+            \end{array} \right]
+            \left[ \begin{array}{cc}
+                0 & 1 \\
+                1 & 0
+            \end{array} \right] \\
+            &=
+            \left[ \begin{array}{cc}
+                0 & i \\
+                -i & 0
+            \end{array} \right] \\
+            &= -Y
+        \end{align*}
+        Using equation (4.5),
+        \begin{align*}
+            XR_y(\theta)X &= X \left(I \cos{\frac{\theta}{2}} - iY \sin{\frac{\theta}{2}} \right) X \\
+            &= X^2 \cos{\frac{\theta}{2}} - iXYX \sin{\frac{\theta}{2}} \\
+            &= I\cos{\frac{\theta}{2}} + iY \sin{\frac{\theta}{2}} \\
+            &= e^{i\theta Y / 2} \\
+            &= R_y(-\theta).
+        \end{align*}
+
+    \item[4.8.]
+        \begin{enumerate}
+
+            \item As a unitary matrix, $U^\dagger U = I$ and $U = 
+                \left[ \begin{array}{cc}
+                        a & b \\
+                        c & d
+                \end{array} \right]
+                $
+                can be written as a linear combination of the Pauli matrices
+                \[
+                    U = c_0 I + c_1 X + c_2 Y + c_3 Z,
+                \]
+                with each coefficient nonzero. Then using the properties of the Pauli matrices $X^2 = I$, $Y^2 = I$, $Z^2 = I$, $XY = -YX = iZ$, $XZ = -ZX = -iY$, and $YZ = -ZY = iX$,
+                \begin{align*}
+                    U^\dagger U = I &= (c_0^* I + c_1^* X + c_2^* Y + c_3^* Z)(c_0 I + c_1 X + c_2 Y + c_3 Z) \\
+                    &= (|c_0|^2 + |c_1|^2 + |c_2|^2 + |c_3|^2)I + (c_0^* c_1 + c_1^* c_0 + i c_2^* c_3 - i c_3^* c_2)X \\
+                    &+ (c_0^* c_2 - i c_1^* c_3 + c_2^* c_0 + i c_3^* c_1)Y + (c_0^* c_3 + i c_1^* c_2 - i c_2^* c_1 + c_3^* c_0)Z
+                \end{align*}
+                which implies that
+                \begin{align}
+                    |c_0|^2 + |c_1|^2 + |c_2|^2 + |c_3|^2 &= 1 \\
+                    c_0^* c_1 + c_1^* c_0 + i c_2^* c_3 - i c_3^* c_2 &= 0 \\
+                    c_0^* c_2 + c_2^* c_0 + i c_3^* c_1 - i c_1^* c_3 &= 0 \\
+                    c_0^* c_3 + c_3^* c_0 + i c_1^* c_2 - i c_2^* c_1 &= 0.
+                \end{align}
+                Now define $\vartheta, \alpha$ such that $\cos{\frac{\vartheta}{2}} = |c_0|$ (which is possible because $|c_0|^2 < 1$) and $\mbox{exp}(i \alpha) = c_0 / |c_0|$ so that
+                \[
+                    c_0 = \mbox{exp}(i \alpha) \cos{\frac{\vartheta}{2}}.
+                \]
+                From (1),
+                \begin{align*}
+                    |c_1|^2 + |c_2|^2 + |c_3|^2 = 1 - \cos^2{\frac{\vartheta}{2}} = \sin^2{\frac{\vartheta}{2}}.
+                \end{align*}
+                Normalizing the right hand side,
+                \begin{align*}
+                    \left| \frac{c_1}{\sin{\frac{\vartheta}{2}}} \right|^2 + \left| \frac{c_2}{\sin{\frac{\vartheta}{2}}} \right|^2 + \left| \frac{c_3}{\sin{\frac{\vartheta}{2}}} \right|^2 = 1
+                \end{align*}
+                so we can define $n_x = |c_1 / \sin{\frac{\vartheta}{2}}|$, $n_y = |c_2 / \sin{\frac{\vartheta}{2}}|$, and $n_z = |c_3 / \sin{\frac{\vartheta}{2}}|$. \par
+                The last element required is the phases of $c_1$, $c_2$, and $c_3$, which will be denoted by $\alpha_1$, $\alpha_2$, and $\alpha_3$. Substituting into (2) above,
+                \begin{align*}
+                    0 &= c_0^* c_1 + c_1^* c_0 + i c_2^* c_3 - i c_3^* c_2 \\
+                    &= \mbox{exp}(-i \alpha) \cos{\frac{\vartheta}{2}} \mbox{exp}(i \alpha_1) n_x \sin{\frac{\vartheta}{2}} + \mbox{exp}(-i \alpha_1) n_x \sin{\frac{\vartheta}{2}} \mbox{exp}(i \alpha) \cos{\frac{\vartheta}{2}} \\
+                    &\qquad+ i\mbox{exp}(-i \alpha_2) n_y \sin{\frac{\vartheta}{2}} \mbox{exp}(i \alpha_3) n_z \sin{\frac{\vartheta}{2}} \\
+                    &\qquad- i\mbox{exp}(-i \alpha_3) n_z \sin{\frac{\vartheta}{2}} \mbox{exp}(i \alpha_2) n_y \sin{\frac{\vartheta}{2}} \\
+                    &= 2 \cos(\alpha - \alpha_1) n_x \cos{\frac{\vartheta}{2}} \sin{\frac{\vartheta}{2}} + 2i \sin(\alpha_3 - \alpha_2) n_y n_z \sin^2{\frac{\vartheta}{2}},
+                \end{align*}
+                which shows that $\cos(\alpha - \alpha_1) = 0$ and $\sin(\alpha_3 - \alpha_2) = 0$, since the other factors are nonzero. Then $\alpha_1 = \alpha + \frac{\pi}{2} + k\pi \; \forall \; k \in \mathbb{N}$, and $\exp(i \alpha_1) = \exp(i \alpha) \exp(i \frac{\pi}{2}) \exp(ik\pi) = \pm i \exp(i \alpha)$. Due to symmetry, (3) and (4) produce the same result for $\alpha_2$ and $\alpha_3$. Now we have
+                \begin{align*}
+                    c_1 &= \pm i \mbox{exp}(i \alpha) \sin\frac{\vartheta}{2} n_x \\
+                    c_2 &= \pm i \mbox{exp}(i \alpha) \sin\frac{\vartheta}{2} n_y \\
+                    c_3 &= \pm i \mbox{exp}(i \alpha) \sin\frac{\vartheta}{2} n_z
+                \end{align*}
+                so
+                \begin{align*}
+                    U = \mbox{exp}(i \alpha) \left[ \cos\frac{\vartheta}{2} I \pm i \sin\frac{\vartheta}{2} (n_x X + n_y Y + n_z Z) \right] = \mbox{exp}(i \alpha) R_{\hat{n}}(\theta)
+                \end{align*}
+                where $\theta = -\vartheta$ if the $\pm$ turns out to be a $+$, and $\vartheta$ otherwise.
+
+            \item In terms of the Pauli matrices
+                \[
+                    H = \frac{X + Z}{\sqrt{2}},
+                \]
+                so following the formula, the proper choices are
+                \begin{align*}
+                    \alpha &= \frac{\pi}{2} \; (\mbox{to cancel out the } {-i} \; \mbox{in the second term}) \\
+                    \theta &= \pi \\
+                    \hat{n} &= \frac{(1, 0, 1)}{\sqrt{2}}.
+                \end{align*}
+
+            \item In terms of the Pauli matrices
+                \[
+                    S = \frac{1 + i}{2} I + \frac{1 - i}{2} Z
+                \]
+                so the proper choices are
+                \begin{align*}
+                    \alpha &= \frac{\pi}{4} \; (\mbox{to get the } 1 \pm i \; \mbox{in the coefficients}) \\
+                    \theta &= \frac{\pi}{2} \\
+                    \hat{n} &= (0, 0, 1).
+                \end{align*}
+
+            \iffalse
+            \item Let $\alpha = -\frac{\pi}{2}$, $\theta = \frac{\pi}{2}$, and $\hat{n} = \frac{(1, 0, 1)}{\sqrt{2}}$. Then
+                \begin{align*}
+                    \mbox{exp} \left( -\frac{i\pi}{2} \right) R_{\hat{n}} \left( \frac{\pi}{2} \right) &= \left( \cos{\frac{\pi}{2}} - i\sin{\frac{\pi}{2}} \right) \left[ \cos{\left( \frac{\pi}{2} \right)} I - i\sin{\left( \frac{\pi}{2} \right)} (\hat{n} \cdot \vec{\sigma}) \right] \\
+                    &= (0 - i)[0 - i \left( \frac{X + Z}{\sqrt{2}} \right)] \\
+                    &= H
+                \end{align*}
+
+            \item Let $\alpha = \frac{\pi}{4}$, $\theta = -\frac{\pi}{4}$, and $\hat{n} = (1, 0, 1)$. Then
+                \begin{align*}
+                    \mbox{exp} \left( \frac{i\pi}{4} \right) R_{\hat{n}} \left( -\frac{\pi}{4} \right) &= \left( \cos{\frac{\pi}{4}} + i\sin{\frac{\pi}{4}} \right) \left[ \cos{\left( -\frac{\pi}{4} \right)} I + i\sin{\left( -\frac{\pi}{4} \right)} (\hat{n} \cdot \vec{\sigma}) \right] \\
+                    &= \left( \frac{\sqrt{2}}{2} + i\frac{\sqrt{2}}{2} \right) \left[\frac{\sqrt{2}}{2}I - i\frac{\sqrt{2}}{2} Z \right] \\
+                    &= \frac{1}{2}I - \frac{1}{2}iZ + \frac{1}{2}iI + \frac{1}{2}Z \\
+                    &=
+                    \left[ \begin{array}{cc}
+                        1 & 0 \\
+                        0 & i
+                    \end{array} \right]
+                \end{align*}
+            \fi
+        \end{enumerate}
+
+    \item[4.9.] $U$ can be written as
+        $\left[ \begin{array}{cc}
+                a & b \\
+                c & d
+        \end{array} \right],$
+        which has the properties
+        \begin{align*}
+            |a|^2 + |c|^2 &= |b|^2 + |d|^2 = 1 \\
+            ab^* + cd^* &= 0.
+        \end{align*}
+        The first equality shows that if any element $e$ in the matrix equals $0$, then the other element in the same column must have magnitude $1$. In the second equality, the term not containing $e$ must have the element diagonally opposite $e$ in the matrix equal $0$, because the only other factor of that term is in the same column as $e$, in order for the equality to hold. Then the remaining element (the one in the same row as $e$) must also be of magnitude $1$ by the first equality. This shows that exactly two elements have magnitude $1$, and they are diagonally opposite from one another. If they lie on the standard diagonal, $\gamma$ in equation (4.12) can be taken to be $0$, and if they lie on the other diagonal, then $\gamma$ can be taken to be $\pi$. The different coefficients satisfy all possible combinations of phases. \par
+        The other case is when all of the elements are nonzero. First, some trigonometric properties can be used. Due to the first equality, $\gamma$, $\gamma'$ can be defined such that $|a| = \cos(\gamma / 2)$, $|c| = \sin(\gamma / 2)$, $|b| = \cos(\gamma' / 2)$, $|d| = \sin(\gamma' / 2)$. Due to the second equality,
+        \begin{align*}
+            0 &= ab^* + cd^* \\
+            -ab^* &= cd^* \\
+            |{-ab}^*| &= |cd^*| \\
+            |{-a}||b^*| &= |c||d^*| \\
+            |a||b| &= |c||d| \\
+            \cos\frac{\gamma}{2} \cos\frac{\gamma'}{2} &= \sin\frac{\gamma}{2} \sin\frac{\gamma'}{2} \\
+            \cos(\frac{\gamma + \gamma'}{2}) &= 0
+        \end{align*}
+        This shows that $\gamma' = \gamma - \pi$, so $|b|$ can be rewritten as $\sin(\gamma / 2)$ and $|d|$ as $\cos(\gamma / 2)$. \par
+        Now define $\alpha_1$, $\alpha_2$, $\alpha_3$, and $\alpha_4$ as the phases of $a$, $-b$, $c$, and $d$ respectively. Again applying the second inequality,
+        \begin{gather*}
+            -\cos\frac{\gamma}{2} \sin\frac{\gamma}{2} e^{i(\alpha_1 - \alpha_2)} + \sin\frac{\gamma}{2} \cos\frac{\gamma}{2} e^{i(\alpha_3 - \alpha_4)} = 0 \\
+            e^{i(\alpha_1 - \alpha_2)} = e^{i(\alpha_3 - \alpha_4)} \\
+            \alpha_1 - \alpha_2 = \alpha_3 - \alpha_4 \\
+            \alpha_1 + \alpha_4 = \alpha_2 + \alpha_3
+        \end{gather*}
+        If we let $\alpha = (\alpha_1 + \alpha_4) / 2 = (\alpha_2 + \alpha_3) / 2$, then we can define $\beta$, $\delta$ such that
+        \begin{align*}
+            \alpha_1 &= \alpha - \beta / 2 - \delta / 2 \\
+            \alpha_3 &= \alpha + \beta / 2 - \delta / 2,
+        \end{align*}
+        and then
+        \begin{align*}
+            \alpha_2 &= 2\alpha - \alpha_3 = \alpha - \beta / 2 + \delta / 2 \\
+            \alpha_4 &= 2\alpha - \alpha_1 = \alpha + \beta / 2 + \delta / 2.
+        \end{align*}
+        Putting it all together,
+        \begin{align*}
+            a &= e^{i(\alpha - \beta / 2 - \delta / 2)} \cos\frac{\gamma}{2} \\
+            b &= -e^{i(\alpha - \beta / 2 + \delta / 2)} \sin\frac{\gamma}{2} \\
+            c &= e^{i(\alpha + \beta / 2 - \delta / 2)} \sin\frac{\gamma}{2} \\
+            d &= e^{i(\alpha + \beta / 2 + \delta / 2)} \cos\frac{\gamma}{2}
+        \end{align*}
+        which matches the form (4.12).
+
+    \item[4.13.]
+        \begin{align*}
+            HXH &= \frac{1}{2}
+            \left[ \begin{array}{cc}
+                1 & 1 \\
+                1 & -1
+            \end{array} \right]
+            \left[ \begin{array}{cc}
+                0 & 1 \\
+                1 & 0
+            \end{array} \right]
+            \left[ \begin{array}{cc}
+                1 & 1 \\
+                1 & -1
+            \end{array} \right] \\
+            &= \frac{1}{2}
+            \left[ \begin{array}{cc}
+                1 & 1 \\
+                -1 & 1
+            \end{array} \right]
+            \left[ \begin{array}{cc}
+                1 & 1 \\
+                1 & -1
+            \end{array} \right] \\
+            &= \frac{1}{2}
+            \left[ \begin{array}{cc}
+                2 & 0 \\
+                0 & -2
+            \end{array} \right] \\
+            &= Z
+        \end{align*}
+        \begin{align*}
+            HYH &= \frac{1}{2}
+            \left[ \begin{array}{cc}
+                1 & 1 \\
+                1 & -1
+            \end{array} \right]
+            \left[ \begin{array}{cc}
+                0 & -i \\
+                i & 0
+            \end{array} \right]
+            \left[ \begin{array}{cc}
+                1 & 1 \\
+                1 & -1
+            \end{array} \right] \\
+            &= \frac{1}{2}
+            \left[ \begin{array}{cc}
+                i & -i \\
+                -i & -i
+            \end{array} \right]
+            \left[ \begin{array}{cc}
+                1 & 1 \\
+                1 & -1
+            \end{array} \right] \\
+            &= \frac{1}{2}
+            \left[ \begin{array}{cc}
+                0 & 2i \\
+                -2i & 0
+            \end{array} \right] \\
+            &= -Y
+        \end{align*}
+        \begin{align*}
+            HZH &= \frac{1}{2}
+            \left[ \begin{array}{cc}
+                1 & 1 \\
+                1 & -1
+            \end{array} \right]
+            \left[ \begin{array}{cc}
+                1 & 0 \\
+                0 & -1
+            \end{array} \right]
+            \left[ \begin{array}{cc}
+                1 & 1 \\
+                1 & -1
+            \end{array} \right] \\
+            &= \frac{1}{2}
+            \left[ \begin{array}{cc}
+                1 & -1 \\
+                1 & 1
+            \end{array} \right]
+            \left[ \begin{array}{cc}
+                1 & 1 \\
+                1 & -1
+            \end{array} \right] \\
+            &= \frac{1}{2}
+            \left[ \begin{array}{cc}
+                0 & 2 \\
+                2 & 0
+            \end{array} \right] \\
+            &= X
+        \end{align*}
+
+    \item[4.17.]
+        \iffalse
+        The matrix representing the action of the Hadamard matrix in the computational basis, with the top line as the control qubit, is
+        \begin{align*}
+            H_c =
+            \left[ \begin{array}{cc}
+                I & O \\
+                O & H
+            \end{array} \right] =
+            \left[ \begin{array}{cccc}
+                1 & 0 & 0 & 0 \\
+                0 & 1 & 0 & 0 \\
+                0 & 0 & 1/\sqrt{2} & 1/\sqrt{2} \\
+                0 & 0 & 1/\sqrt{2} & -1/\sqrt{2}
+            \end{array} \right]
+        \end{align*}
+        \fi
+        The action of the CNOT gate is given by (using an identity from the previous exercise) $\ket{c} \otimes \ket{t} \rightarrow \ket{c} \otimes X^c \ket{t} = \ket{c} \otimes (HZH)^c \ket{t} = \ket{c} \otimes H^c Z^c H^c \ket{t}$. Because $H^2 = I$, this can be further simplified to
+        \[
+            \ket{c} \otimes H Z^c H \ket{t}.
+        \] The circuit representation for this gate is shown below. \\[1.5in]
+
+    \item[4.21.] Let the starting state be $\ket{\psi} = \ket{\psi_1 \psi_2 \psi_3} = \ket{\psi_1} \otimes \ket{\psi_2} \otimes \ket{\psi_3}$. Passing through the five controlled gates in order (and using the identity $(X^c)^2 = I$),
+        \begin{align*}
+            \ket{\psi} &\rightarrow \ket{\psi_1} \otimes (\ket{\psi_2} \otimes V^{\psi_2} \ket{\psi_3}) \\
+            &\rightarrow (\ket{\psi_1} \otimes X^{\psi_1} \ket{\psi_2}) \otimes V^{\psi_2} \ket{\psi_3} \\
+            &\rightarrow \ket{\psi_1} \otimes (X^{\psi_1} \ket{\psi_2} \otimes (V^\dagger)^{\psi_1 \oplus \psi_2} V^{\psi_2} \ket{\psi_3}) \\
+            &\rightarrow (\ket{\psi_1} \otimes \ket{\psi_2}) \otimes (V^\dagger)^{\psi_1 \oplus \psi_2} V^{\psi_2} \ket{\psi_3} \\
+            &\rightarrow \ket{\psi_1} \otimes \ket{\psi_2} \otimes V^{\psi_1} (V^\dagger)^{\psi_1 \oplus \psi_2} V^{\psi_2} \ket{\psi_3}
+        \end{align*}
+        If $\psi_1 = \psi_2 = 1$, then the result is $\ket{\psi_1} \otimes \ket{\psi_2} \otimes V^2 \ket{\psi_3} = \ket{\psi_1 \psi_2} U \ket{\psi_3}$. \\
+        If $\psi_1 = 0, \psi_2 = 1$, the result is $\ket{\psi_1} \otimes \ket{\psi_2} \otimes V^\dagger V \ket{\psi_3}$, and if $\psi_1 = 1, \psi_2 = 0$, the result is $\ket{\psi_1} \otimes \ket{\psi_2} \otimes V V^\dagger \ket{\psi_3}$. Both cases evaluate to $\ket{\psi_1 \psi_2} I \ket{\psi_3}$ because $V = V^{-1}$ as an unitary matrix. \\
+        Finally, if $\psi_1 = \psi_2 = 0$, then the result is also $\ket{\psi_1 \psi_2} I \ket{\psi_3}$. \par
+        Since the result is $\ket{\psi_1 \psi_2} U^{\psi_1 \psi_2} \ket{\psi_3} = C^2(U) \ket{\psi_1 \psi_2} \ket{\psi_3}$ in all cases, we have that the circuit implements $C^2(U)$ when $\ket{\psi_1}$, $\ket{\psi_2}$ are taken to be the control qubits and $\ket{\psi_3}$ is taken to be the target qubit.
+    \item[4.23.] Being controlled-$U$ operations, the gates match the form of the circuit shown in Figure 4.6. First, $XZX = -Z$ for one qubit, which is proved in a similar way to $XYX = -Y$ from Exercise 4.7; also, $HZH = X$ from Exercise 4.13. For $U = R_x(\theta)$, if we let $\alpha = 0$, $A = H$, $B = \mbox{exp}(-i \theta Z / 2)$, and $C = \mbox{exp}(i \theta Z / 2) H$, then
+        \begin{align*}
+            ABC &= H \mbox{exp}(-i \theta Z / 2) \mbox{exp}(i \theta Z / 2) H \\
+            &= H^2 \\
+            &= I \\
+            \mbox{exp}(i \alpha) AXBXC &= H \mbox{exp}[X(-i \theta Z / 2)X] \mbox{exp}(i \theta Z / 2) H \\
+            &= H \mbox{exp}(i \theta Z / 2) \mbox{exp}(i \theta Z / 2) H \\
+            &= \mbox{exp}[H(i \theta Z)H] \\
+            &= \mbox{exp}(i \theta X) \\
+            &= R_x(\theta).
+        \end{align*}
+        For $U = R_y(\theta)$, if we let $\alpha = 0$, $A = I$, $B = \mbox{exp}(-i \theta Y / 2)$, and $C = \mbox{exp}(i \theta Y / 2)$, then
+        \begin{align*}
+            ABC &= \mbox{exp}(-i \theta Y / 2) \mbox{exp}(i \theta Y / 2) \\
+            &= I \\
+            \mbox{exp}(i \alpha) AXBXC &= I \mbox{exp}[X(-i \theta Y / 2)X] \mbox{exp}(i \theta Y / 2) \\
+            &= \mbox{exp}(i \theta Y / 2) \mbox{exp}(i \theta Y / 2) \\
+            &= \mbox{exp}(i \theta Y) \\
+            &= R_x(\theta).
+        \end{align*}
+        In this circuit, $A$ can be removed to reduce the number of gates needed.
+
+    \item[4.24.] Let the starting state be $\ket{\psi} = \ket{\psi_1 \psi_2 \psi_3}$. Examining the transformations for each qubit,
+        \begin{align*}
+            \ket{\psi_1} &\rightarrow T \ket{\psi_1} \\
+            \ket{\psi_2} &\rightarrow S X^{\psi_1} T^\dagger X^{\psi_1} T^\dagger \ket{\psi_2} \\
+            &= S (X^{\psi_1} T^\dagger)^2 \ket{\psi_2} \\
+            \ket{\psi_3} &\rightarrow H T X^{\psi_1} T^\dagger X^{\psi_2} T X^{\psi_1} T^\dagger X^{\psi_2} H \ket{\psi_3} \\
+            &= H (T X^{\psi_1} T^\dagger X^{\psi_2})^2 H \ket{\psi_3}.
+        \end{align*}
+        \iffalse
+        \begin{align*}
+            \ket{\psi} &\rightarrow \ket{\psi_1} \otimes \ket{\psi_2} \otimes H \ket{\psi_3} \\
+            &\rightarrow \ket{\psi_1} \otimes \ket{\psi_2} \otimes X^{\psi_2} H \ket{\psi_3} \\
+            &\rightarrow \ket{\psi_1} \otimes \ket{\psi_2} \otimes T^\dagger X^{\psi_2} H \ket{\psi_3} \\
+            &\rightarrow \ket{\psi_1} \otimes \ket{\psi_2} \otimes X^{\psi_1} T^\dagger X^{\psi_2} H \ket{\psi_3} \\
+            &\rightarrow \ket{\psi_1} \otimes \ket{\psi_2} \otimes T X^{\psi_1} T^\dagger X^{\psi_2} H \ket{\psi_3} \\
+            &\rightarrow \ket{\psi_1} \otimes \ket{\psi_2} \otimes X^{\psi_2} T X^{\psi_1} T^\dagger X^{\psi_2} H \ket{\psi_3} \\
+            &\rightarrow \ket{\psi_1} \otimes \ket{\psi_2} \otimes T^\dagger X^{\psi_2} T X^{\psi_1} T^\dagger X^{\psi_2} H \ket{\psi_3} \\
+            &\rightarrow \ket{\psi_1} \otimes \ket{\psi_2} \otimes X^{\psi_1} T^\dagger X^{\psi_2} T X^{\psi_1} T^\dagger X^{\psi_2} H \ket{\psi_3} \\
+            &\rightarrow \ket{\psi_1} \otimes T^\dagger \ket{\psi_2} \otimes T X^{\psi_1} T^\dagger X^{\psi_2} T X^{\psi_1} T^\dagger X^{\psi_2} H \ket{\psi_3} \\
+            &\rightarrow \ket{\psi_1} \otimes X^{\psi_1} T^\dagger \ket{\psi_2} \otimes H T X^{\psi_1} T^\dagger X^{\psi_2} T X^{\psi_1} T^\dagger X^{\psi_2} H \ket{\psi_3} \\
+            &\rightarrow \ket{\psi_1} \otimes T^\dagger X^{\psi_1} T^\dagger \ket{\psi_2} \otimes H T X^{\psi_1} T^\dagger X^{\psi_2} T X^{\psi_1} T^\dagger X^{\psi_2} H \ket{\psi_3} \\
+            &\rightarrow \ket{\psi_1} \otimes X^{\psi_1} T^\dagger X^{\psi_1} T^\dagger \ket{\psi_2} \otimes H T X^{\psi_1} T^\dagger X^{\psi_2} T X^{\psi_1} T^\dagger X^{\psi_2} H \ket{\psi_3} \\
+            &\rightarrow T \ket{\psi_1} \otimes S X^{\psi_1} T^\dagger X^{\psi_1} T^\dagger \ket{\psi_2} \otimes H T X^{\psi_1} T^\dagger X^{\psi_2} T X^{\psi_1} T^\dagger X^{\psi_2} H \ket{\psi_3} \\
+        \end{align*}
+        \fi
+        If $\psi_1 = 0$, then
+        \begin{align*}
+            T \ket{\psi_1}
+            &= \left[ \begin{array}{cc}
+                1 & 0 \\
+                0 & \mbox{exp}(i \pi / 4)
+            \end{array} \right]
+            \left[ \begin{array}{c}
+                1 \\
+                0
+            \end{array} \right] \\
+            &= \left[ \begin{array}{c}
+                1 \\
+                0
+            \end{array} \right] \\
+            &= \ket{\psi_1} \\
+            S (X^{\psi_1} T^\dagger)^2 \ket{\psi_2}
+            &= \left[ \begin{array}{cc}
+                1 & 0 \\
+                0 & i
+            \end{array} \right]
+            \left[ \begin{array}{cc}
+                1 & 0 \\
+                0 & \mbox{exp}(-i \pi/ 4)
+            \end{array} \right]^2 \ket{\psi_2} \\
+            &= \left[ \begin{array}{cc}
+                1 & 0 \\
+                0 & i
+            \end{array} \right]
+            \left[ \begin{array}{cc}
+                1 & 0 \\
+                0 & -i
+            \end{array} \right] \ket{\psi_2} \\
+            &= I \ket{\psi_2} \\
+            &= \ket{\psi_2} \\
+            H (T X^{\psi_1} T^\dagger X^{\psi_2})^2 H \ket{\psi_3} &= H \left(
+            \left[ \begin{array}{cc}
+                1 & 0 \\
+                0 & \mbox{exp}(i \pi / 4)
+            \end{array} \right]
+            \left[ \begin{array}{cc}
+                1 & 0 \\
+                0 & \mbox{exp}(-i \pi / 4)
+            \end{array} \right]
+            X^{\psi_2} \right)^2 H \ket{\psi_3} \\
+            &= H (X^{\psi_2})^2 H \ket{\psi_3} \\
+            &= H^2 \ket{\psi_3} \\
+            &= \ket{\psi_3} \\
+        \end{align*}
+        and the overall transformation is
+        \begin{align*}
+            \ket{\psi_1 \psi_2 \psi_3} \rightarrow \ket{\psi_1 \psi_2 \psi_3}.
+        \end{align*}
+        Otherwise if $\psi_1 = 1$ and $\psi_2 = 0$, then
+        \begin{align*}
+            T \ket{\psi_1} 
+            &= \left[ \begin{array}{cc}
+                1 & 0 \\
+                0 & \mbox{exp}(i \pi / 4)
+            \end{array} \right]
+            \left[ \begin{array}{c}
+                0 \\
+                1
+            \end{array} \right] \\
+            &= \left[ \begin{array}{c}
+                0 \\
+                \mbox{exp}(i \pi / 4)
+            \end{array} \right] \\
+            S (X^{\psi_1} T^\dagger)^2 \ket{\psi_2}
+            &= \left[ \begin{array}{cc}
+                1 & 0 \\
+                0 & i
+            \end{array} \right]
+            \left( \left[ \begin{array}{cc}
+                0 & 1 \\
+                1 & 0
+            \end{array} \right]
+            \left[ \begin{array}{cc}
+                1 & 0 \\
+                0 & \mbox{exp}(-i \pi / 4)
+            \end{array} \right] \right)^2
+            \left[ \begin{array}{c}
+                1 \\
+                0
+            \end{array} \right] \\
+            &= \left[ \begin{array}{cc}
+                1 & 0 \\
+                0 & i
+            \end{array} \right]
+            \left[ \begin{array}{cc}
+                0 & \mbox{exp}(-i \pi / 4) \\
+                1 & 0
+            \end{array} \right]^2
+            \left[ \begin{array}{c}
+                1 \\
+                0
+            \end{array} \right] \\
+            &= \left[ \begin{array}{cc}
+                1 & 0 \\
+                0 & i
+            \end{array} \right]
+            \left[ \begin{array}{cc}
+                \mbox{exp}(-i \pi / 4) & 0 \\
+                0 & \mbox{exp}(-i \pi / 4)
+            \end{array} \right]
+            \left[ \begin{array}{c}
+                1 \\
+                0
+            \end{array} \right] \\
+            &= \left[ \begin{array}{cc}
+                \mbox{exp}(-i \pi / 4) & 0 \\
+                0 & i \mbox{exp}(-i \pi / 4)
+            \end{array} \right]
+            \left[ \begin{array}{c}
+                1 \\
+                0
+            \end{array} \right] \\
+            &= \left[ \begin{array}{c}
+                \mbox{exp}(-i \pi / 4) \\
+                0
+            \end{array} \right] \\
+            H (T X^{\psi_1} T^\dagger X^{\psi_2})^2 H \ket{\psi_3}
+            &= H \left(
+            \left[ \begin{array}{cc}
+                1 & 0 \\
+                0 & \mbox{exp}(i \pi / 4)
+            \end{array} \right]
+            \left[ \begin{array}{cc}
+                0 & 1 \\
+                1 & 0
+            \end{array} \right]
+            \left[ \begin{array}{cc}
+                1 & 0 \\
+                0 & \mbox{exp}(-i \pi / 4)
+            \end{array} \right]
+            \right)^2 H \ket{\psi_3} \\
+            &= H \left(
+            \left[ \begin{array}{cc}
+                    0 & 1 \\
+                    \mbox{exp}(i \pi / 4) & 0
+            \end{array} \right]
+            \left[ \begin{array}{cc}
+                    1 & 0 \\
+                    0 & \mbox{exp}(-i \pi / 4)
+            \end{array} \right]
+            \right)^2 H \ket{\psi_3} \\
+            &= H
+            \left[ \begin{array}{cc}
+                    0 & \mbox{exp}(-i \pi / 4) \\
+                    \mbox{exp}(i \pi / 4) & 0
+            \end{array} \right]^2
+            H \ket{\psi_3} \\
+            &= HIH \ket{\psi_3} \\
+            &= \ket{\psi_3}
+        \end{align*}
+        and the overall transformation is also
+        \begin{align*}
+            \ket{\psi_1 \psi_2 \psi_3} &\rightarrow
+            \left[ \begin{array}{c}
+                0 \\
+                \mbox{exp}(i \pi / 4)
+            \end{array} \right]
+            \otimes \left[ \begin{array}{c}
+                \mbox{exp}(-i \pi / 4) \\
+                0
+            \end{array} \right]
+            \otimes \ket{\psi_3} \\
+            &= \left[ \begin{array}{c}
+                0 \\
+                0 \\
+                1 \\
+                0
+            \end{array} \right]
+            \otimes \ket{\psi_3} \\
+            &= \left[ \begin{array}{c}
+                    0 \\
+                    1
+            \end{array} \right]
+            \otimes \left[ \begin{array}{c}
+                    1 \\
+                    0
+            \end{array} \right]
+            \otimes \ket{\psi_3} \\
+            &= \ket{\psi_1 \psi_2 \psi_3}.
+        \end{align*}
+        Finally, if $\psi_1 = \psi_2 = 1$, then (using some results from the previous case)
+        \begin{align*}
+            T \ket{\psi_1}
+            &= \left[ \begin{array}{cc}
+                0 \\
+                \mbox{exp}(i \pi / 4)
+            \end{array} \right] \\
+            S (X^{\psi_1} T^\dagger)^2 \ket{\psi_2}
+            &= \left[ \begin{array}{cc}
+                    \mbox{exp}(-i \pi / 4) & 0 \\
+                    0 & i \mbox{exp}(-i \pi / 4)
+            \end{array} \right]
+            \left[ \begin{array}{c}
+                    0 \\
+                    1
+            \end{array} \right] \\
+            &= \left[ \begin{array}{c}
+                    0 \\
+                    i \mbox{exp}(-i \pi / 4)
+            \end{array} \right] \\
+            H (T X^{\psi_1} T^\dagger X^{\psi_2})^2 H \ket{\psi_3}
+            &= H \left(
+            \left[ \begin{array}{cc}
+                    1 & 0 \\
+                    0 & \mbox{exp}(i \pi / 4)
+            \end{array} \right]
+            X
+            \left[ \begin{array}{cc}
+                    1 & 0 \\
+                    0 & \mbox{exp}(-i \pi / 4)
+            \end{array} \right]
+            X
+            \right)^2 H \ket{\psi_3} \\
+            &= H
+            \left(
+            \left[ \begin{array}{cc}
+                    0 & 1 \\
+                    \mbox{exp}(i \pi / 4) & 0
+            \end{array} \right]
+            \left[ \begin{array}{cc}
+                    0 & 1 \\
+                    \mbox{exp}(-i \pi / 4) & 0
+            \end{array} \right]
+            \right)^2 H \ket{\psi_3} \\
+            &= H
+            \left[ \begin{array}{cc}
+                    \mbox{exp}(-i \pi / 4) & 0 \\
+                    0 & \mbox{exp}(i \pi / 4)
+            \end{array} \right]^2
+            H \ket{\psi_3} \\
+            &= \frac{1}{2}
+            \left[ \begin{array}{cc}
+                    1 & 1 \\
+                    1 & -1
+            \end{array} \right]
+            \left[ \begin{array}{cc}
+                    -i & 0 \\
+                    0 & i
+            \end{array} \right]
+            \left[ \begin{array}{cc}
+                    1 & 1 \\
+                    1 & -1
+            \end{array} \right]
+            \ket{\psi_3} \\
+            &= \frac{1}{2}
+            \left[ \begin{array}{cc}
+                    -i & i \\
+                    -i & -i
+            \end{array} \right]
+            \left[ \begin{array}{cc}
+                    1 & 1 \\
+                    1 & -1
+            \end{array} \right]
+            \ket{\psi_3} \\
+            &= \left[ \begin{array}{cc}
+                    0 & -i \\
+                    -i & 0
+            \end{array} \right]
+            \ket{\psi_3} \\
+            &= -iX\ket{\psi_3}
+        \end{align*}
+        and the transformation is
+        \begin{align*}
+            \ket{\psi_1 \psi_2 \psi_3} &\rightarrow
+            \left[ \begin{array}{cc}
+                0 \\
+                \mbox{exp}(i \pi / 4)
+            \end{array} \right]
+            \otimes
+            \left[ \begin{array}{c}
+                    0 \\
+                    i \mbox{exp}(-i \pi / 4)
+            \end{array} \right]
+            \otimes
+            (-iX\ket{\psi_3}) \\
+            &= -i \left[ \begin{array}{c}
+                    0 \\
+                    0 \\
+                    0 \\
+                    i
+            \end{array} \right]
+            \otimes X\ket{\psi_3} \\
+            &= \left[ \begin{array}{c}
+                    0 \\
+                    1
+            \end{array} \right]
+            \otimes
+            \left[ \begin{array}{c}
+                    0 \\
+                    1
+            \end{array} \right]
+            \otimes X \ket{\psi_3} \\
+            &= \ket{\psi_1 \psi_2} \otimes X \ket{\psi_3}.
+        \end{align*}
+        Therefore, the circuit implements the Toffoli gate because its action matches that of the Toffoli gate for all inputs.
+            
+    \item[4.35.] The input $\ket{\psi}$ can be considered a linear combination of states in the two-qubit computational basis
+        \[
+            \sum_{\psi_1, \psi_2 \in \{0, 1\}} c_{\psi_1, \psi_2} \ket{\psi_1 \psi_2}
+        \]
+        where $c_{\psi_1, \psi_2} \in \mathbb{C}$. \par
+        In the first circuit, the controlled-$U$ gate is applied first, giving
+        \[
+            \sum_{\psi_1, \psi_2 \in \{0, 1\}} c_{\psi_1, \psi_2} \ket{\psi_1} \otimes U^{\psi_1} \ket{\psi_2}.
+        \]
+        If the measurement gives $\psi_1$ for the first qubit, then (from the measurement postulate) the final state is
+        \begin{align*}
+            \ket{\psi_f} &= \frac{\sum_{\psi_2 \in \{0, 1\}} c_{\psi_1, \psi_2} U^{\psi_1} \ket{\psi_2}}{\sqrt{\sum_{\psi_2 \in \{0, 1\}} |c_{\psi_1, \psi_2} U^{\psi_1} \ket{\psi_2}|^2}} \\
+            &= U^{\psi_1} \frac{\sum_{\psi_2 \in \{0, 1\}} c_{\psi_1, \psi_2} \ket{\psi_2}}{\sqrt{\sum_{\psi_2 \in \{0, 1\}} c_{\psi_1, \psi_2}^2 |U^{\psi_1} \ket{\psi_2}|^2}} \\
+            &= U^{\psi_1} \frac{\sum_{\psi_2 \in \{0, 1\}} c_{\psi_1, \psi_2} \ket{\psi_2}}{\sqrt{\sum_{\psi_2 \in \{0, 1\}} c_{\psi_1, \psi_2}^2}}.
+        \end{align*}
+        In the second circuit, if the measurement operator applied on the first qubit gives $\psi_1$, then the $\ket{\psi}$ becomes
+        \begin{align*}
+            \frac{\sum_{\psi_2 \in \{0, 1\}} c_{\psi_1, \psi_2} \ket{\psi_2}}{\sqrt{\sum_{\psi_2 \in \{0, 1\}} |c_{\psi_1, \psi_2} \ket{\psi_2}|^2}} = \frac{\sum_{\psi_2 \in \{0, 1\}} c_{\psi_1, \psi_2} \ket{\psi_2}}{\sqrt{\sum_{\psi_2 \in \{0, 1\}} c_{\psi_1, \psi_2}^2}}.
+        \end{align*}
+        Applying the controlled-$U$ gate on the second qubit with $\psi_1$ as the control bit, the final state becomes
+        \begin{align*}
+            \ket{\psi_f} &= \frac{\sum_{\psi_2 \in \{0, 1\}} c_{\psi_1, \psi_2} U^{\psi_1} \ket{\psi_2}}{\sqrt{\sum_{\psi_2 \in \{0, 1\}} c_{\psi_1, \psi_2}^2}} \\
+            &= U^{\psi_1} \frac{\sum_{\psi_2 \in \{0, 1\}} c_{\psi_1, \psi_2} \ket{\psi_2}}{\sqrt{\sum_{\psi_2 \in \{0, 1\}} c_{\psi_1, \psi_2}^2}},
+        \end{align*}
+        so the gates are equivalent.
+
+\end{enumerate}
+
+\end{document}

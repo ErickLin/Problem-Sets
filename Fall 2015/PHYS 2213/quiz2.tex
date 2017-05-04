@@ -1,0 +1,66 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsmath, fancyhdr, siunitx}
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{PHYS 2213B - Quiz 2 Corrections}
+
+\begin{enumerate}
+    \setcounter{enumi}{1}
+    \item
+        Using the formula for Compton scattering,
+        \begin{align*}
+            \Delta \lambda = \lambda_f - \lambda_i = \frac{h}{m_e c}(1 - \cos\theta) \leq \frac{2h}{m_e c}
+        \end{align*}
+        which takes its maximum value when $\theta = \pi$. For any particle traveling at the speed of light, including photons, $p = \frac{h}{\lambda} = \frac{E}{c}$. Then we have
+        \begin{align*}
+            \frac{h}{p_f} - \frac{h}{p_i} &\leq \frac{2h}{m_e c} \\
+            \frac{1}{p_f c} - \frac{1}{p_i c} &\leq \frac{2}{m_e c^2} \\
+            \frac{1}{E_f} - \frac{1}{E_i} &\leq \frac{2}{m_e c^2}
+        \end{align*}
+        and rearranging,
+        \begin{align*}
+            E_f &\geq \frac{1}{\frac{2}{m_e c^2} + \frac{1}{E_i}} \\
+            &= \frac{E_i m_e c^2}{2E_i + m_e c^2}.
+        \end{align*}
+        The minimum value of the final energy of the photon is
+        \begin{align*}
+            E_f &= \frac{(\SI{2.4e3}{eV}) (\SI{5.11e5}{eV/c^2)} c^2}{2(\SI{2.4e3}{eV}) + (\SI{5.11e5}{eV/c^2}) c^2} \\
+            &\approx \SI{2.3777e3}{eV}
+        \end{align*}
+        and from conservation of energy, the energy acquired from the photon is
+        \begin{align*}
+            E_i - E_f &\approx \SI{2.4e3}{eV} - \SI{2.3777e3}{eV} \\
+            &\approx \SI{22}{eV}
+        \end{align*}
+
+    \item
+        From the Rydberg equation,
+        \begin{align*}
+            \frac{1}{\lambda} = R_H \left( \frac{1}{n_f^2} - \frac{1}{n_i^2} \right) = R_H \left( \frac{1}{1^2} - \frac{1}{1^2} \right)
+        \end{align*}
+        and since $p = \frac{h}{\lambda}$,
+        \begin{align*}
+            p &= h R_H \left( \frac{1}{1^2} - \frac{1}{2^2} \right) \\
+            &= (\SI{6.6261e-34}{\J\s}) (\SI{1.09678e7}{\per\metre}) \left( \frac{3}{4} \right) \\
+            &\approx \SI{5.4505e-27}{\kg\m\per\s}.
+        \end{align*}
+        From conservation of momentum, the recoil speed of the atom is
+        \begin{align*}
+            v_p &= \frac{p}{m_p} \\
+            &\approx \frac{\SI{5.4505e-27}{\kg\m\per\s}}{\SI{1.6726e-27}{\kg}} \\
+            &\approx \SI{3.2587}{\m\per\s}
+        \end{align*}
+        and from conservation of energy the recoil energy is
+        \begin{align*}
+            E_p &= cp \\
+            &\approx (\SI{2.9979e8}{\m\per\s}) (\SI{5.4505e-27}{\kg\m\per\s}) \\
+            &\approx \SI{1.6340e-18}{\kg\m\squared\per\s\squared}.
+        \end{align*}
+	
+\end{enumerate}
+
+\end{document}

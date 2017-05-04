@@ -1,0 +1,118 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\begin{document}
+
+\section*{MATH 4431 -- HW4 Solutions}
+\begin{enumerate}
+    \item[1.]
+        \boldmath\textbf{Show that a compact metric space is second countable and separable.
+        }\unboldmath \par
+        Any compact metric space $(X, d)$ is totally bounded by Theorem III.47, which means that for all $n \in \mathbb{N}_{> 0}$, there exists a finite cover of $X$ by open balls of radius $1/n$. The union over all $n$ of these finite covers is countable, and we show that it forms a basis for the topology on $X$ as follows: if $U$ is open in $X$, then for any $x \in U$, there is some $\epsilon > 0$ such that $B_\epsilon(x) \subset U$, and we can choose $n$ such that $1/n < \epsilon/2$. Because the balls of radius $1/n$ cover $X$, there is in particular some $y \in X$ such that $x \in B_{1/n}(y)$. Then for any $z \in B_{1/n}(y)$, $d(x, z) \leq d(x, y) + d(y, z) < 1/n + 1/n = 2/n < \epsilon$, which means that $B_{1/n}(y) \subset B_\epsilon(x) \subset U$. We have shown that $X$ has a countable basis, and is thus second countable. \par%, because for $\epsilon > 0$, the collection of open balls $\{ B_\epsilon(x) : x \in X \}$ of radius $\epsilon$ forms an open cover of $X$, and so it has a finite subcover. \par
+        By Theorem III.17 or Theorem III.19, $X$ is also separable.
+
+    \item[2.]
+        \boldmath\textbf{Let $(X, d)$ be a compact metric space. If every bounded closed subset of $C(X, \mathbb{R})$ is compact, then show that $X$ consists of a finite number of points.
+        }\unboldmath \par
+        We will prove the contrapositive, that if $X$ is infinite, then some bounded closed subset of $C(X, \mathbb{R})$ is non-compact. First, we make use of the following lemma.
+        \begin{lemma}
+            In every infinite metric space, there is an infinite sequence such that no point of the sequence is a limit point of the sequence.
+        \end{lemma}
+        \begin{proof}
+            This will be proved by constructing a specific example: an infinite sequence $\{ x_n \}$ of points such that $d(x_i, x_j) = |i - j|$ for any indices $i, j$. This satisfies the requirements for a metric since $|i - j| \geq 0$, $|i - j| = 0 \Leftrightarrow i = j$, $|i - j| = |j - i|$, and $|i - k| \leq |i - j| + |j - k|$ for any $i, j, k$. Because $|i - j| \geq 1$ for all $i \neq j$, it will never be the case that $d(x_i, x_j) < \epsilon$ for any $\epsilon < 1$, so the sequence has no limit points.
+        \end{proof}
+        Now consider such an infinite sequence as described in the lemma. Because compactness is equivalent to sequential compactness in metric spaces, the sequence has a subsequence, say $\{x_n\}$, that converges to some point, say $x$. Note that $\{x_n\} \cup \{x\}$ is closed. Since metric spaces are Hausdorff, completely regular, and normal, the singleton $\{x_i\}$ is closed for all $i$, there is a continuous function $f_i : \{x_n\} \cup \{x\} \to [0, 1]$ whose image at $x_i$ is $1$ and everywhere else is $0$, and $f_i$ by the Tietze extension theorem can be extended to a function $F_i$ on all of $X$. \par
+        The sequence $\{F_n\}$ is a subset of $C(X, \mathbb{R})$ that is bounded and closed (observing that it has no limit points, and hence vacuously contains all its limit points), but it is not sequentially compact since $\rho(F_i, F_j) = 1$ for all $i \neq j$ (preventing it from having any convergent subsequences), and hence not compact.
+
+    \item[5.]
+        \boldmath\textbf{Let $X$ be a compact metric space and $Y$ a Hausdorff space. Show that if there is a surjective continuous map $f : X \to Y$ then $Y$ is also a compact metric space.
+        }\unboldmath \par
+        Since $X$ is a compact metric space, $X$ is second countable, so it has a countable basis $\{ U_i \}_{i = 1}^\infty$. Also, the compactness of $X$ implies that any closed set $C \subseteq X$ is compact, and so the continuous mapping $f(C) \subseteq Y$ is compact (in particular, $f(X) = Y$ is compact by surjectivity), and hence closed because $Y$ is Hausdorff. \par
+        A countable basis for $Y$ is given by
+        \begin{align*}
+            \left\{ Y \setminus f \left( X \setminus \bigcup_{j \in J} U_j \right) : J \subset \mathbb{N}_{> 0} \right\}
+        \end{align*}
+        since the sets are open in $Y$ (the argument of $f$ is closed so its image is closed) and for any $V \subseteq Y$ open,
+        \begin{align*}
+            V = \bigcup_{y \in V} Y \setminus f \left( X \setminus \bigcup_{j \in J_y} U_j \right) \text{ where } J_y = \{ j : \exists x \in U_j \text{ s.t. } f(x) = y \}.
+        \end{align*}
+        Thus, $Y$ is second countable. Being a compact Hausdorff space, it is normal by Theorem III.29, and hence regular by Theorem III.10. By Theorem III.23, this is equivalent to stating that $Y$ is metrizable as well.
+
+    \item[7.]
+        \boldmath\textbf{Let $A$ be an open subset of the complete metric space $(X, d)$. Show that there is some metric on $A$ inducing the subspace topology on $A$ that is complete.
+        }\unboldmath \par
+        If we define the continuous function $f : A \to \mathbb{R}$ by $f(x) = \frac{1}{d(x, X \setminus A)}$, then we show that the metric
+        \begin{align*}
+            d_A(x, y) = d(x, y) + |f(x) - f(y)|
+        \end{align*}
+        is complete as follows. Suppose $\{x_n\}$ is a Cauchy sequence in $A$; because $X$ is complete, the same sequence in $X$ converges to some point, say $x$. \par
+        Assume first that $x \in A$ (so that $A$ contains an open ball of some radius $r$ centered at $x$, implying $f(x) < \frac{1}{r}$). Then given $\epsilon > 0$, there exists $N_1$ such that $d(x_n, x) < \frac{\epsilon}{2}$ for all $n \geq N_1$, and there exists $N_2$ such that $|f(x_n) - f(x)| < \frac{\epsilon}{2}$ for all $n \geq N_2$, so for all $n \geq N = \max\{N, N_2\}$,
+        \begin{align*}
+            d_A(x_n, x) = d(x_n, x) + |f(x_n) - f(x)| < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon
+        \end{align*}
+        and $\{x_n\}$ converges to $x$ in $A$ and is hence Cauchy. \par
+        If $x \in X \setminus A$, then we show that it is impossible for $\{x_n\}$ to be a Cauchy sequence. Given $\epsilon > 0$, assume for the purpose of contradiction that there exists $N$ such that $d_A(x_n, x_m) < \epsilon$ for all $m, n \geq N$. But if we fix $m = N$, then there exists some $\mathcal{N}$ such that $f(x_n) \geq \epsilon + f(x_m)$ for all $n \geq \mathcal{N}$ (since the $x_n$ get arbitrarily close to $X \setminus A$), which means that
+        \begin{align*}
+            d_A(x_n, x_m) = d(x_n, x_m) + |f(x_n) - f(x_m)| \geq d(x_n, x_m) + \epsilon > \epsilon,
+        \end{align*}
+        contradicting the earlier assertion on $N$.
+
+    \item[10.]
+        \boldmath\textbf{Show that if $X$ is compact, then for every topological space $Y$, the projection map $\pi : X \times Y \to Y$ is a closed map (that is, it takes closed sets to closed sets).
+        }\unboldmath \par
+        Let $C \times D$ be closed in $X \times Y$, and consider any $y \in Y \setminus D$. If $x \in X$, then $(x, y)$ is contained in $(X \times Y) \setminus (C \times D)$ which is open, so there exists some basic open subset $U_{x, y} \times V_{x, y}$ containing $(x, y)$ that is contained in $(X \times Y) \setminus (C \times D)$. Defining this for all $x$, we have $\{ U_{x, y} \}_{x \in X}$ which forms an open cover of the compact set $X$, and hence has a finite subcover $\{ U_{x_i, y} \}_{i = 1}^n$. Then $\bigcap_{i = 1}^n V_{x_i, y}$ is a finite intersection of sets that are by definition open which contains $y$ and is contained in $Y \setminus D$ (since if $\bigcap_{i = 1}^n V_{x_i, y}$ intersects $D$, say in some point $y_j$, and we take any point $x_j \in C$, then $x_j \in U_{x_i, y}$ for some $i$ and $y_j \in V_{x_i, y}$ as well since it is contained in the intersection, but this means $(x_j, y_j) \in C \times D$ and $(x_j, y_j) \in U_{x_i, y} \times V_{x_i, y}$ simultaneously, contradicting the definition of the basic open subset). \par
+        Repeating the above reasoning for all $y$, we have that
+        \begin{align*}
+            Y \setminus D = \bigcup_{y \in Y \setminus D} \bigcap_{i = 1}^n V_{x_i, y},
+        \end{align*}
+        which is an open set, so $D$ is closed.
+
+    \item[11.]
+        \boldmath\textbf{Show that the projection map $\pi : X \times Y \to Y$ is a closed map if and only if for all open sets $U$ in $X \times Y$, the set $\{ y \in Y : X \times \{y\} \subset U \}$ is open in $Y$.
+        }\unboldmath \par
+        ($\Rightarrow$) $X \times Y \setminus U$ is closed, so $\pi(X \times Y \setminus U) = \{ y \in Y : X \times \{y\} \not\subset U \}$ is closed also. Hence, its complement $\{ y \in Y : X \times \{y\} \subset U \}$ is open. \par
+        ($\Leftarrow$) Any closed set can be written $X \times Y \setminus U$ for some $U$ open in $X \times Y$. Since the complement of $\{ y \in Y : X \times \{y\} \subset U \}$, $\{ y \in Y : X \times \{y\} \not\subset U \} = \pi(X \times Y \setminus U)$, is closed, $\pi$ is a closed map.
+
+    \item[12.]
+        \boldmath\textbf{Show that if for every topological space $Y$ the projection map $\pi : X \times Y \to Y$ is a closed map, then $X$ is compact.
+        }\unboldmath \par
+        If $\mathcal{O}$ is an open cover for $X$, let $\mathcal{O}'$ denote $\mathcal{O}$ together with all finite unions of open sets in $\mathcal{O}$. Then by definition, $\mathcal{O}$ has a finite subcover if and only if $X \in \mathcal{O}'$; we will show that $X \in \mathcal{O}'$ as follows. \par
+        Let $(Y, T)$ be the topological space whose points consist of all the open sets in $X$, and whose open sets consist of all collections $\mathcal{C}$ of open sets in $X$ such that
+        \begin{enumerate}[label=(\roman*)]
+            \item \label{item:1}
+                if $U \in \mathcal{C}$ and $U \subset V$ for some $V$ open in $X$, then $V \in \mathcal{C}$, and
+            \item \label{item:2}
+                $\mathcal{C} \cap \mathcal{O}' \neq \emptyset$,
+        \end{enumerate}
+        unless $\mathcal{C} = \emptyset$. $T$ is indeed a topology due to the following:
+        \begin{itemize}
+            \item
+                $\emptyset$ is open in $Y$ as a special case.
+            \item
+                $Y$, because it contains all open sets of $X$ (including those in $\mathcal{O}'$), is open in $Y$.
+            \item
+                Consider $\mathcal{C}_1, \mathcal{C}_2 \in T$. If $\mathcal{C}_1 \cap \mathcal{C}_2 = \emptyset$ then we are done, so assume otherwise. Since each satisfies \ref{item:1}, if $U \in \mathcal{C}_1 \cap \mathcal{C}_2$ and $U \subset V$ for some $V$ open in $X$, then $V \in \mathcal{C}_1 \cap \mathcal{C}_2$, satisfying \ref{item:1} also; and since each satisfies \ref{item:2}, $(\mathcal{C}_1 \cap \mathcal{C}_2) \cap \mathcal{O}' \neq \emptyset$, satisfying \ref{item:2} also. Thus, $\mathcal{C}_1 \cap \mathcal{C}_2$ is open.
+            \item
+                Consider a collection of sets $\{ \mathcal{C}_\alpha \}_{\alpha \in J} \subset T$. Since each satisfies \ref{item:1}, if $U \in \bigcup_{\alpha \in J} \mathcal{C}_\alpha$ and $U \subset V$ for some $V$ open in $X$, then $V \in \bigcup_{\alpha \in J} \mathcal{C}_\alpha$, satisfying \ref{item:1} also; and since each satisfies \ref{item:2}, $(\bigcup_{\alpha \in J} \mathcal{C}_\alpha) \cap \mathcal{O}' \neq \emptyset$, satisfying \ref{item:2} also. Thus, $\bigcup_{\alpha \in J} \mathcal{C}_\alpha$ is open.
+        \end{itemize}
+        We now consider the set
+        \begin{align*}
+            \{ (x, U) \in X \times Y : x \in U \} = \bigcup_{U \in Y} U \times \{U\},
+        \end{align*}
+        which is open in $X \times Y$ under the product topology due to the fact that if $(x, U)$ is in the set, then $(x, V)$ is also in the set for all open $V$ containing $U$, satisfying \ref{item:1}, and all open sets are represented including those in $\mathcal{O}'$, satisfying \ref{item:2}. Hence, by Problem 11, the collection
+        \begin{align*}
+            \{ W \in Y : X \times \{W\} \subset \{ (x, U) \in X \times Y : x \in U \} \} = \{X\}
+        \end{align*}
+        (the right-hand side signifies that the only open set in $X$ that contains $X$ is $X$ itself) is open in $Y$. By \ref{item:2}, it must be that $\mathcal{O}' = \{X\}$, and we are done.
+\end{enumerate}
+
+\end{document}

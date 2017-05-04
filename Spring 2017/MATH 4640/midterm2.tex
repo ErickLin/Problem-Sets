@@ -1,0 +1,26 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+
+\begin{document}
+\begin{enumerate}
+    \item
+        \begin{enumerate}
+            \item
+                (7 points) Compute the Fourier coefficients for $f(x) = 2i\cos 2x - 2\sin 2x$.
+            \item
+                (8 points) What are the Fourier coefficients for $g(x) = f(x - \frac{\pi}{4})$?
+        \end{enumerate}
+    \item
+        (20 points) Calculate the polynomial $p(x)$ of degree $\leq 1$ which minimizes
+        \begin{align*}
+            \int_{-1}^1 (x^2 - p(x))^2 dx
+        \end{align*}
+        (Hint: the first 4 Legendre polynomials are $1$, $x$, $x^2 - \frac{1}{3}$, $x^3 - \frac{3}{5}x$).
+    \item
+        (15 points) One uses the following finite difference to approximate $f''(a)$:
+        \begin{align*}
+            f''(a) \approx \frac{f(a + h) - 2f(a) + f(a - h)}{h^2}.
+        \end{align*}
+        Give an error estimate for this approximation. You must justify your answer (please show the steps).
+\end{enumerate}
+\end{document}

@@ -1,0 +1,207 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, dsfont, fancyhdr}
+\usepackage[margin=1in]{geometry}
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{MATH 3225 - HW4 Solutions}
+\begin{enumerate}
+    \item[2.] 
+        For values of $s$ in which the series converges, the probability generating function is
+        \begin{align*}
+            G_X(s) &= \left( \frac{1}{6}s + \frac{1}{6}s^2 + \frac{1}{6}s^3 + \frac{1}{6}s^4 + \frac{1}{6}s^5 + \frac{1}{6}s^6 \right)^7 \\
+            &= \left( \frac{1}{6} \right)^7 \left( \frac{s}{1 - s} - \frac{s^7}{1 - s} \right)^7 \\
+            &= \left( \frac{1}{6} \right)^7 s^7 \left( \frac{1}{1 - s} - \frac{s^6}{1 - s} \right)^7 \\
+            &= \left( \frac{1}{6} \right)^7 s^7 \left( \frac{(1 - s^3)(1 + s^3)}{1 - s} \right)^7 \\
+            &= \left( \frac{1}{6} \right)^7 s^7 \left( \frac{(1 - s)(1 + s + s^2)(1 + s^3)}{1 - s} \right)^7 \\
+            &= \left( \frac{1}{6} \right)^7 s^7 (1 + s + s^2)^7 (1 + s^3)^7.
+        \end{align*}
+        The coefficient of $s^14$ can be found by examining the contributions of the last two factors in the above equation. Specifically, we can choose from either $s^0, s^1, s^2$ seven times and from either $s^0$ or $s^3$ another seven times such that when the chosen terms are multiplied together, the total power is $7$ (because the $s^7$ term already contributes the remaining power of $7$.) The chart below shows the possible combinations along with the number of ways that each combination can be formed:
+        \begin{center}
+            \begin{tabular}{| l | l | l | l |}
+                \hline
+                \#$s^3$ & \#$s^2$ & \#$s^1$ & \# ways to form \\ \hline
+                2 & 0 & 1 & $\binom{7}{2} \binom{7}{1} = 147$ \\ \hline
+                1 & 2 & 0 & $\binom{7}{1} \binom{7}{2} = 147$ \\ \hline
+                1 & 1 & 2 & $\binom{7}{1} \binom{7}{1} \binom{6}{2} = 735$ \\ \hline
+                1 & 0 & 4 & $\binom{7}{1} \binom{7}{4} = 245$ \\ \hline
+                0 & 3 & 1 & $\binom{7}{3} \binom{7 - 3}{1} = 140$ \\ \hline
+                0 & 2 & 3 & $\binom{7}{2} \binom{7 - 2}{3} = 210$ \\ \hline
+                0 & 1 & 5 & $\binom{7}{1} \binom{7 - 1}{5} = 42$ \\ \hline
+                0 & 0 & 7 & $\binom{7}{7} = 1$ \\
+                \hline
+            \end{tabular}
+        \end{center}
+        This determines the coefficient of $s^14$ to be
+        \begin{align*}
+            \frac{147 +147 + 735 + 245 + 140 + 210 + 42 +1}{6^7} = \frac{1667}{6^7} \approx 5.95 \times 10^{-3}.
+        \end{align*}
+
+    \item[5.] 
+        \begin{enumerate}
+            \item
+                Let $N$ and $X$ denote the random variables for the number of flowers and the number of ripe fruits produced, respectively. Given $N = n$, $X$ follows a Bernoulli distribution. Then the probability generating function is given by
+                \begin{align*}
+                    G_X(s) &= \sum_{r = 0}^{\infty} \mathbb{P}(X = r) s^r \\
+                    &= \sum_{r = 0}^{\infty} \sum_{n = r}^{\infty} \mathbb{P}(X = r | N = n) \mathbb{P}(N = n) s^r \\
+                    &= \sum_{n = 0}^{\infty} \mathbb{P}(N = n) \sum_{r = 0}^{n} \mathbb{P}(X = r | N = n) s^r \\
+                    &= \sum_{n = 0}^{\infty} (1 - p)p^n \sum_{r = 0}^{n} \binom{n}{r} \left( \frac{1}{2} \right)^r \left( \frac{1}{2} \right)^{n - r} s^r \\
+                    &= \sum_{n = 0}^{\infty} (1 - p) \left( \frac{p}{2} \right)^n \sum_{r = 0}^{n} \binom{n}{r} s^r \\
+                    &= \sum_{n = 0}^{\infty} (1 - p) \left( \frac{p}{2} \right)^n (1 + s)^n \\
+                    &= \frac{1 - p}{1 - \frac{p(1 + s)}{2}} \\
+                    &= \frac{2(1 - p)}{2 - p - ps} \\
+                    &= \frac{\frac{2(1 - p)}{2 - p}}{1 - \frac{p}{2 - p}s} \\
+                    &= \frac{2(1 - p)}{2 - p} \sum_{k = 0}^{\infty} \left( \frac{p}{2 - p} \right)^r s^r
+                \end{align*}
+                and the $r$th coefficient is
+                \begin{align*}
+                    P(X = r) = \frac{2(1 - p)p^r}{(2 - p)^{r + 1}}.
+                \end{align*}
+
+            \item
+                Using conditional probability,
+                \begin{align*}
+                    P(N = n | X = r) &= \frac{P(N = n)}{P(X = r)} P(X = r | N = n) \\
+                    &= \frac{(1 - p) p^n}{\frac{2(1 - p)p^r}{(2 - p)^{r + 1}}} \binom{n}{r} \left( \frac{1}{2} \right)^n \\
+                    &= \frac{p^{n - r} (2 - p)^{r + 1}}{2^{n + 1}} \binom{n}{r}.
+                \end{align*}
+
+        \end{enumerate}
+
+    \item[6.] 
+        $X$ follows a binomial distribution, and its probability generating function is given by
+        \begin{align*}
+            G_X(s) = \sum_{k = 0}^{n} \binom{n}{k} p^k (1 - p)^{n - k} s^k = (1 - p + ps)^n.
+        \end{align*}
+        \begin{enumerate}
+            \item
+                \begin{align*}
+                    G'_X(s) &= \frac{d}{ds} (1 - p + ps)^n = n(1 - p + ps)^{n - 1} (p) \\
+                    \mu(X) &= \mathbb{E}(X) = G'_X(1) = np \\
+                    G''_X(s) &= \frac{d}{ds} [np (1 - p + ps)^{n - 1}] = np(n - 1) (1 - p + ps)^{n - 2} (p) \\
+                    \mathbb{E}(X^2) &= G''_X(1) + G'_X(1) = np^2(n - 1) + np = np(1 - p + np) \\ 
+                    \text{var}(X) &= \mathbb{E}(X^2) - \mathbb{E}(X)^2 = np(1 - p)
+                \end{align*}
+
+            \item Because $X$ has a binomial pmf,
+                \begin{align}
+                    \mathbb{P}(X \text{ even}) + \mathbb{P}(X \text{ odd}) &= \sum_{k = 0}^{n} \binom{n}{k} p^k (1 - p)^{n - k} = 1 \\
+                    \mathbb{P}(X \text{ even}) - \mathbb{P}(X \text{ odd}) &= \sum_{k = 0}^{n} (-1)^k \binom{n}{k} p^k (1 - p)^{n - k} = (1 - p - p)^n
+                \end{align}
+                Adding (1) and (2),
+                \begin{align*}
+                    \mathbb{P}(X \text{ even}) &= \frac{1 + (1 - 2p)^n}{2}
+                \end{align*}
+
+            \item 
+                Let $Y$ denote the event that $X$ is divisible by 3. Then summing up the probabilities for each number of heads,
+                \begin{align*}
+                    \mathbb{P}(Y) &= \sum_{k = 0}^{\lfloor n / 3 \rfloor} \binom{n}{3k} p^{3k} (1 - p)^{n - 3k}.
+                \end{align*}
+                Now let $\omega = -\frac{1}{2} + i\frac{\sqrt{3}}{2}$ be the first cube root of unity. Because $1 + \omega + \omega^2 = 0$ and $\omega^3 = 1$,
+                \begin{align*}
+                    G_X(\omega) + G_X(\omega^2) + G_X(\omega^3 = 1) &= \sum_{k = 0}^{n} \binom{n}{k} p^k (1 - p)^{n - k} (\omega^k + \omega^{2k} + \omega^{3k}) \\
+                    &= 3 \sum_{k = 0}^{\lfloor n / 3 \rfloor} \binom{n}{3k} p^{3k} (1 - p)^{n - 3k}
+                \end{align*}
+                since $\omega^k + \omega^{2k} + \omega^{3k} = 3$ when $k$ is divisible by $3$, and zero otherwise. Substituting,
+                \begin{align*}
+                    \mathbb{P}(Y) &= \frac{G_X(\omega) + G_X(\omega^2) + G_X(1)}{3} \\
+                    &= \frac{(1 - p + p\omega)^n + (1 - p + p\omega^2)^n + 1}{3}
+                \end{align*}
+                where $\omega$ is the same value as before.
+        \end{enumerate}
+
+    \item[9.] 
+        \begin{align*}
+            G_X(s) &= \sum_{j = 1}^{\infty} \left( \frac{2}{3} \right)^{j - 1} \left( \frac{1}{3} \right) s^j \\
+            &= \frac{1}{3} s \sum_{j = 0}^{\infty} \left( \frac{2}{3} s \right)^j \\
+            &= \frac{\frac{1}{3} s}{1 - \frac{2}{3}s} \\
+            G'_X(s) &= \frac{\left( 1 - \frac{2}{3}s \right) \left( \frac{1}{3} \right) - \frac{1}{3} s \left(-\frac{2}{3} \right)}{\left( 1 - \frac{2}{3} s \right)^2} \\
+            &= \frac{1}{3 \left(1 - \frac{2}{3}s \right)^2} \\
+            \mathbb{E}(X) &= G'_X(1) = \frac{1}{3 \left( 1 - \frac{2}{3} \right)^2} = 3
+        \end{align*}
+        $Y = X_1 + X_2 + \cdots + X_m$, where $X_i$ is the random variable for the number of additional packets needed to obtain the $i$th new color, and has a geometric distribution with parameter $\frac{m - i + 1}{m}$. The probability generating function and the expectation for each $X_i$ are given below:
+        \begin{align*}
+            G_{X_i}(s) &= \sum_{k = 1}^\infty \left( \frac{i - 1}{m} \right)^{k - 1} \left( \frac{m - i + 1}{m} \right) s^k \\
+            &= \frac{\frac{m - i + 1}{m} s}{1 - \frac{(i - 1)}{m} s} \\
+            &= \frac{(m - i + 1)s}{m - (i - 1)s} \\
+            G'_{X_i}(s) &= \frac{[m - (i - 1)s](m - i + 1) - [(m - i + 1)s][-(i - 1)]}{[(m - (i - 1)s]^2} \\
+            &= \frac{m(m - i + 1)}{[(m - (i - 1)s]^2} \\
+            \mathbb{E}(X_i) &= G'_{X_i}(1) = \frac{m}{m - i + 1}
+        \end{align*}
+        \iffalse
+        Because each $X_i$ is independent, $Y$ has the probability generating function
+        \begin{align*}
+            G_Y(s) &= \prod_{i = 1}^{m} G_{X_i}(s) = \prod_{i = 1}^{m} \frac{m - i + 1}{m - (i - 1)s}
+        \end{align*}
+        for all values of $s$ in which the series converges, and the expectation is
+        \fi
+        The expectation of $Y$ is then
+        \begin{align*}
+            \mathbb{E}(Y) &= \sum_{i = 1}^m \mathbb{E} (X_i) \\
+            &= \sum_{i = 1}^m G_{X_i}'(1) \\
+            &= \sum_{i = 1}^m \frac{m}{m - i + 1} \\
+            &= m \sum_{i = 1}^m \frac{1}{i}
+        \end{align*}
+
+    \item[10.] 
+        The mean or expected value of a discrete random variable $X$ is given by
+        \begin{align*}
+            \mu(X) = \sum_{x \in \text{Im} X} x p_X(x)
+        \end{align*}
+        and the probability generating function of $X$ is defined by
+        \begin{align*}
+            \phi(s) = \sum_{k = 0}^{\infty} p_X(k) s^k
+        \end{align*}
+        for all values of $s$ for which the series converges absolutely. Differentiating,
+        \begin{align*}
+            \phi'(s) &= \sum_{k = 1}^{\infty} k p_X(k) s^{k - 1} \\
+            \phi'(1) &= \sum_{k = 1}^{\infty} k p_X(k) = \sum_{k = 0}^{\infty} k p_X(k).
+        \end{align*}
+        Because $X$ is discrete-valued, $\text{Im} X = \mathbb{N}$ and $\phi(1)$ is an equivalent expression for $\mu(X)$. If
+        \begin{align*}
+            \phi(s) = \frac{p(s)}{q(s)},
+        \end{align*}
+        then
+        \begin{align*}
+            \phi'(s) &= \frac{p'(s)q(s) - p(s)q'(s)}{q^2(s)} \\
+            &= \frac{p'(s)}{q(s)} - \phi(s) \frac{q'(s)}{q(s)} \\
+            \phi'(1) &= \frac{p'(1)}{q(1)} - \phi(1) \frac{q'(1)}{q(1)} = \frac{p'(1) - q'(1)}{q(1)} \\
+        \end{align*}
+        since $\phi(1)$ gives the sum of probabilities over the domain $\mathbb{N}$, which must be 1 because $p_X$ is a pmf. \par
+        The event that $A$ wins the duel consists of all the possible turns in which $A$ hits after all the previous turns have resulted in misses, and the probability of this event is given by
+        \begin{align*}
+            a \sum_{k = 0}^{\infty} [(1 - a)(1 - b)]^k &= \frac{a}{1 - (1 - a)(1 - b)} \\
+            &= \frac{a}{a + b - ab}.
+        \end{align*}
+        The probability distribution for the number of shots fired takes into account both events in which $A$ wins and in which $B$ wins, and is given by
+        \begin{align*}
+            p_X(x) =
+            \begin{cases}
+                a(a - 1)^{(x - 1) / 2}(b - 1)^{(x - 1) / 2}, & x \text{ is odd} \\
+                b(a - 1)^{x / 2}(b - 1)^{x / 2 - 1}, & x \text{ is even}
+            \end{cases}.
+        \end{align*}
+        Then the probability generating function is
+        \begin{align*}
+            G(s) &= a \sum_{k = 0}^\infty (a - 1)^k (b - 1)^k s^{2k + 1} + b \sum_{k = 1}^\infty (a - 1)^k (b - 1)^{k - 1} s^{2k} \\
+            &= \frac{as + b(a - 1)s^2}{1 - (a - 1)(b - 1)s^2}.
+        \end{align*}
+        Using the identity derived earlier, the derivative and the mean value are
+        \iffalse
+        \begin{align*}
+            G'(s) &= \frac{\frac{d}{ds}(as + b(a - 1)s^2) - \frac{d}{ds}(1 - (a - 1)(b - 1)s^2)}{1 - (a - 1)(b - 1)s^2} \\
+            &= \frac{a + 2b(a - 1)s + 2(a - 1)(b - 1)s}{1 - (a - 1)(b - 1)s^2} \\
+            \mu = G'(1) &= \frac{a + 2ab - 2b + 2ab - 2a - 2b + 2}{a + b - ab} \\
+            &= \frac{2 - a - 4b + 4ab}{a + b - ab}.
+        \end{align*}
+        \fi
+        \begin{align*}
+            \mu = G'(1) &= \frac{2 - a}{a + b - ab}.
+        \end{align*}
+\end{enumerate}
+
+\end{document}

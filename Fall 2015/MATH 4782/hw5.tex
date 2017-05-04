@@ -1,0 +1,195 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[margin=3.5cm]{geometry}
+\usepackage{amsfonts, amsmath, fancyhdr, physics}
+
+\pagestyle{fancy}
+\rhead{Erick Lin}
+\allowdisplaybreaks
+
+\begin{document}
+	
+\section*{MATH/PHYS 4782 - HW5 Solutions}
+
+\begin{enumerate}
+    \item[\textbf{8.5:}]
+        Let $\rho = \left[
+            \begin{array}{cc}
+                \rho_{00} & \rho_{01} \\
+                \rho_{10} & \rho_{11}
+            \end{array}
+        \right]$, which fulfills the density matrix properties $\rho_{00} + \rho_{11} = 1$ and $\rho_{01} = \rho_{10}^*$.
+        Since $\rho_{\text{env}} = \dyad{0}{0} = \left[
+            \begin{array}{cc}
+                1 & 0 \\
+                0 & 0
+            \end{array}
+        \right]$,
+        \begin{align*}
+            \rho \otimes \rho_{\text{env}} = \left[
+                \begin{array}{cccc}
+                    \rho_{00} & 0 & \rho_{01} & 0 \\
+                    0 & 0 & 0 & 0 \\
+                    \rho_{10} & 0 & \rho_{11} & 0 \\
+                    0 & 0 & 0 & 0.
+                \end{array}
+            \right]
+        \end{align*}
+        Also, we have
+        \begin{align*}
+            U = \frac{1}{\sqrt{2}} \left( \left[
+                \begin{array}{cccc}
+                    0 & 0 & 1 & 0 \\
+                    0 & 0 & 0 & 1 \\
+                    1 & 0 & 0 & 0 \\
+                    0 & 1 & 0 & 0
+                \end{array}
+            \right]
+            + \left[
+                \begin{array}{cccc}
+                    0 & 0 & 0 & -i \\
+                    0 & 0 & -i & 0 \\
+                    0 & i & 0 & 0 \\
+                    i & 0 & 0 & 0
+                \end{array}
+            \right] \right)
+            = \frac{1}{\sqrt{2}} \left[
+                \begin{array}{cccc}
+                    0 & 0 & 1 & -i \\
+                    0 & 0 & -i & 1 \\
+                    1 & i & 0 & 0 \\
+                    i & 1 & 0 & 0
+                \end{array}
+            \right]
+        \end{align*}
+        which is self-adjoint so
+        \begin{align*}
+            U (\rho \otimes \rho_{\text{env}}) U^\dagger &= \frac{1}{2} \left[
+                \begin{array}{cccc}
+                    0 & 0 & 1 & -i \\
+                    0 & 0 & -i & 1 \\
+                    1 & i & 0 & 0 \\
+                    i & 1 & 0 & 0
+                \end{array}
+            \right]
+            \left[
+                \begin{array}{cccc}
+                    \rho_{00} & 0 & \rho_{01} & 0 \\
+                    0 & 0 & 0 & 0 \\
+                    \rho_{10} & 0 & \rho_{11} & 0 \\
+                    0 & 0 & 0 & 0.
+                \end{array}
+            \right]
+            \left[
+                \begin{array}{cccc}
+                    0 & 0 & 1 & -i \\
+                    0 & 0 & -i & 1 \\
+                    1 & i & 0 & 0 \\
+                    i & 1 & 0 & 0
+                \end{array}
+            \right] \\
+            &= \frac{1}{2} \left[
+                \begin{array}{cccc}
+                    \rho_{10} & 0 & \rho_{11} & 0 \\
+                    -\rho_{10}i & 0 & -\rho_{11}i & 0 \\
+                    \rho_{00} & 0 & \rho_{01} & 0 \\
+                    \rho_{00}i & 0 & \rho_{01}i & 0.
+                \end{array}
+            \right]
+            \left[
+                \begin{array}{cccc}
+                    0 & 0 & 1 & -i \\
+                    0 & 0 & -i & 1 \\
+                    1 & i & 0 & 0 \\
+                    i & 1 & 0 & 0
+                \end{array}
+            \right] \\
+            &= \frac{1}{2} \left[
+                \begin{array}{cccc}
+                    \rho_{11} & \rho_{11}i & \rho_{10} & -\rho_{10}i \\
+                    -\rho_{11}i & \rho_{11} & -\rho_{10}i & -\rho_{10} \\
+                    \rho_{01} & \rho_{01}i & \rho_{00} & -\rho_{00}i \\
+                    \rho_{01}i & -\rho_{01} & \rho_{00}i & \rho_{00}
+                \end{array}
+            \right].
+        \end{align*}
+        and
+        \begin{align*}
+            \mathcal{E}(\rho) = \text{tr}_{\text{env}} [U (\rho \otimes \rho_{\text{env}}) U^\dagger] = \left[
+                \begin{array}{cc}
+                    \rho_{11} & 0 \\
+                    0 & \rho_{00}
+                \end{array}
+            \right].
+        \end{align*}
+
+    \item[\textbf{8.7:}]
+
+    \item[\textbf{8.9:}]
+        Similar to the situation in Figure 8.6, the final state of the principal system coupled with the environmental system $E$ is
+        \begin{align*}
+            \frac{P_m U (\rho \otimes \dyad{e_0}{e_0}) U^\dagger P_m}{\text{tr}(P_m U (\rho \otimes \dyad{e_0}{e_0}) U^\dagger P_m)}
+        \end{align*}
+        and the final state of the principal system alone is
+        \begin{align*}
+            \frac{\text{tr}_E(P_m U (\rho \otimes \dyad{e_0}{e_0}) U^\dagger P_m)}{\text{tr}(P_m U (\rho \otimes \dyad{e_0}{e_0}) U^\dagger P_m)} = \frac{\mathcal{E}_m(\rho)}{\text{tr}[\mathcal{E}_m(\rho)]}.
+        \end{align*}
+        Just as before, $\text{tr}[\mathcal{E}_m(\rho)]$ provides the probability of measurement outcome $m$ occurring.
+
+    \item[\textbf{8.10:}]
+
+    \item[\textbf{8.15:}]
+
+    \item[\textbf{8.18:}]
+        \begin{align*}
+            \text{tr}[\mathcal{E}(\rho^k)] &= \text{tr} \left( \frac{pI}{d} \right) + \text{tr}[(1 - p)\rho^k] \\
+            &= \frac{p}{d} \text{tr}I + (1 - p) \text{tr}(\rho^k) \\
+            &= p + (1 - p) \text{tr}(\rho^k) \\
+            &= \text{tr}(\rho^k) + p[1 - \text{tr}(\rho^k)] \\
+            &\leq \text{tr}(\rho^k)
+        \end{align*}
+        with equality if and only if $\rho$ corresponds to a pure state.
+
+    \item[\textbf{8.19:}]
+
+    \item[\textbf{8.24:}]
+        The unitary operation of interest with $\delta = 0$ is given by
+        \begin{align*}
+            U &= \dyad{00}{00} + \cos gt \dyad{01}{01} + \cos gt \dyad{10}{10} - i \sin gt(\dyad{01}{10} + \dyad{10}{01}) \\
+            &= \dyad{00}{00} + (\cos gt - i\sin gt) (\dyad{01}{01} + \dyad{10}{10}) \\
+            &= \dyad{00}{00} + e^{-igt} (\dyad{01}{01} + \dyad{10}{10}) \\
+            &= \left[
+                \begin{array}{cccc}
+                    1 & 0 & 0 & 0 \\
+                    0 & e^{-igt} & 0 & 0 \\
+                    0 & 0 & e^{-igt} & 0 \\
+                    0 & 0 & 0 & 0
+                \end{array}
+            \right].
+        \end{align*}
+        Tracing over the environment yields
+        \begin{align*}
+            \mathcal{E}(\rho) = \text{tr}_{\text{env}} [U (\rho \otimes \rho_{\text{env}}) U^\dagger] = \left[
+                \begin{array}{cc}
+                    1 - (1 - \gamma)(1 - \rho_{00}) & \rho_{01} \sqrt{1 - \gamma} \\
+                    \rho_{10} \sqrt{1 - \gamma} & \rho_{11} (1 - \gamma)
+                \end{array}
+            \right].
+        \end{align*}
+
+    \item[\textbf{8.28:}]
+
+    \item[\textbf{Pb. 8.2:}]
+        Following measurement, the state of systems 1 and 2 becomes
+        \begin{align*}
+            \frac{\mathcal{E}_m(\rho \otimes \rho_2)}{\text{tr}[\mathcal{E}_m(\rho \otimes \rho_2)]}
+        \end{align*}
+        where $\rho_2$ is the initial state of system 2. The entanglement of systems 2 and 3 allows us to determine an operation $\widetilde{\mathcal{E}}_m$ relating the initial state of system 1 and system 3 which fulfills the axioms of trace representing probability, convex-linearity, and complete positivity. Then the final state of system 3 is given by
+        \begin{align*}
+            \frac{\widetilde{\mathcal{E}}_m(\rho)}{\text{tr}[\widetilde{\mathcal{E}}_m(\rho)]},
+        \end{align*}
+        and this operation on $\rho$ can be inverted by another operation $\mathcal{R}_m$ if the latter also accounts for all the measurement outcomes that may occur and is hence trace-preserving.
+
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,206 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr, mathtools}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\DeclarePairedDelimiterX{\norm}[1]{\lVert}{\rVert}{#1}
+\newcommand{\bs}{\boldsymbol}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\begin{document}
+
+\section*{MATH 4441 -- HW3 Solutions}
+\begin{enumerate}
+    \item[2.]
+        \iffalse
+            We know that the formula for a curve in any number of dimensions is given by
+            \begin{align*}
+                \kappa(t) &= \norm*{\left( \frac{\bs{\alpha}'(t)}{\norm{\bs{\alpha}'(t)}} \right)' \frac{1}{\norm{\bs{\alpha}'(t)}}} \\
+                &= \norm*{\left( \frac{\norm{\bs{\alpha}'(t)} \bs{\alpha}''(t) - \bs{\alpha}'(t) \norm{\bs{\alpha}'(t)}'}{\norm{\bs{\alpha}'(t)}^2} \right) \frac{1}{\norm{\bs{\alpha}'(t)}}} \\
+                &= \frac{\norm*{\norm{\bs{\alpha}'(t)} \bs{\alpha}''(t) - \bs{\alpha}'(t) \norm{\bs{\alpha}'(t)}'}}{\norm{\bs{\alpha}'(t)}^3}
+            \end{align*}
+            What remains to be shown is that the numerator becomes $\norm{\bs{\alpha}'(t) \times \bs{\alpha}''(t)}$ in 3 dimensions:
+            \begin{align*}
+                %\norm*{\norm{\bs{\alpha}'(t)} \bs{\alpha}''(t) - \bs{\alpha}'(t) \norm{\bs{\alpha}'(t)}'}
+            \end{align*}
+        \fi
+        First, we have
+        \begin{align*}
+            \bs{\alpha}'(s) = \bs{T}(s) = \frac{\bs{\alpha}'(t)}{\norm{\bs{\alpha}'(t)}}
+        \end{align*}
+        and using the chain rule,
+        \begin{align*}
+            \bs{\alpha}''(s) = \frac{1}{\norm{\bs{\alpha}'(t)}} \left[ \frac{\norm{\bs{\alpha}'(t)} \bs{\alpha}''(t) + \frac{\bs{\alpha}'(t)}{\norm{\bs{\alpha}'(t)}^2} \left( \frac{\bs{\alpha}'(t) \cdot \bs{\alpha}''(t)}{\norm{\bs{\alpha}'(t)}} \right)}{\norm{\bs{\alpha}'(t)}} \right].
+        \end{align*}
+        The chain rule also gives
+        \begin{align*}
+            \bs{\alpha}'(t) \times \bs{\alpha}''(s) = \frac{\bs{\alpha}'(t) \times \bs{\alpha}''(t)}{\norm{\bs{\alpha}'(t)}^2}.
+        \end{align*}
+        Since $\bs{\alpha}''(s) = \kappa(s) \bs{N}(s)$ and $\norm{\bs{\alpha}'(t) \times \bs{N}(s)} = \norm{\bs{\alpha}'(t)}$ (since $\bs{\alpha}'(t)$ is in the same direction as $\bs{\alpha}'(s) = \bs{T}(s)$, which is perpendicular to $\bs{N}(s)$), taking the norm of and dividing both sides gives
+        \begin{align*}
+            \kappa(s) = \frac{\norm{\bs{\alpha}'(t) \times \bs{\alpha}''(t)}}{\norm{\bs{\alpha}'(t)}^3}.
+        \end{align*}
+
+    \item[4.]
+        We parameterize the curve by arc length, first by computing
+        \begin{align*}
+            \bs{\alpha}'(t) &= (e^t \cos t - e^t \sin t, e^t \sin t + e^t \cos t, e^t) \\
+            &= e^t(\cos t - \sin t, \sin t + \cos t, 1) \\
+            \norm{\bs{\alpha}'(t)} &= e^t \sqrt{(\cos t - \sin t)^2 + (\sin t + \cos t)^2 + 1} \\
+            &= \sqrt{3}e^t.
+            %\bs{\alpha}''(t) &= (-2e^t \sin t, 2e^t \cos t, e^t) \\
+            %&= e^t(-2\sin t, 2\cos t, 1) \\
+            %\norm{\bs{\alpha}''(t)} &= e^t \sqrt{4\sin^2 t + 4\cos^2 t + 1} \\
+            %&= \sqrt{5}e^t.
+        \end{align*}
+        Then if $f(t) = \int_{-\infty}^t \norm{\bs{\alpha}'(x)} dx = \sqrt{3} e^t$ and $g(s) = f^{-1}(s) = \ln \frac{s}{\sqrt{3}}$ (we have the substitutions $s = f(t)$ and $t = g(s)$),
+        \begin{align*}
+            \bs{\beta}(s) = \bs{\alpha}(g(s)) = \frac{s}{\sqrt{3}} (\cos\ln\frac{s}{\sqrt{3}}, \sin\ln\frac{s}{\sqrt{3}}, 1)
+        \end{align*}
+        is a reparameterization of $\bs{\alpha}$ by arc length. \par
+        Of the curve, the unit tangent vector is given by
+        \begin{align*}
+            \bs{T}(t) = \frac{\bs{\alpha}'(t)}{\norm{\bs{\alpha}'(t)}} = \frac{1}{\sqrt{3}} (\cos t - \sin t, \sin t + \cos t, 1)
+        \end{align*}
+        or
+        \begin{align*}
+            \bs{T}(s) = \bs{\beta}'(s) = \frac{1}{\sqrt{3}} (\cos\ln\frac{s}{\sqrt{3}} - \sin\ln\frac{s}{\sqrt{3}}, \sin\ln\frac{s}{\sqrt{3}} + \cos\ln\frac{s}{\sqrt{3}}, 1),
+        \end{align*}
+        the unit normal vector is given by
+        \begin{align*}
+            \bs{N}(s) = \frac{\bs{T}'(s)}{\norm{\bs{T}'(s)}} = \frac{1}{\sqrt{3}s} (-\sin\ln\frac{s}{\sqrt{3}} - \cos\ln\frac{s}{\sqrt{3}}, \cos\ln\frac{s}{\sqrt{3}} - \sin\ln\frac{s}{\sqrt{3}}, 0),
+        \end{align*}
+        the binormal vector is given by
+        \begin{align*}
+            \bs{B}(s) &= \bs{T}(s) \times \bs{N}(s) \\
+            &= \frac{1}{3s}(\sin\ln\frac{s}{\sqrt{3}} - \cos\ln\frac{s}{\sqrt{3}}, \sin\ln\frac{s}{\sqrt{3}} + \cos\ln\frac{s}{\sqrt{3}}, 2),
+        \end{align*}
+        the curvature is given by
+        \begin{align*}
+            \kappa(s) = \norm{\bs{T}'(s)} = 1,
+        \end{align*}
+        and the torsion is given by
+        \begin{align*}
+            \tau(s) &= -\bs{B}'(s) \cdot \bs{N}(s) \\
+            &= -\frac{2}{3s^2} ( \cos\ln\frac{s}{\sqrt{3}} + \sin\ln\frac{s}{\sqrt{3}}, \cos\ln\frac{s}{\sqrt{3}} + \sin\ln\frac{s}{\sqrt{3}}, -1 ) \cdot \bs{N}(s) \\
+            &= \frac{2}{3\sqrt{3}s^3} (1 + 2\sin\ln\frac{s}{\sqrt{3}}\cos\ln\frac{s}{\sqrt{3}}, 1 - 2\sin\ln\frac{s}{\sqrt{3}}\cos\ln\frac{s}{\sqrt{3}}, 0).
+        \end{align*}
+
+    \item[5.]
+        Letting $\bs{\omega}(s) = a(s)\bs{T}(s) + b(s)\bs{N}(s) + c(s)\bs{B}(s)$ for some $a$, $b$, $c$, taking the cross products yields
+        \begin{align*}
+            \bs{\omega}(s) \times \bs{T}(s) &= c(s)\bs{N}(s) - b(s)\bs{B}(s) \\
+            \bs{\omega}(s) \times \bs{N}(s) &= -c(s)\bs{T}(s) + a(s)\bs{B}(s) \\
+            \bs{\omega}(s) \times \bs{B}(s) &= b(s)\bs{T}(s) - a(s)\bs{N}(s).
+        \end{align*}
+        The Frenet formulas simultaneously require that
+        \begin{align*}
+            \bs{T}'(s) &= \kappa(s)\bs{N}(s) \\
+            \bs{N}'(s) &= -\kappa(s)\bs{T}(s) + \tau(s)\bs{B}(s) \\
+            \bs{B}'(s) &= -\tau(s)\bs{N}(s).
+        \end{align*}
+        If we take $a = \tau$, $b = 0$, and $c = \kappa$, then we have
+        \begin{align*}
+            \bs{T}'(s) &= \bs{\omega}(s) \times \bs{T}(s) \\
+            \bs{N}'(s) &= \bs{\omega}(s) \times \bs{N}(s) \\
+            \bs{B}'(s) &= \bs{\omega}(s) \times \bs{B}(s)
+        \end{align*}
+        as desired.
+
+    \item[8.]
+        A parameterization $\bs{\alpha}$ for a sphere of center $\bs{p}$ and radius $R$ is given by
+        \begin{align*}
+            \norm{\bs{\alpha}(s) - \bs{p}} = R \Leftrightarrow (\bs{\alpha}(s) - \bs{p}) \cdot (\bs{\alpha}(s) - \bs{p}) = R.
+        \end{align*}
+        Differentiating both sides, we have, using the product rule, that
+        \begin{align}
+            \bs{\alpha}'(s) \cdot (\bs{\alpha}(s) - \bs{p}) = 0 \Leftrightarrow \bs{T}(s) \cdot (\bs{\alpha}(s) - \bs{p}) = 0. \label{eq:Tdot}
+        \end{align}
+        Differentiating again, we obtain
+        \begin{gather}
+            \bs{\alpha}''(s) \cdot (\bs{\alpha}(s) - \bs{p}) + \norm{\bs{\alpha}'(s)}^2 = 0 \nonumber \\
+            \Leftrightarrow \bs{T}'(s) \cdot (\bs{\alpha}(s) - \bs{p}) + 1 = 0 \nonumber \\
+            \Leftrightarrow \kappa(s) \bs{N}(s) \cdot (\bs{\alpha}(s) - \bs{p}) = -1, \label{eq:Ndot}
+        \end{gather}
+        and differentiating a third time along with using (\ref{eq:Tdot}) from above gives
+        \begin{gather}
+            %[\kappa'(s) \bs{N}(s) + \kappa(s) \bs{N}'(s)] \cdot (\bs{\alpha}(s) - \bs{p}) + \bs{T}'(s) \cdot \bs{\alpha}'(s) = 0 \\
+            %\Leftrightarrow [\kappa'(s) \bs{N}(s) + \kappa(s) (-\kappa(s)\bs{T}(s) + \tau(s)\bs{B}(s))] \cdot (\bs{\alpha}(s) - \bs{p}) = 0
+            \kappa'(s)\bs{N}(s) \cdot (\bs{\alpha}(s) - \bs{p}) + \kappa(s)[\bs{N}'(s) \cdot (\bs{\alpha}(s) - \bs{p}) + \bs{N}(s) \cdot \bs{T}(s)] = 0 \nonumber \\
+            \Leftrightarrow \kappa'(s)\bs{N}(s) \cdot (\bs{\alpha}(s) - \bs{p}) + [-\kappa^2(s)\bs{T}(s) + \kappa(s)\tau(s)\bs{B}(s)] \cdot (\bs{\alpha}(s) - \bs{p}) = 0 \nonumber \\
+            \Leftrightarrow \kappa'(s)\bs{N}(s) \cdot (\bs{\alpha}(s) - \bs{p}) + \kappa(s)\tau(s)\bs{B}(s) \cdot (\bs{\alpha}(s) - \bs{p}) = 0 \nonumber \\
+            \Leftrightarrow -\frac{\kappa'(s)}{\kappa(s)} + \kappa(s)\tau(s)\bs{B}(s) \cdot (\bs{\alpha}(s) - \bs{p}) = 0 \nonumber \\
+            \Leftrightarrow \bs{B}(s) \cdot (\bs{\alpha}(s) - \bs{p}) = \frac{\kappa'(s)}{\kappa^2(s)\tau(s)}. \label{eq:Bdot}
+        \end{gather}
+        Differentiating a last time along with using (\ref{eq:Ndot}) gives the result
+        \begin{gather*}
+            \bs{B}'(s) \cdot (\bs{\alpha}(s) - \bs{p}) + \bs{B}(s) \cdot \bs{T}(s) = \left( \frac{\kappa'(s)}{\kappa^2(s)\tau(s)} \right)' \\
+            -\tau(s)\bs{N}(s) \cdot (\bs{\alpha}(s) - \bs{p}) = \left( \frac{\kappa'(s)}{\kappa^2(s)\tau(s)} \right)' \\
+            \frac{\tau(s)}{\kappa(s)} = \left( \frac{\kappa'(s)}{\kappa^2(s)\tau(s)} \right)'.
+        \end{gather*}
+
+    \item[10.]
+        \begin{enumerate}
+            \item
+                $D(0) = \norm{\bs{T}_{\bs{\alpha}}(0)}^2 + \norm{\bs{N}_{\bs{\alpha}}(0)}^2 + \norm{\bs{B}_{\bs{\alpha}}(0)}^2 = 1 + 1 + 1 = 3$.
+            \item
+                Without loss of generality, for normal vectors $\bs{T}_{\bs{\alpha}}(s)$ and $\bs{T}_{\bs{\beta}}(s)$, $\bs{T}_{\bs{\alpha}}(s) \cdot \bs{T}_{\bs{\beta}}(s)$ takes on its maximum value $1$ if and only if $\bs{T}_{\bs{\alpha}}(s) = \bs{T}_{\bs{\beta}}(s)$. Then if the maximum sum is $3$, the same must be true for all three corresponding pairs of Frenet frame vectors.
+            \item
+                Using the product rule and substituting the Frenet formulas for all the derivatives of the normal vectors,
+                \begin{align*}
+                    D'(s) &= \bs{T}_{\bs{\alpha}}'(s) \bs{T}_{\bs{\beta}}(s) + \bs{T}_{\bs{\alpha}}(s) \bs{T}_{\bs{\beta}}'(s) + \bs{N}_{\bs{\alpha}}'(s) \bs{N}_{\bs{\beta}}(s) + \bs{N}_{\bs{\alpha}}(s) \bs{N}_{\bs{\beta}}'(s) \\
+                    &\qquad+ \bs{B}_{\bs{\alpha}}'(s) \bs{B}_{\bs{\beta}}(s) + \bs{B}_{\bs{\alpha}}(s) \bs{B}_{\bs{\beta}}'(s) \\
+                    &= 0.
+                \end{align*}
+            \item
+                Parts (c) and (b) combined inform that the Frenet frames of $\bs{\alpha}$ and $\bs{\alpha}$ agree at $s$. Because any three-dimensional curve is specified uniquely by its tangent, normal, and binormal vectors at each $s$, $\bs{\alpha} = \bs{\beta}$.
+        \end{enumerate}
+
+    \item[11.]
+        \begin{enumerate}
+            \item
+                One parameterization $\gamma(t) : \mathbb{R} \to \mathbb{R}^3$ is given by $(1 - t)(x, y, 0) + t(0, 0, 1)$.
+            \item
+                The line $\gamma(t) = ((1 - t)x, (1 - t)y, t)$ intersects $S^2$ wherever it is at a distance of $1$ from the origin, i.e., where $[(1 - t)x]^2 + [(1 - t)y]^2 + t^2 = 1$, which may be simplified to
+                \begin{align*}
+                    (1 - t)^2 (x^2 + y^2) + t^2 = 1,
+                \end{align*}
+                or further, if we denote the constant $x^2 + y^2$ by $r$, to
+                \begin{align*}
+                    (r + 1)t^2 - 2rt + (r - 1) = 0.
+                \end{align*}
+                The discriminant of this quadratic equation is $4r^2 - 4(r + 1)(r - 1) = 4 > 0$, which means the equation has two distinct real roots, and hence $\gamma$ intersects $S^2$ at the two points corresponding to these roots. By substituting, it can be seen that one of these roots is $t = 1$, which corresponds to the point $(0, 0, 1)$.
+            \item
+                This point lies on the line since evaluating $\gamma(t)$ at $t = \frac{u^2 + v^2 - 1}{u^2 + v^2 + 1}$ (and letting $x = u, y = v$) gives the same expression, and the expression also satisfies the distance requirement for points in $S_1$:
+                \begin{align*}
+                    \norm{\bs{f}(u, v)}^2 &= \left( \frac{2u}{u^2 + v^2 + 1} \right)^2 + \left( \frac{2v}{u^2 + v^2 + 1} \right)^2 + \left( \frac{u^2 + v^2 - 1}{u^2 + v^2 + 1} \right)^2 \\
+                    &= \frac{u^4 + v^4 + 2u^2v^2 + 2u^2 + 2v^2 + 1}{(u^2 + v^2 + 1)^2} \\
+                    &= 1.
+                \end{align*}
+            \item
+                We know that $S^2$ is a 2-manifold of $\mathbb{R}^3$. If $(x, y, \sqrt{1 - x^2 - y^2})$ is a point on $S^2 \setminus (0, 0, 1)$, then solving
+                \begin{align*}
+                    \frac{2u}{x} = \frac{2v}{y} = \frac{u^2 + v^2 - 1}{\sqrt{1 - x^2 - y^2}}
+                \end{align*}
+                for $(u, v)$ gives $\bs{f}^{-1}(x, y, z)$, which %so we can see that the inverse of $\bs{f} : \mathbb{R}^2 \to S^2 \setminus (0, 0, 1)$
+                exists everywhere in $S^2 \setminus (0, 0, 1)$. % and is hence bijective.
+                Having continuous components, $\bs{f}^{-1}(x, y, z)$ is continuous. Then $f$ is a local parameterization around $(u, v)$ because
+                \begin{align*}
+                    D\bs{f}_{(u, v)} = \frac{2}{(u^2 + v^2 + 1)^2} \left[ \begin{array}{cc}
+                            -u^2 + v^2 + 1 & 0 \\
+                            0 & u^2 - v^2 + 1 \\
+                            2u & 2v
+                    \end{array} \right]
+                \end{align*}
+                is of rank $2$.
+        \end{enumerate}
+\end{enumerate}
+
+\end{document}

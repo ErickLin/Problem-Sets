@@ -1,0 +1,230 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{MATH 4107 - HW2 Solutions}
+
+\subsection*{2.3}
+\begin{enumerate}
+    \item[1.]
+        \boldmath
+        \textbf{Let $a = 123$ and $b = 321$. Compute $d = \gcd(a, b)$, and express $d$ as an integer combination $ra + sb$.} \par
+        \unboldmath
+        Using the Euclidean algorithm, we have that
+        \begin{gather*}
+            321 = 2 \cdot 123 + 75 \\
+            123 = 1 \cdot 75 + 48 \\
+            75 = 1 \cdot 48 + 27 \\
+            48 = 1 \cdot 27 + 21 \\
+            27 = 1 \cdot 21 + 6 \\
+            21 = 3 \cdot 6 + 3 \\
+            6 = 2 \cdot 3 + 0
+        \end{gather*}
+        and hence $d = 3$. To find the integer combination $d = ra + sb$, we first write each equation in terms of its remainder, as
+        \begin{gather*}
+            75 = 321 - 2 \cdot 123 \\
+            48 = 123 - 1 \cdot 75 \\
+            27 = 75 - 1 \cdot 48 \\
+            21 = 48 - 1 \cdot 27 \\
+            6 = 27 - 1 \cdot 21 \\
+            3 = 21 - 3 \cdot 6,
+        \end{gather*}
+        and substitute each value into the last equation in reverse order, collecting terms, as follows:
+        % similar to align, but with less horizontal separation
+        \begin{alignat*}{2}
+            3 &= 21 - 3 \cdot 6          &&= 21 - 3 \cdot (27 - 1 \cdot 21) \\
+            &= -3 \cdot 27 + 4 \cdot 21  &&= -3 \cdot 27 + 4 \cdot (48 - 1 \cdot 27) \\
+            &= 4 \cdot 48 - 7 \cdot 27   &&= 4 \cdot 48 - 7 \cdot (75 - 1 \cdot 48) \\
+            &= -7 \cdot 75 + 11 \cdot 48  &&= -7 \cdot 75 + 11 \cdot (123 - 1 \cdot 75) \\
+            &= 11 \cdot 123 - 18 \cdot 75 &&= 11 \cdot 123 - 18 \cdot (321 - 2 \cdot 123) \\
+            &= -18 \cdot 321 + 47 \cdot 123
+        \end{alignat*}
+        which yields the result $r = 47, s = -18$.
+ 
+    \item[3.]
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{Define the greatest common divisor of a set $\{ a_1, \cdots, a_n \}$ of $n$ integers. Prove that it exists, and that it is an integer combination of $a_1, \cdots, a_n$.} \par
+                \unboldmath
+                The set of all integer combinations $r_1 a_1 + \cdots + r_n a_n$ of $a_1, \cdots, a_n$,
+                \begin{align*}
+                    S = \mathbb{Z}a_1 + \cdots + \mathbb{Z}a_n = \left\{ n \in \mathbb{Z} : n = \sum_{i = 1}^n r_i a_i \text{ for } r_1, \cdots, r_n \in \mathbb{Z} \right\},
+                \end{align*}
+                is a subgroup of $\mathbb{Z}^+$ because integer combinations satisfy the closure, identity ($r_1, \cdots, r_n = 0$), and inverse (negate $r_1, \cdots, r_n$) properties under addition. If $a_1, \cdots, a_n$ are all zero, then $S$ is the trivial subgroup $\{ 0 \}$; assuming otherwise, we have from Theorem 2.3.3 that $S = \mathbb{Z}d$ for some positive integer $d$, which we define as the greatest common divisor of $a_1, \cdots, a_n$, and that $d$ is an element of $S$. \par
+                Because $a_1, \cdots, a_n$ are elements of $S$ and $S = \mathbb{Z}d$, $d$ divides $a_1, \cdots, a_n$.
+
+            \item
+                \boldmath
+                \textbf{Prove that if the greatest common divisor of $\{ a_1, \cdots, a_n \}$ is $d$, then the greatest common divisor of $\{ a_1/d, \cdots, a_n/d \}$ is $1$.} \par
+                \unboldmath
+                The set of all integer combinations of $a_1/d, \cdots, a_n/d$,
+                \begin{align*}
+                    S' = \mathbb{Z} \frac{a_1}{d} + \cdots + \mathbb{Z} \frac{a_n}{d} = \left\{ n \in \mathbb{Z} : n = \sum_{i = 1}^n r_i \frac{a_i}{d} \text{ for } r_1, \cdots, r_n \in \mathbb{Z} \right\},
+                \end{align*}
+                is a subgroup of $\mathbb{Z}^+$. If $a_1, \cdots, a_n$ are not all zero, then from the definition of $S = \mathbb{Z}d$, $d = \sum_{i = 1}^n r_i a_i$ for some $r_1, \cdots r_n \in \mathbb{Z}$. Dividing both sides gives $1 = \sum_{i = 1}^n r_i a_i/d$, which is contained in $S'$, and $1$ is the smallest possible positive integer. From Theorem 2.3.3, $S' = \mathbb{Z}1$, and hence from our definition, $1$ is the greatest common divisor of $a_1/d, \cdots, a_n/d$.
+        \end{enumerate}
+\end{enumerate}
+
+\subsection*{2.4}
+\begin{enumerate}
+    \item[2.]
+        \boldmath
+        \textbf{An $n$th root of unity is a complex number $z$ such that $z^n = 1$.} \par
+        \unboldmath
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{Prove that the $n$th roots of unity form a cyclic subgroup of $\mathbb{C}^\times$ of order $n$.} \par
+                \unboldmath
+                Let $S$ denote the set of $n$th roots of unity under multiplication. If $z_1, z_2 \in S$, then $(z_1 z_2)^n = z_1^n z_2^n = 1$, and hence $S$ fulfills the closure property. The identity is $1$, because $z_1 \cdot 1 = 1 \cdot z_1 = z_1$ for all $z_1 \in S$. If $z_1 \in S$, then $z_1 z_1^{n - 1} = z_1^{n - 1} z_1 = z^n = 1$, and hence $z_1^{n - 1}$ is the inverse of $z_1$. $S$ fulfills the properties of a subgroup. \par
+                Let $z = e^{2i\pi / n}$, where $i = \sqrt{-1}$. $S$ consists of all the powers of $z$ for some $z \in S$ because only elements of the form $e^{2i\pi k} : k \in \mathbb{Z}$ equal $1$, and $S$ is a subset of the complex numbers under multiplication. Because $z^r = z^s$ if $n | r - s$, the powers $1, z, \cdots, z^{n - 1}$ are the only distinct elements of $S$, and hence $S$ is a cyclic subgroup of $\mathbb{C}^\times$ of order $n$.
+
+            \item
+                \boldmath
+                \textbf{Determine the product of all the $n$th roots of unity.}
+                \unboldmath
+                \begin{align*}
+                    \prod_{k = 0}^{n - 1} \left( e^{2i\pi / n} \right)^k = \left( e^{2i\pi / n} \right)^{\sum_{k = 0}^{n - 1} k} = \left( e^{2i\pi / n} \right)^{n(n - 1)/2} = e^{i\pi(n - 1)} = (-1)^{n - 1}
+                \end{align*}
+        \end{enumerate}
+
+    \item[3.]
+        \boldmath
+        \textbf{Let $a$ and $b$ be elements of a group $G$. Prove that $ab$ and $ba$ have the same order.} \par
+        \unboldmath
+        Let $m$ and $n$ denote the orders of $ab$ and $ba$, respectively. Then
+        \begin{align*}
+            (ab)^m &= e              & (ba)^n &= e \\
+            a(ba)^{m - 1} b &= e     & b(ab)^{n - 1} a &= e \\
+            (ba)^{m - 1} b &= a^{-1} & (ab)^{n - 1} a &= b^{-1} \\
+            (ba)^{m - 1} ba &= e     & (ab)^{n - 1} ab &= e \\
+            (ba)^m &= e              & (ab)^n &= e
+        \end{align*}
+        which shows that $n | m$ and $m | n$, or $m = n$.
+        \iffalse
+            Assume, for the purpose of contradiction, that $ab$ and $ba$ do not have the same order. Without loss of generality, let $ab$ have the smaller order, which we denote by $n$. Then
+            \begin{gather*}
+                (ab)^n = a^n b^n = e \\
+                \Rightarrow a^n = \left( b^n \right)^{-1} \\
+                \Rightarrow (ba)^n = b^n a^n = b^n \left( b^n \right)^{-1} = e,
+            \end{gather*}
+            which shows that $ba$ has order at most $n$, a contradiction. Hence, $ab$ and $ba$ have the same order.
+        \fi
+
+    \item[4.]
+        \boldmath
+        \textbf{Describe all groups $G$ that contain no proper subgroup.} \par
+        \unboldmath
+        If $G$ is a group with no proper subgroups, and $a \in G$ is such that $a \neq e$, then the cyclic subgroup $\langle a \rangle$ contains $e$ and $a$, and is hence not trivial. Because $G$ contains no proper subgroups, $\langle a \rangle = G$, and it follows that $G$ is cyclic. \par
+        Furthermore, if we write the order of $a$ as $n = rs$, then $|\langle x^r \rangle | = s$. Because $\langle x^r \rangle$ is a cyclic subgroup that cannot form a proper subgroup of $G$, we must have that $r$ and $s$ are $1$ and $n$ in either permutation. Hence, the order $n$ of $a$ must be prime, and we describe the set of all cyclic groups that contain the identity element and elements of prime order.
+
+    \item[6.]
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{Let $G$ be a cyclic group of order $6$. How many of its elements generate $G$? Answer the same question for cyclic groups of orders $5$ and $8$.} \par
+                \unboldmath
+                Write $G = \langle x \rangle$. If $x$ has order $6$, then the two elements $x$ and $x^5$ generate $G$. If $x$ has order $5$, then the four elements $x$, $x^2$, $x^3$ and $x^4$ generate $G$. If $x$ has order $8$, then the four elements $x$, $x^3$, $x^5$, and $x^7$ generate $G$.
+
+            \item
+                \boldmath
+                \textbf{Describe the number of elements that generate a cyclic group of arbitrary order $n$.} \par
+                \unboldmath
+                If $G = \langle x \rangle$ is a cyclic group of order $n$, then for any element $x^k \in G$, $0 \leq k < n$,
+                \begin{align*}
+                    \left( x^k \right)^{n / \gcd(n, k)} = e
+                \end{align*}
+                and because $kn / \gcd(n, k) = \text{lcm}(n, k)$, there is no smaller exponent for which the above is true. This shows that the order of $x^k$ is $n / \gcd(n, k)$. Thus the elements that generate $G$ are the powers of $x$ that are relatively prime with $n$, because any such elements must have order $n$.
+        \end{enumerate}
+
+    \item[9.]
+        \boldmath
+        \textbf{How many elements of order $2$ does the symmetric group $S_4$ contain?} \par
+        \unboldmath
+        These elements consist of the permutations that swap one pair of elements, of which there are $\binom{4}{2} = 6$, and the permutations that swap two pairs of elements, of which there are $3$. There are $9$ in total.
+
+    \item[10.]
+        \boldmath
+        \textbf{Show by example that the product of elements of finite order in a group need not have finite order. What if the group is abelian?} \par
+        \unboldmath
+        One example in $GL_2(\mathbb{R})$ is the pair of elements
+        \begin{align*}
+            a = \left[ \begin{array}{cc}
+                    0 & 3 \\
+                    1/3 & 0
+            \end{array} \right]
+            \quad \text{and} \quad
+            b = \left[ \begin{array}{cc}
+                    0 & -1 \\
+                    -1 & 0
+            \end{array} \right].
+        \end{align*}
+        Although $a^2 = 1$ and $b^2 = 1$,
+        \begin{align*}
+            ab = \left[ \begin{array}{cc}
+                    -3 & 0 \\
+                    0 & -1/3
+            \end{array} \right]
+            \quad \text{and} \quad
+            (ab)^n = \left[ \begin{array}{cc}
+                    (-3)^n & 0 \\
+                    0 & (-1/3)^n
+            \end{array} \right]
+        \end{align*}
+        for all $n \in \mathbb{N}$, so $ab$ does not have finite order. \par
+        On the other hand, if $G$ is an abelian group, then for any elements $a, b \in G$, $ab$ does have finite order. Let $m$ and $n$ denote the order of $a$ and $b$, respectively. Since $\text{lcm}(m, n) = rm = sn$ for some positive integers $r, s$, we have, since $G$ is abelian,
+        \begin{align*}
+            (ab)^{\text{lcm}(m, n)} = a^{\text{lcm}(m, n)} b^{\text{lcm}(m, n)} = a^{rm} b^{sn} = \left( a^m \right)^r \left( b^n \right)^s = 1^r 1^s = 1,
+        \end{align*}
+        so the order of $ab$ is at most $\text{lcm}(m, n)$.
+\end{enumerate}
+
+\subsection*{Not in text:}
+\begin{enumerate}
+    \item
+        \boldmath
+        \textbf{Let $G = \{ 1, x, x^2, \cdots, x^{n - 1} \}$ be a cyclic group of order $n$, written multiplicatively.} \par
+        \unboldmath
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{Prove that every subgroup of $G$ is cyclic. Do this by working with exponents, using the description of the subgroups of $\mathbb{Z}^+$, as in Proposition 2.4.2.} \par
+                \unboldmath
+                Let $H$ be a subgroup of $G$, and let $S$ denote the set of integers $i$ such that $x^i \in H$. $S$ is a group under addition because $H$ is a group under multiplication. If $H = \{ e \}$, then $H$ is automatically the cyclic subgroup generated by $e$, so hereafter we assume that $H \neq \{ e \}$. \par
+                $H \leq G$ implies that there is at least one element $x^k \in H$ for some $k \in \mathbb{Z}^+$ and hence $k \in S$; assume that we use the smallest positive value of $k$ for which this is true. Let $y$ be an arbitrarily chosen element in $H$. $y \in G$ implies that $y = x^m$ for some positive $m \in \mathbb{Z}^+$, and from the definition, $m \in S$. Note that $m \geq k$ by the definition of $k$. \par
+                Using division, $m = qk + r$ for $q, r \in \mathbb{Z}^+$ with $0 \leq r < k$. Because $qk \in S$ by the closure property, $r = m - qk \in S$ also by the closure property. But since $r < k$, $r$ is necessarily $0$, and $m = qk$. Thus, $y$ is generated by $x^k$, and $H = \langle x^k \rangle$, a cyclic group.
+
+            \item
+                \boldmath
+                \textbf{For $0 \leq i < n$, determine the order of $\langle x^i \rangle$ in $G$.} \par
+                \unboldmath
+                From Exercise 6b, we know that the order of $x^i$, and equivalently the order of $\langle x^i \rangle$, is $n / \gcd(n, i)$.
+
+            \item
+                \iffalse
+                    \boldmath
+                    \textbf{Prove that for every positive integer $m$ dividing $n$, there exists a \textit{unique} subgroup of $G$ of order $m$.} \par
+                    \unboldmath
+                    Because every divisor of $n$ takes the form $\gcd(n, i)$ for some $i \in [0, n - 1]$, every positive integer $m$ dividing $n$ takes the form $n / \gcd(n, i)$, which is the order of $\langle x^i \rangle$ in $G$, for some $i \in [0, n - 1]$. Also, we have from (a) that every subgroup of $G$ takes the form $\langle x^i \rangle$ for some $i \in [0, n - 1]$. \par
+                    This justifies us to write the following: for any positive integer $m$ dividing $n$, let $\langle x^i \rangle$ and $\langle x^j \rangle$ be two subgroups of order $m$. Because $\gcd(n, i) = \gcd(n, j) = n/m$ from part (b), $\langle x^i \rangle$ and $\langle x^j \rangle$ both take the form $\{ 1, x^{n/m}, x^{2n/m}, \cdots, x^{(m - 1)n/m} \}$, and hence $\langle x^i \rangle$ = $\langle x^j \rangle$.
+                \fi
+                \boldmath
+                \textbf{Prove that for every positive integer $m$ dividing $n$,
+                    \begin{align*}
+                        H = \{ a \in G \mid a^m = 1 \}
+                    \end{align*}
+                is a subgroup of $G$ of order $m$, and that $H$ is the only such subgroup.} \par
+                \unboldmath
+                $1$, being the identity element of $G$, is also the identity element of $H$. Also, for $a \in H$, $a^{m - 1}$ is the inverse element because $a a^{m - 1} = a^{m - 1} a = a^m = 1$. For $a, b \in H$, $a = x^{cn/m}$ and $b = x^{dn/m}$ for integers $0 \leq c, d < m$ since this is the only way for $a$ and $b$ to be powers of $x$ and hence contained in $G$. Then $(ab)^m = a^m b^m = x^{cn} x^{dn} = \left( x^n \right)^c \left( x^n \right)^d = 1$, so $ab$ is contained in $H$. \par
+                Because all the elements of $H$ are powers of $x^{n/m}$, $H = \langle x^{n/m} \rangle$. For any other set $H' = \{ a \in G \mid a^m = 1 \}$, $H' = \langle x^{n/m} \rangle$ by the same reasoning; clearly $H'$ and $H$ form the same set of $m$ elements.
+
+        \end{enumerate}
+\end{enumerate}
+\end{document}

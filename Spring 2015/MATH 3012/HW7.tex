@@ -1,0 +1,35 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+\section*{MATH 3012 - HW7 Solutions}
+
+\begin{enumerate}
+	\item (a) 15, 8, 11, 2, 17 \\
+	(b) 16, 1, 5, 14 \\
+	(c) The chain containing 16 and 8 \\
+	(d) The chain containing 1, 13, and 18; either 11 or 17 can be added while preserving the subposet's property of being a chain \\
+	(e) The antichain containing 16, 1, 5, and 14
+	
+	\item $h = 9$; one maximum chain is $C = \{ 14, 26, 7, 9, 20, 5, 4, 3, 22 \}$
+	\begin{align*}
+	A_1 &= \{ 14, 15 \} \\
+	A_2 &= \{ 1, 26 \} \\
+	A_3 &= \{ 6, 7 \} \\
+	A_4 &= \{ 19, 9 \} \\
+	A_5 &= \{ 12, 16, 23, 22, 18 \} \\
+	A_6 &= \{ 11, 13, 17, 3, 2, 21\} \\
+	A_7 &= \{ 10, 4, 25 \} \\
+	A_8 &= \{ 20 \}
+	A_9 &= \{ 5, 24, 8 \}
+	\end{align*}
+
+	\item According to Dilworth's theorem, the poset can be partitioned into $w$ chains. Also, by definition, $h$ is the largest size for which there exists a chain of that size, so the length of each chain is $\leq h$. Since the size of the poset is the size of all of its partitions combined, $|X| <= hw$.
+	
+	\item Let elements $x \in X$ be mapped to $(x_1, \cdots, x_t)$, where $x_i$ is the index of $x$ under $L_i$. \\
+	Because $(X, P)$ is the intersection of $L_1, \cdots, L_t$, for elements $x, w \in X$, $x \leq_P w$ if and only if $x_i \leq_{L_i} w_i$ for all $i = 1, \cdots, t$. \\
+	If $Y$ has the same number of elements as $X$, and if each $y_i$ is ordered in the standard order in the same manner as each $x_i$ is in $L_i$, then a one-to-one correspondence can be drawn between $x, w$ in $P$ and $y, z$ in $Q$ respectively; therefore, $(X, P)$ is isomorphic with $(Y, Q)$.
+\end{enumerate}
+
+\end{document}

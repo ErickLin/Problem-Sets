@@ -1,0 +1,163 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr, mathtools, titlesec}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\lhead{}
+\rhead{Erick Lin}
+\titleformat{\subsection}{\normalfont\large\bfseries}{}{0em}{Problem \thesubsection}
+
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\DeclarePairedDelimiter \ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter \floor{\lfloor}{\rfloor}
+\DeclarePairedDelimiter \angleb{\langle}{\rangle}
+\newtheorem{thm}{Theorem}[subsection]
+\newtheorem{lem}[thm]{Lemma}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}[subsection]
+
+\begin{document}
+\section*{CS 7545 -- HW0 Solutions}
+
+\subsection{}
+\begin{lem} \label{lem:max-pairwise}
+    The maximum pairwise distance between points in any metric space $S$ is at most twice that of the minimum radius of $S$ for subsets of size $1$.
+\end{lem}
+\begin{proof}
+    The minimum radius $r_{\text{min}}$ in this case is
+    \begin{align*}
+        r_{\text{min}} := \min_{i \in S} \max_{j \in S} d(i, j),
+    \end{align*}
+    while the maximum pairwise distance $r_{\text{max}}$ is
+    \begin{align*}
+        r_{\text{max}} := \max_{i, j \in S} d(i, j).
+    \end{align*}
+    %Assume that $r_{\text{min}} < r_{\text{max}}/2$ for the purpose of contradiction. 
+    Let $x_i$ denote the point in $S$ whose maximum distance to any other point in $S$ is $r_{\text{min}}$, and let $x_m$, $x_n$ denote the points in $S$ such that $d(x_m, x_n) = r_{\text{max}}$. By definition, $d(x_m, x_i) \leq r_{\text{min}}$ and $d(x_i, x_n) \leq r_{\text{min}}$ so that
+    \begin{align*}
+        d(x_m, x_i) + d(x_i, x_n) \leq 2r_{\text{min}},
+    \end{align*}
+    and by the Triangle Inequality, we have
+    \begin{align*}
+        d(x_m, x_i) + d(x_i, x_n) \geq d(x_m, x_n) = r_{\text{max}}.
+    \end{align*}
+    Combining the two inequalities gives $r_{\text{max}} \leq 2r_{\text{min}}$.
+\end{proof}
+Let $S := [n]$ denote the described set of points and let $A$ denote the described algorithm, with $A(k)$ being the output of $A$ given the input $k$ and the assumption that $x_1$ is fixed. \par
+In general, for any $k$, the minimum radius $r_{\text{min}, k}$ is
+\begin{align*}
+    r_{\text{min}, k} := \min_{\substack{U \subset S \\ |U| = k}} \max_{j \in S} \min_{i \in U} d(i, j),
+\end{align*}
+while the maximum pointwise distance $r_{k}$ from $A(k)$ to $S \setminus A(k)$ is
+\begin{align*}
+    r_k := \max_{j \in S} \min_{i \in A(k)} d(i, j).
+\end{align*}
+\begin{lem} \label{lem:approx-factor}
+    For any $k \in [1, n - 2]$, $r_k \leq 2r_{k + 1}$.
+\end{lem}
+\begin{proof}
+    %Assume for the purpose of contradiction that $r_k > 2r_{k + 1}$.
+    Let $x_m \in A(k), x_{k + 1} \in S \setminus A(k)$ be the two points satisfying $d(x_m, x_{k + 1}) = r_k$, so that $x_{k + 1}$ is also the point contained in the singleton $A(k + 1) \setminus A(k)$. \par
+    For any $x_n \in S \setminus A(k + 1)$, by the Triangle Inequality,
+    \begin{align*}
+        r_k = d(x_m, x_{k + 1}) \leq d(x_m, x_n) + d(x_n, x_{k + 1})
+    \end{align*}
+    so that by arithmetic $d(x_m, x_n) \geq r_k/2$ or $d(x_n, x_{k + 1}) \geq r_k/2$. Then we have that $r_{k + 1} \geq \max\{ d(x_m, x_n), d(x_n, x_{k + 1}) \} \geq r_k/2$, since both $x_m$ and $x_{k + 1}$ are contained in $A(k + 1)$ and $x_n$ is not. %But this contradicts the assumption, so the assumption must be false.
+\end{proof}
+%\begin{lem} \label{lem:approx-step}
+    %For any $k \in [1, n - 2]$, $r_{k + 1} \leq r_{\textnormal{min}, k}$.
+%\end{lem}
+\begin{thm}
+    The maximum pointwise distance from $A(k)$ to $S \setminus A(k)$ is at most twice that of the minimum radius.
+\end{thm}
+\begin{proof}
+    If $k = 1$, then the assertion holds by Lemma \ref{lem:max-pairwise}. \par %regardless of which point $x_1$ is chosen. \par
+    %Specifically, combining Lemmas \ref{lem:approx-factor} and \ref{lem:approx-step} gives
+    %\begin{align*}
+        %r_{k + 1} \leq 2r_{k + 2} \leq 2r_{\text{min}, k + 1},
+    %\end{align*}
+    %and therefore the inductive assumption holds.
+    %First, the maximum pairwise distance between points in $S \setminus A(k)$ is at most twice that of the minimum radius of $S \setminus A(k)$ for subsets of size $1$.
+    The hypothesis in its generality can be restated as the maximum pointwise distance from $A(k)$ to $S \setminus A(k)$ being at most twice the maximum pointwise distance from any $k$-subset $U$ to $S \setminus U$; i.e., that
+    \begin{align} \label{hypothesis}
+        r_k \leq 2\max_{j \in S}\min_{i \in U} d(i, j).
+    \end{align}
+    (\ref{hypothesis}) can be proven by induction by showing that if it holds for some arbitrary $k$, then
+    \begin{align*}
+        r_{k + 1} \leq 2\max_{j \in S}\min_{i \in U \cup \{ v \}} d(i, j)
+    \end{align*}
+    %the maximum pointwise distance from $A(k + 1)$ to $S \setminus A(k + 1)$ is at most twice the maximum pointwise distance from $U \cup \{ v \}$ to $S \setminus (U \cup \{ v \})$
+    where $v \in S \setminus U$ is arbitrary.
+    \iffalse
+        $r_{U \cup \{ v \}}$ can be rewritten
+        \begin{align*}
+            r_{U \cup \{ v \}} = \min\{ r_U, \max_{w \in S \setminus U} d(v, w) \},
+        \end{align*}
+        and by definition $r_{k + 1} \leq r_k$, so the only part that remains to be shown is
+        \begin{align*}
+            r_{k + 1} \leq 2\max_{w \in S \setminus U} d(v, w).
+        \end{align*}
+    \fi
+    We do this as follows. Let $x_m \in A(k), x_{k + 2} \in S \setminus A(k + 1)$ be the two points satisfying $d(x_m, x_{k + 2}) = r_k$. \par
+    (Don't know what to do after this point) Conjecture: A property of $A(k)$ inherent in the algorithm is that $x_m$ and $x_{k + 1}$ are nearest to the same point $x_n$ in $U \cup \{ v \}$, so that
+    \begin{align*}
+        r_{k + 1} &= d(x_m, x_{k + 1}) \leq d(x_m, x_n) + d(x_n, x_{k + 1}) \\
+        &= \min_{i \in U \cup \{ v \}} d(i, x_m) + \min_{i \in U \cup \{ v \}} d(i, x_{k + 1}) \\
+        &\leq 2\max_{j \in S}\min_{i \in U \cup \{ v \}} d(i, j),
+    \end{align*}
+    proving the induction step.
+\end{proof}
+
+\subsection{}
+Let $A_n = a_n a_{n - 1} \cdots a_1$ and $B_n = b_n b_{n - 1} \cdots b_1$ be two binary variables. We know that $A_n$ is at least $B_n$ if the highest bit in which they differ, if it exists, is $1$ in $A_n$ and $0$ in $B_n$. %Then considering only operations on single bits, the desired Boolean function may be given by
+%\begin{align*}
+    %\begin{cases}
+        %a_{\min\{ i : a_i \oplus b_i = 1 \}} &\text{if} \quad \exists i : a_i \oplus b_i = 1 \\
+        %1 &\text{otherwise}
+    %\end{cases}.
+%\end{align*}
+We will derive the Boolean function representing this operation as follows. \par
+First, consider $n = 1$. The expression $a_1 \lor \neg b_1$ is $0$ if $a_1 = 0$ and $b_1 = 1$, and is $1$ otherwise. Thus,
+\begin{align*}
+    A_1 \geq B_1 :\Leftarrow a_1 \lor \neg b_1.
+\end{align*} \par
+%\begin{align*}
+    %\{ \neg[(A \lor \neg B) \lor \neg(B \lor \neg A)] \oplus (A \lor \neg B) \} \land 1
+%\end{align*}
+In the case of multiple digits, $A_n \geq B_n$ if either the highest bit is higher in $A_n$ (i.e. $a_n$ is $1$ and $b_n$ is $0$, or $a_n \land \neg b_n$), or the highest bit is the same in both and $A_{n - 1} \geq B_{n - 1}$. We can then define the Boolean function recursively as
+\begin{align*}
+    A_n \geq B_n :\Leftarrow (a_n \land \neg b_n) \lor \text{} \bigl( [(a_n \land b_n) \lor (\neg a_n \land \neg b_n)] \land (A_{n - 1} \geq B_{n - 1}) \bigr)
+\end{align*}
+(if this were implemented as a logic gate, then $A_{n - 1} \geq B_{n - 1}$ would be a subcircuit).
+
+\subsection{}
+%We assume that the number of incorrect predictions is never the same for both channels, so that there is always a channel that has fewer incorrect predictions than the other.
+\begin{lem} \label{lem:worst-case}
+    Consider the situation in which for each day starting with day $0$, exactly one channel makes an incorrect prediction, and the channel that does so alternates each day. Assuming that you can pick either channel when the number of incorrect predictions is the same for both and taking the worst case, after day $t$, the number of your incorrect predictions is $t$ while the number of incorrect predictions made by the better channel is $\floor{t/2}$, giving a ratio of $t/\floor{t/2}$.
+\end{lem}
+\begin{proof}
+    On each day, the number of your incorrect predictions increases by $1$, while the number of incorrect predictions made by the better channel increases only on even-numbered days.
+\end{proof}
+\begin{lem} \label{lem:deviate}
+    In any situation which deviates from that given in Lemma \ref{lem:worst-case}, the ratio of the number of your incorrect predictions to the number of incorrect predictions made by the better channel remains at most $t/\floor{t/2}$ for some $t$.
+\end{lem}
+\begin{proof}
+    Assume that the ratio has been maintained at $t/\floor{t/2}$ up to some day using the situation from Lemma \ref{lem:worst-case}. \par
+    If on some day the predictions of both channels are correct, then your prediction is also correct, so the ratio is maintained. \par
+    If on the other hand the predictions of both channels are incorrect, then your prediction is also incorrect, so the ratio changes to $(t + 1)/(\floor{t/2} + 1) < t/\floor{t/2}$. \par
+    Otherwise, if one channel makes an incorrect prediction but it was the same channel that made an incorrect prediction on the previous day (thereby breaking away the alternating pattern), then the only possibilities are given as follows:
+    \begin{itemize}
+        \item
+            The channel previously had the same number of incorrect predictions as the other. You might pick this channel, in which case the ratio becomes $(t + 1)/\floor{t/2}$. Using the fact that $t$ is even in this case, the ratio can be rewritten $(t + 1)/\floor{(t + 1)/2}$, maintaining the lemma.
+        \item
+            The channel previously had $1$ fewer incorrect prediction than the other. Since you must pick this channel and the numbers of incorrect predictions becomes the same between both channels, the ratio becomes $(t + 1)/\floor{(t + 1)/2}$, maintaining the lemma.
+    \end{itemize}
+    We have shown that in all possible cases, the lemma is maintained.
+\end{proof}
+Combining Lemmas \ref{lem:worst-case} and \ref{lem:deviate} gives the following result.
+\begin{thm}
+    The ratio of the number of your incorrect predictions to the number of predictions made by the better channel is at most $t/\floor{t/2}$ for some $t$.
+\end{thm}
+
+\end{document}

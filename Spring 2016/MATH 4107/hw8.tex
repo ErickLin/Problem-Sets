@@ -1,0 +1,178 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amsthm, fancyhdr, tabularx}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\newcommand{\im}{\text{im}\,}
+
+\begin{document}
+
+\section*{MATH 4107 - HW8 Solutions}
+
+\subsection*{7.1}
+\begin{enumerate}
+    \item[2.]
+        \boldmath
+        \textbf{Let $H$ be a subgroup of a group $G$. Describe the orbits for the operation of $H$ on $G$ by left multiplication.} \par
+        \unboldmath
+        These are the cosets of $H$ in $G$, by the definition of a left coset.
+\end{enumerate}
+
+\subsection*{7.2}
+\begin{enumerate}
+    \item[3.]
+        \boldmath
+        \textbf{A group $G$ of order 12 contains a conjugacy class of order 4. Prove that the center of $G$ is trivial.} \par
+        \unboldmath
+        Let $C_2$ denote the conjugacy class of order 4, and let $x \in C_2$. By the counting formula, $|Z(x)| = |G|/|C_2| = 12/4 = 3$. Assume for the purpose of contradiction that $Z(x) = Z(G)$, so that the center of $G$ consists of all 3 elements in $Z(x)$. Then the class equation must take the form
+        \begin{align*}
+            12 = 1 + 1 + 1 + 4 + |C_5| + |C_6|.
+        \end{align*}
+        Since $|C_5| + |C_6| = 5$, and $|C_5|$ and $|C_6|$ divide 12, we must have that $|C_5|, |C_6|$ are $3, 2$ in either order (without loss of generality, choose $|C_5| = 3$). By the counting formula, if $y \in C_5$, then $|Z(y)| = 12/|C_5| = 4$, and since $Z(G) \leq Z(y)$, Lagrange's theorem requires that $|Z(G)| = 3$ divide $|Z(y)| = 4$. Because this is a contradiction, it must be that the center of $G$ consists of only the identity element.
+
+    \item[7.]
+        \boldmath
+        \textbf{Rule out as many as you can, as class equations for a group of order 10:}
+        \begin{gather*}
+            1 + 1 + 1 + 2 + 5, \quad 1 + 2 + 2 + 5, \quad 1 + 2 + 3 + 4, \\
+            1 + 1 + 2 + 2 + 2 + 2
+        \end{gather*}
+        \unboldmath
+        The first equation is invalid because if $x \in C_5$, then $|Z(G)| = 1 + 1 + 1 = 3$ does not divide $|Z(x)| = |G|/|C_5| = 10/5 = 2$, the third is invalid because $|C_3| = 3$ and $|C_4| = 4$ do not divide $|G| = 10$, and the fourth is invalid because since $|Z(G)| = 2$, the quotient group $G/Z(G)$ has order 5 and is hence cyclic, which implies that $G$ is abelian (Exercise 7.3.2), a contradiction since the conjugacy classes are not all of order $1$. The second is the class equation for the dihedral group $D_5$ (Exercise 7.2.9).
+
+    \item[9.]
+        \boldmath
+        \textbf{Determine the class equation for the following groups: (a) the quaternion group, (b) $D_4$, (c) $D_5$ \iffalse, (d) the subgroup of $GL_2(\mathbb{F}_3)$ of invertible upper triangular matrices \fi.} \par
+        \unboldmath
+        In all cases, $1$ is in its own conjugacy class $C_1$.
+        \begin{enumerate}
+            \item
+                Let $Q$ denote the quaternion group. Then $-1 \in Z(Q)$ implies that $C_2 = \{ -1 \}$. Without loss of generality, consider the element $i$. $Z(i) = \{ \pm 1, \pm i \}$, so $C(i) = |Q|/|Z(i)| = 8/4 = 2$. Since $ij = j(-i)$, it can be deduced that $C(i) = \{ \pm i \}$. Thus, $C(j) = \{ \pm j \}$ and $C(k) = \{ \pm k \}$, and thus the class equation is
+                \begin{align*}
+                    |Q| = 1 + 1 + 2 + 2 + 2.
+                \end{align*}
+
+            \item
+                Write $D_4 = \{ 1, \rho, \rho^2, \rho^3, f_1, f_2, f_3, f_4 \}$ where $\rho$ denotes a $90^\circ$ rotation clockwise and the $f$'s denote reflections around each axis of symmetry, differing by $45^\circ$ and sorted in clockwise order starting from the vertical reflection. \par
+                We know that rotation actions commute with one another. $\rho^2$ also commutes with all the reflection actions, so $Z(\rho^2) = D_4$, hence $\rho^2$ is in the center and $|C(\rho^2)| = 1 = |C_2|$. Meanwhile, $Z(\rho) = Z(\rho^3) = \langle \rho \rangle$, so $|C(\rho)| = |C(\rho^3)| = |G|/|\langle \rho \rangle| = 8/4 = 2$. It can be deduced that $C(\rho) = C(\rho^3) = \{ \rho, \rho^3 \} = C_3$, since $\rho f_2 = f_2 \rho^3$. \par
+                The reflection action $f_1$ commutes with $1$, $\rho^2$, $f_1$, and $f_3$, so $Z(f_1) = 4$ and $|C(f_1)| = |D_4|/|Z(f_1)| = 8/4 = 2 = |C_4|$. Since $\rho f_1 = f_3 \rho$, $C_4 = \{ f_1, f_3 \}$. Finally, $f_2 \rho = \rho f_4$, so $C_5 = \{ f_2, f_4 \}$. The class equation is given by
+                \begin{align*}
+                    |D_4| = 1 + 1 + 2 + 2 + 2.
+                \end{align*}
+
+            \item
+                Write $D_5 = \{ 1, \rho, \rho^2, \rho^3, \rho^4, f_1, f_2, f_3, f_4, f_5 \}$ where $\rho$ denotes a $72^\circ$ rotation clockwise and the $f$'s denote reflections around each axis of symmetry, differing by $72^\circ$ and sorted in clockwise order starting from the vertical reflection. \par
+                We know that rotation actions commute with one another, so $Z(\rho^k) = \langle \rho \rangle$ for all $k$, so $|C(\rho^k)| = |G|/|\langle \rho \rangle| = 10/5 = 2$. It can be deduced that the conjugacy classes of order $2$ formed by the rotations are $C_2 = \{ \rho, \rho^4 \}$ and $C_3 = \{ \rho^2, \rho^3 \}$, since $f_1 \rho = \rho^4 f_1$ and $f_1 \rho^2 = \rho^3 f_1$. \par
+                A reflection action can conjugate to any other reflection action under different rotation actions, so the last conjugacy class is $C_3 = \{ f_1, f_2, f_3, f_4, f_5 \}$, and the class equation is
+                \begin{align*}
+                    |D_5| = 1 + 2 + 2 + 5.
+                \end{align*}
+        \end{enumerate}
+
+    \item[14.]
+        \boldmath
+        \textbf{The class equation of a group $G$ is $1 + 4 + 5 + 5 + 5$.} \par
+        \unboldmath
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{Does $G$ have a subgroup of order $5$? If so, is it a normal subgroup?} \par
+                \unboldmath
+                Since $|C_2| = 4$, if $x \in C_2$, then $|Z(x)| = |G|/|C_2| = 20/4 = 5$. Since centralizers are subgroups, $Z(x)$ is a subgroup of order $5$, and furthermore, it is cyclic, so $Z(x) = \langle x \rangle$.
+                \iffalse
+                    Also, for any $y \in C_3 \cup C_4 \cup C_5$, $|Z(y)| = 4$. Any elements in $Z(x)$ commute with more than $4$ elements, so they are not contained in $C_3 \cup C_4 \cup C_5$.
+                \fi
+                We know that $C_1 = \{ 1 \}$. Also, $x$ is contained in its own centralizer so for any element $z \in Z(x)$, $zxz^{-1} = x$. Then $zx^2 z^{-1} = zx z^{-1} zx z^{-1} = x x = x^2$, and similarly, $zx^3 z^{-1} = x^3$ and $zx^4 z^{-1} = x^4$, so $\{ x, x^2, x^3, x^4 \}$ is the conjugacy class $C_2$, and $Z(x) = C_1 \cup C_2$. If $h \in C_2$, then for any $x \in G$, $xhx^{-1} \in C_2$ by the definition of a conjugacy class. Since this is also true for $C_1$, $C_1 \cup C_2$ is normal.
+
+            \item
+                \boldmath
+                \textbf{Does $G$ have a subgroup of order $4$? If so, is it a normal subgroup?} \par
+                \unboldmath
+                Since $|C_3| = 5$, if $x \in C_3$, then $|Z(x)| = |G|/|C_3| = 20/5 = 4$. Then $Z(x)$ is a subgroup of order $4$. \par
+                For a subgroup to be normal, it must be a union of conjugacy classes containing $C_1 = \{ e \}$. There cannot be a subgroup of order $4$ because the next smallest conjugacy class is $C_2$, and $|C_1 \cup C_2| > 4$.
+        \end{enumerate}
+
+    \item[17.]
+        \boldmath
+        \textbf{Use the class equation to show that a group of order $pq$, with $p$ and $q$ prime, contains an element of order $p$.} \par
+        \unboldmath
+        Let $G$ denote the group of order $pq$. Because the only factors of $pq$ less than $pq$ are $1$, $p$, and $q$, the class equation has the form
+        \begin{align*}
+            pq = (1 + 1 + \cdots + 1) + (p + \cdots + p) + (q + \cdots + q)
+        \end{align*}
+        where $a_1, a_p, a_q$ denote the number of conjugacy classes of sizes equal to each subscript. $|Z(G)| = a_1$ must divide $pq$. \par
+        If $a_1 = pq$, then $a_p = a_q = 0$, and the center is the entire group so $G$ is abelian. If $x \in G$ has order $pq$, then the order of $x^q$ is $p$, so we assume for the purpose of contradiction that $G$ contains no elements of order $p$ or $pq$. Then only $e$ has order $1$, while the remaining elements have order $q$. Let $x, y$ be two such elements, with $y \neq x^k$ for any $k$. Then $\langle x \rangle \langle y \rangle = \{ ab | a \in \langle x \rangle, b \in \langle y \rangle \}$ is isomorphic to $\langle x \rangle \times \langle y \rangle$, because $\langle x \rangle \cap \langle y \rangle = \{ e \}$ and $\langle x \rangle$ and $\langle y \rangle$ are normal subgroups of $\langle x \rangle \langle y \rangle$ (since $G$ is abelian), and is hence a group of order $q^2$. However, $\langle x \rangle \langle y \rangle$ is also a subgroup of $G$, a contradiction by Lagrange's theorem. Therefore, $G$ contains an element of order $p$. \par
+        If $a_1 = p$ and $a_p = q - 1$, then $|Z(G)| = p$; having prime order, $Z(G)$ is cyclic, and any non-identity element in $Z(G)$ generates $Z(G)$ and has order $p$. \par
+        Otherwise, there is some element $x$ such that $|C(x)| = q$, so that $|Z(x)| = |G|/|C(x)| = pq/q = p$. Since $Z(x)$ is a subgroup of prime order, $Z(x)$ is cyclic. Therefore, any non-identity element in $Z(x)$, including $x$, generates $Z(x)$ and has order $p$.
+\end{enumerate}
+
+\subsection*{7.3}
+\begin{enumerate}
+    \item[1.]
+        \boldmath
+        \textbf{Prove the Fixed Point Theorem, which states the following: if $G$ is a $p$-group, and $S$ is a finite set on which $G$ operates whose order is not divisible by $p$, there is a fixed point for the operation of $G$ on $S$ -- an element $s$ whose stabilizer is the whole group.} \par
+        \unboldmath
+        Let $n$ be such that $p^n = |G|$. If $O_1, \cdots, O_m$ denote the orbits of $S$, then $|S|$ is the sum of the sizes of these orbits. Since $|O_i|$ divides $|G| = p^n$ for all $i$, $|O_i| = p^{n_i}$ for some positive integer $n_i$. Assume for the purpose of contradiction that for all $i$, $n_i \geq 1$ and hence $p$ divides $|O_i|$. Then we would also have that $p$ divides the sum $|S|$, a contradiction. Thus, there exists some $n_i = 0$, and so $O_i$ contains a single element, which is a fixed point by the orbit-stabilizer theorem.
+
+    \item[2.]
+        \boldmath
+        \textbf{Let $Z$ be the center of a group $G$. Prove that if $G/Z$ is a cyclic group, then $G$ is abelian, and therefore $G = Z$.} \par
+        \unboldmath
+        Because $G/Z$ is cyclic, there exists a coset of $Z$ that generates $G/Z$, that is, there exists $x \in G$ such that $G/Z = \langle xZ \rangle$. Thus, if $g_1 \in G$, then the coset $g_1 Z = (xZ)^m$ for some integer $m$, and because the center by definition commutes with all elements of the group, $(xZ)^m = x^m Z$. From the properties of cosets, $g_1 Z = x^m Z$ implies that $(x^m)^{-1} g_1 = z_1$ for some $z_1 \in Z$, and hence $g_1 = x^m z_1$. Likewise, if $g_2 \in G$, then $g_2 Z = (xZ)^n$ for some integer $n$, and we can deduce that $g_2 = x^n z_2$ for some $z_2 \in Z$. Finally, we have that
+        \begin{align*}
+            g_1 g_2 &= (x^m z_1) (x^n z_2) = x^m x^n z_1 z_2 = x^{m + n} z_1 z_2 \\
+            &= x^{n + m} z_2 z_1 = (x^n z_2) (x^m z_1) = g_2 g_1.
+        \end{align*}
+
+    \item[3.]
+        \boldmath
+        \textbf{A nonabelian group $G$ has order $p^3$, where $p$ is prime.} \par
+        \unboldmath
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{What are the possible orders of the center $Z$?} \par
+                \unboldmath
+                $|Z|$ must divide $p^3$, and we know that $Z$, the center of a $p$-group, is not the trivial group. \par
+                Also, if we assume for the purpose of contradiction that $|Z| = p^2$ and let $x \in G \setminus Z$, then $Z(x) \ge Z$ because $Z(x)$ is a group that contains $x$ as well as $Z$, so $|Z(x)| > |Z| = p^2$. Since $|Z(x)|$ divides $|G|$, we must have that $|Z(x)| = |G| = p^3$ and thus $Z(x) = G$. This implies that $x \in Z$, a contradiction. \par
+                Also, $|Z| \neq p^3$ since $G$ is nonabelian. \par
+                In conclusion, $|Z| = p$.
+
+            \item
+                \boldmath
+                \textbf{Let $x$ be an element of $G$ that is not in $Z$. What is the order of its centralizer $Z(x)$?} \par
+                \unboldmath
+                If $x \in G \setminus Z$, then $Z \neq G$, so $|Z| \neq |G| = p^3$. It can be deduced then that $|Z| = p$. From part (a), $|Z(x)| > |Z| = p$. $|Z(x)|$ divides $|G|$, and to avoid the contradiction, we must have that $|Z(x)| < |G| = p^3$. Therefore, $|Z(x)| = p^2$.
+
+            \item
+                \boldmath
+                \textbf{What are the possible class equations for $G$?} \par
+                \unboldmath
+                If $|Z| = p$, then the class equation has $p$ conjugacy classes of size $1$, and the remaining terms sum up to $p^3 - p$. From part (b), we know that for any $x \in G \setminus Z$, $|Z(x)| = p^2$, so $|C(x)| = |G|/|Z(x)| = p^3/p^2 = p$. Because we have accounted for all the elements in $G$, the conjugacy classes of order $p$ must form the rest of the conjugacy classes of $G$, so there are $(p^3 - p)/p = p^2 - 1$ of them. \par
+                In conclusion, the class equation has $a_1 = p$, $a_p = p^2 - 1$.
+        \end{enumerate}
+\end{enumerate}
+
+\subsection*{7.6}
+\begin{enumerate}
+    \item[5.]
+        \boldmath
+        \textbf{Let $p$ be a prime integer and let $G$ be a $p$-group. Let $H$ be a proper subgroup of $G$. Prove that the normalizer $N(H)$ of $H$ is strictly larger than $H$, and that $H$ is contained in a normal subgroup of index $p$.} \par
+        \unboldmath
+        If $H$ is normal, then $N(H) = G$ and we are done. Otherwise, consider the following argument by induction. \par
+        First, consider $|G| = p$, which has $G$ cyclic and hence abelian. Then the only possible $H < G$ is $H = \{ e \}$, which has $N(H) = G \supset H$. Also, $H \subseteq \{ e \}$, a normal subgroup whose cosets are the $p$ elements of $G$. \par
+        Now, assume that the proposition holds for $|G| = p, p^2, \cdots, p^{a - 1}$, where $a > 1$, and let $H < G$. $Z(G)$ is not trivial because $G$ is a $p$-group, so $|H/Z(G)| < p^a$. By the inductive hypothesis, $N(H/Z(G))$ is strictly larger than $H/Z(G)$, so let $[x] \in N(H/Z(G)) \setminus H/Z(G)$. $x$ by its definition is necessarily not contained in $H$, so $[x](H/Z(G)) = (H/Z(G))[x]$ implies that for some $h_1, h_2 \in H$,
+        \begin{gather*}
+            xh_1 Z = h_2 Zx \\
+            xh_1 Zx^{-1} = h_2 Z \\
+            xh_1x^{-1} Z = h_2 Z \\
+            xh_1 x^{-1} z_1 = h_2 z_2 \\
+            xh_1 x^{-1} = h_2 z_2 z_1^{-1} \in H
+        \end{gather*}
+        for some $z_1, z_2 \in Z$. This shows that $x \in N(H)$, so $x \in N(H) \setminus H$. \par
+        Let $H < G$. We know that $N(H) > H$, and $N(H)$ is also a subgroup of $G$. So if $|H| < p^{a - 1}$, then we can consider whether $|N(H)| = p^{a - 1}$, and repeat this process until we get a $K = N(N(\cdots(N(H))))$ that has order $p^{a - 1}$. This is necessarily true because the orders of the subgroups of $G$ must divide $p^a$. We know that $H \in K$, a normal subgroup, and the index of $K$ is $|G|/|K| = p^a / p^{a - 1} = p$.
+\end{enumerate}
+\end{document}

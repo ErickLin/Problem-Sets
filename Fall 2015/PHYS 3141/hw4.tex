@@ -1,0 +1,154 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsmath, enumitem, fancyhdr, gensymb, mathrsfs, siunitx, textcomp}
+\usepackage[margin=1in]{geometry}
+
+\def\dbar{{\mathchar'26\mkern-12mu d}}
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{PHYS 3141 - Problem Set 4 Solutions}
+
+\begin{enumerate}[label=\textbf{[\arabic*]}]
+    \item
+        From the First Law,
+        \begin{align*}
+            dQ &= dU + dW \\
+            &= \frac{3}{2} Nk d\theta + P dV
+        \end{align*}
+        and since
+        \begin{align*}
+            \theta &= \frac{PV}{Nk} \\
+            d\theta &= \left( \frac{\partial \theta}{\partial V} \right)_P dV + \left( \frac{\partial \theta}{\partial P} \right)_V dP \\
+            &= \frac{P}{Nk} dV + \frac{V}{Nk} dP, \\ 
+        \end{align*}
+        we have
+        \begin{align*}
+            dQ &= \frac{3}{2} Nk \left( \frac{P}{Nk}dV + \frac{V}{Nk}dP \right) + P dV \\
+            &= \frac{3}{2} V dP + \frac{5}{2} P dV.
+        \end{align*}
+
+    \item
+        From [1],
+        \begin{align*}
+            dQ = 0 \Rightarrow \frac{dP}{dV} &= -\frac{5P}{3V} \\
+            \int \frac{dP}{P} &= -\frac{5}{3} \int \frac{dV}{V} \\
+            \ln{P} &= -\frac{5}{3} \ln{V} + \textit{const} \\
+            P &= \left( e^{ln{V}} \right)^{-5/3} \textit{const} \\
+            P V^{5/3} &= \textit{const} \\
+            \gamma &= \frac{5}{3}
+        \end{align*}
+
+    \item
+        No heat is transferred in the adiabatic expansion, and the work done increases with heat transferred. In addition, according to the First Law the gas undergoing adiabatic expansion is doing work at the expense of internal energy, and temperature decreases with internal energy. However, in the isothermal expansion, heat is transferred and the temperature remains constant, with the overall effect being a contribution of both factors to a greater amount of work done.
+        
+    \item
+        \begin{enumerate}
+            \item
+                The gas has 3 translational degrees of freedom. Because the internal energy associated with each degree of freedom for each particle is $\frac{1}{2}k\theta$, the total internal energy is $3(2N)\frac{1}{2}k\theta = 3Nk\theta$.
+
+            \item We now have $N$ particles, each with 3 translational and 2 rotational degrees of freedom, or 5 in total. Because the internal energy associated with each degree of freedom for each particle is still $\frac{1}{2}k\theta$, the total internal energy is now $\frac{5}{2}Nk\theta$.
+
+            \item Part (b) provides a good model for ideal diatomic gases without vibrational degrees of freedom in terms of kinetic theory. $U = \frac{5}{2}Nk\theta$ accurately fits experimental results.
+        \end{enumerate}
+
+    \item
+        \begin{align*}
+            dQ &= \frac{5}{2}Nkd\theta + PdV \\
+            &= \frac{5}{2} Nk \left( \frac{P}{Nk}dV + \frac{V}{Nk}dP \right) + P dV \\
+            &= \frac{5}{2} V dP + \frac{7}{2} P dV \\
+            dQ = 0 \Rightarrow \frac{dP}{dV} &= -\frac{7P}{5V} \\
+            \int \frac{dP}{P} &= -\frac{7}{5} \int \frac{dV}{V} \\
+            \ln{P} &= -\frac{7}{5} \ln{V} + \textit{const} \\
+            P &= \left( e^{ln{V}} \right)^{-7/5} \textit{const} \\
+            P V^{7/5} &= \textit{const} \\
+            \gamma &= \frac{7}{5}
+        \end{align*}
+        In general, the predicted value for $\gamma$ is $\frac{\text{number of d.o.f.} + 2}{\text{number of d.o.f.}}$, which approaches 1 as the number of degrees of freedom approaches large values, either through a greater number of atoms or a higher vibrational frequency.
+
+    \item
+        Since $PV^{7/5}$ is constant and $V_2 = V_1 / 10$,
+        \begin{align*}
+            P_1 V_1^{7/5} &= P_2 \left( \frac{V_1}{10} \right)^{7/5} \\
+            P_2 &= 10^{7/5} P_1 \\
+            &\approx \SI{2.545e6}{Pa}
+        \end{align*}
+        From the equation of state for ideal gases,
+        \begin{align*}
+            P_1 V_1 &= nR \theta_1 \\
+            P_2 \left( \frac{V_1}{10} \right) &= nR \theta_2 \\
+            \Rightarrow \theta_2 &= \frac{\theta_1 P_2}{10 P_1} \\
+            &= \frac{(\SI{300}{K}) (\SI{2.545e6}{Pa})}{10(\SI{1.013e5}{Pa})} \\
+            &\approx \SI{754}{K}
+        \end{align*}
+
+    \item
+        \begin{enumerate}
+            \item
+                For the monatomic gas, $U = \frac{3}{2}Nk\theta$, and for the diatomic gas, $U = \frac{5}{2}Nk\theta$.
+
+            \item
+                For both gases,
+                \begin{align*}
+                    W &= \int_{V_i}^{V_f} P dV \\
+                    &= \int_{V_i}^{V_f} \frac{Nk\theta}{V} dV \\
+                    &= Nk\theta \ln{\left( \frac{V_f}{V_i} \right)}.
+                \end{align*}
+
+            \item
+                In either case, $c = PV^\gamma$ is constant. Then
+                \begin{align*}
+                    W &= \int_{V_i}^{V_f} P dV \\
+                    &= c \int_{V_i}^{V_f} V^{-\gamma} dV \\
+                    &= \frac{c (V_f^{1 - \gamma} - V_i^{1 - \gamma})}{1 - \gamma}.
+                \end{align*}
+                For the monatomic gas, $\gamma = \frac{3}{2}$ and
+                \begin{align*}
+                    W_1 = -2c(V_f^{-1/2} - V_i^{-1/2}).
+                \end{align*}
+                For the diatomic gas, $\gamma = \frac{5}{2}$ and
+                \begin{align*}
+                    W_2 = -\frac{2}{3} c(V_f^{-3/2} - V_i^{-3/2}).
+                \end{align*}
+                It can be seen that $0 < W_2 < W_1$.
+
+            \item
+                During an isothermal expansion, the work done is dependent on the equation of state for ideal gases, which is independent of the nature of the molecules. \par
+                One interpretation through the kinetic theory of gases for why the work done during an adiabatic expansion is less for a diatomic gas is that its molecules have more degrees of freedom, allowing them to more easily spread out to fill a larger volume.
+
+        \end{enumerate}
+
+    \item
+        Since $\theta V^{\gamma - 1}$ is constant,
+        \begin{align}
+            \theta_D V_D^{\gamma - 1} &= \theta_C V_C^{\gamma - 1} \\
+            \theta_A V_A^{\gamma - 1} &= \theta_B V_B^{\gamma - 1}
+        \end{align}
+        and since $V_A = V_D$ and $V_B = V_C$,
+        \begin{align}
+            \theta_A V_D^{\gamma - 1} = \theta_B V_C^{\gamma - 1}.
+        \end{align}
+        Subtracting (1) from (3),
+        \begin{align*}
+            (\theta_A - \theta_D) V_D^{\gamma - 1} &= (\theta_B - \theta_C) V_C^{\gamma - 1} \\
+            \left( \frac{V_D}{V_C} \right)^{\gamma - 1} &= \frac{\theta_B - \theta_C}{\theta_A - \theta_D} \\
+            \eta &= 1 - \frac{Q_C}{Q_H} \\
+            &= 1 - \frac{\theta_B - \theta_C}{\theta_A - \theta_D} \\
+            &= 1 - \left( \frac{V_D}{V_C} \right)^{\gamma - 1}.
+        \end{align*}
+        Substituting from (1),
+        \begin{align*}
+            \eta = 1 - \frac{\theta_C}{\theta_D}.
+        \end{align*}
+        If $V_D = \frac{1}{10} V_C$ and $\theta_C = \SI{300}{K}$, then from [6],
+        \begin{align*}
+            \eta &= 1 - \frac{\SI{300}{K}}{\SI{753}{K}} \\
+            &\approx 0.602.
+        \end{align*}
+        The efficiency $\eta$ depends entirely on the compression ratio $\frac{V_D}{V_C}$. If it was possible to compress the gas to a volume of 0, then the Otto cycle could be achieved with $100\%$ efficiency.
+
+\end{enumerate}
+
+\end{document}

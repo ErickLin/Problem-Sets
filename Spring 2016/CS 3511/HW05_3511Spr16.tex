@@ -1,0 +1,283 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{amsfonts, amsmath, courier, enumitem}
+
+\textheight=9.5in
+\textwidth=6.5in
+\topmargin=-.8in
+\headsep=0pt
+\oddsidemargin=0truecm
+\evensidemargin=0truecm
+\footskip=20pt
+%\footheight=20pt
+\pretolerance=1600
+\tolerance=1600
+\hbadness=1600
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{problem}[theorem]{Problem}
+
+\begin{document}
+
+\title{
+}
+
+%\author{Assigned 1-13-16 , Due 1-19-16 (in class)
+%}
+
+
+\date{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author's definitions
+
+\newcommand{\DEF}[1]{{\em #1\/}}
+
+\newcommand\chic{\chi_c}
+\newcommand\C{\hbox{${\cal C}$}}
+\newcommand{\RR}{\mbox{$\mathbb R$}}
+\newcommand{\NN}{\mbox{$\mathbb N$}}
+\newcommand{\ZZ}{\mbox{$\mathbb Z$}}
+\newcommand{\eopf}{\raisebox{0.8ex}{\framebox{}}}
+\newcommand{\dist}{\hbox{\rm d}}
+\renewcommand\a{\alpha}
+\renewcommand\b{\beta}
+\renewcommand\c{\gamma}
+\renewcommand\d{\delta}
+\newcommand\D{\Delta}
+\newcommand{\directedchi}{\mbox{$\vec{\chi}$}}
+\newcommand{\directedE}{\mbox{$\vec{E}$}}
+\newcommand{\directedG}{\mbox{$\vec{G}$}}
+\newcommand{\directedK}{\mbox{$\vec{K}$}}
+
+\newenvironment{proof}%
+{\noindent{\bf Proof.}\ }%
+{\hfill\eopf\par\bigskip}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\maketitle
+
+\noindent{\bf  Last Name:} $Lin \quad$
+\noindent{\bf First Name:} $Erick \quad$
+\noindent{\bf Email:}          $elin42@gatech.edu$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 5, 3/5/16 Due 3/11/16 5pm Klaus 2138 $~~$Page 1/10}
+
+\bigskip
+
+\noindent{\bf Problem 1: Second Best MST (10 points)}\\
+Let $G(V,E)$ be an undirected connected graph whose edge weight function is $w_e > 0$ for all $e \in E$
+and such that all edge weights are distinct. 
+Define  a second-best minimum spanning tree as follows. Let $T^*$ be the set of all spanning trees of $G$,
+and let $T_0$ be the unique MST of $G$. 
+Then a second best MST is a spanning tree of minimum cost in the set $T^*\setminus \{ T_0 \}$.
+Give a polynomial time algorithm for finding a second best MST.\\
+{\bf Answer:} \par
+    First, we run Prim's or Kruskal's algorithm to find the MST $T_0$ in $O(E + V \log V)$ or $O(E \log V)$ time, respectively. \par
+    We let $\textit{heaviest}(u, v)$ denote the edge of maximum length on the path between $u$ and $v$ in $T_0$. There is only one such path because $T_0$ is a tree. For each $u \in V$, DFS/BFS can be used to find $\textit{heaviest}(u, v)$ for all $v \in V$ in $O(|V| + |T_0|) = O(|V| + |V| - 1) = O(|V|)$ time, since the number of edges in any tree is $|V| - 1$. Then finding $\textit{heaviest}(u, v)$ for all pairs $(u, v)$ takes $O(|V|^2)$ time. \par
+    Now, we find $e = (u, v) \in E \setminus T_0$ such that $w_e - w_{\textit{heaviest}(u, v)}$ is minimized, which takes $O(|E| - |V|)$ operations. The second-best minimum spanning tree is then given by $T_0 \setminus \textit{heaviest}(u, v) \cup e$. It is clear from the definition of $e$ that the minimized quantity is greater than $0$, so the sum of the weights of the edges in the second-best minimum spanning tree is guaranteed to be larger than that of $T_0$. In addition, the second-best minimum spanning tree still fulfills the definition of a MST because the vertices $u$ and $v$ are now connected by the new edge $e$. \par
+    The total time complexity of this algorithm is the time complexity of the MST algorithm plus $O(|V|^2) + O(|E| - |V|)$.
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 5, 3/5/16 Due 3/11/16 5pm Klaus 2138 $~~$Page 2/10}
+
+\bigskip
+
+\noindent{\bf Problem 2: Bottleneck Spanning Tree (10 points)}\\
+A bottleneck spanning tree $T$ of an undirected weighted graph $G$ is a spanning tree of $G$
+whose largest edge weight is minimum over all spanning trees of $G$. 
+Give a polynomial time algorithm for finding a bottleneck spanning tree 
+(you may assume that all weights of edges are distinct.)\\
+{\bf Answer:} \par
+    We sort the edges into a sequence $\{ e_1, e_2, \cdots, e_{|E|} \}$ in increasing order of weight in $O(|E| \log |E|)$ time, and then attempt to find a MST for all prefixes $\{ e_1 \}, \{ e_1, e_2 \}, \cdots, \{ e_1, e_2, \cdots, e_{|E|} \}$ of $E$ until one is found. The first one that is found, say $\{ e_1, e_2, \cdots e_b \}$, is the bottleneck spanning tree, because as no minimum spanning tree exists for sets of edges with weights smaller than that of $e_b$, the weight of $e_b$ is the minimum largest edge weight over all spanning trees of $G$. \par
+    The time complexity of this algorithm is $O(|E|^2 \log |E| \times \textit{time complexity of MST algorithm})$.
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 5, 3/5/16 Due 3/11/16 5pm Klaus 2138 $~~$Page 3/10}
+
+\bigskip
+
+\noindent{\bf Problem 3: May-Be MST (10 points)}\\
+In this problem we give pseudocode for three different algorithms. Each one takes a connected graph and a weight function as input
+and returns a set of edges $T$. For each algorithm, either prove that $T$ is a mincost spanning tree or give a counter-example indicating that the algorithms do not, in general, find a mincost spanning tree. \\
+
+\noindent
+A. May-Be-MST-A$(G,w)$\\
+1 $~~~$ sort the edges in nonincreasing order of edge weight $w$\\
+2 $~~~$ $T:=E$\\
+3 $~~~$ for each edge $e$, considered in nonincreasing order by weight\\
+4 $~~~~~~~~~$ if $T \setminus \{ e \}$ is a connected graph\\
+5 $~~~~~~~~~~~~~~~~~~~~~$ $T := T \setminus \{ e \}$\\
+6 $~~~$ return $T$\\
+
+\noindent
+B. May-Be-MST-B$(G,w)$\\
+1 $~~~$ $T:= \emptyset$ \\
+2 $~~~$ for each edge $e$ taken in arbitrary order\\
+3 $~~~~~~~~~$ if $T \cup \{ e \}$ has no cycles\\
+4 $~~~~~~~~~~~~~~~~~~~~~$ $T := T \cup \{ e \}$\\
+5 $~~~$ return $T$\\
+
+\noindent
+C. May-Be-MST-C$(G,w)$\\
+1 $~~~$ $T:= \emptyset$ \\
+2 $~~~$ for each edge $e$ taken in arbitrary order\\
+3 $~~~~~~~~~$ $T:=T\cup \{ e \}$\\
+4 $~~~~~~~~~$ if $T$ has a cycle $c$\\
+5 $~~~~~~~~~~~~~~~~~~~~~$ let $e^\prime$ be the min-weight edge of $c$\\
+6 $~~~~~~~~~~~~~~~~~~~~~$ $T:=T \setminus \{ e^\prime \}$\\
+5 $~~~$ return $T$\\
+
+\noindent
+{\bf Answer:} \par
+    A. This produces a MST because for any edge whose removal disconnects the graph, the MST must contain that edge, and hence the remaining edges are contained in cycles; as long as there are cycles, the edge of maximum weight contained in a cycle should be removed. This is a similar principle to that used in the proof of Kruskal's algorithm. Checking connectedness requires BFS/DFS, which requires $O(|V| + |E|)$. Since the algorithm iterates over all the edges, its time complexity is $O(E(|V| + |E|))$. \par
+    B. This algorithm is equivalent to initializing $T$ to $G$ and removing randomly chosen edges contained in cycles. The result is that the edges contained in the resulting spanning tree are random and depend on the initial ordering of the edges, so this algorithm does not produce a MST in general. \par
+    C. This does not produce a minimum spanning tree but instead a maximum spanning tree. For example, in the complete graph with vertices $V = \{ A, B, C, D \}$ and weights $w_{(A, B)} = 5, w_{(A, C)} = 1, w_{(A, D)} = 6, w_{(B, C)} = 4, w_{(B, D)} = 4, w_{(C, D)} = 4$, the minimum spanning tree is of weight 9, but this algorithm produces a spanning tree with weight 15.
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 5, 3/5/16 Due 3/11/16 5pm Klaus 2138 $~~$Page 4/10}
+
+\bigskip
+
+\noindent{\bf Problem 4: Edge Connectivity  (10 points)}\\
+The edge connectivity of an undirected graph is the minimum number $k$ of edges
+that must be removed to disconnect the graph. For example, the edge connectivity
+of a tree is 1, and the edge connectivity of a cyclic chain of vertices is 2. Show
+how to determine the edge connectivity of an undirected graph $G(V,E)$ 
+using the maxflow algorithm as a subroutine. \\
+{\bf Answer:} \par
+Minimum cut is dual to maximum flow by the max-flow min-cut theorem, so it can be found using a maximum flow routine such as Ford-Fulkerson, Edmonds-Karp, or Dinic, which run in $O(|E|f) = O(|V| |E|)$, $O(|V| |E|^2)$, and $O(|V|^2 |E|)$ time, respectively. Let $s \in V$. Then for all $t \in V \setminus \{ s \}$, we may construct a network using the graph $G$, source $s$, sink $t$, and capacity of $1$ for every edge, and find the minimum cut of this network. Taking the minimum value of these minimum cuts over all $t$ gives the edge connectivity of $G$. The time complexity is $O(|V| \times |V| |E|) = O(|V|^2 |E|)$ using the Ford-Fulkerson as the subroutine.
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 5, 3/5/16 Due 3/11/16 5pm Klaus 2138 $~~$Page 5/10}
+
+\bigskip
+
+\noindent{\bf Problem 5:  Maxflow with Edge and Vertex Capacities (10 points)}\\
+Suppose that, in addition to edge capacities, a flow network has vertex capacities.
+That is each vertex has a limit on how much flow can pass though it. Show
+how to transform a flow network $G$ with edge and vertex capacities into an equivalent
+flow network $G^\prime$  without vertex capacities, such that a maximum
+flow in $G$ has the same value as a maximum flow in $G^\prime$.\\
+{\bf Answer:} \par
+For every vertex $v \in V$, produce vertices $v_1, v_2$ in $V'$ with an edge $(v_1, v_2)$ having the same capacity as $v$ in $G$. Then, for every edge $(u, v) \in E$, produce the edge $(u_2, v_1) \in E'$ of the same capacity. Because any flow that passes through $v$ in $G$ now passes through $(v_1, v_2)$ in $G'$, and any flow that passes through $(u, v) \in G$ now passes through $(u_2, v_1) \in G'$, $G'$ is a network without vertex capacities whose maximum flow is the same as that of $G$. This pre-processing requires $O(|V| + |E|)$ time, since every vertex and edge is processed.
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 5, 3/5/16 Due 3/11/16 5pm Klaus 2138 $~~$Page 6/10}
+
+\bigskip
+
+\noindent{\bf Problem 6: Special Mincut (10 points)}\\
+Suppose that you wish to find, among all minimum cuts in a flow network $G$, one
+that contains the smallest number of edges. Show how to modify the capacities
+of $G$ to create a new flow network $G^\prime$ in which any minimum cut in $G^\prime$ is a minimum cut with the smallest number of edges in $G$.\\
+{\bf Answer:} \par
+Modify the capacities of all the edges of $C$ by multiplying them by $|E| + 1$ and adding $1$. Let $G'$ denote this modified flow network. Because any minimum cut consists of at most $|E|$ edges, its combined weight $w$ in $G$ and its combined weight $w'$ in $G$ will satisfy the division equation $w' = (|E| + 1)w + r$, where $r < |E| + 1$. In fact, $r$ is the number of edges that make up this minimum cut, by the definition of $G'$. Therefore, we may find the minimum cut in $G$ with the smallest number of edges by finding the minimum cut in $G'$. This pre-processing requires $O(|E|)$ time.
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 5, 3/5/16 Due 3/11/16 5pm Klaus 2138 $~~$Page 7/10}
+
+\bigskip
+
+\noindent{\bf Problem 7: Updating Maximum Flow (10 points)}\\
+Let $G(V,E)$ be a flow network with source $s$, sink $t$, and integer capacities. Suppose that we are also given a maxflow for $G$.\\
+(a) Suppose that the capacity of a single edge $(u,v) \in E$ is increased by 1. 
+Give an $O(|V|+|E|)$ algorithm to update the maximum flow. \\
+(b)  Suppose that the capacity of a single edge $(u,v) \in E$ is decreased by 1. 
+Give an $O(|V|+|E|)$ algorithm to update the maximum flow. \\
+{\bf Answer:} \par
+Let $c(u, v)$ denote the capacity of the edge $(u, v)$, and let $f(u, v)$ denote the flow of $(u, v)$ in the maximum flow.
+\begin{enumerate}[label=(\alph*)]
+    \item
+        We use BFS/DFS to find whether a path exists from the source to the sink whose edges all have flow less than their capacity. If such a path exists, then $(u, v)$ is necessarily in this path, because it is the only edge whose capacity has changed since the previous maximum flow was found. The flows of all the edges in this path are incremented by 1 so that $(u, v)$ is once again saturated. BFS/DFS runs in $O(|V| + |E|)$ time.
+
+    \item
+        If $f(u, v) < c(u, v)$ previously, then nothing needs to be done. Otherwise, if $(u, v)$ was previously saturated, then we can run two DFS/BFS procedures, one in the reverse direction of the edges from $u$ and one in the forward direction from $v$. These will find paths from $u$ to $s$ and from $v$ to $t$, and we can proceed by decreasing the flow of all the edges on these paths as well as of $(u, v)$. It is guaranteed that such paths will be found, because there originally existed a path from $s$ to $t$ containing $(u, v)$ so that the flow along all these edges was incremented. Using DFS/BFS on the subgraphs takes $O(|V| + |E|)$ time.
+
+\end{enumerate}
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 5, 3/5/16 Due 3/11/16 5pm Klaus 2138 $~~$Page 8/10}
+
+\bigskip
+
+\noindent{\bf Problem 8: Perfect Matching (10 points)}\\
+Let $G(V,E)$ be a $d$-regular bipartite graph. 
+That is, $V=V_L \cup V_R$, where $V_L \cap V_R := \emptyset$, $|V_L|=|V_R|=n$, 
+and every vertex $v\in V$ has exactly $d$ edges incident to $v$. 
+A {\em perfect matching} $M$ is a collection of edges of $E$ such that 
+every vertex $v\in V$ has exactly one edge of $M$ incident to $v$.
+Show that $G$ has a perfect matching.\\
+{\bf Answer:} \par
+    If $X \subset V_L$, then we know that the degree of any vertex in $X$ is $k$. If we let $N(X) \subset V_R$ be the set of vertices that have an edge to some vertex in $X$, then the degree of any vertex in $X$ is also at most $k|X|/|N(X)|$. By the double counting principle we have $k \geq k|X|/|N(X)|$, and hence $|N(X)| \geq |X|$. By Hall's theorem, this result shows that the set of vertices in $V_R$ forms a system of distinct representatives for a family of sets, each corresponding to a vertex $v \in V_L$ and containing the $k$ vertices in $V_R$ that have an edge to $v$. In other words, there is a perfect matching between vertices in $V_L$ and vertices in $V_R$.
+    \begin{align*}
+    \end{align*}
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 5, 3/5/16 Due 3/11/16 5pm Klaus 2138 $~~$Page 9/10}
+
+\bigskip
+
+\noindent{\bf Problem 9: Review Dynamic Programming  (10 points)}\\
+Let $T(V,E)$ be a tree. We are also given a non-negative cost $c(v)$ for every vertex $v\in V$. 
+Give a polynomial time algorithm that finds a mincost vertex cover of $T$.\\
+{\bf Answer:} \par
+For each vertex $v \in V$, let $N(v)$ denote the set of vertices with an edge to $v$. We can first pick a vertex at random and run DFS using this vertex as the root to obtain a DFS tree in $O(|V| + |E|)$ time. Define $\textit{critical}$ vertices as those that have more than one child, and let $V_S$ denote the set of critical vertices. Then each critical vertex can either be in the vertex cover or not. If $v \in V_S$ is in the vertex cover, then any vertices contained in $N(v) \setminus V_S$ (the non-critical vertices among the parent and children of $v$) are not in the vertex cover, while if $v \in V_S$ is not in the vertex cover, then $N(v)$ is necessarily in the vertex cover. We can iterate through all $2^{|V_S|}$ possibilities of critical vertices being or not being in the vertex cover, discarding those in which two critical vertices sharing the same edge are both not present, and run the linear-time dynamic programming vertex cover subroutine on the disjoint linear graphs formed by $V \setminus V_S$, then take the minimum cost vertex cover over all these possibilities. Because $T$ is a tree, the number of critical vertices is bounded by $|V_S| = O(\log |V|)$, so $2^{|V_S|} = O(|V|)$, and this algorithm runs in polynomial time. The time complexity of this algorithm is $O(|V| + |E| + |V|^2) = O(|V|^2 + |E|)$.
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 5, 3/5/16 Due 3/11/16 5pm Klaus 2138 $~$Page 10/10}
+
+\bigskip
+
+\noindent{\bf Problem 10: Review Algorithm Design  (10 points)}\\
+Let $G(V,E)$ be a directed graph given in adjacency matrix representation $A$. 
+We say that a vertex $v \in V$ is a {\em supersink} if and only if:\\
+$~~~~~~~~~~~~~~~~$ for all $u \in V \setminus \{ v \}$ the edge $u \rightarrow v$ is present, ie $a_{uv}=1$\\
+$~~~~~~~~~~~~~~~~$ for all $u \in V$ the edge $v \rightarrow u$ is not present, ie $a_{vu}=0$\\
+Give an $O(|V|)$ algorithm that determines if $G(V,E)$  given in adjacency matrix representation $A$ has a supersink.\\
+{\bf Answer:} \par
+Iterate over all vertices $u \in V \setminus \{ v \}$, and check that $a_{uv} = 1$ and $a_{vu} = 0$. If these do not hold for some $u$, then $G(V, E)$ does not have a supersink. Otherwise, $G(V, E)$ has a supersink. This is actually a restatement of the definition in the form of an algorithm. The number of operations is $2(|V| - 1)$, so the time complexity is $O(|V|)$.
+
+
+
+
+\end{document}

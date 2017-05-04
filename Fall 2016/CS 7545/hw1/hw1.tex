@@ -1,0 +1,271 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr, mathtools, titlesec}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\lhead{}
+\rhead{Erick Lin}
+\titleformat{\subsection}{\normalfont\large\bfseries}{}{0em}{Problem \thesubsection}
+
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\DeclarePairedDelimiterX{\norm}[1]{\lVert}{\rVert}{#1}
+\DeclarePairedDelimiter \ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter \floor{\lfloor}{\rfloor}
+\DeclarePairedDelimiter \angleb{\langle}{\rangle}
+\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[subsection]
+
+\newcommand{\bs}{\boldsymbol}
+\newcommand{\transpose}{\mathsf{T}}
+
+\begin{document}
+\section*{CS 7545 -- HW1 Solutions}
+Collaborators: William Agnew and Saurabh Kumar
+\subsection{}
+    \boldmath\textbf{Show that the projection of a Gaussian distribution to any lower-dimensional subspace is also a Gaussian distribution.
+    }\unboldmath \par
+    The m.g.f. is another way to characterize a probability distribution. If $\bs{X} \sim \mathcal{N}(\mu, \Sigma)$ is a multivariate Gaussian distribution, then we know that its m.g.f. is given by
+    \begin{align*}
+        M_{\bs{X}}(\bs{t}) = \mathbb{E} \left( e^{\bs{t}^\transpose \bs{X}} \right) = e^{\bs{t}^\transpose \mu + \frac{1}{2} \bs{t}^\transpose \Sigma \bs{t}}.
+    \end{align*}
+    If $P$ is any projector, then the m.g.f. of $P\bs{X}$ is given by
+    \begin{align*}
+        M_{P\bs{X}}(\bs{t}) = \mathbb{E} \left( e^{\bs{t}^\transpose P\bs{X}} \right) = \mathbb{E} \left( e^{(P^\transpose \bs{t})^\transpose \bs{X}} \right) = M_{\bs{X}}(P^\transpose \bs{t}) = e^{\bs{t}^\transpose P \mu + \frac{1}{2} \bs{t}^\transpose (P \Sigma P^\transpose) \bs{t}},
+    \end{align*}
+    which is the m.g.f. of the Gaussian distribution $\mathcal{N}(A\mu, A\Sigma A^\transpose)$.
+
+\subsection{}
+    \boldmath\textbf{Given a mixture of $k$ distributions, each of which is the uniform distribution over an unknown cube (of arbitrary side length and orientation), give a separation condition that allows efficient clustering of a sample with high probability. Bound the time and sample complexity of your algorithm.
+    }\unboldmath \par
+    (This solution is adapted from Exercises 2.1-2.3 in \cite{spectral}.) We will actually achieve this in a more general case, namely that of a mixture of $k$ weakly isotropic distributions. Of course, this means we first have to show that the uniform distribution over a cube satisfies this condition.
+    \begin{lemma} \label{lem:iso-cov}
+        A distribution is weakly isotropic if and only if its covariance matrix is a multiple of the identity.
+    \end{lemma}
+    \begin{proof}
+        For any $n$-dimensional distribution $X$ with mean $\mu$ and covariance matrix $\Sigma$,
+        \begin{align*}
+            \mathbb{E}((w \cdot (X - \mu))^2) = w^\transpose \mathbb{E}((X - \mu)(X - \mu)^\transpose) w = w^\transpose \Sigma w
+        \end{align*}
+        is $\sigma^2$ for all $w \in \mathbb{R}^n$, $\norm{w} = 1$ if and only if $\Sigma = \sigma^2 I$.
+    \end{proof}
+    \begin{lemma}
+        The uniform distribution over a cube is weakly isotropic.
+    \end{lemma}
+    \begin{proof}
+        Weak isotropism is preserved under translation and rotation, so we may orient the cube such that each coordinate takes values over the range $[-k, k]$; in other words, the distribution has mean zero and the same variance in each component. Since each component $X_i$ is independent of $X_j$ where $i \neq j$, the covariance is $\mathbb{E}(X_i X_j) = \mathbb{E}(X_i) \mathbb{E}(X_j) = 0$, so the covariance matrix is trivially a multiple of the identity; thus, by Lemma \ref{lem:iso-cov}, the distribution is weakly isotropic.
+    \end{proof}
+    \begin{lemma}
+        The $k$-dimensional SVD subspace for a mixture $F$ with component means $\mu_1, \cdots, \mu_k$ contains $\text{span}\{ \mu_1, \cdots, \mu_k \}$ if each $F_i$ is weakly isotropic.
+    \end{lemma}
+    \begin{proof}
+        Let $S = \left[ \begin{array}{cccc} s_1 & s_2 & \cdots & s_k \end{array} \right]$ be an orthonormal basis for the $k$-dimensional SVD subspace where each $s_i \in \mathbb{R}^n$, and let $X \sim F$. Since the $k$-dimensional SVD subspace is the best-fit subspace for $X$, the basis vectors maximize
+        \begin{align*}
+            \mathbb{E} \left[ \sum_{i = 1}^k (s_i^\transpose X)^2 \right] = \mathbb{E}(\norm{S^\transpose X}^2).
+        \end{align*}
+        Furthermore, $X = w_1 X_1 + w_2 X_2 + \cdots + w_k X_k$ where $X_i \in F_i$, so we can expand this as
+        \begin{align*}
+            \mathbb{E}(\norm{S^\transpose X}^2) &= \sum_{i = 1}^k w_i \mathbb{E}(\norm{S^\transpose X_i}^2) = \sum_{i = 1}^k w_i \sum_{j = 1}^k \mathbb{E} \left[ (s_j^\transpose X_i)^2 \right] \\
+            &= \sum_{i = 1}^k w_i \sum_{j = 1}^k \mathbb{E} \left[ (s_j^\transpose (X_i - \mu_i) + s_j^\transpose \mu_i)^2 \right] \\
+            &= \sum_{i = 1}^k w_i \sum_{j = 1}^k \mathbb{E} \left[ (s_j^\transpose (X_i - \mu_i))^2 + 2s_j^\transpose (X_i - \mu_i) s_j^\transpose \mu_i + (s_j^\transpose \mu_i)^2 \right] \\
+            &= \sum_{i = 1}^k w_i \sum_{j = 1}^k \left( \mathbb{E} \left[ s_j^\transpose (\sigma_i^2 I) s_j \right] + (s_j^\transpose \mu_i)^2 \right) \\
+            &= \sum_{i = 1}^k w_i \sum_{j = 1}^k \left( \sigma_i^2 + (s_j^\transpose \mu_i)^2 \right).
+        \end{align*}
+        Since $(s_j^\transpose \mu_i)^2$ is maximized when $\mu_i$ and $s_j$ share the same direction, $S$ necessarily contains the span of the means $\mu_1, \cdots, \mu_k$.
+    \end{proof}
+    We also know that the uniform distribution in any convex body such as a cube is logconcave, and hence satisfies the inequality given in the following lemma adapted from \cite{spectral}:
+    \begin{lemma}
+        Let $X$ be a random point from a weakly isotropic distribution in $\mathbb{R}^n$ with $\mu = \mathbb{E}(X)$. Then
+        \begin{align*}
+            \mathbb{P}(\norm{X - \mu} \geq t\sigma\sqrt{n}) \leq e^{-t + 1}.
+        \end{align*}
+        (Equivalently, $\mathbb{P}(\norm{X - \mu} \leq t\sigma\sqrt{n}) \geq 1 - e^{-t + 1}$.) 
+    \end{lemma}
+    Letting $t = \ln(\frac{m}{\delta}) + 1$ for some constant $\delta$ and where $m$ denotes the number of samples, $e^{-t + 1}$ becomes $\frac{\delta}{m}$, so by the union bound, the inequality holds for all $m$ samples with probability at most $\delta$. We show that spectral projection followed by distance-based classification succeeds with high probability as follows. \par
+    The projection of each uniform distribution over a cube $X \sim F$ to the $k$-dimensional SVD subspace, given by $Y = S^\transpose X$, is still weakly isotropic because
+    \begin{align*}
+        \mathbb{E}(\norm{S^\transpose X - S^\transpose \mu}^2) = \mathbb{E}(S^\transpose (X - \mu)(X - \mu)^\transpose S) = S^\transpose \sigma^2 IS = \sigma^2 I.
+    \end{align*}
+    Now suppose $X \sim F_i$ and $Y \sim F_i$. Then with probability at least $1 - \delta$,
+    \begin{align*}
+        \mathbb{E}(\norm{X - Y}) &= \mathbb{E}(\norm{X - \mu_i - Y + \mu_i}) \\
+        &\leq \mathbb{E}(\norm{X - \mu_i} + \norm{Y - \mu_i}) \\
+        &= 2t\sigma_i\sqrt{k}.
+    \end{align*}
+    On the other hand, if $X \sim F_i$ and $Y \sim F_j$ where $i \neq j$, then with probability at least $1 - \delta$,
+    \begin{align*}
+        \mathbb{E}(\norm{X - Y}) &= \mathbb{E}(\norm{X - \mu_i - Y + \mu_j + \mu_i - \mu_j}) \\
+        &\geq \mathbb{E}(\norm{\mu_i - \mu_j} - \norm{-X + \mu_i} - \norm{Y - \mu_j}) \\
+        &\geq \norm{\mu_i - \mu_j} - t\sigma_i\sqrt{k} - t\sigma_j\sqrt{k} \\
+        &\geq \norm{\mu_i - \mu_j} - 2t\max\{ \sigma_i, \sigma_j \}\sqrt{k}.
+    \end{align*}
+    Thus, if we have $\norm{\mu_i - \mu_j} \geq 4t\max\{ \sigma_i, \sigma_j \}\sqrt{k}$, then the distance between samples drawn from the two different components will be larger in expectation than between points from the same component, allowing for efficient clustering of the samples. This leads us to the statement of the following theorem (which turns out to be a stronger special case of Theorem 2.8 from \cite{spectral}).
+    \begin{theorem}
+        Algorithm \emph{Classify-Mixture} correctly classifies a sample of $m$ points from a mixture of $k$ weakly isotropic distributions $F_1, \cdots, F_k$, with probability at least $1 - \delta$, if for each pair $i$, $j$, we have
+        \begin{align*}
+            \norm{\mu_i - \mu_j} \geq 4 \left[ \ln \left( \frac{m}{\delta} \right) + 1 \right] \max\{ \sigma_i, \sigma_j \}\sqrt{k}
+        \end{align*}
+        where $\mu_i$ is the mean and $\sigma_i^2$ is the variance of component $F_i$.
+    \end{theorem}
+    The time complexity of \emph{Classify-Mixture} is given by the bottleneck of computing the singular value decomposition of the sample matrix, projecting the samples to a rank-$k$ subspace, and performing a distance-based classification in the $k$-dimensional subspace.
+
+\subsection{}
+    \boldmath\textbf{Give an algorithm to estimate the variances and mixing weights of a mixture of $k$ Gaussians, given that the Gaussians (1) are spherical and (2) all have mean zero.
+    }\unboldmath \par
+    Here we may use the main result of \cite{mixture}, since any such mixture satisfies the definition of \emph{statistical learnability} given in that paper. More specifically, if the mixture is denoted $F = \sum_{i = 1}^k w_i F_i$ and $D(F_i, F_j)$ denotes the statistical distance between $F_i$ and $F_j$, then the mixture is $\epsilon$-statistically learnable if we take
+    \begin{align*}
+        \epsilon = \min\{ \min_i w_i, \min_{i \neq j} D(F_i, F_j) \}.
+    \end{align*} \par
+    Then if the mixture is of dimension $n$, there is an algorithm that, with probability at least $1 - \delta$, outputs an $\epsilon$-close estimate $\hat{F}$ with running time and data requirements polynomial in $n$, $1/\epsilon$, and $1/\delta$. This is the algorithm which culminates in Proposition 13 in the paper.
+
+\subsection{}
+    \boldmath\textbf{Consider the following algorithm for ICA. For a vector $u$, let $M(u)$ be the covariance matrix of the sample with each point weighted by $e^{u^\transpose x}$. Pick random Gaussian vectors $u, v$, compute $M(0)$, $M(u)$ and $M(v)$, and output $[M(u) - M(0)][M(v) - M(0)]^{-1}$. Show that this algorithm works if $x$ is generated as $As + y$ where $A$ is full-rank and square, $s$ is a product distribution, and $y$ has an unknown Gaussian distribution.
+    }\unboldmath \par
+    First, consider the fact that if $z$ is generated as $As$ and we let $\phi'(u) = \log(\mathbb{E}(e^{u^\transpose z}))$ where $u$ is considered without loss of generality, then we know that
+    \begin{align*}
+        D\phi'(u) &= \mu_{u, z} = \frac{\mathbb{E}(ze^{u^\transpose z})}{\mathbb{E}(e^{u^\transpose z})} \quad \text{ and } \\
+        D^2\phi'(u) &= \Sigma_{u, z} = \frac{\mathbb{E}((z - \mu_{u, z})(z - \mu_{u, z})^\transpose e^{u^\transpose z})}{\mathbb{E}(e^{u^\transpose z})}.
+    \end{align*} \par
+    $x$ is now generated as $z + y$ where $y \sim \mathcal{N}(\mu_{u, y}, \Sigma_{u, y})$. If we let
+    \begin{align*}
+        \phi(u) &= \log(\mathbb{E}(e^{u^\transpose x})) \\
+        &= \log(\mathbb{E}(e^{u^\transpose (z + y)})) = \log(\mathbb{E}(e^{u^\transpose z}) \mathbb{E}(e^{u^\transpose y})) \\
+        &= \log(\mathbb{E}(e^{u^\transpose z})) + \log(\mathbb{E}(e^{u^\transpose y})),
+    \end{align*}
+    we have
+    \begin{align} \label{eq:D2}
+        D^2\phi(u) = \frac{\mathbb{E}((z - \mu_{u, z})(z - \mu_{u, z})^\transpose e^{u^\transpose z})}{\mathbb{E}(e^{u^\transpose z})} + \frac{\mathbb{E}((y - \mu_{u, y})(y - \mu_{u, y})^\transpose e^{u^\transpose y})}{\mathbb{E}(e^{u^\transpose y})}.
+    \end{align}
+    We know that the first term on the right-hand side becomes $\Sigma_{u, z}$ from above. To help with simplifying the second term, we first state a lemma:
+    \begin{lemma}
+        $(y - \mu_{u, y})^\transpose \Sigma_{u, y}^{-1} (y - \mu_{u, y}) - 2u^\transpose y = (y^\transpose - (\mu_{u, y}^\transpose + u^\transpose \Sigma_{u, y})) \Sigma_{u, y}^{-1} (y - (\mu_{u, y} + \Sigma_{u, y} u)) - (\mu_{u, y}^\transpose + u^\transpose \Sigma_{u, y})(\mu_{u, y} + \Sigma_{u, y} u) + \mu_{u, y}^\transpose \Sigma_{u, y}^{-1} \mu_{u, y}$.
+    \end{lemma}
+    Using the lemma and denoting $p_y$ as the p.d.f. of $y$, we have that
+    \begin{align*}
+        \mathbb{E}(e^{u^\transpose y'}) &= \int_{-\mathbb{R}^n}^{\mathbb{R}^n} e^{u^\transpose y'} p_y(y') dy' \\
+        &= \frac{1}{\sqrt{(2\pi)^n |\Sigma_{u, y}|}} \int_{-\mathbb{R}^n}^{\mathbb{R}^n} e^{u^\transpose y'} \cdot e^{-\frac{1}{2} (y' - \mu_{u, y'})^\transpose \Sigma_{u, y'}^{-1} (y' - \mu_{u, y'})} dy' \\
+        &= \frac{1}{\sqrt{(2\pi)^n |\Sigma_{u, y}|}} \int_{-\mathbb{R}^n}^{\mathbb{R}^n} e^{-\frac{1}{2} [(y' - \mu_{u, y'})^\transpose \Sigma_{u, y'}^{-1} (y' - \mu_{u, y'}) - 2u^\transpose y']} dy' \\
+        &= \frac{1}{\sqrt{(2\pi)^n |\Sigma_{u, y}|}} \int_{-\mathbb{R}^n}^{\mathbb{R}^n} e^{-\frac{1}{2} (y'^\transpose - (\mu_{u, y'}^\transpose + u^\transpose \Sigma_{u, y'})) \Sigma_{u, y'}^{-1} (y' - (\mu_{u, y'} + \Sigma_{u, y'} u))} \cdot \text{} \\
+        &\qquad\qquad\qquad\qquad\qquad e^{[\frac{1}{2}(\mu_{u, y'}^\transpose + u^\transpose \Sigma_{u, y'})(\mu_{u, y'} + \Sigma_{u, y'} u) - \mu_{u, y'}^\transpose \Sigma_{u, y'}^{-1} \mu_{u, y'}]} dy' \\
+        &= C(u) \left[ \frac{1}{\sqrt{(2\pi)^n |\Sigma_{u, y}|}} \int_{-\mathbb{R}^n}^{\mathbb{R}^n} e^{-\frac{1}{2} (y'^\transpose - (\mu_{u, y'}^\transpose + u^\transpose \Sigma_{u, y'})) \Sigma_{u, y'}^{-1} (y' - (\mu_{u, y'} + \Sigma_{u, y'} u))} dy' \right] \\
+        &= C(u)
+    \end{align*}
+    (where $C(u)$ denotes the scalar that depends only on $u$), since the bracketed quantity gives the total integral of the p.d.f. of a Gaussian distribution with mean $\mu_{u, y} + u\Sigma_{u, y}$ and variance $\Sigma_{u, y}$. \par
+    Furthermore,
+    \begin{align*}
+        \mathbb{E}((y - \mu_{u, y})(y - \mu_{u, y})^\transpose e^{u^\transpose y}) &= \mathbb{E}(yy^\transpose e^{u^\transpose y} - (y\mu_{u, y}^\transpose + \mu_{u, y} y^\transpose) e^{u^\transpose y} + \mu_{u, y} \mu_{u, y}^\transpose e^{u^\transpose y}) \\
+        &= \mathbb{E}(yy^\transpose e^{u^\transpose y} - 2\mu_{u, y} y^\transpose e^{u^\transpose y} + \mu_{u, y} \mu_{u, y}^\transpose e^{u^\transpose y}) \\
+        &= \mathbb{E}(yy^\transpose e^{u^\transpose y}) - 2\mu_{u, y} \mathbb{E}(y^\transpose e^{u^\transpose y}) + \mu_{u, y} \mu_{u, y}^\transpose \mathbb{E}(e^{u^\transpose y}) \\
+        &= \mu_{u, y} \mu_{u, y}^\transpose C(u)
+    \end{align*}
+    since by using integration of parts, the first and second terms in the above expression become
+    \begin{align*}
+        \mathbb{E}(y^\transpose e^{u^\transpose y}) &= \int_{-\mathbb{R}^n}^{\mathbb{R}^n} y'^\transpose e^{u^\transpose y'} p_y(y') dy' \\
+        &= \left[ y'C(u) - \int_{-\mathbb{R}^n}^{\mathbb{R}^n} C(u) \cdot 1 dy' \right]_{-\mathbb{R}^n}^{\mathbb{R}^n} \\
+        &= \left[ y'C(u) - y'C(u) \right]_{-\mathbb{R}^n}^{\mathbb{R}^n} \\
+        &= 0
+    \end{align*}
+    and
+    \begin{align*}
+        \mathbb{E}(yy^\transpose e^{u^\transpose y}) = \int_{-\mathbb{R}^n}^{\mathbb{R}^n} y'y'^\transpose e^{u^\transpose y'} p_y(y') dy' = y' \cdot 0 - \int_{-\mathbb{R}^n}^{\mathbb{R}^n} 0 \cdot 1 dy' = 0.
+    \end{align*}
+    Putting all these results together, (\ref{eq:D2}) becomes
+    \begin{align*}
+        M(u) = D^2 \phi(u) = \Sigma_{u, z} + \mu_{u, y} \mu_{u, y}^\transpose
+    \end{align*}
+    and likewise,
+    \begin{gather*}
+        M(v) = D^2 \phi(v) = \Sigma_{v, z} + \mu_{u, y} \mu_{u, y}^\transpose \\
+        M(0) = D^2 \phi(0) = \Sigma_{0, z} + \mu_{u, y} \mu_{u, y}^\transpose.
+    \end{gather*}
+    Thus,
+    \begin{align*}
+        [M(u) - M(0)][M(v) - M(0)]^{-1} &= (\Sigma_{u, z} - \Sigma_{0, z}) (\Sigma_{v, z} - \Sigma_{0, z})^{-1} \\
+        &= (AD_uA^\transpose - AD_0A^\transpose)(AD_vA^\transpose - AD_0A^\transpose)^{-1} \\
+        &= A(D_u - D_0)A^\transpose (A^\transpose)^{-1}(D_v - D_0)^{-1}A^{-1} \\
+        &= A(D_u - D_0)(D_v - D_0)^{-1}A^{-1}
+    \end{align*}
+    where $D_u$, $D_v$, and $D_0$ are diagonal. Since diagonality of matrices is preserved under sums, products, and inverses, the above is a spectral decomposition whose eigenvectors give the columns of $A$.
+
+\subsection{}
+    \boldmath\textbf{Suppose $\vec{a} = (1,\dots,1,0,\dots,0) \in \mathbb{R}^{n}$ is a vector whose first $s$ coordinates are equal to 1 and whose remaining coordinates are 0. Let $\vec{r} \in \mathbb{R}^{n}$ be a vector whose entries are i.i.d. from $\mathcal{N}(0,1)$. Show that when $s$ is sufficiently small compared to $n$, with probability at least $1 - 1/n$, then the unique solution to the program below is $x_1=1, x_2=0$:
+    \begin{align*}
+        \min_{x_{1}, x_{2} \in \mathbb{R}} & \|x_{1}\vec{a} + x_{2}\vec{r}\|_{1}\\  \mbox{s.t. } & x_{1}a_1 + x_{2}r_1 = 1
+    \end{align*}
+    What is the highest $s$ (as a function of $n$) for which your proof works?
+    }\unboldmath \par
+    \begin{remark}
+        This is the first iteration of ER-SpUD(SC) \cite{dictionary} with
+        \begin{gather*}
+            \vec{w} = \left[ \begin{array}{c}
+                    x_1 \\
+                    x_2
+            \end{array} \right] \quad \text{and} \quad
+            Y = \left[ \begin{array}{c}
+                    \vec{a}^\transpose \\
+                    \vec{r}^\transpose
+            \end{array} \right],
+        \end{gather*}
+        which yields $s_1 = \vec{w}^\transpose Y$.
+    \end{remark}
+    Suppose the values of $x_1$ and $x_2$ are fixed under the constraint, and $x_1$ is increased by $\Delta x_1$. Then since $a_1 = 1$, $x_2$ must be decreased by $\frac{\Delta x_1}{r_1}$ for the constraint to be maintained. \par
+    The objective function may also be rewritten as
+    \begin{align*}
+        \sum_{i = 1}^s |x_1 + x_2 r_i| + \sum_{j = s + 1}^n |x_2 r_j|,
+    \end{align*}
+    which takes the value $s$ if $x_1 = 1$ and $x_2 = 0$. \par
+    Fixing $x_1 = 1$, we have
+    \begin{align*}
+        \sum_{i = 1}^s (1 - |x_2||r_i|) \leq \sum_{i = 1}^s |1 + x_2 r_i| \leq \sum_{i = 1}^s (1 + |x_2||r_i|)
+    \end{align*}
+    %Since $|r_i|$ is drawn from the half-normal distribution, its mean is $\frac{\sqrt{2}}{\sqrt{\pi}}$, and by the central limit theorem, $\sum_{i = 1}^s |r_i| \approx \frac{\sqrt{2}}{\sqrt{\pi}}s$ with high probability.
+    so as long as $|x_2|$ is small, the middle quantity above is approximately $s$ with high probability. Thus, the change in the objective function is approximately
+    \begin{align*}
+        \Delta x_1 s + \sum_{i = s + 1}^n \left| {-\frac{\Delta x_1}{r_1}} r_i \right|.
+    \end{align*}
+    We show that any perturbation to $x_1$ increases the objective function with probability at least $1 - \frac{1}{n}$ by breaking it down into two cases. \par
+    If $\Delta x_1$ is negative, then we find the conditions under which the second term dominates the first. The constant can be pulled out of the summation in the second term. Since $|r_i|$ is drawn from the half-normal distribution, its mean is $\frac{\sqrt{2}}{\sqrt{\pi}}$, and by the central limit theorem, $\sum_{i = s + 1}^n |r_i| \approx \frac{\sqrt{2}}{\sqrt{\pi}}(n - s)$ with high probability. We know that since $r_1 \sim \mathcal{N}(0, 1)$, $\mathbb{P}(r_1 > t) \leq e^{-t^2/2}$, and hence if we set $t = \sqrt{2\log n}$, we have
+    \begin{align*}
+        \mathbb{P}(r_1 \leq \sqrt{2\log n}) \geq 1 - \frac{1}{n}.
+    \end{align*}
+    Overall, with probability at least $1 - \frac{1}{n}$, the change in the objective function is approximately at least
+    \begin{align*}
+        \Delta x_1 s - \frac{\Delta x_1}{\sqrt{2\log n}} \frac{\sqrt{2}}{\sqrt{\pi}}(n - s),
+    \end{align*}
+    which must have $s \leq \frac{n}{\sqrt{\pi \log n} + 1}$ to be positive. \par
+    If $\Delta x_1$ is positive, then both terms in the change of the objective function increase. \par
+    In conclusion, $x_1 = 1$ and $x_2 = 0$ is the unique solution with probability at least $1 - \frac{1}{n}$ if $s$ is at most approximately $\frac{n}{\sqrt{\pi \log n} + 1}$.
+
+\subsection{}
+    \boldmath\textbf{Consider the following $k$-means/EM algorithm for learning data from a mixture of $k$ Gaussians:
+        \begin{enumerate}
+            \item
+                Start with a random set of $k$ Gaussians; i.e., a set of $k$ Gaussians each with a random data point as its mean and the identity covariance matrix.
+            \item
+                For each data point, assign the Gaussian that is most likely to have generated it (i.e., having the highest density at that point) among the current $k$ Gaussians.
+            \item
+                This gives a partition of the data. Estimate the mean and covariance of each part to yield $k$ new Gaussians and $k$ new mixing weights.
+            \item
+                Repeat steps 2 and 3 until an equilibrium is reached.
+        \end{enumerate}
+        Give an example for which this algorithm fails to estimate the true mixture, and furthermore reaches an equilibrium significantly different from the true mixture.
+    }\unboldmath \par
+    An example that comes immediately to mind is when one of the true Gaussians has no points that are randomly initialized as one of the means, and is also separated far apart from the other Gaussians. Then this Gaussian will never be identified. However, this scenario is dependent on the random behavior of step 1, and we subsequently present an example in which the algorithm fails deterministically. \par
+    Consider a mixture $X = w_0 X_0 + w_1 X_1$ of two univariate Gaussians, where $X_0 \sim \mathcal{N}(\mu_0, \sigma_0)$ and $X_1 \sim \mathcal{N}(\mu_0 + d, \sigma_1)$, and let $p_0$ and $p_1$ denote their respective p.d.f.s. If for all $x$ in $\mathbb{R}$,
+    \begin{align*}
+        \frac{w_0}{w_0 + w_1} p_0(x) > \frac{w_1}{w_0 + w_1} p_1(x),
+    \end{align*}
+    then every point in the sample is more likely to have been generated by $X_0$, so the algorithm will assign them to $X_0$ and cause the weights to become $w_0 = 1$ and $w_1 = 0$. Henceforth no more points can ever be assigned to $X_1$, so the algorithm will predict that there is only one Gaussian when there are in fact two. \par
+    For example, take $\sigma_0 = \sigma_1 = 1$, $\mu_0 = 0$, and $d = 1$. Then the p.d.f. of $X_1$ is maximized at $\mu_0 + 1$. Because the Gaussians have the same variance, if $w_0 p_0 > w_1 p_1$ at $\mu_0 + 1$, then $w_0 p_0 > w_1 p_1$ everywhere. The requirement for $w_0$ and $w_1$ is
+    \begin{align*}
+        \frac{w_0}{w_0 + w_1} \frac{1}{\sqrt{2\pi}} e^{\frac{-(0 - 1)^2}{2}} &> \frac{w_1}{w_0 + w_1} \frac{1}{\sqrt{2\pi}} e^0 \\
+        w_0 e^{-1/2} &> w_1.
+    \end{align*}
+    For instance, take $w_0 = 0.7$ and $w_1 = 0.3$.
+
+\bibliographystyle{acm}
+\bibliography{references}
+
+\end{document}

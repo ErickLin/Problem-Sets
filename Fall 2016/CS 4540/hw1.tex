@@ -1,0 +1,346 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\renewcommand{\thesubsection}{\arabic{subsection}}
+
+\begin{document}
+
+\section*{CS 4540 -- HW1 Solutions}
+\begin{enumerate}
+    \item
+        \boldmath\textbf{Suppose you are choosing between the following three algorithms:
+        \begin{itemize}
+            \item
+                Algorithm $A$ solves problems by dividing them into five subproblems of half the size, recursively solving each subproblem, and then combining the solutions in linear time.
+            \item
+                Algorithm $B$ solves problems of size $n$ by recursively solving two subproblems of size $n - 1$ and then combining the solutions in constant time.
+            \item
+                Algorithm $C$ solves problems of size $n$ by dividing them into nine subproblems of size $n/3$, recursively solving each subproblem, and then combining the solutions in $O(n^2)$ time.
+        \end{itemize}
+        What are the running times of each of these algorithms, and which is the most preferable?
+        }\unboldmath
+        \begin{itemize}
+            \item
+                The recurrence relation is $T(n) = 5T(\lceil n/2 \rceil) + O(n)$, so by the master theorem the running time is $O(n^{\log_2 5})$.
+            \item
+                The recurrence relation (and hence running time) is $T(n) = 2T(n - 1) + O(1) = \cdots = 2^n T(0) + O(1) = O(2^n)$.
+            \item
+                The recurrence relation is $T(n) = 9T(\lceil n/3 \rceil) + O(n^2)$, so by the master theorem the running time is $O(n^2 \log n)$.
+        \end{itemize}
+        For large $n$, the third algorithm is the most preferable, because logarithmic functions grow more slowly than polynomial functions.
+
+    \item
+        \begin{enumerate}
+            \item
+                \boldmath\textbf{Suppose that you want to multiply the two polynomials $x + 1$ and $x^2 + 1$ using the FFT. Choose an appropriate power of two, find the FFT of the two sequences, multiply the results componentwise, and compute the inverse FFT to get the final result.
+                }\unboldmath \par
+                We choose $n = 4$, the smallest power of $2$ greater than the degree of either polynomial, and so $\omega = \sqrt[4]{1} = i$. $x + 1$ corresponds to $(1, 1, 0, 0)$, and $x^2 + 1$ corresponds to $(1, 0, 1, 0)$, the FFTs of which are
+                \begin{align*}
+                    FFT((1, 1, 0, 0), i) &= (2, 1 - i, 0, 1 + i), \\
+                    FFT((1, 0, 1, 0), i) &= (2, 0, 2, 0).
+                \end{align*}
+                Multiplying the two results componentwise yields $(4, 0, 0, 0)$, the inverse FFT of which is given by $FFT((4, 0, 0, 0), \omega^{-1} = -i) = (1, 1, 1, 1)$, which corresponds to the polynomial $x^3 + x^2 + x + 1$.
+            \item
+                \boldmath\textbf{Repeat for the pair of polynomials $1 + x + 2x^2$ and $2 + 3x$.
+                }\unboldmath \par
+                $n = 4$ as before, and repeating the same steps gives the result
+                \begin{align*}
+                    FFT((1, 1, 2, 0), i) &= (4, -1 - i, 2, -1 + i), \\
+                    FFT((2, 3, 0, 0), i) &= (5, 2 - 3i, -1, 2 + 3i),
+                \end{align*}
+                the componentwise product of which is $(20, -5 + i, -2, -5 - i)$. Finally, taking the inverse FFT gives $(2, 5, 7, 6) = 6x^3 + 7x^2 + 5x + 2$.
+        \end{enumerate}
+
+    \item
+        \boldmath\textbf{One of the most basic tasks in statistics is to summarize a set of observations $\{ x_1, x_2, \cdots, x_n \} \subseteq \mathbb{R}$ by a single number, such as the median $\mu_1$ or the mean $\mu_2$.
+        }\unboldmath
+        \begin{enumerate}
+            \item
+                \boldmath\textbf{Show that the median is the value of $\mu$ that minimizes the function
+                \begin{align*}
+                    \sum_i |x_i - \mu|,
+                \end{align*}
+                assuming for simplicity that $n$ is odd.
+                }\unboldmath \par
+                Let $s$ be the value of the quantity above when $\mu = \mu_1$. Then if $\mu = \mu_1 + d$ for some $d \in \mathbb{R}$, the absolute difference between the median and $\mu$ increases by $d$, and this is also true for either all the elements greater than it or all the elements less than it. The same absolute difference decreases by $d$ for the remaining elements, which form the minority. Thus, the value of the quantity above is overall greater than $s$ when $d \neq 0$.
+            \item
+                \boldmath\textbf{Show that the mean is the value of $\mu$ that minimizes the function
+                \begin{align*}
+                    \sum_i (x_i - \mu)^2.
+                \end{align*}
+                }\unboldmath
+                Since $\mu_2 = \sum_i x_i / n$,
+                \begin{align*}
+                    \sum_i (x_i - \mu)^2 &= \sum_i \left[ (x_i - \mu_2)^2 - 2(x_i - \mu_2)(\mu - \mu_2) + (\mu - \mu_2)^2 \right] \\
+                    &= \sum_i (x_i - \mu_2)^2 - 2(\mu - \mu_2) \sum_i (x_i - \mu_2) + n(\mu - \mu_2)^2 \\
+                    &= \sum_i (x_i - \mu_2)^2 + n(\mu - \mu_2)^2.
+                \end{align*}
+                By the trivial inequality, the term on the right, and hence the entire quantity, is minimized when $\mu = \mu_2$.
+        \end{enumerate}
+        \boldmath\textbf{It is sometimes said that $\mu_1$ is a more robust estimator than $\mu_2$. Worse than either of them is $\mu_\infty$, the value of $\mu$ that minimizes the function
+        \begin{align*}
+            \max_i |x_i - \mu|.
+        \end{align*}
+        }\unboldmath
+        \begin{enumerate}
+            \setcounter{enumii}{2}
+            \item
+                \boldmath\textbf{Show that $\mu_\infty$ can be computed in $O(n)$ time, given that basic arithmetic operations take unit time.
+                }\unboldmath
+        \end{enumerate}
+        Initialize $\mu := 0$, the smallest possible value of the absolute value function. Then for all $i$, set $\mu := \max\{ \mu, |x_i - \mu| \}$. The resulting value of $\mu$ is $\mu_\infty$.
+
+    \item
+        \boldmath\textbf{An array $A[1 \dots n]$ is said to have a \emph{majority element} if more than half of its entries are the same. A divide-and-conquer approach is given as follows:
+        \begin{itemize}
+            \item
+                Pair up the elements of $A$ arbitrarily, to get $n/2$ pairs
+            \item
+                Look at each pair: if the two elements are different, discard both of them; if they are the same, keep just one of them
+        \end{itemize}
+        Show that after this procedure there are at most $n/2$ elements left, and that they have a majority element if $A$ does. Then give an $O(n)$-time algorithm for finding the majority element of $A$.
+        }\unboldmath \par
+        For each of the $n/2$ pairs, at least one element is discarded, so there are at most $n - n/2 = n/2$ elements remaining. \par
+        Let $|x|$ be the number of times the element $x$ appears in the array at any iteration in the procedure, and let $|A|$ be the remaining number of elements in the array. Now we assume $|x|/|A| > 1/2$ initially. At any iteration over the pairs, we can break down what happens to the ratio $|x|/|A|$ into cases:
+        \begin{itemize}
+            \item
+                If both elements in the pair have the value $x$, then the ratio becomes $(|x| - 1)/(|A| - 1)$.
+            \item
+                If exactly one element in the pair has the value $x$, then the ratio becomes $(|x| - 1)/(|A| - 2)$.
+            \item
+                If neither element in the pair has the value $x$, then the ratio becomes either $|x|/(|A| - 1)$ or $|x|/(|A| - 2)$.
+        \end{itemize}
+        If $a$, $b$, and $c$ denote the number of pairs falling into each category, then we know that $b = |x| - 2a$ and $c = |A|/2 - a - b = |A|/2 - |x| + a$. We can deduce that if $|x|/|A| > 1/2$ initially, then $a$ and $c$ are such that $|x|/|A| > 1/2$ at the end of the procedure. \par
+        We may now repeat this procedure, which runs in time linear to the size of the array, until $|A| \leq 1$. If $|A| = 1$ and the original array had a majority element, then the only remaining element is the majority element of the original array by our reasoning above. It can be checked in $O(n)$ time whether this element indeed comprised the majority. Otherwise, the array is empty, implying that the original array has no majority element. The overall algorithm runs in time $\sum_{k = 0}^{\log_2 n} O(n/2^k) = O(n)$.
+
+    \item
+        \boldmath\textbf{Is it asymptotically faster to square an $n$-bit integer than to multiply two $n$-bit integers?
+        }\unboldmath \par
+        No, because given two $n$-bit integers $x$ and $y$, the identity
+        \begin{align*}
+            xy = \frac{(x + y)^2 - (x - y)^2}{4}
+        \end{align*}
+        shows that the problem of multiplying two $n$-bit integers has the same time complexity as squaring an $n$-bit integer (the addition, subtraction, and right-shift operations combined take linear time, preserving the time complexity which is superlinear). \par
+        \boldmath\textbf{The \emph{square} of a matrix $A$ is its product with itself, $AA$.
+        }\unboldmath
+            \begin{enumerate}
+                \item
+                    \boldmath\textbf{Show that five multiplications are sufficient to compute the square of a $2 \times 2$ matrix.
+                    }\unboldmath \par
+                    The product of a $2 \times 2$ matrix $
+                        \left[ \begin{array}{cc}
+                                a & b \\
+                                c & d
+                        \end{array} \right]
+                    $ with itself is
+                    \begin{align*}
+                        \left[ \begin{array}{cc}
+                                a^2 + bc & ab + bd \\
+                                ac + cd & bc + d^2
+                        \end{array} \right]
+                        = \left[ \begin{array}{cc}
+                                a^2 + bc & b(a + d) \\
+                                c(a + d) & bc + d^2
+                        \end{array} \right].
+                    \end{align*}
+                    We can see that only the multiplications $a^2$, $bc$, $b(a + d)$, $c(a + d)$, and $d^2$ are needed.
+                \item
+                    \boldmath\textbf{What is wrong with the following algorithm for computing the square of an $n \times n$ matrix?
+                    \begin{quote}
+                        ``Use a divide-and-conquer approach as in Strassen's algorithm, except that instead of getting 7 subproblems of size $n/2$, we now get 5 subproblems of size $n/2$ thanks to part (a). Using the same analysis as in Strassen's algorithm, we can conclude that the algorithm runs in $O(n^{\log_2 5})$.''
+                    \end{quote}
+                    }\unboldmath
+                    Generally for a vector space, unlike for the complex numbers in particular, left and right multiplication are not equivalent.
+                \item
+                    \boldmath\textbf{In fact, squaring matrices is no easier than matrix multiplication. In this part, it will be shown that if $n \times n$ matrices can be squared in time $S(n) = O(n^c)$, then any two $n \times n$ matrices can be multiplied in time $O(n^c)$.
+                    }\unboldmath
+                    \begin{enumerate}
+                        \item
+                            \boldmath\textbf{Given two $n \times n$ matrices $A$ and $B$, show that the matrix $AB + BA$ can be computed in time $3S(n) + O(n^2)$.
+                            }\unboldmath \par
+                            Denote $A^2$ as the square of a matrix $A$. Consider the identity
+                            \begin{align*}
+                                (A + B)^2 = A^2 + AB + BA + B^2,
+                            \end{align*}
+                            from which we may deduce
+                            \begin{align*}
+                                AB + BA = A^2 + B^2 + (A + B)^2.
+                            \end{align*}
+                            The right-hand side involves three matrix squarings, and performing addition on $n \times n$ matrices takes $O(n)$ time.
+                        \item
+                            \boldmath\textbf{Given two $n \times n$ matrices $X$ and $Y$, define the $2n \times 2n$ matrices $A$ and $B$ as follows:
+                            \begin{align*}
+                                A = \left[ \begin{array}{cc}
+                                        X & 0 \\
+                                        0 & 0
+                                \end{array} \right]
+                                \text{ and }
+                                B = \left[ \begin{array}{cc}
+                                        0 & Y \\
+                                        0 & 0
+                                \end{array} \right].
+                            \end{align*}
+                            What is $AB + BA$, in terms of $X$ and $Y$?
+                            }\unboldmath \par
+                            From i.,
+                            \begin{align*}
+                                AB + BA &=
+                                \left[ \begin{array}{cc}
+                                        X & 0 \\
+                                        0 & 0
+                                \end{array} \right]^2
+                                +
+                                \left[ \begin{array}{cc}
+                                        0 & Y \\
+                                        0 & 0
+                                \end{array} \right]^2
+                                +
+                                \left[ \begin{array}{cc}
+                                        X & Y \\
+                                        0 & 0
+                                \end{array} \right]^2 \\
+                                &=
+                                \left[ \begin{array}{cc}
+                                        X^2 & 0 \\
+                                        0 & 0
+                                \end{array} \right]
+                                +
+                                \left[ \begin{array}{cc}
+                                        0 & 0 \\
+                                        0 & 0
+                                \end{array} \right]
+                                +
+                                \left[ \begin{array}{cc}
+                                        X^2 & XY \\
+                                        0 & 0
+                                \end{array} \right] \\
+                                &=
+                                \left[ \begin{array}{cc}
+                                        2X^2 & XY \\
+                                        0 & 0
+                                \end{array} \right].
+                            \end{align*}
+                        \item
+                            \boldmath\textbf{Using (i) and (ii), argue that the product $XY$ can be computed in time $3S(2n) + O(n^2)$. Conclude that matrix multiplication takes time $O(n^c)$.
+                            }\unboldmath \par
+                            Computing $AB + BA$ takes $3S(2n) + O((2n)^2)$ time, by i. From ii., we can see that $XY$ is an $n \times n$ submatrix of $AB + BA$, which can be obtained in $O(n)$ time. The total running time can be simplified to $S(n) = O(n^c)$.
+                    \end{enumerate}
+            \end{enumerate}
+
+    \item
+        \boldmath\textbf{This problem illustrates how to do the Fourier transform (FT) in modular arithmetic, in particular modulo 7.
+        }\unboldmath
+            \begin{enumerate}
+                \item
+                    \boldmath\textbf{There is a number $\omega$ such that all the powers $\omega, \omega^2, \cdots, \omega^6$ are distinct (modulo 7). Find this $\omega$, and show that $\omega + \omega^2 + \cdots + \omega^6 = 0$.
+                    }\unboldmath \par
+                    \iffalse
+                        $\omega = \sqrt[6]{1} = e^{i\pi/3} = \frac{1}{2} + \frac{\sqrt{3}}{2}i$. $\omega^6 = 1$, and hence
+                        \begin{align*}
+                            \omega + \omega^2 + \cdots + \omega^6 = 1 + \omega + \cdots + \omega^5 = \frac{1 - \omega^6}{1 - \omega} = 0.
+                        \end{align*}
+                    \fi
+                    $\omega = 5$, and $\omega + \omega^2 + \omega^3 + \omega^4 + \omega^5 + \omega^6 = 5 + 4 + 6 + 2 + 3 + 1 = 0$.
+                \item
+                    \boldmath\textbf{Using the matrix form of the FT, produce the transform of the sequence $(0, 1, 1, 1, 5, 2)$ modulo 7; that is, multiply this vector by the matrix $M_6(\omega)$, for the value of $\omega$ from earlier.
+                    }\unboldmath
+                    \begin{align*}
+                        \iffalse
+                            &M_6 \left( \frac{1}{2} + \frac{\sqrt{3}}{2}i \right) (0, 1, 1, 1, 5, 2)^T \\
+                            &= \left( 10, -\frac{5}{2} + \frac{5\sqrt{3}}{2}, -\frac{7}{2} - \frac{3\sqrt{3}}{2}, 2, -\frac{7}{2} + \frac{3\sqrt{3}}{2}, -\frac{5}{2} - \frac{5\sqrt{3}}{2} \right)
+                        \fi
+                        M_6(5) \left[ \begin{array}{c}
+                                0 \\
+                                1 \\
+                                1 \\
+                                1 \\
+                                5 \\
+                                2
+                        \end{array} \right]
+                        = \left[ \begin{array}{cccccc}
+                                1 & 1 & 1 & 1 & 1 & 1 \\
+                                1 & 5 & 4 & 6 & 2 & 3 \\
+                                1 & 4 & 2 & 1 & 4 & 2 \\
+                                1 & 6 & 1 & 6 & 1 & 6 \\
+                                1 & 2 & 4 & 1 & 2 & 4 \\
+                                1 & 3 & 2 & 6 & 4 & 5
+                        \end{array} \right]
+                        \left[ \begin{array}{c}
+                                0 \\
+                                1 \\
+                                1 \\
+                                1 \\
+                                5 \\
+                                2
+                        \end{array} \right]
+                        = \left[ \begin{array}{c}
+                                3 \\
+                                3 \\
+                                3 \\
+                                2 \\
+                                4 \\
+                                6
+                        \end{array} \right]
+                    \end{align*}
+                \item
+                    \boldmath\textbf{Write down the matrix necessary to perform the inverse FT. Show that multiplying by this matrix returns the original sequence.
+                    }\unboldmath \par
+                    \iffalse
+                        \begin{align*}
+                            &M_6 \left( \frac{1}{2} + \frac{\sqrt{3}}{2}i \right)^{-1} = \frac{1}{6}M_6 \left( \frac{1}{2} - \frac{\sqrt{3}}{2}i \right) \\
+                            &= \frac{1}{6} \left[ \begin{array}{cccccc}
+                                    1 & 1 & 1 & 1 & 1 & 1 \\
+                                    1 & \frac{1}{2}-\frac{\sqrt{3}}{2}i & -\frac{1}{2}-\frac{\sqrt{3}}{2}i & -1 & -\frac{1}{2}+\frac{\sqrt{3}}{2}i & \frac{1}{2}+\frac{\sqrt{3}}{2}i \\
+                                    1 & -\frac{1}{2}-\frac{\sqrt{3}}{2}i & -\frac{1}{2}+\frac{\sqrt{3}}{2}i & 1 & -\frac{1}{2}-\frac{\sqrt{3}}{2}i & -\frac{1}{2}+\frac{\sqrt{3}}{2}i \\
+                                    1 & -1 & 1 & -1 & 1 & -1 \\
+                                    1 & -\frac{1}{2}+\frac{\sqrt{3}}{2}i & -\frac{1}{2}-\frac{\sqrt{3}}{2}i & 1 & -\frac{1}{2}+\frac{\sqrt{3}}{2}i & -\frac{1}{2}-\frac{\sqrt{3}}{2}i \\
+                                    1 & \frac{1}{2}+\frac{\sqrt{3}}{2}i & -\frac{1}{2}+\frac{\sqrt{3}}{2}i & -1 & -\frac{1}{2}-\frac{\sqrt{3}}{2}i & \frac{1}{2}-\frac{\sqrt{3}}{2}i
+                            \end{array} \right]
+                        \end{align*}
+                    \fi
+                    Note: $6 = \omega^3$, so $6^{-1} = \omega^{-3} = 6$.
+                    \begin{align*}
+                        M_6(5)^{-1} = 6^{-1} M_6(3) = 6 \left[ \begin{array}{cccccc}
+                                1 & 1 & 1 & 1 & 1 & 1 \\
+                                1 & 3 & 2 & 6 & 4 & 5 \\
+                                1 & 2 & 4 & 1 & 2 & 4 \\
+                                1 & 6 & 1 & 6 & 1 & 6 \\
+                                1 & 4 & 2 & 1 & 4 & 2 \\
+                                1 & 5 & 4 & 6 & 2 & 3
+                        \end{array} \right]
+                    \end{align*}
+                    This matrix is the inverse of $M_6(5)$, which can be verified by explicitly multiplying the two matrices to obtain the identity matrix.
+                \item
+                    \boldmath\textbf{Now show how to multiply the polynomials $x^2 + x + 1$ and $x^3 + 2x - 1$ using the FT modulo 7.
+                    }\unboldmath \par
+                    We may multiply the coefficient vector representation of each polynomial on the left by $M_6(5)$, multiply the results componentwise, and then multiply the result on the left by $M_6(5)^{-1}$. The first step gives
+                    \begin{align*}
+                        M_6(5) (1, 1, 1, 0, 0, 0)^T &= (3, 3, 0, 1, 0, 6)^T \\
+                        M_6(5) (6, 2, 0, 1, 0, 0)^T &= (2, 1, 1, 3, 4, 4)^T,
+                    \end{align*}
+                    the second step gives $(6, 3, 0, 3, 0, 3)^T$, and the last step gives
+                    \begin{align*}
+                        M_6(5)^{-1} (6, 3, 0, 3, 0, 3)^T = (6, 1, 1, 3, 1, 1)^T
+                    \end{align*}
+                    so the resulting polynomial modulo 7 is $x^5 + x^4 + 3x^3 + x^2 + x + 6$.
+            \end{enumerate}
+
+    \item
+        \boldmath\textbf{Let $a(1 \dots n)$ be an unsorted array of distinct integers. Give an $O(n)$ algorithm that outputs $b(1), b(2), \dots, b(\log_2 n)$ such that $b(k)$ is the $(n/2^k)$th-smallest element, $1 \leq k \leq \log_2 n$.
+        }\unboldmath \par
+        We know that there exists a worst-case linear time selection algorithm $A$ that runs in $O(n)$ time. First, initialize $a' := a(1 \dots n)$. Then for $\log_2 n$ iterations, indexing on $k$, use $A$ to perform the following:
+        \begin{itemize}
+            \item
+                return the $(n/2^k)$th-smallest element in $a'$ as $b(k)$, and
+            \item
+                assign to $a'$ the array of $n/2^k - 1$ elements smaller than $b(k)$. In particular, $a'$ contains $b(k + 1), \cdots, b(\log_2 n)$.
+        \end{itemize}
+        When the algorithm just described terminates, it will have returned $b(1), b(2), \dots, b(\log_2 n)$ as expected. Its running time is $O(n) + O(n/2) + \cdots + O(n/2^{k - 1}) = O(n)$.
+\end{enumerate}
+
+\end{document}

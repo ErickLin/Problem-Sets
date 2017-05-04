@@ -1,0 +1,122 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{float}
+
+\textheight=9.5in
+\textwidth=6.5in
+\topmargin=-.8in
+\headsep=0pt
+\oddsidemargin=0truecm
+\evensidemargin=0truecm
+\footskip=20pt
+%\footheight=20pt
+%\pretolerance=1600
+%\tolerance=1600
+%\hbadness=1600
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{problem}[theorem]{Problem}
+
+\begin{document}
+
+\title{
+}
+
+%\author{Assigned 1-13-16 , Due 1-19-16 (in class)
+%}
+
+\date{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author's definitions
+
+\newcommand{\DEF}[1]{{\em #1\/}}
+
+\newcommand\chic{\chi_c}
+\newcommand\C{\hbox{${\cal C}$}}
+\newcommand{\RR}{\mbox{$\mathbb R$}}
+\newcommand{\NN}{\mbox{$\mathbb N$}}
+\newcommand{\ZZ}{\mbox{$\mathbb Z$}}
+\newcommand{\eopf}{\raisebox{0.8ex}{\framebox{}}}
+\newcommand{\dist}{\hbox{\rm d}}
+\renewcommand\a{\alpha}
+\renewcommand\b{\beta}
+\renewcommand\c{\gamma}
+\renewcommand\d{\delta}
+\newcommand\D{\Delta}
+\newcommand{\directedchi}{\mbox{$\vec{\chi}$}}
+\newcommand{\directedE}{\mbox{$\vec{E}$}}
+\newcommand{\directedG}{\mbox{$\vec{G}$}}
+\newcommand{\directedK}{\mbox{$\vec{K}$}}
+
+\newenvironment{proof}%
+{\noindent{\bf Proof.}\ }%
+{\hfill\eopf\par\bigskip}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\maketitle
+
+\noindent{\bf  Last Name:} $Lin \quad$
+\noindent{\bf First Name:} $Erick \quad$
+\noindent{\bf Email:}          $elin42@gatech.edu$\\
+\noindent{ CS 4540, Fall 2016, Homework (last), 11/28/16 Due 12/6/16 in class $~~$Page 1/1}
+
+\bigskip
+
+\noindent{\bf Problem 1 Bias Estimation (50 points)}\\
+\emph{Suppose that you are given a biased coin that has $\Pr ( {\rm Heads } )=p \geq \alpha$,
+for some fixed $\alpha$, without being given any other information about $p$. 
+Devise a procedure for estimating $p$ by a value $\tilde{p}$ such that you can guarantee 
+that $\Pr ( |p-\tilde{p}| > \epsilon p   ) < \delta$, 
+for any choice of the constants $0< \alpha, \epsilon, \delta < 1$.
+Let $N$ be the number of times you need to flip the biased coin 
+to obtain the above estimate. 
+What is the smallest value of $N$ (in terms of $\alpha, \epsilon$ and $\delta$)
+for which you can give this guarantee?} \par
+Let
+\begin{align*}
+    X_i = \begin{cases}
+        1 \text{ if the $i$th coin landed heads} \\
+        0 \text{ otherwise}
+    \end{cases},
+\end{align*}
+let $X = \sum_{i = 1}^N X_i$, and let $\mu = \mathbb{E}[X] = \sum_{i = 1}^N \mathbb{E}[X_i] = Np$. We can choose to designate $\tilde{p} = X/N$, the sample mean, as the estimate for the value of $p$. Because each flip of the biased coin is an independent Poisson trial, we can apply the Chernoff bounds to obtain
+\begin{gather*}
+    \mathbb{P}[\tilde{p} - p > \epsilon p] = \mathbb{P}[N\tilde{p} > (1 + \epsilon)Np] = \mathbb{P}[X > (1 + \epsilon)\mu] < \left( \frac{e^\epsilon}{(1 + \epsilon)^{1 + \epsilon}} \right)^{Np} \leq \left( \frac{e^\epsilon}{(1 + \epsilon)^{1 + \epsilon}} \right)^{N\alpha} \\
+    \mathbb{P}[p - \tilde{p} > \epsilon p] = \mathbb{P}[N\tilde{p} < (1 - \epsilon)Np] = \mathbb{P}[X < (1 - \epsilon)\mu] < \left( \frac{e^{-\epsilon}}{(1 - \epsilon)^{1 - \epsilon}} \right)^{Np} \leq \left( \frac{e^{-\epsilon}}{(1 - \epsilon)^{1 - \epsilon}} \right)^{N\alpha}
+\end{gather*}
+Attaining the desired bound is equivalent to finding $N$ such that the left-hand side of both inequalities is less than $\delta$. Denote $c_1$, $c_2$ as the base numbers of the respective right-hand side of each inequality. Then
+\begin{align*}
+    N \geq \frac{\ln\delta}{\alpha} \max\left\{ \frac{1}{\ln c_1}, \frac{1}{\ln c_2} \right\}
+\end{align*}
+guarantees that each right-hand side is at most $\delta$ (note that $0 < c_1, c_2 < 1$), and thus the bound is achieved. \\
+
+
+%\noindent{\bf Problem 2: Count DNF with large clauses (25 points)}\\
+
+
+\noindent{\bf Problem 2: Hypercube Expansion (50 points)}\\
+\emph{The $n$-dim hypercube is the following undirected graph. 
+There are $2^n$ vertices, each vertex is labeled with a 0-1 $n$-bit vector.
+Two vertices are connected with an edge if and only if they differ in exactly one bit. 
+Prove that, for every $n$,  the $n$-dim hypercube has the following property: \\
+Let $A$ be a subset of the vertices of the hypercube, 
+with $|A|\leq 2^{n-1}$. 
+Let $C(A)$ be the set of edges that have exactly one endpoint in $A$ and the other endpoint in the complement of $A$. 
+Then $|C(A)|\geq |A|$.} \par
+It is easy to check that this is true for the $1$-dim hypercube (which has $2$ vertices), since $|C(\emptyset)| = |\emptyset| \geq |\emptyset|$ and for any 1-subset $A$, $C(A)$ consists of the only edge so $|C(A)| \geq |A|$. \par
+We now show by induction that if this is true for the $(n - 1)$-dim hypercube, then it is also true for the $n$-dim hypercube. Let $A$ be an arbitrary subset of the latter. Notice that any $n$-dim hypercube can be partitioned into two $(n - 1)$-dim hypercubes which are subgraphs, which may be performed on any one digit, say $i$, in the binary vector representation, and hence $A$ is also partitioned into $\{ B, A \setminus B \}$. Without loss of generality, assume $|B| \leq |A \setminus B|$. \par
+Using the inductive hypothesis on each of the $(n - 1)$-dim hypercubes, we know that $|C(B)| \geq |B|$, and that $|C(A \setminus B)| \geq |B|$ since this is true for any subgraph of $A \setminus B$ of size $B$, all of whose edges are contained in the edges of $A \setminus B$. Lastly, we must consider the set of edges $E$ with one endpoint in one of the $(n - 1)$-dim hypercubes and the other endpoint in the other. Since each vertex in one $(n - 1)$-dim hypercube shares an edge with exactly one vertex in the other (which can be obtained by flipping the value of $i$), $E$ must consist of at least $|A \setminus B| - |B| = |A| - 2|B|$ edges due to unmatched vertices in $A \setminus B$. \par
+$C(B)$, $C(A \setminus B)$, and $E$ are all contained in $C(A)$ and are furthermore disjoint by construction, and therefore $|C(A)| = |C(B)| + |C(A \setminus B)| + |E| \geq |B| + |B| + (|A| - 2|B|) = |A|$.
+
+%\noindent{\bf Problem 4:  (25 points)}\\
+
+\end{document}
+

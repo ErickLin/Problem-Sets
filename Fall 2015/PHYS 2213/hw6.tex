@@ -1,0 +1,149 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, enumitem, fancyhdr, siunitx}
+\usepackage[margin=1in]{geometry}
+\pagestyle{fancy}
+\rhead{Erick Lin}
+\allowdisplaybreaks
+
+\begin{document}
+
+\section*{PHYS 2213B - HW6}
+
+\begin{enumerate}
+    \item
+        Rb: $1s^2 2s^2 2p^6 3s^2 3p^6 4s^2 3d^{10} 4p^6 5s^1$ \\
+        Ag: $1s^2 2s^2 2p^6 3s^2 3p^6 4s^2 3d^{10} 4p^6 4d^{10} 5s^1$ \\
+        Hf: $1s^2 2s^2 2p^6 3s^2 3p^6 4s^2 3d^{10} 4p^6 4d^{10} 5s^2 5p^6 4f^{14} 5d^2 6s^2$ \\
+        Sb: $1s^2 2s^2 2p^6 3s^2 3p^6 4s^2 3d^{10} 4p^6 4d^{10} 5s^2 5p^3$
+
+    \item
+        \begin{enumerate}
+            \item
+                The Biot-Savart law is given by
+                \begin{align*}
+                    \vec{B} = \frac{\mu_0}{4\pi} \int_C \frac{I d\vec{l} \times \vec{r}}{r^3}
+                \end{align*}
+                where $C$ is the path given by the orbit of the electron, $I$ is the current flowing along $C$ due to the movement of the electron, $d\vec{l}$ is a vector whose magnitude is the length of a differential element of the orbit in the direction of the current, and $r = |\vec{r}|$. Because $I$ is the time derivative of the charge $Ze$ (the nucleus is moving with respect to the electron) and $\mu_0 = 1/(\epsilon_0 c^2)$, the above equation becomes
+                \begin{align*}
+                    \vec{B} &= \frac{1}{4\pi \epsilon_0 c^2} \int_C \frac{\frac{d(Ze)}{dt} d\vec{l} \times \vec{r}}{r^3} \\
+                    &= \frac{1}{4\pi \epsilon_0 c^2} \int_C \frac{d(Ze) \frac{d\vec{l}}{dt} \times \vec{r}}{r^3} \\
+                    &= \frac{1}{4\pi \epsilon_0 c^2} \int_C \frac{d(Ze) \vec{v} \times \vec{r}}{r^3} \\
+                    &= \frac{Ze}{4\pi \epsilon_0 c^2} \frac{m\vec{v} \times \vec{r}}{mr^3} \\
+                    &= \frac{Ze \vec{L}}{4\pi \epsilon_0 m c^2 r^3}.
+                \end{align*}
+
+            \item
+                In spin-orbit coupling, the dipole potential energy is given by
+                \begin{align*}
+                    V_{sl} = -\vec{\mu}_S \cdot \vec{B}
+                \end{align*}
+                where $\vec{\mu}_S$ is the spin angular momentum, which for an electron is given by
+                \begin{align*}
+                    \vec{\mu}_S = g \frac{e}{2m} \vec{S} = -2.0023 \frac{e}{2m} \vec{S} \approx -\frac{e}{m} \vec{S}.
+                \end{align*}
+                Then we have
+                \begin{align*}
+                    V_{sl} = \frac{Ze^2 \vec{S} \cdot \vec{L}}{4\pi \epsilon_0 m^2 c^2 r^3}.
+                \end{align*}
+        \end{enumerate}
+
+    \item
+        \begin{enumerate}
+            \item
+                The combined rotational inertia $I_x$ for the two particles, where $m$ is the mass of each particle and $R$ is the distance from each particle to the center of mass, is
+                \begin{align*}
+                    I = 2(mR^2) = 2(\SI{16}{\amu}) \left( \frac{\SI{121e-12}{\m}}{2} \right)^2 = \SI{1.17128e-19}{\amu\m\squared}.
+                \end{align*}
+
+            \item
+                The combined rotational inertia $I_z$ for the two particles is
+                \begin{align*}
+                    I = 2 \left( \frac{2mr^2}{5} \right) = \frac{4}{5} (\SI{16}{\amu}) (\SI{3.0e-15}{m})^2 = \SI{1.152e-28}{\amu\m\squared}.
+                \end{align*}
+
+            \item
+                Using this classical model, it appears that rotations around the $z$ axis should add a third rotational degree of freedom. However, quantum theory predicts that in a rigid rotator, the allowed energy levels are
+                \begin{align*}
+                    E = \frac{L^2}{2I} = \frac{\hbar^2 \ell(\ell + 1)}{2I}
+                \end{align*}
+                where $I$ is the total rotational inertia and $\ell \in \mathbb{N}$. Because $I_z \ll I_x$, rotation about the $z$ axis would lead to a high rotational energy. Otherwise, when the rotational energy is relatively low (which is required for small quantum numbers like that of the oxygen atom), only rotations about the $x$ and $y$ axes are permitted. This justifies the proposition that diatomic molecules have two rotational degrees of freedom.
+        \end{enumerate}
+
+    \item
+        \begin{enumerate}
+            \item
+                \iffalse
+                We will make use of the following results:
+                \begin{gather}
+                    \lambda = \frac{h}{m v_{\text{rms}}} \\
+                    \frac{N}{V} = \frac{1}{d^3} \\
+                    \overline{K.E.} = \overline{\frac{1}{2}mv^2} = \frac{1}{2} m \overline{v^2} = \frac{3}{2}kT \\
+                    \Rightarrow v_{\text{rms}} = \sqrt{\overline{v^2}} = \sqrt{ \frac{3kT}{m} }.
+                \end{gather}
+                The conclusion is that $\lambda \ll d$ implies
+                \begin{gather*}
+                    \frac{h}{m v_{\text{rms}}} \ll \left( \frac{V}{N} \right)^{1/3} \\
+                    \frac{h^3}{m^3 v_{\text{rms}}^3} \ll \frac{V}{N} \\
+                    \frac{N}{V} \frac{h^3}{(3mkT)^{3/2}} \ll 1.
+                \end{gather*}
+                \fi
+                Since $\overline{K} = \frac{3}{2} kT$ in the Maxwell velocity distribution, we have that
+                \begin{align*}
+                    \lambda = \frac{h}{p} = \frac{h}{\sqrt{2m\overline{K}}} = \frac{h}{\sqrt{3mkT}}.
+                \end{align*}
+                Then if $\lambda \ll d$,
+                \begin{gather*}
+                    \frac{h}{\sqrt{3mkT}} \ll \left( \frac{V}{N} \right)^{1/3} \\
+                    \frac{h^3}{(3mkT)^{3/2}} \ll \frac{V}{N} \\
+                    \frac{N}{V} \frac{h^3}{(3mkT)^{3/2}} \ll 1.
+                \end{gather*}
+
+            \item
+                Using the equation of state for an ideal gas $N / V = P / (RT)$ and substituting in the given values as well as the Planck and Boltzmann constants, the mass of an Ar atom, and Avogadro's number,
+                \begin{align*}
+                    \frac{\lambda}{d} &\approx \frac{\SI{1}{\text{atm}} \left( \SI{6.022e23}{\per\mol} \right)}{\left( \SI{8.206e-5}{\m\cubed\text{atm}\per\K\per\mol} \right) \left( \SI{293}{\K} \right)} \times \\
+                    &\qquad \frac{(\SI{6.626e-34}{\m\squared\kg\per\s)^3}}{\left[ 3(\SI{6.63e-26}{\kg})(\SI{1.38e-23}{\J\per\K})(\SI{293}{\K}) \right]^{3/2}} \\
+                    &\approx 3.19 \times 10^{-7}
+                \end{align*}
+                which is orders of magnitude smaller than $1$ so Maxwell-Boltzmann statistics should be an accurate approximator for argon gas. \par
+                On the other hand, substituting in the given values as well as the Planck and Boltzmann constants and the mass of an electron,
+                \begin{align*}
+                    \frac{\lambda}{d} &\approx \SI{5.86e28}{\per\m\cubed} \frac{(\SI{6.626e-34}{\m\squared\kg\per\s)^3}}{\left[ 3(\SI{9.109e-31}{\kg})(\SI{1.38e-23}{\J\per\K})(\SI{293}{\K}) \right]^{3/2}} \\
+                    &\approx 1.47 \times 10^{4}
+                \end{align*}
+                which is greater than $1$ so in the case of conduction electrons in silver Maxwell-Boltzmann statistics are no longer valid.
+        \end{enumerate}
+
+    \item
+        The ratio of hydrogen atoms by state is given by
+        \begin{align}
+            \frac{n(E_2)}{n(E_1)} = \frac{g(E_2)}{g(E_1)} e^{(E_1 - E_2) / (kT)}
+        \end{align}
+        where $g(E_i)$ is the number of possible configurations for the sole electron when the atom is in the state corresponding to energy level $i$. Substituting the proper values (including $g(E_1) = 2$, $g(E_2) = 8$, and $E_1 - E_2 = \SI{-10.2}{\eV}$) for the hydrogen atom gives
+        \begin{align}
+            \frac{1}{9999999} = 4e^{\SI{-10.2}{\eV} / (kT)}
+        \end{align}
+        which becomes, when rearranged,
+        \begin{align*}
+            T = \frac{\SI{-10.2}{\eV}}{k \ln^{1/(4 \times 9999999)}} \approx \SI{6762}{\K}.
+        \end{align*}
+\end{enumerate}
+\begin{enumerate}[label=\textbf{Q\arabic*.}]
+    \item
+        (b)
+
+    \item
+        (d)
+
+    \item
+        (d)
+
+    \item
+        (d)
+
+    \item
+        (b)
+
+\end{enumerate}
+\end{document}

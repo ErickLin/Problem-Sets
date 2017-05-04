@@ -1,0 +1,107 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amsthm, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{MATH 4032 - HW4 Solutions}
+\subsection*{5.}
+\begin{enumerate}
+    \item[1.]
+        Using the Principle of Inclusion-Exclusion reveals a negative percentage of voters would not be content with any of the three, so there is a mistake in counting.
+
+    \item[3.]
+        \boldmath
+        \textbf{Prove directly that $S(n, 1) = 1$, $S(n, 2) = 2^{n - 1} - 1$, and $S(n, n - 1) = \binom{n}{2}$. Find a formula for $S(n, n - 2)$.} \par
+        \unboldmath
+        $S(n, 1) = 1$ because the sole partition is $[n]$ itself. \par
+        $S(n, 2)$ is the number of ways to partition $[n]$ into $2$ parts. The first element must establish its own partition $S$, while any other element $\{ 2, \cdots, n \}$ can belong in either $S$ or in $[n] \setminus S$. This leads to $2^{n - 1}$ possibilities. However, one of these possibilities has all of the elements belonging to $S$, resulting in only one partition, so this possibility must be removed. Therefore, $S(n, 2) = 2^{n - 1} - 1$. \par
+        In the case of $n - 1$ partitions, each element in $[n]$ belongs in its own set except for two which share the same set. These two elements are arbitrary, so $S(n, n - 1) = \binom{|[n]|}{2} = \binom{n}{2}$. \par
+        Finally, in the case of $n - 2$ partitions, the structure of the partitions is either two partitions with two elements each or one partition with three elements, with the rest having one element. The number of ways to count the possibilities of the former is $\binom{n}{4} \binom{4}{2} \frac{1}{2} = \frac{n(n - 1)(n - 2)(n - 3)}{8}$ and the number of ways to count the latter possibilities is $\binom{n}{3}$, so $S(n, n - 2) = \frac{n!}{4} + \binom{n}{3}$.
+
+    \item[4.]
+        \boldmath
+        \textbf{Prove that $|s(n, 1)| = (n - 1)!$ using the recurrence relation, and show directly that the number of cyclic permutations of an $n$-set is $(n - 1)!$.} \par
+        \unboldmath
+        The recurrence relation for $s(n, k)$ is
+        \begin{align*}
+            s(n, k) = -(n - 1)s(n - 1, k) + s(n - 1, k - 1),
+        \end{align*}
+        and in particular,
+        \begin{align}
+            s(n, 1) = -(n - 1)s(n - 1, 1) + s(n - 1, 0) = -(n - 1)s(n - 1, 1).
+        \end{align}
+        We claim by induction that $s(n, 1) = (-1)^k \frac{(n - 1)!}{(n - k - 1)!} s(n - k, 1)$ for all $k \in [n]$. This reduces to the above equation if $k = 1$. If we assume that this holds for $k = k'$, then by (1),
+        \begin{align*}
+            s(n, 1) &= (-1)^{k'} \frac{(n - 1)!}{(n - k' - 1)!} [-(n - k' - 1)s(n - k' - 1, 1)] \\
+            &= (-1)^{k' + 1} \frac{(n - 1)!}{(n - (k' + 1) - 1)!} s(n - (k' + 1), 1)
+        \end{align*}
+        which shows that the formula holds for $k = k' + 1$. Therefore, it is true for all $k$; when $k = n - 1$ in particular, the formula becomes
+        \begin{align*}
+            s(n, 1) = (-1)^{n - 1} \frac{(n - 1)!}{0!} s(1, 1) = (-1)^{n - 1} (n - 1)!,
+        \end{align*}
+        and
+        \begin{align*}
+            |s(n, 1)| = (n - 1)!. \qed
+        \end{align*}
+        In a cyclic permutation, the first element may be mapped to any of the $n - 1$ other elements, the second element may be mapped to any of the $n - 2$ remaining elements, and so on. The second-to-last element has only one remaining choice, and the last element must be mapped back to the first element. The total number of possibilities for these bijective sets of mappings is $(n - 1)(n - 2) \cdots 1 = (n - 1)!$. \qed
+
+    \item[7.]
+        \boldmath
+        \textbf{Let $(f_n)$ and $(g_n)$ be sequences, with exponential generating functions $F(t)$ and $G(t)$ respectively. Show the equivalence of the following assertions:} \par
+        \begin{enumerate}
+            \item
+                \textbf{$g_n = \sum_{k = 0}^n \binom{n}{k} f_k$;} \par
+
+            \item
+                \textbf{$G(t) = F(t) \exp(t)$}. \par
+        \end{enumerate}
+        \unboldmath
+        By the definition of exponential generating functions,
+        \begin{align*}
+            F(t) = \sum_{n = 0}^\infty \frac{f_n t^n}{n!} \qquad G(t) = \sum_{n = 0}^\infty \frac{g_n t^n}{n!}.
+        \end{align*}
+        Assuming that (b) is true, we have
+        \begin{align*}
+            G(t) &= \left( \sum_{n = 0}^\infty \frac{f_n t^n}{n!} \right)\left( \sum_{n = 0}^\infty \frac{t^n}{n!} \right) \\
+            &= \sum_{n = 0}^\infty \sum_{k = 0}^n \frac{f_k t^k}{k!} \frac{t^{n - k}}{(n - k)!} \\
+            &= \sum_{n = 0}^\infty \frac{\sum_{k = 0}^n \binom{n}{k} f_k t^n}{n!}.
+        \end{align*}
+        Because equality of generating functions implies equality of all terms and vice versa, the expressions of $G(t)$ must match, and hence (a) is true. Because all the steps can be performed in both directions, (a) implies (b) as well.
+
+    \item[8.]
+        \boldmath
+        \textbf{Show that a permutation which is a cycle of length $m$ can be written as a product of $m - 1$ transpositions. Deduce that it is an even permutation if and only if its length is odd. Hence show that an arbitrary permutation is even if and only if it has an even number of cycles of even length (with no restriction on cycles of odd length).} \par
+        \unboldmath
+        A cycle $\pi$ of length $m$ permutes the first adjacent pair of elements, then the second adjacent pair, and so on; there are $m - 1$ adjacent pairs. Because $\pi$ consists of only 1 disjoint cycle, $\text{sign}(\pi) = (-1)^{m - 1}$ is $1$ (and by definition $\pi$ is even) if and only if the length $m$ is odd. $\text{sign}(\pi)$ being a homomorphism (from Exercise 9) implies that the last statement is true.
+
+    \item[9.]
+        \boldmath
+        \textbf{Let $x_1, \cdots, x_n$ be indeterminates, and consider the polynomial
+        \begin{align*}
+            F(x_1, \cdots, x_n) = \prod_{i < j} (x_j - x_i).
+        \end{align*}
+        Note that if $\pi$ is a permutation, then
+        \begin{align*}
+            F(x_{1 \pi}, \cdots, x_{n \pi}) = \text{sign}(\pi) F(x_1, \cdots, x_n),
+        \end{align*}
+        where $\text{sign}(\pi) = \pm 1$ is the number of pairs $\{ i, j \}$ whose order is reversed by $\pi$. Prove that
+        \begin{itemize}
+            \item
+                sign is a homomorphism;
+            \item
+                if $\tau$ is a transposition, then $\text{sign}(\tau) = -1$.
+        \end{itemize}
+        } \par
+        \unboldmath
+        First, let $\pi, \sigma$ be permutations, and let $F_\pi$ denote $F(x_{1 \pi}, \cdots, x_{n \pi})$. Then
+        \begin{align*}
+            \text{sign}(\pi \sigma) = \frac{F_{\pi \sigma}}{F} \cdot \left( \frac{F_\pi}{F_\pi} \right) = \frac{F_{\pi \sigma}}{F_\pi} \cdot \frac{F_\pi}{F} = \text{sign}(\pi) \text{sign}(\sigma).
+        \end{align*}
+        The gist of the argument for the second bullet point is that only the two swapped elements reverse the sign of $\tau$, while the remaining sign changes are cancelled.
+\end{enumerate}
+\end{document}

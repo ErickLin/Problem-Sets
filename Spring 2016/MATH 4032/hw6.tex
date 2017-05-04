@@ -1,0 +1,94 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amsthm, changepage, enumitem, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{MATH 4032 - HW6 Solutions}
+\subsection*{7.}
+\begin{enumerate}
+    \iffalse
+    \item[1.]
+        \boldmath
+        \textbf{Let $X = \{ 1, \cdots, 7 \}$, and let $\mathcal{B}$ consist of the seven subsets
+        \begin{align*}
+            \{ \{ 1, 2, 3 \}, \{ 1, 4, 5 \}, \{ 1, 6, 7 \}, \{ 2, 4, 6 \}, \{ 2, 5, 7 \}, \{ 3, 4, 7 \}, \{ 3, 5, 6 \} \}.
+        \end{align*}
+        Then $(X, \mathcal{B})$ is a \textit{Steiner triple system} of order 7. Let $\mathcal{F}$ be the set of all those subsets of $X$ which contain a member of $\mathcal{B}$. Prove that $\mathcal{F}$ is intersecting.} \par
+        \unboldmath
+    \fi
+
+    \item[2.]
+        \boldmath
+        \textbf{If $n = 2k$, an intersecting family of $k$-subsets of an $n$-set has size at most $\frac{1}{2} \binom{n}{k} = \binom{n - 1}{k - 1}$, because it contains at most one of each complementary pair of $k$-sets. Prove the following generalization of this result and argument:
+        \begin{adjustwidth}{2.5em}{0pt}
+            \textit{Suppose that $k$ divides $n$. Then an intersecting family $\mathcal{F}$ of $k$-subsets of an $n$-set $X$ has size at most $\binom{n - 1}{k - 1}$.}
+        \end{adjustwidth}
+        }
+        \unboldmath
+        Let $\mathcal{C}$ be the set of all partitions of $X$ into $n/k$ subsets of size $k$. We may prove that each $k$-set lies in $|\mathcal{C}| / \binom{n - 1}{k - 1}$ members of $\mathcal{C}$ by double-counting pairs $(B, C)$, where $B$ is a $k$-set and $C \in \mathcal{C}$ with $B$ a member of $C$. In particular, there are $\binom{n}{k}$ choices for $B$ and they all lie in the same number $x$ of members of $\mathcal{C}$, and each partition in $\mathcal{C}$ contains $n/k$ $k$-sets, so
+        \begin{gather*}
+            \binom{n}{k} x = |\mathcal{C}| \left( \frac{n}{k} \right) \\
+            \Rightarrow x = |\mathcal{C}| \bigg/ \binom{n - 1}{k - 1}.
+        \end{gather*}
+        Because each $k$-set lies in $|\mathcal{C}| / \binom{n - 1}{k - 1}$ partitions in $\mathcal{C}$ and members of an intersecting family cannot share the same partition, any family of $k$-subsets of $X$ has at most $\binom{n - 1}{k - 1}$ unique members. To elaborate, when $B \in \mathcal{F}$, $C \in \mathcal{C}$, and $B \in C$, with $x$ defined as before, then each of the $|\mathcal{F}|$ choices for $B$ is contained in $x$ choices for $C$. Also, since the parts of a partition are disjoint, at most one lies in any intersecting family, so any element of $\mathcal{C}$ contains at most one element of $\mathcal{F}$. Written out, this gives
+        \begin{gather*}
+            |\mathcal{F}| \cdot x \leq |\mathcal{C}| \cdot 1 \\
+            |\mathcal{F}| \cdot |\mathcal{C}| \bigg/ \binom{n - 1}{k - 1} \leq |\mathcal{C}| \cdot 1 \\
+            |\mathcal{F}| \leq \binom{n - 1}{k - 1}.
+        \end{gather*}
+    \iffalse
+    \item[3.]
+        \boldmath
+        \textbf{Prove that, if $k$ divides $n$ and $n \geq 3k$, then any intersecting family of size $\binom{n - 1}{k - 1}$ of $k$-subsets of the $n$-set $X$ consists of all $k$-sets containing some point of $X$.}
+        \unboldmath
+
+    \item[7.]
+        \boldmath
+        \textbf{Let $\mathcal{F}$ be any intersecting family of subsets of the $n$-set $X$. Show that there is an intersecting family $\mathcal{F}' \supseteq \mathcal{F}$ with $|\mathcal{F}'| = 2^{n - 1}$.}
+        \unboldmath
+    \fi
+
+    \item[8.]
+        \boldmath
+        \textbf{Let $\mathcal{F}$ be a Sperner family of subsets of the $n$-set $X$. Define $b(\mathcal{F})$ to be the family of all subsets $Y$ of $X$ such that
+        \begin{enumerate}[label=(\roman*)]
+            \item
+                $Y \cap F \neq \emptyset$ for all $F \in \mathcal{F}$, and
+            \item
+                $Y$ is minimal subject to (i), i.e., no proper subset of $Y$ satisfies (i).
+        \end{enumerate}}
+        \unboldmath
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{Prove that $b(\mathcal{F})$ is a Sperner family.} \par
+                \unboldmath
+                Due to the second condition, no member of $b(\mathcal{F})$ contains any other.
+
+            \item
+                \boldmath
+                \textbf{Show that, for any $F \in \mathcal{F}$ and any $y \in F$, there exists $Y \in b(\mathcal{F})$ with $Y \cap F = \{ y \}$.} \par
+                \unboldmath
+                Let $Z$ be minimal such that $Z \cap (F' \setminus F) \neq \emptyset$ for all $F' \in \mathcal{F}, F' \neq F$. While $Z \cap F = \emptyset$, $Z \cup \{ y \}$ intersects every member of $\mathcal{F}$, so by definition it contains some $Y \in b(\mathcal{F})$, with the only element contained in both $Y$ and $F$ being $y$.
+
+            \item
+                \boldmath
+                \textbf{Deduce that $b(b(\mathcal{F})) = \mathcal{F}$.} \par
+                \unboldmath
+                ($\supseteq$) Let $F \in \mathcal{F}$. Then $F$ intersects with every set in $b(\mathcal{F})$. By the second condition, for every $y \in F$, the intersection between $F \setminus \{ y \}$ and $b(\mathcal{F})$ is empty, which shows that $F$ is the minimal such set. \par
+                ($\subseteq$) Let $F \in b(b(\mathcal{F}))$, and assume for the purpose of contradiction that $F \notin \mathcal{F}$. Because $b(b(\mathcal{F}))$ is a Sperner family containing $\mathcal{F}$, $F$ does not contain any member of $\mathcal{F}$, so $X \setminus F$ intersects every member of $\mathcal{F}$. However, this makes it that $X \setminus F$ contains some $Y \in b(\mathcal{F})$ so that $Y \cap F = \emptyset$, a contradiction.
+
+            \item
+                \boldmath
+                \textbf{Let $\mathcal{F}_k$ denote the Sperner family of all $k$-subsets of $X$. Prove that $b(\mathcal{F}_k) = \mathcal{F}_{n + 1 - k }$ for $k > 0$. What is $b(\mathcal{F}_0)$?} \par
+                \unboldmath
+                A $(n + 1 - k)$-set intersects every $k$-set, while a $(n - k)$-set does not intersect its complement which is a $k$-set, so $\mathcal{F}_{n + 1 - k} \subseteq b(\mathcal{F}_k)$. Furthermore, because $b(\mathcal{F}_k)$ is a Sperner family, it must be that $\mathcal{F}_{n + 1 - k} = b(\mathcal{F}_k)$. \par
+                Since $\mathcal{F}_0 = \{ \emptyset \}$ and no set intersects with the empty set by definition, $b(\mathcal{F}_0) = \emptyset$.
+        \end{enumerate}
+\end{enumerate}
+\end{document}

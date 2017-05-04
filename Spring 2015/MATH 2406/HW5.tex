@@ -1,0 +1,476 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage{amsmath}
+\allowdisplaybreaks
+\usepackage{amssymb}
+\usepackage{bm}
+
+\begin{document}
+	\section*{MATH 2406 - HW5 Solutions}
+	
+	\subsection*{5.8}
+	\begin{enumerate}
+		\setcounter{enumi}{1}
+		\item (a)
+		\[ \left| \begin{array}{ccc}
+			2 & 0 & 0 \\
+			0 & 1/2 & 0 \\
+			0 & 0 & 1
+		\end{array} \right|
+		\left| \begin{array}{ccc}
+			x & y & z \\
+			3 & 0 & 2 \\
+			1 & 1 & 1
+		\end{array} \right|
+		= 1 \]
+		(b)
+		\[ \left| \begin{array}{ccc}
+		1 & 0 & 0 \\
+		3 & 1 & 0 \\
+		1 & 0 & 1
+		\end{array} \right|
+		\left| \begin{array}{ccc}
+		x & y & z \\
+		3 & 0 & 2 \\
+		1 & 1 & 1
+		\end{array} \right|
+		= 1 \]
+		(c)
+		\[ \left| \begin{array}{ccc}
+		1 & 0 & -1 \\
+		0 & 1 & 1 \\
+		0 & 0 & 1
+		\end{array} \right|
+		\left| \begin{array}{ccc}
+		x & y & z \\
+		3 & 0 & 2 \\
+		1 & 1 & 1
+		\end{array} \right|
+		= 1 \]
+
+		\item (a)
+		\begin{align*}
+		\left| \begin{array}{ccc}
+		1 & 1 & 1 \\
+		a & b & c \\
+		a^2 & b^2 & c^2
+		\end{array} \right|
+		&= 1 \left| \begin{array}{cc}
+		b & c \\
+		b^2 & c^2
+		\end{array} \right|
+		- 1 \left| \begin{array}{cc}
+		a & c \\
+		a^2 & c^2
+		\end{array} \right|
+		+ 1 \left| \begin{array}{cc}
+		a & b \\
+		a^2 & b^2
+		\end{array} \right|
+		= 1 \\
+		&= bc^2 - b^2c - ac^2 + a^2c + ab^2 - a^2b \\
+		&= (b - a)(c - a)(c - b)
+		\end{align*}
+		(b)
+		\begin{align*}
+		\left| \begin{array}{ccc}
+		1 & 1 & 1 \\
+		a & b & c \\
+		a^3 & b^3 & c^3
+		\end{array} \right|
+		&= 1 \left| \begin{array}{cc}
+		b & c \\
+		b^3 & c^3
+		\end{array} \right|
+		- 1 \left| \begin{array}{cc}
+		a & c \\
+		a^3 & c^3
+		\end{array} \right|
+		+ 1 \left| \begin{array}{cc}
+		a & b \\
+		a^3 & b^3
+		\end{array} \right|
+		= 1 \\
+		&= bc^3 - b^3c - ac^3 + a^3c + ab^3 - a^3b \\
+		&= (b - a)(c - a)(c - b)(a + b + c)
+		\end{align*}
+		(c)
+		\begin{align*}
+		\left| \begin{array}{ccc}
+		1 & 1 & 1 \\
+		a^2 & b^2 & c^2 \\
+		a^3 & b^3 & c^3
+		\end{array} \right|
+		&= 1 \left| \begin{array}{cc}
+		b^2 & c^2 \\
+		b^3 & c^3
+		\end{array} \right|
+		- 1 \left| \begin{array}{cc}
+		a^2 & c^2 \\
+		a^3 & c^3
+		\end{array} \right|
+		+ 1 \left| \begin{array}{cc}
+		a^2 & b^2 \\
+		a^3 & b^3
+		\end{array} \right|
+		= 1 \\
+		&= b^2c^3 - b^3c^2 - a^2c^3 + a^3c^2 + a^2b^3 - a^3b^2 \\
+		&= (b - a)(c - a)(c - b)(ab + ac + bc)
+		\end{align*}
+		
+		\setcounter{enumi}{4}
+		\item (a)
+		\[ \left| \begin{array}{cccc}
+		1 & -1 & 1 & 1 \\
+		0 & 0 & -2 & -2 \\
+		0 & 2 & -2 & -2 \\
+		0 & 0 & 0 & -2
+		\end{array} \right|
+		= -\left| \begin{array}{cccc}
+		1 & -1 & 1 & 1 \\
+		0 & 2 & -2 & -2 \\
+		0 & 0 & -2 & -2 \\
+		0 & 0 & 0 & -2
+		\end{array} \right|
+		= -8 \]
+		(b)
+		\begin{align*}
+		&\left| \begin{array}{cccc}
+		1 & 1 & 1 & 1 \\
+		0 & b - a & c - a & d - a \\
+		0 & b^2 - a^2 & c^2 - a^2 & d^2 - a^2 \\
+		0 & b^3 - a^3 & c^3 - a^3 & d^3 - a^3
+		\end{array} \right| \\
+		&= \left| \begin{array}{cccc}
+		1 & 1 & 1 & 1 \\
+		0 & b - a & c - a & d - a \\
+		0 & 0 & (a - c)(b - c) & (a - d)(b - d) \\
+		0 & 0 & (a - c)(b - c)(a + b + c) & (a - d)(b - d)(a + b + d)
+		\end{array} \right| \\
+		&= \left| \begin{array}{cccc}
+		1 & 1 & 1 & 1 \\
+		0 & b - a & c - a & d - a \\
+		0 & 0 & (a - c)(b - c) & (a - d)(b - d) \\
+		0 & 0 & 0 & (a - d)(b - d)(d - c)
+		\end{array} \right| \\
+		&= (b - a)(a - c)(b - c)(a - d)(b - d)(d - c)
+		\end{align*}
+		(c)
+		\begin{align*}
+		&\left| \begin{array}{cccc}
+		1 & 1 & 1 & 1 \\
+		0 & b - a & c - a & d - a \\
+		0 & b^2 - a^2 & c^2 - a^2 & d^2 - a^2 \\
+		0 & b^4 - a^4 & c^4 - a^4 & d^4 - a^4
+		\end{array} \right| \\
+		&= \left| \begin{array}{cccc}
+		1 & 1 & 1 & 1 \\
+		0 & b - a & c - a & d - a \\
+		0 & 0 & (a - c)(b - c) & (a - d)(b - d) \\
+		0 & 0 & c^4 - a^4 - (c - a)(a^2 + ab + b^2) & (d - a)(a^2 + ab + b^2)
+		\end{array} \right| \\
+		&= (b - a)(a - c)(b - c)(a - d)(b - d)(d - c)(a + b + c + d)
+		\end{align*}
+		(d)
+		\begin{align*}
+		&\left| \begin{array}{ccccc}
+		a & 1 & 0 & 0 & 0 \\
+		0 & a - \frac{4}{a} & 2 & 0 & 0 \\
+		0 & 0 & a - \frac{6a}{a^2 - 4} & 3 & 0 \\
+		0 & 0 & 0 & a - \frac{6}{a - \frac{6}{a - \frac{4}{a}}} & 4 \\
+		0 & 0 & 0 & 0 & a - \frac{1}{a - \frac{6}{a - \frac{6}{a - \frac{4}{a}}}}
+		\end{array} \right| \\
+		&= a(a + 2)(a - 2)(a + 4)(a - 4)
+		\end{align*}
+		
+		\setcounter{enumi}{9}
+		\item
+		\[ F'(x) = \left| \begin{array}{ccc}
+		f_1'(x) & f_2'(x) & f_3'(x) \\
+		g_1(x) & g_2(x) & g_3(x) \\
+		h_1(x) & h_2(x) & h_3(x)
+		\end{array} \right|
+		+ \left| \begin{array}{ccc}
+		f_1(x) & f_2(x) & f_3(x) \\
+		g_1'(x) & g_2'(x) & g_3'(x) \\
+		h_1(x) & h_2(x) & h_3(x)
+		\end{array} \right|
+		+ \left| \begin{array}{ccc}
+		f_1(x) & f_2(x) & f_3(x) \\
+		g_1(x) & g_2(x) & g_3(x) \\
+		h_1'(x) & h_2'(x) & h_3'(x)
+		\end{array} \right| \]
+		Proof:
+		\begin{align*}
+		F(x) &= f_1(x)\left| \begin{array}{cc}
+		g_2(x) & g_3(x) \\
+		h_2(x) & h_3(x)
+		\end{array} \right|
+		- f_2(x)\left| \begin{array}{cc}
+		g_1(x) & g_3(x) \\
+		h_1(x) & h_3(x)
+		\end{array} \right|
+		+ f_3(x)\left| \begin{array}{cc}
+		g_1(x) & g_2(x) \\
+		h_1(x) & h_2(x)
+		\end{array} \right| \\
+		F'(x) &= f_1(x)\left(\left| \begin{array}{cc}
+		g_2'(x) & g_3'(x) \\
+		h_2(x) & h_3(x)
+		\end{array} \right|
+		+ \left| \begin{array}{cc}
+		g_2(x) & g_3(x) \\
+		h_2'(x) & h_3'(x)
+		\end{array} \right|\right)
+		+ f_1'(x)\left| \begin{array}{cc}
+		g_2(x) & g_3(x) \\
+		h_2(x) & h_3(x)
+		\end{array} \right| \\
+		&
+		\begin{aligned}
+		- f_2(x)\left(\left| \begin{array}{cc}
+		g_1'(x) & g_3'(x) \\
+		h_1(x) & h_3(x)
+		\end{array} \right|
+		+ \left| \begin{array}{cc}
+		g_1(x) & g_3(x) \\
+		h_1'(x) & h_3'(x)
+		\end{array} \right|\right)
+		- f_2'(x)\left| \begin{array}{cc}
+		g_1(x) & g_3(x) \\
+		h_1(x) & h_3(x)
+		\end{array} \right| \\
+		+ f_3(x)\left(\left| \begin{array}{cc}
+		g_1'(x) & g_2'(x) \\
+		h_1(x) & h_2(x)
+		\end{array} \right|
+		+ \left| \begin{array}{cc}
+		g_1(x) & g_2(x) \\
+		h_1'(x) & h_2'(x)
+		\end{array} \right|\right)
+		+ f_3'(x)\left| \begin{array}{cc}
+		g_1(x) & g_2(x) \\
+		h_1(x) & h_2(x)
+		\end{array} \right|
+		\end{aligned} \\
+		&= \left| \begin{array}{ccc}
+		f_1'(x) & f_2'(x) & f_3'(x) \\
+		g_1(x) & g_2(x) & g_3(x) \\
+		h_1(x) & h_2(x) & h_3(x)
+		\end{array} \right|
+		+ \left| \begin{array}{ccc}
+		f_1(x) & f_2(x) & f_3(x) \\
+		g_1'(x) & g_2'(x) & g_3'(x) \\
+		h_1(x) & h_2(x) & h_3(x)
+		\end{array} \right|
+		+ \left| \begin{array}{ccc}
+		f_1(x) & f_2(x) & f_3(x) \\
+		g_1(x) & g_2(x) & g_3(x) \\
+		h_1'(x) & h_2'(x) & h_3'(x)
+		\end{array} \right|
+		\end{align*}
+	\end{enumerate}
+	
+	\subsection*{5.15}
+	\begin{enumerate}
+		\setcounter{enumi}{1}
+		\item (a) Let
+		\[ D = \left[ \begin{array}{cc}
+		A & O \\
+		O & B
+		\end{array} \right] \]
+		so that by Theorem 5.14 we have
+		\[ \left| \begin{array}{cc}
+		D & O \\
+		O & C
+		\end{array} \right| = |A||B||C|. \]
+		(b) Assume that the determinant of any block-diagonal matrix $E$ with $n$ diagonal blocks is the product of the determinants of each of the blocks. Then by Theorem 5.14, for any element $f$
+		\[ \left| \begin{array}{cc}
+		E & O \\
+		O & f
+		\end{array} \right| = f|E| = |E||f|. \]
+		Since the above matrix has $n + 1$ diagonal blocks, the assumption holds true by induction. \par
+		(c) $|A|$, $|B|$, and $|C|$ are all nonzero because their corresponding matrices are nonsingular. Then the block-diagonal matrix is nonsingular because its determinant $|A||B||C|$ (from part (a)) is nonzero. The product of the two block-diagonal matrices is the identity matrix, so the matrices are inverses.
+		
+		\setcounter{enumi}{4}
+		\item Let
+		\[ B = \left[ \begin{array}{cc}
+		a & b \\
+		c & d
+		\end{array} \right], \;
+		C = \left[ \begin{array}{cc}
+		g & h \\
+		z & w
+		\end{array} \right], \;
+		D = \left[ \begin{array}{cc}
+		e & f \\
+		x & y
+		\end{array} \right]\]
+		so that
+		\[ A = \left[ \begin{array}{cc}
+		B & O \\
+		D & C
+		\end{array} \right]
+		= \left[ \begin{array}{cc}
+		B & O \\
+		O & C
+		\end{array} \right]
+		\left[ \begin{array}{cc}
+		I_2 & O \\
+		C^{-1}D & I_2
+		\end{array} \right]. \]
+		From axiom 2, the determinant is invariant under Gaussian elimination, so
+		\begin{align*}
+		|A| &= \left| \begin{array}{cc}
+		B & O \\
+		O & C
+		\end{array} \right|
+		\left| \begin{array}{cc}
+		I_2 & O \\
+		C^{-1}D & I_2
+		\end{array} \right| \\
+		&= \left| \begin{array}{cc}
+		B & O \\
+		O & C
+		\end{array} \right|
+		\left| \begin{array}{cc}
+		I_2 & O \\
+		O & I_2
+		\end{array} \right| \\
+		&= \left| \begin{array}{cc}
+		B & O \\
+		O & C
+		\end{array} \right|.
+		\end{align*}
+	\end{enumerate}
+	
+	\subsection*{5.20}
+	\begin{enumerate}
+		\item (a) $\left[ \begin{array}{cc}
+		4 & -3 \\
+		-2 & 1
+		\end{array} \right]$ \par
+		(b) $\left[ \begin{array}{ccc}
+		2 & -1 & 1 \\
+		-6 & 3 & 5 \\
+		-4 & -2 & 2
+		\end{array} \right]$ \par
+		(c) $\left[ \begin{array}{cccc}
+		109 & 113 & -41 & -13 \\
+		-40 & -92 & 74 & 16 \\
+		-41 & -79 & 7 & 47 \\
+		-50 & 38 & 16 & 20
+		\end{array} \right]$
+		
+		\setcounter{enumi}{3}
+		\item (a) Following the definition,
+		\[ \mbox{cof}\left( A^T \right) = \left( \mbox{cof }a_{ji} \right)_{i,j = 1}^n \]
+		and
+		\[ \left( \mbox{cof }A \right)^T = \left[ \left( \mbox{cof }a_{ij} \right)_{i,j = 1}^n \right]^T = \left( \mbox{cof }a_{ji} \right)_{i,j = 1}^n. \]
+		The two quantities are equal. \par
+		(b) If $\mbox{det }A \neq 0$, then it follows from Theorem 5.16 that
+		\begin{gather*}
+		\frac{1}{\mbox{det }A}\left( \mbox{cof }A \right)^T = A^{-1} \\
+		\frac{1}{\mbox{det }A}\left( \mbox{cof }A \right)^T A = A^{-1}A \\
+		\left( \mbox{cof }A \right)^T A = (\mbox{det }A)I
+		\end{gather*}
+		(c) Part (b) and Theorem 5.16 show that the quantities are equal. Also, from Equation (5.30), the $k, i$ entry of $A(\mbox{cof }A)^T$ is
+		\[ \sum_{j = 1}^{n}a_{kj}\mbox{cof }a_{ij} = \sum_{j = 1}^{n}(\mbox{cof }a_{ij})a_{kj} \]
+		which is also equal to the $k, i$ entry of $(\mbox{cof }A)^T A$.
+	\end{enumerate}
+
+	\subsection*{5.22}
+	\begin{enumerate}
+		\item (a)
+		\begin{gather*}
+		\left| \begin{array}{cc}
+		x - x_1 & y - y_1 \\
+		x_2 - x_1 & y_2 - y_1
+		\end{array} \right| = 0 \\
+		xy_2 - xy_1 - x_1y_2 + x_1y_1 - x_2y + x_1y + x_2y_1 - x_1y_1 = 0 \\
+		x(y_2 - y_1) + y(x_1 - x_2) + (x_2y_1 - x_1y_2) = 0
+		\end{gather*}
+		This is the equation of a line in general form. The equation holds when $(x_1, y_1)$ is substituted for $(x, y)$ and when $(x_2, y_2)$ is substituted for $(x, y)$.
+		\begin{gather*}
+		\left| \begin{array}{ccc}
+		x & y & 1 \\
+		x_1 & y_1 & 1 \\
+		x_2 & y_2 & 1
+		\end{array} \right| = 0 \\
+		x \left| \begin{array}{cc}
+		y_1 & 1 \\
+		y_2 & 1
+		\end{array} \right|
+		- y \left| \begin{array}{cc}
+		x_1 & 1 \\
+		x_2 & 1
+		\end{array} \right|
+		+ 1 \left| \begin{array}{cc}
+		x_1 & y_1 \\
+		x_2 & y_2
+		\end{array} \right| = 0 \\
+		x(y_1 - y_2) - y(x_1 - x_2) + (x_1y_2 - x_2y_1) = 0
+		\end{gather*}
+		When both sides are negated, this equation matches the first equation. \par
+		(b)
+		\begin{gather*} 
+		\left| \begin{array}{ccc}
+			x - x_1 & y - y_1 & z - z_1 \\
+			x_2 - x_1 & y_2 - y_1 & z_2 - z_1 \\
+			x_3 - x_1 & y_3 - y_1 & z_3 - z_1
+		\end{array} \right| = 0 \\
+		\left| \begin{array}{cccc}
+		x & y & z & 1 \\
+		x_1 & y_1 & z_1 & 1 \\
+		x_2 & y_2 & z_2 & 1 \\
+		x_3 & y_3 & z_3 & 1
+		\end{array} \right| = 0
+		\end{gather*}
+		These determinants fit the equation of a plane, having terms with $x$, $y$, and $z$ as well as a constant term. The plane passes through three distinct points $(x_1, y_1, z_1)$, $(x_2, y_2, z_2)$, and $(x_3, y_3, z_3)$, because when these are substituted for $(x, y, z)$, then both matrices have either repeated rows or a row consisting of zero elements. \par
+		(c)
+		\begin{gather*} 
+		\left| \begin{array}{ccc}
+		(x - x_1)^2 + (y - y_1)^2 & x - x_1 & y - y_1 \\
+		(x_2 - x_1)^2 + (y_2 - y_1)^2 & x_2 - x_1 & y_2 - y_1 \\
+		(x_3 - x_1)^2 + (y_3 - y_1)^2 & x_3 - x_1 & y_3 - y_1
+		\end{array} \right| = 0 \\
+		\left| \begin{array}{cccc}
+		x^2 + y^2 & x & y & 1 \\
+		x_1^2 + y_1^2 & x_1 & y_1 & 1 \\
+		x_2^2 + y_2^2 & x_2 & y_2 & 1 \\
+		x_3^2 + y_3^2 & x_3 & y_3 & 1
+		\end{array} \right| = 0
+		\end{gather*}
+		These determinants fit the equation of a circle, having terms with $x$, $y$, $x^2$, and $y^2$ as well as a constant term. The plane passes through three distinct points $(x_1, y_1)$, $(x_2, y_2)$, and $(x_3, y_3)$, because when these are substituted for $(x, y)$, then both matrices have either repeated rows or a row consisting of zero elements. \par
+		
+		\item (a)
+		\[ \mbox{cof }A = \left[ \begin{array}{ccc}
+		1 & 0 & 0 \\
+		-x & 1 & 0 \\
+		x^2 - y & -x & 1
+		\end{array} \right] \]
+		(b) $A$ is an upper triangular matrix and $A^T$ is a lower triangular matrix, so $\mbox{det }A$ and $\mbox{det }A^T$ are equal to the product of the diagonals, or $1$. Then $\mbox{det }B = (\mbox{det }A)(\mbox{det }A^T) = 1$, and $B$ is nonsingular. \par
+		(c) From Theorem 5.16,
+		\[ B^{-1} = \frac{1}{\mbox{det }B}\left( \mbox{cof }B \right)^T. \]
+		From part (a), the elements of the cofactor matrix are integer quantities, and from part (b), the determinant is $1$, so the integer property of elements in the matrix is preserved.
+		
+		\item (a) $P(x)$ is the sum of the elements in the first row multiplied by their cofactors, which involve only elements not in the first row. Since these are constants, only elements from the first row contribute to the degree of the polynomial. Then the largest term has degree $n - 1$ if $a_1^{n - 1} \neq 0$ or degree $< n - 1$ if $a_1^{n - 1} = 0$. \par
+		(b) For $x = a_2, x = a_3, \cdots, x = a_n$, the matrix has two identical rows and the determinant $P(x) = 0$. From the Fundamental Theorem of Algebra, $P(x)$ has $\leq n - 1$ distinct roots, so these are all the roots of $P(x)$. \par
+		(c) From part (a), the coefficient of $x^{n - 1}$ is the cofactor of that element, which is $(-1)^{n - 1}V_{n - 1}(a_2, \cdots, a_n)$. \par
+		(d)
+		\begin{align*}
+		V_n(a_1, a_2, \cdots, a_n) &= P(a_1) \\
+		&= k\prod_{i = 2}^{n}(a_1 - a_i) \\
+		&= (-1)^{n - 1}V_{n - 1}(a_2, \cdots, a_n)\prod_{i = 2}^{n}(a_1 - a_i) \\
+		&= \prod_{i = 2}^{n}-(a_1 - a_i)V_{n - 1}(a_2, \cdots, a_n)
+		\end{align*}
+		(e)
+		\begin{align*}
+		V_n(a_1, a_2, \cdots, a_n) &= \prod_{i = 2}^{n}(a_i - a_1)V_{n - 1}(a_2, \cdots, a_n) \\
+		&= \prod_{i = 2}^{n}(a_i - a_1)\prod_{i = 3}^{n}(a_i - a_2)V_{n - 2}(a_3, \cdots, a_n) \\
+		&= \prod_{i = 2}^{n}(a_i - a_1)\prod_{i = 3}^{n}(a_i - a_2)\cdots\prod_{i = n}^{n}(a_i - a_{n - 1}) \\
+		&= \prod_{j = 1}^{n - 1}\prod_{i = j + 1}^{n}(a_i - a_j) \\
+		&= \prod_{i = 1}^{n - 1}\prod_{j = i + 1}^{n}(a_j - a_i)
+		\end{align*}
+	\end{enumerate}
+\end{document}

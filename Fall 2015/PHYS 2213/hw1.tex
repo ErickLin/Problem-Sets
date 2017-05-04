@@ -1,0 +1,91 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{siunitx}
+
+\begin{document}
+
+\section*{PHYS 2213B - HW1}
+
+\begin{enumerate}
+
+    \item Let $(x_1', y_1', z_1')$ and $t_1'$ denote the position and time of
+    Event 1, and $(x_2', y_2', z_2')$ and $t_2'$ denote the position and
+    time of Event 2 in frame K'. \par
+    In order for the events to occur at the same time,
+    $t_1' = t_2'$. Since $t_1' = \gamma(t_1 - \frac{vx_1}{c^2})$ and $t_2' =
+    \gamma(t_2 - \frac{vx_2}{c^2})$ following Lorentz transformations ($\gamma$
+    depends only on $v$ so it is identical on both sides),
+    \begin{align*}
+        t_1 - \frac{vx_1}{c^2}        &= t_2 - \frac{vx_2}{c^2} \\
+        \frac{2a}{c} - \frac{av}{c^2} &= \frac{3a}{2c} - \frac{2av}{c^2} \\
+        2 - \frac{v}{c}               &= \frac{3}{2} - \frac{2v}{c} \\
+        v                             &= -\frac{c}{2},
+    \end{align*}
+    which indicates that $K'$ is moving at speed $\frac{c}{2}$ in the negative-$x$
+    direction. \par
+    Now, consider instead the frame $K'$ in which the events occur in the same
+    place, so that $x_1' = x_2'$. Since $x_1' = \gamma(x_1 - vt_1)$ and $x_2'
+    = \gamma(x_2 - vt_2)$ following Lorentz transformations, 
+    \begin{align*}
+        x_1 - vt_1        &= x_2 - vt_2 \\
+        a - \frac{2av}{c} &= 2a - \frac{3av}{2c} \\
+        c - 2v            &= 2c - \frac{3v}{2} \\
+        v                 &= -2c,
+    \end{align*}
+    which indicates such a frame would be impossible because it exceeds the speed of light. \par
+
+    \item (a) Let $L$ be the initial altitude of the muon. Then
+    \begin{gather*}
+        t = \frac{L}{v} = \frac{\SI{4.00e4}{m}}{0.9940(\SI{3.00e8}{m/s})} \approx \SI{1.34e-4}{s} \\
+        P = e^{-t/T} \approx e^{-\SI{1.34e-4}{s} / \SI{2.20e-6}{s}} \approx 3.31 \times 10^{-27}
+    \end{gather*}
+    (b) Let $t'$ be the time experienced in the reference frame of the traveling muon. Then
+	\begin{gather*}
+	    t' = \frac{t}{\sqrt{1 - (0.9940c)^2/c^2}} \approx 9.14(\SI{1.34e-4}{s}) \approx \SI{1.23e-3}{s} \\
+	    P = e^{-t'/T} \approx e^{-\SI{1.23e-3}{s} / \SI{2.20e-6}{s}} \approx 0.00 
+	\end{gather*}
+	
+	\item (a) Let $d$ be the distance from the Earth to the satellite in the Earth's frame, and $d'$ be the distance from the Earth to the satellite in the golf ball's frame. Then
+	\begin{align*}
+		d' = \frac{d}{\gamma} = \sqrt{1 - \frac{(0.94c)^2}{c^2}}(\SI{3.58e7}{m}) = \SI{1.22e7}{m}
+	\end{align*}
+	(b) Let $t$ be the time measured in the Earth's frame, and $t'$ be the time measured in the golf ball's frame. Then
+	\begin{align*}
+		t &= \frac{d}{0.94c} = \frac{\SI{3.58e7}{m}}{0.94(\SI{3.00e8}{m/s})} \approx \SI{1.27e-1}{s} \\
+		t' &= \frac{d'}{0.94c} = \frac{\SI{1.22e7}{m}}{0.94(\SI{3.00e8}{m/s})} \approx \SI{4.33e-2}{s} \\
+	\end{align*}
+	
+	\item Let $v_p$ and $v_a$ be the velocities of the proton and the antiproton with respect to the collision point (and in the direction of the proton), and let $v$ be the velocity of the antiproton with respect to the proton. Then
+	\begin{align*}
+		v = \frac{v_a - v_p}{1 - v_a v_p / c^2} = \frac{-0.8c - 0.8c}{1 - (-0.8c)(0.8c) / c^2} = \frac{-1.6c}{1 + 0.8^2} \approx -0.98 c,
+	\end{align*}
+	and a symmetric argument can be used to find that the velocity of the proton with respect to the antiproton is $0.98c$.	
+
+    \item Let $\lambda_0 = \SI{589}{nm}$ and $f_0$ respectively be the wavelength and frequency of the radiation as seen on Earth, and let $\lambda$ and $f$ be those as seen by the astronauts. The quantities are related by $\lambda_0 = c/f_0$ and $\lambda = c/f$. Then according to the Doppler effect,
+    \begin{align*}
+        \lambda &= \frac{c}{f} \\
+                &= c \left( \frac{\sqrt{1 + v/c}}{f_0 \sqrt{1 - v/c}} \right) \\
+                &= \frac{\lambda_0 \sqrt{1 + v/c}}{\sqrt{1 - v/c}} \\
+    \end{align*}
+    \begin{align*}
+        \left( \frac{\lambda}{\lambda_0} \right)^2 &= \frac{c + v}{c - v} \\
+        \left( \frac{\lambda}{\lambda_0} \right)^2 c - c &=
+            \left( \frac{\lambda}{\lambda_0} \right)^2 v + v \\ 
+        v &= c \frac{\left( \frac{\lambda}{\lambda_0} \right)^2 - 1}
+            {\left( \frac{\lambda}{\lambda_0} \right)^2 + 1} 
+    \end{align*}
+    Because $v > 0$, the equation above shows that $\lambda > \lambda_0$, which matches the expectation that receding motion increases the wavelength of radiation. Then it must be that $\lambda > \SI{700}{nm}$, and
+    \begin{align*}
+        v &> c \frac{\left( \frac{\SI{700}{nm}}{\SI{589}{nm}} \right)^2 - 1}
+            {\left( \frac{\SI{700}{nm}}{\SI{589}{nm}} \right)^2 + 1} 
+            = \SI{5.13e7}{m/s}.
+    \end{align*}
+    The time it takes for the ship to accelerate to this velocity is
+    \begin{align*}
+        t &= \frac{v}{a} = \frac{\SI{5.13e4}{m/s}}{\SI{29.4}{m/s^2}} = \SI{1.74e6}{s}
+    \end{align*}
+	
+\end{enumerate}
+
+\end{document}

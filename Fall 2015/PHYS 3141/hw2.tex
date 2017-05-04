@@ -1,0 +1,74 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsmath, gensymb, mathrsfs, siunitx, textcomp}
+
+\begin{document}
+
+\section*{PHYS 3141 - Problem Set 2 Solutions}
+
+\begin{enumerate}
+
+    \item (a)
+    \begin{align*}
+        W = \int_{V_B}^{V_0} P(V) dV = P_0 (V_0 - V_B)
+    \end{align*}
+    (b) No work is done because the gas undergoes free expansion.
+    
+    \item (a)
+    \begin{align*}
+	    W &= \int_{v_i}^{v_f} P(v) dv \\
+	    &= \int_{v_i}^{v_f} \frac{R \theta}{v - b} dv \\
+	    &= R \theta \ln|v - b| \biggr\rvert_{v_i}^{v_f} \\
+	    &= R \theta \ln \left| \frac{v_f - b}{v_i - b} \right|
+    \end{align*}
+    (b)
+    \begin{align*}
+	    W &= \int_{v_i}^{v_f} P(v) dv \\
+	    &= \int_{v_i}^{v_f} \frac{R \theta (1 - \frac{B}{v})}{v}dv \\
+	    &= R \theta \left(\ln|v| + \frac{B}{v} \right) \biggr \rvert_{v_i}^{v_f} \\
+	    &= R \theta \left(\ln \left| \frac{v_f}{v_i} \right| + \frac{B}{v_f} - \frac{B}{v_i} \right)
+    \end{align*}
+    
+    \item
+    \begin{align*}
+        W &= \int_{V_i}^{V_f} K V^{-\gamma} dV \\
+        &= \frac{KV^{-\gamma + 1}}{-\gamma + 1} \biggr \rvert_{V_i}^{V_f} \\
+        &= K\frac{V_f^{-\gamma + 1} - V_i^{-\gamma + 1}}{1 - \gamma} \\
+        &= K\frac{V_f^{-\gamma}V_f - V_i^{-\gamma}V_i}{1 - \gamma} \\
+        &= K\frac{\frac{P_f}{K} V_f - \frac{P_i}{K} V_i}{1 - \gamma} \\
+        &= \frac{P_i V_i - P_f V_f}{\gamma - 1} \\
+        &= \frac{(\SI{10}{atm})(\SI{1}{L}) - (\SI{2}{atm})(\SI{3.16}{L})}{1.4 - 1} \times \frac{\SI{101}{J}}{\SI{1}{atm L}} \\
+        &= \SI{929}{J}
+    \end{align*}
+
+    \item (a) Under constant temperature, we have
+    \begin{align*}
+        d\mathscr{F} &= \frac{AY}{L}dL \\
+        dL &= \frac{L}{AY} d\mathscr{F} \\
+    \end{align*}
+    Then
+    \begin{align*}
+        W &= -\int_{\mathscr{F}_i}^{\mathscr{F}_f} \mathscr{F} dL \\
+        &= -\int_{\mathscr{F}_i}^{\mathscr{F}_f} \mathscr{F} \frac{L}{AY} d\mathscr{F} \\
+        &= \frac{-L}{2AY} \mathscr{F}^2 \biggr \rvert_{\mathscr{F}_i}^{\mathscr{F}_f} \\
+        &= \frac{L}{2AY} (\mathscr{F}_i^2 - \mathscr{F}_f^2)
+    \end{align*}
+    (b)
+    \begin{align*} 
+        W &= \frac{\SI{1}{m}}{2(\SI{1e-7}{m^2})(\SI{2.5e11}{N/m^2})} ((\SI{10}{N})^2 - (\SI{100}{N})^2) \\
+        &= \SI{-1.98e-1}{J}
+    \end{align*}
+
+    \item No, because the gas undergoes a non-quasistatic process and the intermediate states of the system are not in thermodynamic equilibrium.
+
+    \item No, the process is not constrained to large time-scales and may happen too quickly for each element of the state space to be considered in equilibrium.
+
+    \setcounter{enumi}{7}
+    \item The system experiences a pressure gradient and its volume is not well-defined, so it is not in mechanical or thermal equilibrium. Neither the intensive nor the extensive variables are well-defined.
+
+    \setcounter{enumi}{9}
+    \item The gas does more work at higher temperatures, because volume and pressure both increase with temperature.
+
+\end{enumerate}
+
+\end{document}

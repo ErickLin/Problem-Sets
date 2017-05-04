@@ -1,0 +1,152 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr, graphicx}
+\usepackage[margin=1in, includehead, includefoot, heightrounded]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\newcommand*\dist{\mathop{\!\mathrm{d}}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\DeclareMathOperator*{\argmax}{\arg\!\max}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+\DeclareMathOperator*{\vol}{vol}
+\DeclareMathOperator*{\esssup}{ess\,sup}
+\DeclareMathOperator*{\BV}{BV}
+\DeclareMathOperator*{\Lip}{Lip}
+\DeclareMathOperator*{\AC}{AC}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\begin{document}
+
+\section*{MATH 6337 -- HW10 Solutions}
+\sloppy
+\begin{enumerate}
+    \item[5.6.14.]
+        \boldmath\textbf{Let $E$ be a measurable subset of $\mathbb{R}^d$ such that $|E| < \infty$, and suppose that $f : E \to \mathbb{R}$ is measurable. Prove that
+        \begin{align*}
+            \exp\left( \frac{1}{|E|} \int_E f \right) \leq \frac{1}{|E|} \int_E e^{f(x)} dx, \quad \text{where }\exp(t) = e^t,
+        \end{align*}
+        and
+        \begin{align*}
+            \frac{1}{|E|} \int_E \ln|f| \leq \ln\left( \frac{1}{|E|} \int_E |f| \right).
+        \end{align*}
+        }\unboldmath \par
+        If $f$ is not integrable over $E$, then the expressions all become $\infty$, and by convention $\infty \leq \infty$. Otherwise, the results follow from applying Jensen's inequality (Theorem 5.6.10) with $\phi(x) = e^x$ and $\phi(x) = -\ln x$, which are convex by Corollary 5.6.6. 
+
+    %https://matthewhr.wordpress.com/2012/11/10/convexity-continuity-and-jensens-inequality/
+    %https://matthewhr.wordpress.com/2013/01/30/another-proof-that-midpoint-convex-and-continuous-implies-convex/
+    \item[5.6.15.]
+        \boldmath\textbf{Given a function $\phi : (a, b) \to \mathbb{R}$, prove that $\phi$ is convex if and only if $\phi$ is continuous and
+        \begin{align*}
+            \phi\left( \frac{x + y}{2} \right) \leq \frac{\phi(x) + \phi(y)}{2}, \quad \text{all }x, y \in (a, b).
+        \end{align*}
+        }\unboldmath \par
+        ($\Leftarrow$) First, we prove the statement for $t \in \mathbb{Q} \cap [0, 1]$, which requires the following lemma:
+        \begin{lemma}
+            For any $n \in \mathbb{N}$ and $x_1, \cdots, x_n \in (a, b)$,
+            \begin{align*}
+                \phi\left( \frac{x_1 + \cdots + x_n}{n} \right) \leq \frac{\phi(x_1) + \cdots + \phi(x_n)}{n}.
+            \end{align*}
+        \end{lemma}
+        \begin{proof}
+            We have the statement for $n = 2$ from the hypothesis. By induction, if the statement holds for $n = 2^k$ for any $k \in \mathbb{N}$, then
+            \begin{align*}
+                \phi\left( \frac{x_1 + \cdots + x_{2^{k + 1}}}{2^{k + 1}} \right)
+                &= \phi\left( \frac{1}{2}\frac{x_1 + \cdots + x_{2^k}}{2^k} + \frac{1}{2}\frac{x_{2^k + 1} + \cdots + x_{2^{k + 1}}}{2^k} \right) \\
+                &\leq \frac{1}{2}\phi\left( \frac{x_1 + \cdots + x_{2^k}}{2^k} \right) + \frac{1}{2}\phi\left( \frac{x_{2^k + 1} + \cdots + x_{2^{k + 1}}}{2^k} \right) \\
+                &\leq \frac{1}{2}\frac{\phi(x_1) + \cdots + \phi(x_{2^k})}{2^k} + \frac{1}{2}\frac{\phi(x_{2^k + 1}) + \cdots + \phi(x_{2^{k + 1}})}{2^k} \\
+                &= \frac{\phi(x_1) + \cdots + \phi(x_{2^{k + 1}})}{2^{k + 1}}.
+            \end{align*}
+            Lastly, given any $n \in \mathbb{N}$, there exists $k \in \mathbb{N}$ such that $n \in [2^k, 2^{k + 1})$, so we have
+            \begin{align*}
+                \phi\left( \frac{x_1 + \cdots + x_n}{n} \right)
+                &= \phi\left( \frac{1}{2^k} \left( x_1 + \cdots + x_n + (2^k - n)\frac{x_1 + \cdots + x_n}{n} \right) \right) \\
+                &\leq \frac{1}{2^k}\left( \phi(x_1) + \cdots + \phi(x_n) + (2^k - n)\phi\left( \frac{x_1 + \cdots + x_n}{n} \right) \right) \\
+                \Rightarrow \frac{n}{2k} \phi\left( \frac{x_1 + \cdots + x_n}{n} \right)
+                &\leq \frac{1}{2^k}\left( \phi(x_1) + \cdots + \phi(x_n) \right) \\
+                \Rightarrow \phi\left( \frac{x_1 + \cdots + x_n}{n} \right)
+                &\leq \frac{\phi(x_1) + \cdots + \phi(x_n)}{n}.
+            \end{align*}
+        \end{proof}
+        In this case, let $\delta \in \mathbb{Z}$ be the least common denominator of $t$ and $1 - t$. Then by the lemma,
+        \begin{align*}
+            \phi(tx + (1 - t)y) &= \phi\left( \frac{\delta tx + \delta(1 - t)y}{\delta} \right)
+            = \phi\left( \frac{\sum_{i = 1}^{\delta t} x + \sum_{i = 1}^{\delta(1 - t)}y}{\delta} \right) \\
+            &\leq \frac{\sum_{i = 1}^{\delta t} \phi(x) + \sum_{i = 1}^{\delta(1 - t)} \phi(y)}{\delta}
+            = t\phi(x) + (1 - t)\phi(y).
+        \end{align*}
+        Finally, for real $t \in [0, 1]$, there exists a sequence $\{ t_n \}_{n = 1}^\infty$ with $t_n \in \mathbb{Q} \cap [0, 1]$ such that $t_n \to t$ as $n \to \infty$. Since $\phi$ is continuous and using the above result,
+        \begin{align*}
+            \phi(tx + (1 - t)y) &= \lim_{n \to \infty} \phi(t_n x + (1 - t_n)y) \\
+            &\leq \lim_{n \to \infty} [t_n\phi(x) + (1 - t_n)\phi(y)]
+            = t\phi(x) + (1 - t)\phi(y).
+        \end{align*}
+        ($\Rightarrow$) This is true by Theorem 5.6.7(b) and the definition of convexity with $t = 1/2$. %Theorem 5.6.7(c) states that for any $a < x < y < b$,
+        %\begin{align*}
+            %\phi'_+(x) \leq \frac{\phi(y) - \phi(x)}{y - x} \leq \phi'_-(y).
+        %\end{align*}
+
+    \item[6.1.21.]
+        \boldmath\textbf{Show that if $0 < p < q \leq \infty$ then $l^p \subsetneq l^q$, and
+            \begin{align*}
+                \norm{x}_q \leq \norm{x}_p, \quad \text{all }x \in l^p.
+            \end{align*}
+        }\unboldmath \par
+        First, if $\norm{x}_p = \left( \sum_{k = 1}^\infty |x_k|^p \right)^{1/p} < \infty$, then $\sum_{k = 1}^\infty |x_k|^p < \infty$ also. This implies the existence of only a finite number of $k$ such that $|x_k| \geq 1$, so the sum of $|x_k|^q$ over these $k$ is finite. Also, for any $k$ such that $|x_k| < 1$, we know that $|x_k|^q < |x_k|^p$, so the sum of $|x_k|^q$ is at most the sum of $|x_k|^p$ over these $k$ which is finite as well. Hence, $\sum_{k = 1}^\infty |x_k|^q < \infty$, which gives $\norm{x}_q < \infty$. \par
+        If $x_k = 1/k^{1/p}$, then $\sum_{k = 1}^\infty |x_k|^p = \sum_{k = 1}^\infty 1/k$ diverges so $\norm{x}_p$ diverges, but $\sum_{k = 1}^\infty |x_k|^q = \sum_{k = 1}^\infty 1/k^{q/p}$ converges (since $q/p > 1$) so $\norm{x}_q$ converges. Therefore, $l^p \subsetneq l^q$. \par
+        Let $t > 0$ be such that $\norm{tx}_p = 1$, so we have $\sum_{k = 1}^\infty |tx_k|^p = 1$ and hence $|tx_k|^p \leq 1 \Leftrightarrow |tx_k|^q \leq |tx_k|^p$ for all $k$. Thus, $\sum_{k = 1}^\infty |tx_k|^q \leq 1$ which in turn gives $\norm{tx}_q \leq 1$. Lastly, we have
+        \begin{align*}
+            \norm{tx}_q \leq \norm{tx}_p
+            &\Leftrightarrow \left( \sum_{k = 1}^\infty |tx_k|^q \right)^{1/q} \leq \left( \sum_{k = 1}^\infty |tx_k|^p \right)^{1/p} \\
+            &\Leftrightarrow \left( t^q\sum_{k = 1}^\infty |x_k|^q \right)^{1/q} \leq \left( t^p\sum_{k = 1}^\infty |x_k|^p \right)^{1/p} \\
+            &\Leftrightarrow t\left( \sum_{k = 1}^\infty |x_k|^q \right)^{1/q} \leq t\left( \sum_{k = 1}^\infty |x_k|^p \right)^{1/p} \\
+            &\Leftrightarrow \norm{x}_q \leq \norm{x}_p.
+        \end{align*}
+
+    \item[6.2.13.]
+        \boldmath\textbf{Prove an $L^p$-version of \emph{Tchebyshev's Inequality}: If $E \subseteq \mathbb{R}^d$ and $f : E \to \mathbb{F}$ are measurable, then for each $\alpha > 0$ we have
+        \begin{align*}
+            |\{|f| > \alpha\}| \leq \frac{1}{\alpha^p} \int_{\{|f| > \alpha\}} |f|^p \leq \frac{1}{\alpha^p} \int_E |f|^p.
+        \end{align*}
+        }\unboldmath \par
+        By definition, if $x$ belongs to the set $\{ |f| > \alpha \}$, then $|f(x)| > \alpha$. Since $|f|$ is nonnegative and $\{ |f| > \alpha \}$ is a subset of $E$,
+        \begin{align*}
+            \int_E |f(x)|^p dx \geq \int_{\{|f| > \alpha\}} |f(x)|^p dx \geq \int_{\{|f| > \alpha\}} \alpha^p dx = \alpha^p |\{ |f| > \alpha \}|.
+        \end{align*}
+
+    \item[6.2.16.]
+        \boldmath\textbf{Let $E$ be a measurable subset of $\mathbb{R}^d$, and fix $0 < p < q \leq \infty$. Prove the following statements.
+        }\unboldmath
+        \begin{enumerate}
+            \item
+                \boldmath\textbf{If $0 < |E| < \infty$, then $L^q(E) \subsetneq L^p(E)$ and
+                    \begin{align*}
+                        \norm{f}_p \leq |E|^{\frac{1}{p} - \frac{1}{q}} \norm{f}_q, \quad f \in L^p(E).
+                    \end{align*}
+                }\unboldmath
+                %$\norm{f}_p = \left( \int_E |f|^p \right)^{1/p}$ and $\norm{f}_q = \left( \int_E |f|^q \right)^{1/q}$
+                If $f \in L^q(E)$, then $\left( \int_E |f|^q \right)^{1/q} < \infty$ so $\int_E |f|^q = \int_{|f| \leq 1} |f|^q + \int_{|f| > 1} |f|^q < \infty$. For all $x \in E$ where $|f(x)| \leq 1$, $|f(x)|^p \leq 1$ so $\int_{|f| \leq 1} |f|^p \leq |\{|f| \leq 1\}| \leq |E| < \infty$. Also, for all $x \in E$ where $|f(x)| > 1$, $|f(x)|^p \leq |f(x)|^q$ so $\int_{|f| > 1} |f|^p \leq \int_{|f| > 1} |f|^q < \infty$. Thus, $\int_E |f|^q = \int_{|f| \leq 1} |f|^q + \int_{|f| > 1} |f|^q < \infty$, so $\norm{f}_q = \left( \int_E |f|^q \right)^{1/q} < \infty$ and hence $f \in L^p(E)$. \par
+                To see that the inclusion is strict for some $E$, let $E = B$, the unit ball centered at the origin in $\mathbb{R}^d$, and consider $f(x) = 1/|x|^r$ for $d/q < r < d/p$. (The inclusion is, however, not strict for all $E$: let $E$ be finite, for example.) \par
+                Finally, %let $t > 0$ be such that $\int_E |tf|^q = |E|$, or $\norm{tf}_q = |E|^{1/q}$. Then $\int_E |tf|^p \leq |E|$, so $\norm{tf}_p \leq |E|^{1/p}$, and hence we have $\norm{tf}_p / |E|^{1/p} \leq \norm{tf}_q / |E|^{1/q} = 1$. By the same reasoning as in Exercise 6.1.21, $\norm{tf}_p \leq E^{1/p - 1/q} \norm{tf}_q \Leftrightarrow \norm{f}_p \leq E^{1/p - 1/q} \norm{f}_q$.
+                \begin{align*}
+                    \norm{f}_p^p = \int_E |f|^p = \int_E 1 \cdot |f|^p \leq \left( \int_E 1^{r'} \right)^{1/r'} \left( \int_E |f|^{pr} \right)^{1/r}
+                \end{align*}
+                by H\"older's inequality where $1/r + 1/r' = 1$. If $r = q/p$, then this becomes
+                \begin{gather*}
+                    \norm{f}_p^p \leq |E|^{(q - p) / q} \left( \int_E |f|^q \right)^{p/q} \\
+                    \Leftrightarrow \norm{f}_p \leq |E|^{1/p - 1/q} \norm{f}_q.
+                \end{gather*}
+            \item
+                \boldmath\textbf{If $|E| = \infty$, then $L^p(E)$ is not contained in $L^q(E)$, and $L^q(E)$ is not contained in $L^p(E)$.
+                }\unboldmath \par
+                %$\norm{f}_p = \left( \int_E |f|^p \right)^{1/p}$ and $\norm{f}_q = \left( \int_E |f|^q \right)^{1/q}$
+                %For some $f$, $\int_{|f| \leq 1} |f|^p = \infty$ and $\int_{|f| \leq 1} |f|^q < \infty$, while for other choices of $f$, $\int_{|f| > 1} |f|^p < \infty$ and $\int_{|f| > 1} |f|^q = \infty$.
+                Again, consider $f(x) = 1/|x|^r$ for $d/q < r < d/p$ but let $E = B^c$. Then $f \in L^p(E)$ but $f \notin L^q(E)$. \par
+                The result follows from our final extension in which we let $E = \mathbb{R}^d$, and consider $g(x) = f(x) \chi_B$ and $h(x) = f(x) \chi_{B^c}$.
+        \end{enumerate}
+\end{enumerate}
+
+\end{document}

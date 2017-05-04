@@ -1,0 +1,156 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr, mathtools}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\DeclarePairedDelimiterX{\norm}[1]{\lVert}{\rVert}{#1}
+\newcommand{\bs}{\boldsymbol}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\begin{document}
+
+\section*{MATH 4441 -- HW1 Solutions}
+\begin{enumerate}
+    \item[2.]
+        We first present a useful differentiation formula:
+        \begin{lemma} \label{lem:2nd-deriv-comp}
+            If $f$ is twice differentiable at $t$ and $g$ is twice differentiable at $f(t)$, then $(g \circ f)''(t) = g''(f(t))[f'(t)]^2 + g'(f(t)) f''(t)$.
+        \end{lemma}
+        \begin{proof}
+            Using the chain rule and the product rule,
+            \begin{align*}
+                (g \circ f)''(t) &= [g'(f(t))f'(t)]' = g''(f(t))[f'(t)]^2 + g'(f(t)) f''(t).
+            \end{align*}
+        \end{proof}
+        For the remainder of the argument, define $f(t) = \int_a^t \norm{\bs{\alpha}'(x)} dx$, $g(s) = f^{-1}(s)$, and $\bs{\beta}(s) = \bs{\alpha}(g(s))$, so that $s = f(t)$ and $t = g(s)$. We can now show that the following identity holds:
+        \begin{lemma} \label{lem:g''}
+            $g''(s) = -\frac{\norm{\bs{\alpha}'(t)}'}{\norm{\bs{\alpha}'(t)}^3}$.
+        \end{lemma}
+        \begin{proof}
+            First, note that $(g \circ f)''(t) = 0$. Combining this with Lemma \ref{lem:2nd-deriv-comp} gives
+            \begin{gather*}
+                g''(f(t))[f'(t)]^2 + g'(f(t)) f''(t) = 0 \\
+                \Leftrightarrow g''(s) \norm{\bs{\alpha}'(t)}^2 + g'(s) \norm{\bs{\alpha}'(t)}' = 0 \\
+                \Leftrightarrow g''(s) = -\frac{g'(s) \norm{\bs{\alpha}'(t)}'}{\norm{\bs{\alpha}'(t)}^2}
+            \end{gather*}
+            Lastly, recalling the fact that
+            \begin{align} \label{eq:g'}
+                g'(s) = \frac{1}{f'(t)} = \frac{1}{\norm{\bs{\alpha}'(t)}},
+            \end{align}
+            we have
+            \begin{align*}
+                g''(s) = -\frac{\norm{\bs{\alpha}'(t)}'}{\norm{\bs{\alpha}'(t)}^3}.
+            \end{align*}
+        \end{proof}
+        We can now finish the argument:
+        \begin{align*}
+            \kappa(t) &= %\kappa(g(s)) = \norm{\bs{\beta}''(g(s))} = \norm{(\bs{\alpha} \circ g)''(g(s))} = \norm{[\bs{\alpha}'(g(g(s))) g'(g(s))]'} \\
+            %&= \norm{\bs{\alpha}''(g(g(s)))(g'(g(s)))^2 + \bs{\alpha}'(g(g(s))) g''(g(s))} \\
+            %&= \norm{\bs{\alpha}''(t)/\norm{\bs{\alpha}'(t)}^2 + \bs{\alpha}'(t) (f^{-1})''(s)}
+            \norm{\bs{\beta}''(s)} = \norm{(\bs{\alpha} \circ g)''(s)} \\
+            &= \norm{\bs{\alpha}''(g(s)) [g'(s)]^2 + \bs{\alpha}'(g(s)) g''(s)} && \text{Lemma \ref{lem:2nd-deriv-comp}} \\
+            &= \norm*{\frac{\bs{\alpha}''(t)}{\norm{\bs{\alpha}'(t)}^2} - \frac{\bs{\alpha}'(t) \norm{\bs{\alpha}'(t)}'}{\norm{\bs{\alpha}'(t)}^3}} && \text{(\ref{eq:g'}) and Lemma \ref{lem:g''}} \\
+            &= \norm*{\left( \frac{\norm{\bs{\alpha}'(t)} \bs{\alpha}''(t) - \bs{\alpha}'(t) \norm{\bs{\alpha}'(t)}'}{\norm{\bs{\alpha}'(t)}^2} \right) \frac{1}{\norm{\bs{\alpha}'(t)}}} \\
+            &= \norm*{\left( \frac{\bs{\alpha}'(t)}{\norm{\bs{\alpha}'(t)}} \right)' \frac{1}{\norm{\bs{\alpha}'(t)}}}. && \text{Quotient rule}
+        \end{align*}
+
+    \item[4.]
+        $\bs{\alpha}'(t) = (-a\sin t, b\cos t)$ and $\norm{\bs{\alpha}'(t)} = \sqrt{a^2 \sin^2 t + b^2 \cos^2 t}$. Since $\bs{\alpha}'$ exists and is nonzero everywhere, $\bs{\alpha}$ is regular. From 2., we have
+        \begin{align*}
+            \kappa(t) &= \norm*{\left( \frac{(-a\sin t, b\cos t)}{\sqrt{a^2 \sin^2 t + b^2 \cos^2 t}} \right)' \frac{1}{\sqrt{a^2 \sin^2 t + b^2 \cos^2 t}}} \\
+            &= \norm*{-\frac{ab(b\cos t, a\sin t)(\sin^2 t + \cos^2 t)}{(a^2 \sin^2t + b^2 \cos^2t)^2}} \\
+            &= \frac{ab}{(a^2 \sin^2t + b^2 \cos^2t)^2} \norm*{b\cos t, a\sin t)} \\
+            &= \frac{ab}{(a^2 \sin^2t + b^2 \cos^2t)^{3/2}}.
+        \end{align*}
+
+    \item[6.]
+        A parametrization is given by $\bs{\alpha}(t) = (t, t, f(t)), t \in \mathbb{R}$. Then $\bs{\alpha}'(t) = (1, 1, f'(t))$, which shows that $\bs{\alpha}$ is regular, and $\norm{\bs{\alpha}'(t)} = \sqrt{1^2 + 1^2 + [f'(t)]^2} = \sqrt{2 + [f'(t)]^2}$. From 2., we have
+        \begin{align*}
+            \kappa(f) &= \norm*{\left( \frac{(1, 1, f')}{\sqrt{2 + (f')^2}} \right)' \frac{1}{\sqrt{2 + (f')^2}}}
+            = \frac{1}{\sqrt{2 + (f')^2}} \norm*{\left( \frac{(1, 1, f')}{\sqrt{2 + (f')^2}} \right)'}.
+        \end{align*}
+
+    \item[8.]
+        We first state a lemma about unit normal vectors analogous to that for unit tangent vectors:
+        \begin{lemma} \label{lem:N-perp}
+            $\bs{N}'(s)$ is perpendicular to $\bs{N}(s)$.
+        \end{lemma}
+        \begin{proof}
+            We know that $\bs{N}(s) \cdot \bs{N}(s) = \norm{\bs{N}(s)}^2 = 1$, so $\frac{d}{ds} [\bs{N}(s) \cdot \bs{N}(s)] = 0$. Additionally, by the product rule,
+            \begin{align*}
+                \frac{d}{ds} [\bs{N}(s) \cdot \bs{N}(s)] = 2[\bs{N}(s) \cdot \bs{N}'(s)],
+            \end{align*}
+            and substituting gives
+            \begin{align*}
+                \bs{N}(s) \cdot \bs{N}'(s) = 0,
+            \end{align*}
+            which implies that $\bs{N}(s)$ and $\bs{N}'(s)$ are orthogonal.
+        \end{proof}
+        The remainder of the argument is as follows.
+        \begin{lemma}
+            $\bs{N}'(s) \cdot \bs{T}(s) = -\bs{N}(s) \cdot \bs{T}'(s)$.
+        \end{lemma}
+        \begin{proof}
+            By the product rule,
+            \begin{align*}
+                [\bs{N}(s) \cdot \bs{T}(s)]' = \bs{N}'(s) \cdot \bs{T}(s) + \bs{N}(s) \cdot \bs{T}'(s).
+            \end{align*}
+            We also know the left-hand side is zero because the unit normal and unit tangent vectors are orthogonal. Then the result immediately follows.
+        \end{proof}
+        Since $C$ is in the plane, any vector perpendicular to $\bs{N}(s)$, such as $\bs{N}'(s)$ by Lemma \ref{lem:N-perp}, must be parallel to $\bs{T}(s)$, and its magnitude must be its dot product with $\bs{T}(s)$, since $\bs{T}(s)$ has unit length. Then the magnitude of $\bs{N}'(s)$ is given by
+        \begin{align*}
+            \bs{N}'(s) \cdot \bs{T}(s) = -\bs{N}(s) \cdot \bs{T}'(s) = -\frac{\bs{T}'(s)}{\norm{\bs{T}'(s)}} \cdot \bs{T}'(s) = -\frac{\kappa^2(s)}{\kappa(s)} = -\kappa(s).
+        \end{align*}
+        Combining these results yields
+        \begin{align*}
+            \bs{N}'(s) = -\kappa(s) \bs{T}(s).
+        \end{align*}
+        \begin{remark}
+            By applying the quotient rule to $\bs{N}(s) = \bs{T}'(s)/\kappa(s)$, we have
+            \begin{align*}
+                \bs{N}'(s) = \frac{\kappa(s) \bs{T}''(s) - \kappa'(s) \bs{T}'(s)}{\kappa^2(s)},
+            \end{align*}
+            allowing us to obtain another identity
+            \begin{align*}
+                \kappa(s) \bs{T}''(s) - \kappa'(s) \bs{T}'(s) + \kappa^3(s) \bs{T}(s) = 0.
+            \end{align*}
+        \end{remark}
+
+    \item[9.]
+        By the Cauchy-Schwarz inequality,
+        \begin{align*}
+            \bs{\alpha}'(t) \cdot \bs{v} \leq \norm{\bs{\alpha}'(t)} \norm{\bs{v}} = \norm{\bs{\alpha}'(t)}
+        \end{align*}
+        so we have
+        \begin{align} \label{eq:q-p}
+            (\bs{q} - \bs{p}) \cdot \bs{v} = [\bs{\alpha}(t) \cdot \bs{v}]_a^b = \int_a^b \bs{\alpha}'(t) \cdot \bs{v} dt \leq \int_a^b \norm{\bs{\alpha}'(t)} dt.
+        \end{align}
+        Secondly, since $\bs{v} = \frac{\bs{\alpha}(b) - \bs{\alpha}(a)}{\norm{\bs{\alpha}(b) - \bs{\alpha}(a)}}$,
+        \begin{align*}
+            (\bs{q} - \bs{p}) \cdot \bs{v} &= (\bs{\alpha}(b) - \bs{\alpha}(a)) \cdot \frac{\bs{\alpha}(b) - \bs{\alpha}(a)}{\norm{\bs{\alpha}(b) - \bs{\alpha}(a)}} = \frac{\norm{\bs{\alpha}(b) - \bs{\alpha}(a)}^2}{\norm{\bs{\alpha}(b) - \bs{\alpha}(a)}} \\
+            &= \norm{\bs{\alpha}(b) - \bs{\alpha}(a)}.
+        \end{align*}
+        Substituting into (\ref{eq:q-p}) gives us the result
+        \begin{align*}
+            \norm{\bs{\alpha}(b) - \bs{\alpha}(a)} \leq \int_a^b \norm{\bs{\alpha}'(t)} dt.
+        \end{align*}
+
+    \item[10.]
+        We know that the regular curve parameterized by $\bs{\alpha}$ can be reparameterized by another function $\bs{\beta} : [0, l] \to \mathbb{R}^2$ such that $\norm{\bs{\beta}'(s)} = 1$ for all $s$. Then the normal line through any point $s_0$ of the curve is given by
+        \begin{align*}
+            L &= \{ \bs{\beta}(s_0) + a \bs{N}(s_0) \mid a \in \mathbb{R} \} \\
+            &= \{ \bs{\beta}(s_0) + a \bs{T}'(s_0) \mid a \in \mathbb{R} \} \\
+            &= \{ \bs{\beta}(s_0) + a \bs{\beta}''(s_0) \mid a \in \mathbb{R} \},
+        \end{align*}
+        and since $L$ passes through $(0, 0)$, there is some $a \in \mathbb{R}$ such that $\bs{\beta}(s_0) + a \bs{\beta}''(s_0) = (0, 0)$. The only possible real solutions for each element of $\bs{\beta}(s_0)$ include $\pm \cos \frac{1}{a}s_0$ and $\pm \sin \frac{1}{a}s_0$, and the elements must include one of each for $\norm{\bs{\beta}'(s_0)} = 1$ to hold. Thus, $\bs{\beta}(s_0)$ lies on the circle of radius $1$ centered at the origin. \par
+        Because this argument holds for all $s_0 \in [0, l]$, $\bs{\beta}$, and hence $\bs{\alpha}$, must lie on the same circle.
+\end{enumerate}
+
+\end{document}

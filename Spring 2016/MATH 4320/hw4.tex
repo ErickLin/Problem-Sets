@@ -1,0 +1,310 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{MATH 4320 - HW4 Solutions}
+\subsection*{5.61}
+\begin{enumerate}
+    \item[3.]
+        We have that
+        \begin{align*}
+            \lim_{n \to \infty} z_n = z,
+        \end{align*}
+        which means that for all $\varepsilon > 0$, there exists $n_0 \in \mathbb{N}$ such that for all $n > n_0$,
+        \begin{align*}
+            |z_n - z| < \varepsilon.
+        \end{align*}
+        Using the identity
+        \begin{align*}
+            ||z_n| - |z|| \leq |z_n - z|,
+        \end{align*}
+        we also have that
+        \begin{align*}
+            ||z_n| - |z|| < \varepsilon
+        \end{align*}
+        and hence
+        \begin{align*}
+            \lim_{n \to \infty} |z_n| = |z|.
+        \end{align*}
+
+    \item[4.]
+        Since $|re^{i\theta}| = r|e^{i\theta}| < 1$, we have that
+        \begin{gather*}
+            \sum_{n = 1}^\infty (re^{i\theta})^n = \frac{re^{i\theta}}{1 - re^{i\theta}} \cdot \frac{1 - re^{-i\theta}}{1 - re^{-i\theta}} \\
+            \sum_{n = 1}^\infty r^n(\cos n\theta + i\sin n\theta) = \frac{re^{i\theta} - r^2}{1 - r(e^{i\theta} + e^{-i\theta}) + r^2} \\
+            \sum_{n = 1}^\infty r^n \cos n\theta + i\sum_{n = 1}^\infty r^n \sin n\theta = \frac{r\cos\theta + ir\sin\theta - r^2}{1 - 2r\cos\theta + r^2}.
+        \end{gather*}
+        Equating real and imaginary parts,
+        \begin{gather*}
+            \sum_{n = 1}^\infty r^n \cos n\theta = \frac{r\cos\theta - r^2}{1 - 2r\cos\theta + r^2}
+            \text{\quad and \quad}
+            \sum_{n = 1}^\infty r^n \sin n\theta = \frac{r\sin\theta}{1 - 2r\cos\theta + r^2}.
+        \end{gather*}
+\end{enumerate}
+
+\subsection*{5.65}
+\begin{enumerate}
+    \item[1.]
+        If $|z| < \infty$, then from the Maclaurin series expansion for $\cosh z$,
+        \begin{align*}
+            z \cosh(z^2) = z \sum_{n = 0}^\infty \frac{(z^2)^{2n}}{(2n)!} = \sum_{n = 0}^\infty \frac{z^{4n + 1}}{(2n)!}.
+        \end{align*}
+
+    \item[7.]
+        The derivatives of $f(z) = \sin z$ are, for $n \in \mathbb{N}$,
+        \begin{gather*}
+            f^{(4n)}(z) = \sin z \qquad f^{(4n + 1)}(z) = \cos z \\
+            f^{(4n + 2)}(z) = -\sin z \qquad f^{(4n + 3)}(z) = -\cos z
+        \end{gather*}
+        so we have
+        \begin{gather*}
+            f^{(4n)}(0) = 0 \qquad f^{(4n + 1)}(0) = 1 \\
+            f^{(4n + 2)}(0) = 0 \qquad f^{(4n + 3)}(0) = -1
+        \end{gather*}
+        or
+        \begin{gather*}
+            f^{(2n)}(0) = 0 \qquad f^{(2n + 1)}(0) = (-1)^n. \\
+        \end{gather*}
+        If $|z| < \infty$, then from Taylor's theorem, the Maclaurin series for $\sin z$ is given by
+        \begin{align*}
+            f(z) = \sum_{n' = 0}^\infty \frac{f^{(n')}(0)}{n'!} (z - 0)^{n'} = \sum_{n = 0}^\infty \frac{(-1)^n}{(2n + 1)!} z^{2n + 1}.
+        \end{align*}
+
+    \item[10.]
+        \begin{enumerate}
+            \item
+                If $0 < |z| < \infty$, then from the Maclaurin series expansion for $\sinh z$,
+                \begin{align*}
+                    \frac{\sinh z}{z^2} = \sum_{n = 0}^\infty \frac{z^{2n + 1}}{z^2(2n + 1)!} = \frac{z}{z^2(1!)} + \sum_{n = 1}^\infty \frac{z^{2n - 1}}{(2n + 1)!} = \frac{1}{z} \sum_{n = 0}^\infty \frac{z^{2n + 1}}{(2n + 3)!}.
+                \end{align*}
+
+            \item
+                If $0 < |z| < \infty$, then from the Maclaurin series expansion for $\sin z$,
+                \begin{align*}
+                    \frac{\sin(z^2)}{z^4} &= \sum_{n = 0}^\infty \frac{(-1)^n (z^2)^{2n + 1}}{z^4 (2n + 1)!} = \frac{z^2}{z^4(1!)} + \sum_{n = 1}^\infty \frac{(-1)^n z^{4n - 2}}{(2n + 1)!} \\
+                    &= \frac{1}{z^2} - \frac{z^2}{3!} + \frac{z^6}{5!} - \frac{z^{10}}{7!} + \cdots.
+                \end{align*}
+        \end{enumerate}
+\end{enumerate}
+
+\subsection*{5.68}
+\begin{enumerate}
+    \item[1.]
+        From the Maclaurin series expansion
+        \begin{align*}
+            \sin z = \sum_{n = 0}^\infty \frac{(-1)^n z^{2n + 1}}{(2n + 1)!},
+        \end{align*}
+        we obtain the Laurent series expansion
+        \begin{align*}
+            z^2 \sin \left( \frac{1}{z^2} \right) &= \sum_{n = 0}^\infty \frac{(-1)^n z^2 \left( \frac{1}{z^2} \right)^{2n + 1}}{(2n + 1)!}
+            = \sum_{n = 0}^\infty \frac{(-1)^n}{z^{4n} (2n + 1)!} \\
+            &= 1 + \sum_{n = 1}^\infty \frac{(-1)^n}{z^{4n} (2n + 1)!}.
+        \end{align*}
+
+    \item[5.]
+        From the Maclaurin series expansion
+        \begin{align*}
+            \frac{1}{1 - z} = \sum_{n = 0}^\infty z^n,
+        \end{align*}
+        we obtain the Laurent series expansions, for each domain, \\
+        $D_1: |z| < 1, \left| z/2 \right| < 1$
+        \begin{align*}
+            \Rightarrow f(z) &= -\frac{1}{1 - z} + \frac{1}{2} \cdot \frac{1}{1 - z/2}
+            = -\sum_{n = 0}^\infty z^n + \sum_{n = 0}^\infty \frac{z^n}{2^{n + 1}} \\
+            &= \sum_{n = 0}^\infty (2^{-n - 1} - 1) z^n
+        \end{align*}
+        $D_2: \left| 1/z \right| < 1, \left| z/2 \right| < 1$
+        \begin{align*}
+            \Rightarrow f(z) &= \frac{1}{z} \cdot \frac{1}{1 - 1/z} + \frac{1}{2} \cdot \frac{1}{1 - z/2}
+            = \sum_{n = 1}^\infty \frac{1}{z^n} + \sum_{n = 0}^\infty \frac{z^n}{2^{n + 1}}
+        \end{align*}
+        $D_3: \left| 1/z \right| < 1, \left| 2/z \right| < 1$
+        \begin{align*}
+            \Rightarrow f(z) &= \frac{1}{z} \cdot \frac{1}{1 - 1/z} - \frac{1}{z} \cdot \frac{1}{1 - 2/z} = \sum_{n = 1}^\infty \frac{1}{z^n} - \sum_{n = 0}^\infty \frac{2^n}{z^{n + 1}}.
+        \end{align*}
+
+    \item[7.]
+        \begin{enumerate}
+            \item
+                From the Maclaurin series expansion
+                \begin{align*}
+                    \frac{1}{1 - z} = \sum_{n = 0}^\infty z^n,
+                \end{align*}
+                we obtain the Laurent series expansion (if $|a/z| < 1$)
+                \begin{align*}
+                    \frac{a}{z - a} = \frac{a/z}{1 - a/z} = \sum_{n = 0}^\infty \left( \frac{a}{z} \right)^{n + 1} = \sum_{n = 1}^\infty \frac{a^n}{z^n}.
+                \end{align*}
+
+            \item
+                If $z = e^{i\theta}$, then we have
+                \begin{gather*}
+                    \frac{a}{z - a} = \sum_{n = 1}^\infty \frac{a^n}{z^n} \\
+                    \frac{a}{e^{i\theta} - a} \cdot \frac{e^{-i\theta} - a}{e^{-i\theta} - a} = \sum_{n = 1}^\infty \frac{a^n}{e^{in\theta}} \\
+                    \frac{ae^{-i\theta} - a^2}{1 - ae^{i\theta} - ae^{-i\theta} + a^2} = \sum_{n = 1}^\infty a^n e^{-in\theta} \\
+                    \frac{a\cos\theta - a^2 - ia\sin\theta}{1 - 2a\cos\theta + a^2} = \sum_{n = 1}^\infty (a^n \cos{n\theta} - ia^n\sin{n\theta}).
+                \end{gather*}
+                Equating real and imaginary parts,
+                \begin{gather*}
+                    \frac{a\cos\theta - a^2}{1 - 2a\cos\theta + a^2} = \sum_{n = 1}^\infty a^n \cos{n\theta} \\
+                    \frac{a\sin\theta}{1 - 2a\cos\theta + a^2} = \sum_{n = 1}^\infty a^n\sin{n\theta}.
+                \end{gather*}
+        \end{enumerate}
+
+    \item[9.]
+        \begin{enumerate}
+            \item
+                The function
+                \begin{align*}
+                    f(w) = \exp \left[ \frac{z}{2} \left( w - \frac{1}{w} \right) \right]
+                \end{align*}
+                has only one singularity $w = 0$, which is interior to $C$. Hence, when $0 < |w| < \infty$ and $w = e^{i\phi}\ (-\pi \leq \phi \leq \pi)$, $f(w)$ has a Laurent series expansion given by
+                \begin{align*}
+                    \exp \left[ \frac{z}{2} \left( w - \frac{1}{w} \right) \right] = \sum_{n = -\infty}^\infty J_n(z) w^n
+                \end{align*}
+                where
+                \begin{align*}
+                    J_n &= \frac{1}{2\pi i} \int_C \frac{\exp \left[ \frac{z}{2} \left( w - \frac{1}{w} \right) \right]}{w^{n + 1}} dw \\
+                    &= \frac{1}{2\pi i} \int_{-\pi}^\pi \frac{\exp \left[ \frac{z}{2} \left( e^{i\phi} - e^{-i\phi} \right) \right]}{e^{i(n + 1)\phi}} ie^{i\phi} d\phi \\
+                    &= \frac{1}{2\pi} \int_{-\pi}^\pi \frac{\exp \left[ iz \sin\phi \right]}{e^{in\phi}} d\phi \\
+                    &= \frac{1}{2\pi} \int_{-\pi}^\pi \exp[-i(n\phi - z\sin\phi)] d\phi
+                \end{align*}
+                
+            \item
+                Continuing from part (a),
+                \begin{align*}
+                    J_n &= \frac{1}{2\pi} \left[ \int_{-\pi}^\pi \cos(n\phi - z\sin\phi) d\phi - i \int_{-\pi}^\pi \sin(n\phi - z\sin\phi) d\phi \right] \\
+                    &= \frac{1}{2\pi} \left[ 2 \int_0^\pi \cos(n\phi - z\sin\phi) d\phi - i(0) \right] \\
+                    &= \frac{1}{\pi} \int_0^\pi \cos(n\phi - z\sin\phi) d\phi
+                \end{align*}
+        \end{enumerate}
+\end{enumerate}
+
+\subsection*{5.72}
+\begin{enumerate}
+    \item[1.]
+        If $|z| < 1$, we can differentiate the power series term by term to obtain
+        \begin{gather*}
+            \frac{d}{dz} \left( \frac{1}{1 - z} \right) = \frac{d}{dz} \sum_{n = 0}^\infty z^n \\
+            \frac{1}{(1 - z)^2} = \sum_{n = 1}^\infty n z^{n - 1} = \sum_{n = 0}^\infty (n + 1) z^n \\
+            \frac{d}{dz} \left[ \frac{1}{(1 - z)^2} \right] = \frac{d}{dz} \sum_{n = 0}^\infty (n + 1) z^n \\
+            \frac{2}{(1 - z)^3} = \sum_{n = 1}^\infty n(n + 1) z^{n - 1} = \sum_{n = 0}^\infty (n + 1)(n + 2) z^n.
+        \end{gather*}
+
+    \item[4.]
+        Since the Maclaurin expansion
+        \begin{align*}
+            \cos z = \sum_{n = 0}^\infty (-1)^n \frac{z^{2n}}{(2n)!}
+        \end{align*}
+        is valid for all values of $z$, rearranging both sides yields, for $z \neq 0$,
+        \begin{align*}
+            \frac{1 - \cos z}{z^2} &= \frac{1 - \sum_{n = 0}^\infty (-1)^n \frac{z^{2n}}{(2n)!}}{z^2} \\
+            &= \frac{\sum_{n = 1}^\infty (-1)^{n - 1} \frac{z^{2n}}{(2n)!}}{z^2} \\
+            &= \sum_{n = 0}^\infty (-1)^n \frac{z^{2n}}{[2(n + 1)]!} \\
+            &= \frac{1}{2!} - \frac{z^2}{4!} + \frac{z^4}{6!} - \frac{z^6}{8!} + \cdots.
+        \end{align*}
+        The right-hand side gives $1/2$ for $z = 0$, which means that the series represents $f(z)$ for all $z$; hence $f$ is entire.
+
+    \item[6.]
+        If $|w - 1| < 1$ and $|z - 1| < 1$, then integrating along the contour from $w = 1$ to $w = z$ yields
+        \begin{align*}
+            \int_1^z \frac{1}{w} dw &= \int_1^z \sum_{n = 0}^\infty (-1)^n (w - 1)^n dw \\
+            \text{Log} \left( \frac{z}{1} \right) &= \left[ \sum_{n = 1}^\infty \frac{(-1)^{n + 1} (w - 1)^n}{n} \right]_1^z \\
+            \text{Log} z &= \sum_{n = 1}^\infty \frac{(-1)^{n + 1} (z - 1)^n}{n}.
+        \end{align*}
+
+    \item[7.]
+        Dividing both sides of the result of Exercise 6 by $z - 1$ yields, for $z \neq 1$,
+        \begin{align*}
+            \frac{\text{Log} z}{z - 1} &= \sum_{n = 1}^\infty \frac{(-1)^{n + 1} (z - 1)^{n - 1}}{n} \\
+            &= 1 - \frac{z - 1}{2} + \frac{(z - 1)^2}{3} - \frac{(z - 1)^3}{4} + \cdots.
+        \end{align*}
+        The right-hand side gives $1$ for $z = 1$, which means that the series represents $f(z)$ for all $z$ such that $0 < |z| < \infty$ and $-\pi < \text{Arg}z < \pi$; hence $f$ is entire.
+
+    \item[11.]
+        From the Maclaurin representation,
+        \begin{align*}
+            f_2(z) = \frac{1}{z^2 + 1} = \sum_{n = 0}^\infty (-z^2)^n = \sum_{n = 0}^\infty (-1)^n z^{2n} = f_1(z)
+        \end{align*}
+        in the domain $|z| < 1$. However, $f_2(z)$ is defined on the domain $z \neq \pm i$, which is a proper superset of the domain $|z| < 1$, on which $f_1(z)$ is defined. Hence, $f_2(z)$ is the analytic continuation of $f_1(z)$ in the domain on which it is defined.
+\end{enumerate}
+
+\subsection*{5.73}
+\begin{enumerate}
+    \item[2.]
+        \begin{enumerate}
+            \item
+                From Leibniz's rule, if $|z| < \infty$,
+                \begin{align*}
+                    e^z \sin z &= \left( \sum_{n = 0}^\infty \frac{z^n}{n!} \right) \left[ \sum_{n = 0}^\infty \frac{(-1)^n z^{2n + 1}}{(2n + 1)!} \right] \\
+                    &= \sum_{n = 0}^\infty \sum_{k = 0}^n \dbinom{n}{k} \frac{1}{(n - k)!} \left[ \begin{cases}
+                        \frac{(-1)^{(k - 1)/2}}{k!}, &k \equiv 1 (\text{mod }2) \\
+                        0, &k \equiv 0 (\text{mod }2)
+                    \end{cases} \right] z^n \\
+                    &= z + z^2 + \frac{1}{3} z^3 + \cdots.
+                \end{align*}
+
+            \item
+                From Leibniz's rule, if $|z| < 1$,
+                \begin{align*}
+                    \frac{e^z}{1 + z} &= \left( \sum_{n = 0}^\infty \frac{z^n}{n!} \right) \left[ \sum_{n = 0}^\infty (-1)^n z^n \right] \\
+                    &= \sum_{n = 0}^\infty \sum_{k = 0}^n \dbinom{n}{k} \frac{1}{(n - k)!} (-1)^k z^n \\
+                    &= 1 + \frac{1}{2} z^2 - \frac{1}{3} z^3 + \cdots.
+                \end{align*}
+        \end{enumerate}
+
+    \item[6.]
+        \begin{enumerate}
+            \item
+                Starting with the equation
+                \begin{align*}
+                    \left( 1 + \frac{z^2}{3!} + \frac{z^4}{5!} + \cdots \right) (d_0 + d_1 z + d_2 z^2 + \cdots) = 1,
+                \end{align*}
+                we perform the series multiplication, with aid from Leibniz's rule, and subtract $1$ from both sides to obtain
+                \begin{align*}
+                    \sum_{n = 0}^\infty \sum_{k = 0}^n \dbinom{n}{k} \left[ \begin{cases}
+                        \frac{1}{(k + 1)!}, &k \equiv 0 (\text{mod }2) \\
+                        0, &k \equiv 1 (\text{mod }2)
+                    \end{cases} \right] d_{n - k} z^n &= 1 \\
+                    (d_0 - 1) + d_1 z + \left( d_2 + \frac{1}{3!} d_0 \right) z^2 + \left( d_3 + \frac{1}{3!} d_1 \right) &z^3 \\
+                    + \left( d_4 + \frac{1}{3!} d_2 + \frac{1}{5!} d_0 \right) z^4 + \cdots &= 0
+                \end{align*}
+                when $|z| < \pi$.
+
+            \item
+                $d_0 = 1,\ d_1 = 0,\ d_2 = 0 - 1/3! = -1/6,\ d_3 = 0 - 0/3! = 0,\ d_4 = 0 - (-1/6)/3! - 1/5! = 1/36 - 1/120 = 7/360$
+        \end{enumerate}
+
+    \item[9.]
+        The Maclaurin series expansion
+        \begin{align*}
+            \frac{1}{\cosh z} = \sum_{n = 0}^\infty \frac{E_n}{n!} z^n
+        \end{align*}
+        is valid in the disk $|z| < \pi/2$, because the singularities of the left-hand side consist of 
+        \begin{align*}
+            z = \left( \frac{\pi}{2} + n\pi \right) i : n \in \mathbb{N},
+        \end{align*}
+        none of which lie in the given domain. Because $\cosh z$ is an even function, its series expansion contains only even powers of $z$, and
+        \begin{align*}
+            E_{2n + 1} = 0 : n \in \mathbb{N}.
+        \end{align*}
+        Dividing the Maclaurin series
+        \begin{align*}
+            \cosh z = 1 + \frac{z^2}{2!} + \frac{z^4}{4!} + \frac{z^6}{6!} + \cdots
+        \end{align*}
+        into unity using long division gives the result
+        \begin{align*}
+            \frac{1}{\cosh z} = 1 - \frac{1}{2!} z^2 + \frac{5}{4!} z^4 - \frac{61}{6!} z^6 + \cdots
+        \end{align*}
+        which means that
+        \begin{align*}
+            E_0 = 1, \quad E_2 = -1, \quad E_4 = 5, \quad E_6 = -61.
+        \end{align*}
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,77 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr, mathtools}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\DeclarePairedDelimiterX{\norm}[1]{\lVert}{\rVert}{#1}
+\newcommand{\bs}{\boldsymbol}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\begin{document}
+
+\section*{MATH 4441 -- HW2 Solutions}
+\begin{enumerate}
+    \item[1.]
+        Since $\kappa_\sigma(s) = 2$ is continuous for all $s$, and $\bs{p} = (1, 0)$ and $\bs{v} = (1/2, \sqrt{3}/2)$ are points in the plane with $\norm{\bs{v}} = \sqrt{1/4 + 3/4} = 1$, the fundamental theorem of plane curves allows us to construct the unique curve with these properties. \par
+        First, the angle $\phi$ that $\bs{v}$ forms with the x-axis is $\pi/3$. Then if we set
+        \begin{align*}
+            \theta(s) = \int_0^s \kappa_\sigma(t)dt + \phi = \int_0^s 2dt + \frac{\pi}{3} = 2s + \frac{\pi}{3}
+        \end{align*}
+        for $s \in [0, \pi]$, we have
+        \begin{align*}
+            \bs{\beta}(s) &= \bs{p} + \left( \int_0^s \cos\theta(t)dt, \int_0^s \sin\theta(t)dt \right) \\
+            &= \left( 1 + \int_0^s \cos(2t + \frac{\pi}{3})dt, 0 + \int_0^s \sin(2t + \frac{\pi}{3})dt \right) \\
+            &= \left( 1 + \left[ \frac{\sin(2t + \pi/3)}{2} \right]_0^s, \left[ -\frac{\cos(2t + \pi/3)}{2} \right]_0^s \right) \\
+            &= \left( 1 + \frac{\sin(2s + \pi/3)}{2} - \frac{\sqrt{3}}{2}, -\frac{\cos(2s + \pi/3)}{2} + \frac{1}{2} \right).
+        \end{align*}
+
+    \item[3.]
+        Since $\norm{\bs{\alpha}'(t)} = \sqrt{\sin^2 t + \cos^2 t} = 1$ is constant while $\norm{\bs{\beta}'(t)} = \sqrt{1 + \cos^2 t}$ is not, any transformation taking the curve given by $\bs{\alpha}$ to that given by $\bs{\beta}$ for any $c$ does not preserve lengths of tangent vectors, so it is not an isometry.
+
+    \item[4.]
+
+    \item[5.]
+        $\bs{\alpha}(t)$ parameterizes a circle of radius $1$ counterclockwise, so its signed curvature is constantly $1$, and its total signed curvature is $2\pi$, the integral of this signed curvature over the entire length $2\pi$. \par
+        $\bs{\beta}(t)$ parameterizes a circle of radius $2$ clockwise, so its curvature is constantly $-1/2$, and its total signed curvature is $-2\pi$, the integral of this signed curvature over the entire length $4\pi$. \par
+        The curves are regular because their derivatives are nonzero everywhere they are defined. Hence, by the Whitney-Graustein theorem they are not homotopic.
+
+    \item[6.]
+
+    \item[8.]
+        No, due to the isoperimetric inequality and the fact that $\pi > 3$.
+
+    \item[9.]
+        Because $\bs{\alpha}(s)$ is positive everywhere, $\norm{\bs{\alpha}(s)} \leq \norm{\bs{\alpha}(s_0)}$ for all $s$ near $s_0$ implies that $\norm{\bs{\alpha}(s)}^2 \leq \norm{\bs{\alpha}(s_0)}^2 = \bs{\alpha}(s_0) \cdot \bs{\alpha}(s_0)$ for all $s$ near $s_0$, or that a local maximum of $f(s) = \bs{\alpha}(s) \cdot \bs{\alpha}(s)$ occurs at $s_0$. From calculus, we know then that $f'(s_0) = 0$ and $f''(s_0) \leq 0$. The first result gives
+        \begin{gather*}
+            2[\bs{\alpha}(s_0) \cdot \bs{\alpha}'(s_0)] = 0 \\
+            \Leftrightarrow \bs{\alpha}(s_0) \cdot \bs{T}(s_0) = 0
+        \end{gather*}
+        so that $\bs{\alpha}(s_0)$ must be in the direction of the normal vector $\bs{N}(s_0)$, and the second result gives (using the fact that $\norm{\bs{\alpha}'(s)} = 1$ for all $s$ because $\bs{\alpha}$ is parameterized by arc length)
+        \begin{gather*}
+            2[\bs{\alpha}(s_0) \cdot \bs{\alpha}''(s_0) + \bs{\alpha}'(s_0) \cdot \bs{\alpha}'(s_0)] \leq 0 \\
+            \Leftrightarrow \bs{\alpha}(s_0) \cdot \bs{\alpha}''(s_0) + 1 \leq 0 \\
+            \Leftrightarrow \bs{\alpha}(s_0) \cdot \bs{\alpha}''(s_0) \leq -1.
+        \end{gather*}
+        We know also that $\bs{\alpha}''(s_0)$ is a multiple of $\bs{N}(s_0)$, which means that $\bs{\alpha}(s_0)$ and $\bs{\alpha}''(s_0)$ share the same direction, so the left-hand side above is also $-\norm{\bs{\alpha}(s_0)} \norm{\bs{\alpha}''(s_0)}$. The curvature $\kappa(s_0)$ is by definition $\norm{\bs{\alpha}''(s_0)}$, so in conclusion
+        \begin{align*}
+            -\norm{\bs{\alpha}(s_0)} \kappa(s_0) \leq -1 \\
+            \Leftrightarrow \kappa(s_0) \geq \frac{1}{\norm{\bs{\alpha}(s_0)}}.
+        \end{align*}
+    \item[10.]
+        %The length of the derivative of the unit tangent vector is by definition positive everywhere, which means the derivative of the unit tangent vector is nonzero.
+        Because $\norm{\bs{\alpha}'(s)} = 1$ everywhere due to the fact that $\bs{\alpha}(s)$ is parameterized by arc length, we have that $\bs{\alpha}'(s)$ is nonzero everywhere, so $\bs{\alpha}(s)$ is regular. The curve it parameterizes is also oriented counterclockwise because the signed curvature is positive. \par
+        Being a regular and closed curve, the rotation number of the curve is a positive integer $n$ and the total signed curvature is $2\pi n$. From the definition of total signed curvature,
+        \begin{gather*}
+            2\pi n = \int_0^l \kappa_\sigma(s)ds \leq \int_0^l Rds = Rl \\
+            \Rightarrow l \geq \frac{2\pi n}{R} \geq \frac{2\pi}{R}.
+        \end{gather*}
+\end{enumerate}
+
+\end{document}

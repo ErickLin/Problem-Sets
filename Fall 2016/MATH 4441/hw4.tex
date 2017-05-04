@@ -1,0 +1,144 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr, mathtools}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\DeclarePairedDelimiterX{\norm}[1]{\lVert}{\rVert}{#1}
+\newcommand{\bs}{\boldsymbol}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\begin{document}
+
+\section*{MATH 4441 -- HW4 Solutions}
+\begin{enumerate}
+    \item[3.]
+        For any $\bs{p} \in \Sigma_R$, the normal vector is given by $\bs{N}(\bs{p}) = \frac{\bs{p}}{\norm{\bs{p}}} = \bs{\pi}(\bs{p})$, which shows that the Gauss map of $\Sigma_R$ is $\bs{\pi}|_{\Sigma_R}$. \par
+        Now fix $\bs{p} \in \Sigma_R$ and let $\bs{v} \in T_{\bs{p}} \Sigma_R$ be a unit vector, and let $\bs{\sigma} : [-\epsilon, \epsilon] \to \Sigma_R$ for some small $\epsilon$ parameterize a curve in $\Sigma_R$ such that $\bs{\sigma}(0) = \bs{p}$ and $\bs{\sigma}'(0) = \bs{v}$. Then the shape operator is
+        \begin{align*}
+            S_{\bs{p}}(\bs{v}) &= -\bs{N}_{\bs{v}}(\bs{p}) = -(D\bs{N})_{\bs{p}}(\bs{v}) \\
+            &= -\frac{d}{dt}(\bs{N} \circ \bs{\sigma})|_{t = 0} = -\frac{d}{dt}\frac{\bs{\sigma}(t)}{\norm{\bs{\sigma}(t)}}\bigg|_{t = 0} \\
+            &= -\frac{\bs{\sigma}'(0)}{R} = -\frac{\bs{v}}{R},
+            %= -\left[ \begin{array}{ccc}
+                    %\frac{\partial N_1}{\partial x_1}(\bs{p}) & \frac{\partial N_1}{\partial x_2}(\bs{p}) & \frac{\partial N_1}{\partial x_3}(\bs{p}) \\
+                    %\frac{\partial N_2}{\partial x_1}(\bs{p}) & \frac{\partial N_2}{\partial x_2}(\bs{p}) & \frac{\partial N_2}{\partial x_3}(\bs{p}) \\
+                    %\frac{\partial N_3}{\partial x_1}(\bs{p}) & \frac{\partial N_3}{\partial x_2}(\bs{p}) & \frac{\partial N_3}{\partial x_3}(\bs{p})
+            %\end{array} \right]
+        \end{align*}
+        or in other words, we have $S_{\bs{p}} = -I/R$ where $I$ is the identity matrix (in any basis spanning $T_{\bs{p}}\Sigma_R$). \par
+        Lastly, the Gauss curvature is $K(\bs{p}) = \det S_{\bs{p}} = 1/R^2$ since the vector space is two-dimensional.
+
+    \item[5.]
+        Let $\bs{\sigma} : [-\epsilon, \epsilon] \to \Sigma_R$ for some $\epsilon$ give an arc length parameterization of $C$ such that $\bs{\sigma}(0) = \bs{p}$, and let $\bs{w} = \bs{\sigma}'(0)$. Then the curvature of $C$ at $\bs{p}$ is exactly the curvature of $\Sigma$ at $\bs{p}$ along $\bs{w}$:
+        \begin{align*}
+            \kappa(\bs{p}) = |\kappa_{\bs{p}}(\bs{w})|.
+        \end{align*}
+        Since the Gauss curvature is positive, $\kappa_1$ and $\kappa_2$ share the same sign. If $\kappa_1$ and $\kappa_2$ are positive, then
+        \begin{align*}
+            \kappa(\bs{p}) = |\kappa_{\bs{p}}(\bs{w})| \geq |\min_{\bs{v} \in T_{\bs{p}}\Sigma} \kappa_{\bs{p}}(\bs{v})| = |\kappa_2| \geq \min\{ |\kappa_1|, |\kappa_2| \};
+        \end{align*}
+        if they are negative, then
+        \begin{align*}
+            \kappa(\bs{p}) = |\kappa_{\bs{p}}(\bs{w})| \geq |\max_{\bs{v} \in T_{\bs{p}}\Sigma} \kappa_{\bs{p}}(\bs{v})| = |\kappa_1| \geq \min\{ |\kappa_1|, |\kappa_2| \},
+        \end{align*}
+        so the desired inequality is true in both cases.
+
+    \item[7.]
+        %Let $\bs{\gamma}_1 : [-\epsilon, \epsilon] \to \Sigma$ and $\bs{\gamma}_2 : [-\epsilon, \epsilon] \to \Sigma$ for some small $\epsilon$ be parameterizations of curves by arc length with $\bs{\gamma}_1(0) = \bs{\gamma}_2(0) = \bs{p}$, $\bs{\gamma}_1'(0) = \bs{v}$, and $\bs{\gamma}_2'(0) = \bs{w}$. Then we have that
+        %\begin{align*}
+            %\kappa_{\bs{p}}(\bs{v}) + \kappa_{\bs{p}}(\bs{w}) = \bs{\gamma}_1''(0) \cdot \bs{N}(\bs{p}) + \bs{\gamma}_2''(0) \cdot \bs{N}(\bs{p})
+        %\end{align*}
+        Let $\kappa_1$ and $\kappa_2$ be the principal curvatures of $\Sigma$ at $\bs{p}$. If $\kappa_1 = \kappa_2$, then the curvature of $\Sigma$ at $\bs{p}$ is the same in all directions, and we are done. \par
+        Now assume otherwise. Then there exist unit vectors $\bs{e}_1, \bs{e}_2$ such that $\kappa_1$ and $\kappa_2$ are the curvatures of $\Sigma$ at $\bs{p}$ along $\bs{e}_1$ and $\bs{e}_2$ respectively. There also exists an angle $\theta$ such that
+        \begin{align*}
+            \bs{v} = \cos\theta \bs{e}_1 + \sin\theta \bs{e}_2
+        \end{align*}
+        which also means that
+        \begin{align*}
+            \bs{w} = \cos\left( \theta + \frac{\pi}{2} \right) \bs{e}_1 + \sin\left( \theta + \frac{\pi}{2} \right) \bs{e}_2 = -\sin\theta \bs{e}_1 + \cos\theta \bs{e}_2.
+        \end{align*}
+        Then by the Euler curvature formula,
+        \begin{align*}
+            \kappa_{\bs{p}}(\bs{v}) + \kappa_{\bs{p}}(\bs{w}) &= (\kappa_1 \cos^2\theta + \kappa_2 \sin^2\theta) + (\kappa_1 \sin^2\theta + \kappa_2 \cos^2\theta) \\
+            &= \kappa_1 + \kappa_2,
+        \end{align*}
+        which is constant.
+
+    \item[8.]
+        Since $\bs{f}_u = (f'(u) \cos v, f'(u) \sin v, g'(u))$ and $\bs{f}_v = (-f(u) \sin v, f(u) \cos v, 0)$, the unit normal vector is given by
+        \begin{align*}
+            \bs{N}(u, v) &= \frac{\bs{f}_u \times \bs{f}_v}{\norm{\bs{f}_u \times \bs{f}_v}} = \frac{(-f(u) g'(u) \cos v, -f(u) g'(u) \sin v, f(u) f'(u))}{\sqrt{[f(u)]^2 [g'(u)]^2 + [f(u)]^2 [f'(u)]^2}} \\
+            &= \frac{(-g'(u) \cos v, -g'(u) \sin v, f'(u))}{\sqrt{[g'(u)]^2 + [f'(u)]^2}} \\
+            &= \frac{(-g'(u) \cos v, -g'(u) \sin v, f'(u))}{\norm{\bs{\alpha}'(u)}} \\
+            &= (-g'(u) \cos v, -g'(u) \sin v, f'(u)).
+        \end{align*}
+        Using the local coordinates $\bs{f}_u$ and $\bs{f}_v$, the first fundamental form is given by
+        \begin{align*}
+            \mathrm{I}(u, v) &= \left[ \begin{array}{cc}
+                    \bs{f}_u \cdot \bs{f}_u & \bs{f}_u \cdot \bs{f}_v \\
+                    \bs{f}_u \cdot \bs{f}_v & \bs{f}_v \cdot \bs{f}_v
+            \end{array} \right]
+            = \left[ \begin{array}{cc}
+                    [f'(u)]^2 + [g'(u)]^2 & 0 \\
+                    0 & f^2(u)
+            \end{array} \right]
+            = \left[ \begin{array}{cc}
+                    1 & 0 \\
+                    0 & f^2(u)
+            \end{array} \right].
+        \end{align*}
+        Since $\bs{f}_{uu} = (f''(u) \cos v, f''(u) \sin v, g''(u))$, $\bs{f}_{uv} = (-f'(u) \sin v, f'(u) \cos v, 0)$, and $\bs{f}_{vv} = -(f(u) \cos v, f(u) \sin v, 0)$, the second fundamental form is given by
+        \begin{align*}
+            \mathrm{I\!I}(u, v) &= \left[ \begin{array}{cc}
+                    -\bs{N}(u, v) \cdot \bs{f}_{uu} & -\bs{N}(u, v) \cdot \bs{f}_{uv} \\
+                    -\bs{N}(u, v) \cdot \bs{f}_{uv} & -\bs{N}(u, v) \cdot \bs{f}_{vv}
+            \end{array} \right] \\
+            &= \left[ \begin{array}{cc}
+                    f''(u) g'(u) + f'(u) g''(u) & 0 \\
+                    0 & -f(u) g'(u)
+            \end{array} \right].
+        \end{align*}
+
+    \item[10.]
+        Since $\bs{f}_u = (1, 0, h_u)$ and $\bs{f}_v = (0, 1, h_v)$, the unit normal vector is given by
+        \begin{align*}
+            \bs{N}(u, v) &= \frac{\bs{f}_u \times \bs{f}_v}{\norm{\bs{f}_u \times \bs{f}_v}} = \frac{(-h_u, -h_v, 1)}{\sqrt{1 + h_u^2 + h_v^2}}.
+        \end{align*}
+        Using the local coordinates $\bs{f}_u$ and $\bs{f}_v$, the first fundamental form is given by
+        \begin{align*}
+            \mathrm{I}(u, v) &= \left[ \begin{array}{cc}
+                    \bs{f}_u \cdot \bs{f}_u & \bs{f}_u \cdot \bs{f}_v \\
+                    \bs{f}_u \cdot \bs{f}_v & \bs{f}_v \cdot \bs{f}_v
+            \end{array} \right]
+            = \left[ \begin{array}{cc}
+                    1 + h_u^2 & h_u h_v \\
+                    h_u h_v & 1 + h_v^2
+            \end{array} \right].
+        \end{align*}
+        Since $\bs{f}_{uu} = (0, 0, h_{uu})$, $\bs{f}_{uv} = (0, 0, h_{uv})$, and $\bs{f}_{vv} = (0, 0, h_{vv})$, the second fundamental form is given by
+        \begin{align*}
+            \mathrm{I\!I}(u, v) &= \left[ \begin{array}{cc}
+                    -\bs{N}(u, v) \cdot \bs{f}_{uu} & -\bs{N}(u, v) \cdot \bs{f}_{uv} \\
+                    -\bs{N}(u, v) \cdot \bs{f}_{uv} & -\bs{N}(u, v) \cdot \bs{f}_{vv}
+            \end{array} \right] \\
+            &= \frac{-1}{\sqrt{1 + h_u^2 + h_v^2}} \left[ \begin{array}{cc}
+                    h_{uu} & h_{uv} \\
+                    h_{uv} & h_{vv}
+            \end{array} \right].
+        \end{align*}
+
+    \item[11.]
+        Note that the Hessian matrix appears in the expression for the second fundamental form (observing Fubini's theorem) and that $h_u^2 + h_v^2 = \norm{\mathrm{grad}\;h(u, v)}^2$. Thus,
+        \begin{align*}
+            K(u, v) &= \frac{\det \mathrm{I\!I}(u, v)}{\det \mathrm{I}(u, v)} = \frac{\det \mathrm{Hess}(h(u, v)) / \sqrt{1 + \norm{\mathrm{grad}\;h(u, v)}^2}}{(1 + h_u^2)(1 + h_v^2) - (h_u h_v)^2} \\
+            &= \frac{\det \mathrm{Hess}(h(u, v))}{\left( 1 + \norm{\mathrm{grad}\;h(u, v)}^2 \right)^{3/2}}.
+        \end{align*}
+\end{enumerate}
+
+\end{document}

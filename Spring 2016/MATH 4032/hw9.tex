@@ -1,0 +1,71 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amsthm, changepage, enumitem, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\newcommand{\gbinom}[2]{\genfrac{[}{]}{0pt}{}{#1}{#2}}
+
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{MATH 4032 - HW9 Solutions}
+\subsection*{10.}
+\begin{enumerate}
+    \iffalse
+        \item[2.]
+            \boldmath
+            \textbf{Show that any finite graph contains two vertices lying on the same number of edges.} \par
+            \unboldmath
+    \fi
+
+    \item[4.]
+        \boldmath
+        \textbf{Show that, if $N > mnp$, then any sequence of $N$ real numbers must contain either a strictly increasing subsequence with length greater than $m$, a strictly decreasing subsequence with length greater than $n$, or a constant subsequence of length greater than $p$. Show also that this result is the best possible.} \par
+        \unboldmath
+        If the sequence has at most $mn$ distinct numbers, then by the Pigeonhole Principle, there is some value shared by more than $p$ elements, so these elements form a constant subsequence of length greater than $p$. Otherwise, if the sequence has more than $mn$ distinct numbers, we may form a sequence of these distinct numbers in order, and apply the direct proof of Proposition 10.5.1 to obtain the result that there is either some strictly increasing subsequence containing at least $m + 1$ members, or some strictly decreasing subsequence containing at least $n + 1$ members. \par
+        To show that the bound $mnp$ is the best possible, consider the sequence used in the same earlier proof, which has a longest increasing subsequence of length $m$ and a longest decreasing subsequence of length $n$. If each term is replicated $p$ times with the order preserved, then the previous statements still hold true, and the new sequence has $mnp$ elements.
+
+    \iffalse
+    \item[5.]
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{Show that any infinite sequence of real numbers contains an infinite subsequence which is either constant or strictly monotonic.} \par
+                \unboldmath
+        \end{enumerate}
+
+    \item[6.]
+        \boldmath
+        \textbf{Let $X$ be the set of residues modulo 17. Color the 2-element subsets of $X$ by assigning to $\{ x, y \}$ the color red if
+        \begin{align*}
+            x - y \equiv \pm 1, \pm 2, \pm 4 \text{ or } \pm 8 (\text{mod }17),
+        \end{align*}
+        blue otherwise. Show that there is no monochromatic 4-set.} \par
+        \unboldmath
+    \fi
+
+    \item[7.]
+        \begin{enumerate}
+            \item
+                \boldmath
+                \textbf{Prove Schur's Theorem, which is stated as follows:
+                \begin{adjustwidth}{2.5em}{0pt}
+                    \textit{There is a function $f$ on the natural numbers with the property that, if the numbers $\{ 1, 2, \cdots, f(n) \}$ are partitioned into $n$ classes, then there are two numbers $x$ and $y$ such that $x$, $y$, and $x + y$ all belong to the same class.}
+                \end{adjustwidth}
+                In other words, the numbers $\{ 1, 2, \cdots, f(n) \}$ cannot be partitioned into $n$ ``sum-free sets.''} \par
+                \unboldmath
+                We claim that $f(n) = R(n, 2, 3) - 1$ is such a function. For if we have $n$ colors and $\{ 1, 2, \cdots, f(n) \}$ is partitioned into classes denoted by $C_1, \cdots, C_n$, and each 2-subset $\{ x, y \}$ ($x < y$, without loss of generality) of $\{ 1, 2, \cdots, f(n) + 1 \}$ is colored $c_i$ if and only if $y - x \in C_i$, then we have that $1 \leq y - x \leq f(n)$. Applying Ramsey's Theorem on $f(n) + 1 = R(n, 2, 3)$, we have that there exists a monochromatic 3-set $\{ x, y, z \}$ of color $c_i$, so by definition $y - x, z - y, z - x \in C_i$. The fact that $z - x$ is the sum of $y - x$ and $z - y$ completes the proof.
+
+            \item
+                \boldmath
+                \textbf{State and prove an infinite version of Schur's Theorem.} \par
+                \unboldmath
+                \begin{adjustwidth}{2.5em}{0pt}
+                    \textit{If the natural numbers are partitioned into $n$ classes, then there are two numbers $x$ and $y$ such that $x$, $y$, and $x + y$ all belong to the same class.} \par
+                \end{adjustwidth}
+                We again denote the classes by $C_1, \cdots C_n$, and this time color each 2-subset $\{ x, y \}$ of the natural numbers $c_i$ if and only if $y - x \in C_i$. Then we have the same result by the infinite Ramsey theorem.
+        \end{enumerate}
+\end{enumerate}
+\end{document}

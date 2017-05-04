@@ -1,0 +1,183 @@
+\documentclass[12pt]{article}
+
+%Packages Used%
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{amsfonts,setspace}
+\usepackage{fullpage}
+\usepackage{comment}
+\usepackage{enumitem}
+\usepackage[margin=1in]{geometry}
+
+
+\setlength{\abovedisplayskip}{3mm}
+\setlength{\belowdisplayskip}{3mm}
+\setlength{\abovedisplayshortskip}{0mm}
+\setlength{\belowdisplayshortskip}{2mm}
+\setlength{\baselineskip}{12pt}
+\setlength{\normalbaselineskip}{12pt}
+
+\newcommand{\blank}{\underline{~~~~~~~~~}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\kk}{\mathbf{k}}
+\newcommand{\cP}{\mathcal{P}}
+
+\newcommand{\bu}{\mathbf{u}}
+\newcommand{\bv}{\mathbf{v}}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\by}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\bc}{\mathbf{c}}
+\newcommand{\bp}{\mathbf{p}}
+\newcommand{\bq}{\mathbf{q}}
+\newcommand{\be}{\mathbf{e}}
+\newcommand{\bzero}{\mathbf{0}}
+\DeclareMathOperator{\Nul}{Nul}
+\DeclareMathOperator{\Mod}{mod}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\tr}{tr}
+
+\renewcommand{\And}{\wedge}
+\newcommand{\Or}{\vee}
+\newcommand{\Implies}{\Rightarrow}
+\newcommand{\Not}{\sim}
+
+
+
+\normalbaselines
+\pagestyle{empty}
+\raggedbottom
+\begin{document}
+
+\noindent
+\textbf{Name: Erick Lin} \smallskip  \\
+\textbf{Collaborators:} \smallskip \\ %%% List anyone with whom you discussed the problems
+\textbf{Outside resources:} %%% List all resources used OTHER than the textbook, lecture notes, quizzes, worksheets, and previous homework assignments.
+
+\begin{center}
+{
+Math 4108, Algebra II \\
+HW 1 --- Due January 20, 2017 (Fri)
+}
+\end{center}
+
+\noindent Read and think about the problems in Chapters 1 and 2 of the textbook (Howie).  The solutions are in the back of the book.  Turn in the following problems.
+
+\begin{enumerate}
+    \item Let $R$ be a commutative unital ring, and $a,b\in R$.
+    \begin{enumerate}
+        \item Suppose that $R$ is an integral domain and that $a^n = b^n$ and $a^m = b^m$ for two relatively prime positive integers $m$ and $n$.  Prove that $a = b$. \par
+            Suppose $m < n$ without loss of generality, so that $n = mq + r$ where $q, r \in \mathbb{Z}, r < m$. We have then that $a^n = b^n \Leftrightarrow a^{mq + r} = b^{mq + r} \Leftrightarrow \left( a^m \right)^q a^r = \left( b^m \right)^q b^r \Leftrightarrow \left( a^m \right)^q a^r = \left( a^m \right)^q b^r \Leftrightarrow a^r = b^r$ by the cancellation property. Since $\text{gcd}(m, n) = 1$, continuing by Euclid's division algorithm eventually yields $a = b$.
+
+        \item Give a concrete example to show that the statement above is false  without the assumption that $R$ is an integral domain. \par
+            Consider the commutative unital ring $\mathbb{Z}_8$, and let $a = 2$, $b = 6$, $n = 2$, and $m = 3$. While $2^2 = 6^2 = 4$ and $2^3 = 6^3 = 0$, it is clear that $2 \neq 6$.
+    \end{enumerate}
+
+    \item Describe an infinite field with prime characteristic. \par
+        $\mathbb{Z}_3[x]$ is an infinite ring of prime characteristic, since $x^m \neq x^n$ for all $m \neq n$. Take its field of fractions $\mathbb{Z}_3(x)$.
+
+    \item Show that the usual quadratic formula for the roots of a degree-two polynomial is valid in any field whose characteristic is not $2$. \par
+        According to the quadratic formula, the roots are
+        \begin{align*}
+            \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}.
+        \end{align*}
+        If the field is of characteristic 2, then $a$ must take some value in $\{ -1, 0, 1 \}$, but for all these values the denominator evaluates to the element $0$, so the formula is undefined. \par
+        However, if the characteristic is any other prime or 0, then $a$ can take on more possible values. In particular, $a = \pm 1$ gives a nonzero denominator.
+
+    \item Let $F$ be any field with exactly four elements.
+    \begin{enumerate}
+        \item Show that $F$ has characteristic $2$. \par
+            Since the field is finite, its characteristic must be a prime number. $2$ is the only prime number that divides $4$.
+
+        \item Show that both elements not in the prime subfield $\ZZ_2$ of $F$ satisfy the polynomial equation $x^2=x+1$. \par
+            The prime subfield $\ZZ_2$ contains the elements $0$ and $1$. Let $a$, $b$ denote the other elements of $F$. We know that
+            \begin{itemize}
+                \item
+                    $a + 1 \neq 0$ because otherwise $\text{char }F = 2$ implies that $a = 1$,
+                \item
+                    $a + 1 \neq 1$ because otherwise we have $a = 0$, and
+                \item
+                    $a + 1 \neq a$ because we know that $1$ is not the additive identity,
+            \end{itemize}
+            so we deduce that $a + 1 = b$. Likewise,
+            \begin{itemize}
+                \item
+                    $a^2 \neq 0$ because fields have no zero divisors,
+                \item
+                    $a^2 \neq 1$ because otherwise $ba = (a + 1)a = a^2 + a = a + 1 = b$ implies that $a = 1$, and
+                \item
+                    $a^2 \neq a$ because otherwise we have $a = 1$,
+            \end{itemize}
+            so we deduce that $a^2 = b$ also, concluding that $a^2 = a + 1$. The roles of $a$ and $b$ were chosen without loss of generality, so we also have by the same reasoning that $b^2 = b + 1$.
+
+        \item Show that $F$ is isomorphic to $\ZZ_2[x]/\langle x^2+x+1\rangle$. \par
+            By (b), we have that the adjoined elements are the roots of the polynomial $x^2 - x - 1 = x^2 + x + 1$, which is irreducible in $\ZZ_2[x]$.
+    \end{enumerate}
+
+    \item Let $R$ be a commutative unital ring and $f$ be a polynomial of degree $n \geq 1$ in $R[X]$.
+    \begin{enumerate}
+        \item Prove that if $R$ is an integral domain, then $f$ has at most $n$ roots in $R$. \par
+            Suppose for the purpose of contradiction that $f$ has distinct roots $\beta_1, \cdots, \beta_{n + 1}$. Then
+            \begin{align*}
+                f(x) = (x - \beta_1) q(x), \quad \text{deg }q = n - 1.
+            \end{align*}
+            Evaluating at $x = \beta_2, \beta_3, \cdots, \beta_{n + 1}$ gives zero for the left-hand side, which means that $q(x)$ must also be zero for all $n$ of these values. Continuing by induction, using $q(x)$ in place of $f(x)$, eventually terminates in the result that $q(x)$, and thus also $f(x)$, is the zero polynomial.
+
+        \item Give a concrete example to show that the statement above is false without the assumption that $R$ is an integral domain. \par
+            In the commutative ring $\mathbb{Z}_8$, the polynomial $4x$ is of degree $1$ but has $0, 2, 4,$ and $6$ as roots.
+    \end{enumerate}
+
+    \item Let $p$ be any prime number. 
+    \begin{enumerate}
+        \item Prove that $(x-0)\cdot(x-1)\cdots(x-(p-1)) = x^p - x$ in $\ZZ_p[x]$. \par
+            $(\ZZ_p)^\times$ is a cyclic group, which implies that $x^p = x$ for all $x \neq 0$, and it is also true that $x^p = x$ when $x = 0$. In summary, we have that $x^p - x = 0$ for all $x \in \ZZ_p$, meaning that the elements $0, 1, \cdots, p - 1$ are all roots of $x^p - x$. The result follows from the unique factorization property.
+        \item Show that if two polynomials $f(x)$ and $g(x)$ in $\ZZ_p[x]$ determine the same function on $\ZZ_p$, then $f(x)-g(x)$ is divisible by $x^p - x$. \par
+            From part (a), we can see that $f(x) - g(x)$ is divisible by $x^p - x$ if $0, 1, \cdots, p - 1$ are roots of $f(x) - g(x)$. This is indeed the case, since $f(x) - g(x)$ is the zero polynomial in $\ZZ_p[x]$.
+    \end{enumerate}
+
+    \item Is $x^3+x^2+x+1$ divisible by $x^2+3x+2$ over any of the fields $\ZZ_3$, $\ZZ_5$, $\ZZ_7$? \par
+        Note that $x^2 + 3x + 2 = (x + 2)(x + 1)$, so this reduces to checking that $-2$ and $-1$ are both roots of $x^3 + x^2 + x + 1$. The only field in which this holds is $\ZZ_5$, since $(-2)^3 + (-2)^2 + (-2) + 1 = -5$ and $(-1)^3 + (-1)^2 + (-1) + 1 = 0$.
+
+    \item Find all monic irreducible quadratic (degree 2) polynomials over the field $\ZZ_5$. \par
+        Monic reducible quadratic polynomials must have roots; we can count $\binom{5}{2} = 10$ such polynomials with distinct roots and $5$ polynomials with a double root in $\ZZ_5$. Since there are $5^2 = 25$ monic quadratic polynomials over $\ZZ_5$ in total, there are $25 - (10 + 5) = 10$ polynomials with the desired properties. These polynomials are
+        \begin{gather*}
+            x^2 + 2 \qquad x^2 + 3 \qquad x^2 + x + 1 \qquad x^2 + x + 2 \qquad x^2 + 2x + 3 \\
+            x^2 + 2x + 4 \qquad x^2 + 3x + 3 \qquad x^2 + 3x + 4 \qquad x^2 + 4x + 1 \qquad x^2 + 4x + 2.
+        \end{gather*} \par
+        Note: over the field $\ZZ_n$, using the same reasoning gives us the formula $n^2 - \left( \binom{n}{2} + n \right)$.
+
+    \item Find all monic irreducible cubic (degree 3) polynomials over the field $\ZZ_3$. \par
+        First, the number of monic irreducible quadratic polynomials over the field $\ZZ_3$ is $3^2 - \left( \binom{3}{2} + 3 \right) = 3$ according to the previous formula. A monic cubic polynomial which includes an irreducible quadratic polynomial as a factor must have only a single root (of which there are $3$ possibilities), so there are $3 \times 3$ possibilities for such a polynomial. \par
+        Otherwise, it has three roots, of which there is $1$ possible polynomial if all are different, $3 \times 2$ possibilities if exactly two are the same, and $3$ possibilities if all are the same. \par
+        Since there are $3^3 = 27$ monic cubic polynomials over $\ZZ_3$ in total, there are $27 - (3 \times 3 + 1 + 3 \times 2 + 3) = 8$ polynomials with the desired properties. These polynomials are
+        \begin{gather*}
+            x^3 + 2x + 1 \qquad x^3 + 2x + 2 \qquad x^3 + x^2 + 2 \qquad x^3 + x^2 + x + 2 \\
+            x^3 + x^2 + 2x + 1 \qquad x^3 + 2x^2 + 1 \qquad x^3 + 2x^2 + x + 1 \qquad x^3 + 2x^2 + 2x + 2.
+        \end{gather*}
+
+    \item Which of the following polynomials are irreducible over $\QQ$?
+    \begin{enumerate}
+        \item $x^3+2x^2+4x+2$ \par
+            Irreducible by Eisenstein's criterion with $p = 2$.
+        \item $x^3+2x^2+2x+4$ \par
+            Reducible, as it factorizes to $(x + 2)(x^2 + 2)$.
+        \item $x^7-47$ \par
+            Irreducible by Eisenstein's criterion with $p = 47$.
+        \item $x^4+15$ \par
+            Irreducible by Eisenstein's criterion with $p = 3$ or $p = 5$.
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}

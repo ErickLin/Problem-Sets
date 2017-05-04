@@ -1,0 +1,355 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{algpseudocode, amsfonts, amsmath, amsthm, enumitem}
+\usepackage[plain]{algorithm}
+
+\textheight=9.5in
+\textwidth=6.5in
+\topmargin=-.8in
+\headsep=0pt
+\oddsidemargin=0truecm
+\evensidemargin=0truecm
+\footskip=20pt
+%\footheight=20pt
+\pretolerance=1600
+\tolerance=1600
+\hbadness=1600
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\begin{document}
+
+\title{
+}
+
+%\author{Assigned 1-13-16 , Due 1-19-16 (in class)
+%}
+
+
+\date{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author's definitions
+
+\newcommand{\DEF}[1]{{\em #1\/}}
+
+\newcommand\chic{\chi_c}
+\newcommand\C{\hbox{${\cal C}$}}
+\newcommand{\RR}{\text{$\mathbb R$}}
+\newcommand{\NN}{\text{$\mathbb N$}}
+\newcommand{\ZZ}{\text{$\mathbb Z$}}
+\newcommand{\eopf}{\raisebox{0.8ex}{\framebox{}}}
+\newcommand{\dist}{\hbox{\rm d}}
+\renewcommand\a{\alpha}
+\renewcommand\b{\beta}
+\renewcommand\c{\gamma}
+\renewcommand\d{\delta}
+\newcommand\D{\Delta}
+\newcommand{\directedchi}{\text{$\vec{\chi}$}}
+\newcommand{\directedE}{\text{$\vec{E}$}}
+\newcommand{\directedG}{\text{$\vec{G}$}}
+\newcommand{\directedK}{\text{$\vec{K}$}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\maketitle
+
+\noindent{\bf  Last Name:} $Lin \quad$
+\noindent{\bf First Name:} $Erick \quad$
+\noindent{\bf Email:}          $elin42@gatech.edu$\\
+\noindent{\bf CS 4540, Fall 2016, Homework 3, 10/04/16 Due 10/13/16 in class}
+
+\bigskip
+
+\noindent{\bf Problem 1: Set Cover with Maximum Frequency $f$ -- Primal-Dual Method (20 points)}. \\
+\emph{Consider the set cover problem, where sets have costs, 
+and with the additional property that {\em every element belongs to at most} $f$ {\em sets}. 
+Give a polynomial time approximation algorithm that achieves approximation factor $f$.} \par
+%The algorithm is given by finding an optimal solution to the LP-relaxation of the problem and then selecting all sets $S$ in this solution for which $x_S \geq 1/f$. \par
+%We show that this algorithm achieves an approximation factor of $f$ for the set cover problem as follows. Let $\mathcal{F}$ denote the family of sets selected by the algorithm. Since any element appears in at most $f$ sets, there must be a set $S$ such that $x_S \geq 1/f$ which means it is one of the selected sets in $\mathcal{S}$. Rounding the cost of each set in $\mathcal{S}$ to $1$ increases it by a factor of at most $f$, so the cost of $\mathcal{S}$ is increased by a factor of at most $f$ overall. Because the solution to the LP-relaxation is also a lower bound on the solution of the original problem, the total cost of $\mathcal{S}$ is thus within an approximation factor of $f$ times the solution to the original problem. \\
+Let $U$ denote a universe of elements, $\mathcal{S}$ denote a collection of subsets of $U$, and $c : \mathcal{S} \to \mathbb{R}_{> 0}$ denote the cost function. The IP for the set cover problem is given by
+\begin{align*}
+    \min \sum_{S \in \mathcal{S}} &c(S) x_S \\
+    \text{s.t.} \sum_{S : e \in S} &x_S \geq 1 \quad \forall e \in U \\
+    &x_S \in \{ 0, 1 \} \quad \forall S \in \mathcal{S}.
+\end{align*}
+Then the LP-relaxation is given by
+\begin{align*}
+    \min \sum_{S \in \mathcal{S}} &c(S) x_S \\
+    \text{s.t.} \sum_{S : e \in S} &x_S \geq 1 \quad \forall e \in U \\
+    &x_S \geq 0 \quad \forall S \in \mathcal{S},
+\end{align*}
+and the dual of the LP-relaxation is given by
+\begin{align*}
+    \max \sum_{e \in U} &y_e \\
+    \text{s.t.} \sum_{e : e \in S} &y_e \leq c(S) \quad \forall S \in \mathcal{S} \\
+    &y_e \geq 0 \quad \forall e \in U.
+\end{align*}
+We now give an approximation in which we ensure the primal complementary slackness conditions while relaxing the dual complementary slackness conditions by a factor of $f$:
+\begin{gather*}
+    \text{Either } x_S = 0 \text{ or } \sum_{e : e \in S} y_e = c(S) \quad \forall S \in \mathcal{S} \\
+    \text{Either } y_e = 0 \text{ or } 1 \leq \sum_{S : e \in S} x_S \leq f \quad \forall e \in U
+\end{gather*}
+It can be observed that in the problem of set cover with maximum frequency $f$, the second condition above is always fulfilled. Then the primal-dual method gives the following approximation algorithm:
+\begin{algorithm}[H] {\begin{algorithmic}[1]
+        \State initialize $C := \emptyset$, $\mathcal{F} := \emptyset$, $x_S := 0$ and $y_e := 0 \;\; \forall S \in \mathcal{S}, e \in U$
+        \While {$C \neq U$}
+            \State choose an arbitrary element $e \in U \setminus C$
+            \State increase $y_e$ until $\sum_{e : e \in S} y_e = c(S)$ for some $S \in \mathcal{S} \setminus \mathcal{F}$
+            \ForAll {$S \in \mathcal{S} \setminus \mathcal{F}$ s.t. $\sum_{e : e \in S} y_e = c(S)$}
+                \State set $x_S := 1$, $C := C \cup S$, $\mathcal{F} := \mathcal{F} \cup \{ S \}$
+            \EndFor
+        \EndWhile
+        \State \Return $\mathcal{F}$ %$\{ S \in \mathcal{S} \mid x_S = 1 \}$
+\end{algorithmic}} \end{algorithm}
+Since $\alpha = 1$ and $\beta = f$ where $\alpha$ and $\beta$ are the relaxation factors of the primal and dual complementary slackness conditions respectively, the algorithm achieves an approximation factor of $\alpha \beta = f$. The time complexity of the algorithm is $O(|U||\mathcal{S}|)$. \\
+
+
+\noindent{\bf Problem 2: Set Multicover -- Dual Fitting (20 points)}.  \\
+\emph{Give a greedy algorithm that achieves an approximation factor guarantee of $H_n$ 
+for set multicover, which is a generalization of set cover in which an integral coverage requirement
+is also specified for each element and sets can be picked multiple number of times
+to satisfy the coverage requirements. 
+Assume that the cost of picking $\alpha$ copies of set $S_j$ is $\alpha \times {\rm cost}(S_j)$.} \par
+
+Let $U$ denote a universe of elements of size $n$, $\mathcal{S}$ denote a collection of subsets of $U$, $c : \mathcal{S} \to \mathbb{R}_{> 0}$ denote the cost function, $\mu : U \to \mathbb{Z}_{> 0}$ denote the coverage requirement, and $\gamma : \mathcal{S} \to \mathbb{Z}_{\geq 0}$ denote the number of times each set is chosen. Then the function $\gamma : U \to \mathbb{Z}_{\geq 0}$ giving the number of times each element $e$ is covered is
+\begin{align*}
+    \gamma(e) = \sum_{S \in \mathcal{S} : e \in S} \gamma(S).
+\end{align*}
+Defining the \emph{effective cost density} $\rho : \mathcal{S} \to \mathbb{R}_{> 0} \cup \{\infty\}$ of a set $S$ by
+\begin{align*}
+    \rho(S) = \frac{c(S)}{\left| \left\{ e \in S \mid \gamma(e) < \mu(e) \right\} \right|},
+\end{align*}
+following the convention that the quantity is given by $\infty$ when the denominator is zero, we can follow a greedy approach:
+\begin{algorithm}[H] {\begin{algorithmic}[1]
+        \State initialize $\gamma(S) := 0 \;\; \forall S \in \mathcal{S}$
+        \While {$\exists e \in U$ s.t. $\gamma(e) < \mu(e)$}
+            \State set $S := \arg\min \rho(S), \Delta := \min\{ \mu(e) - \gamma(e) \mid e \in S, \gamma(e) < \mu(e) \}$
+            \ForAll {$e \in S$ s.t. $\gamma(e) < \mu(e)$} \label{line:price_begin}
+                \State set $\text{price}(e, [\gamma(e) + 1] \cdots [\gamma(e) + \Delta]) := \rho(S)$
+            \EndFor \label{line:price_end}
+            \State set $\gamma(S) := \gamma(S) + \Delta$
+        \EndWhile
+        \State \Return $\gamma(S)$
+\end{algorithmic}} \end{algorithm}
+(Lines \ref{line:price_begin}-\ref{line:price_end} are required only for the proof of correctness and can be omitted otherwise.) The IP for the multiset multicover problem is given by
+\begin{align*}
+    \min \sum_{S \in \mathcal{S}} &c(S) x_S \\
+    \text{s.t.} \sum_{S : e \in S} &x_S \geq \mu(e) \quad \forall e \in U \\
+    &x_S \in \mathbb{Z}_{\geq 0} \quad \forall S \in \mathcal{S},
+\end{align*}
+so the LP-relaxation is given by
+\begin{align*}
+    \min \sum_{S \in \mathcal{S}} &c(S) x_S \\
+    \text{s.t.} \sum_{S : e \in S} &x_S \geq \mu(e) \quad \forall e \in U \\
+    &x_S \geq 0 \quad \forall S \in \mathcal{S},
+\end{align*}
+and the dual of the LP-relaxation is given by
+\begin{align*}
+    \max \sum_{e \in U} &\mu(e) y_e \\
+    \text{s.t.} \sum_{e : e \in S} &y_e \leq c(S) \quad \forall S \in \mathcal{S} \\
+    &y_e \geq 0 \quad \forall e \in U.
+\end{align*} \par
+We will show that
+\begin{align*}
+    y_e = \frac{\sum_{i = 1}^{\mu(e)} \text{price}(e, i)}{\mu(e) H_n}
+\end{align*}
+is a dual feasible solution as follows. Consider an arbitrary set $S \in \mathcal{S}$ consisting of $k$ elements, and number the elements of $S$ in the order in which their coverage requirements were satisfied by the algorithm as $e_1, \cdots, e_k$. At iteration $i$ of the outer loop of the algorithm, in which $\mu(e_i)$ reaches $\mu(e_i)$, $S$ has at least $k - i + 1$ elements in which the coverage requirement is not met, so $\rho(S) \leq c(S)/(k - i + 1)$. We know that the actual set chosen by the algorithm has a lower effective cost density, so $\text{price}(e_i, \mu(e_i)) \leq \rho(S)$. Additionally, because $\text{price}(e_i, i)$ is nondecreasing every iteration due to the method by which sets are chosen by the greedy algorithm, $\sum_{j = 1}^{\mu(e_i)} \text{price}(e_i, j) / \mu(e_i) \leq \text{price}(e_i, \mu(e_i))$. Combining the previous three inequalities gives
+\begin{align*}
+    y_{e_i} \leq \frac{c(S)/(k - i + 1)}{H_n}.
+\end{align*}
+Summing over all elements in $S$,
+\begin{align*}
+    \sum_{i = 1}^k y_{e_i} \leq \frac{c(S) H_k}{H_n} \leq c(S).
+\end{align*} \par
+Lastly, the cost of the output set multicover is at most
+\begin{align*}
+    \sum_{e \in U} \sum_{i = 1}^{\mu(e)} \text{price}(e, i) = H_n \sum_{e \in U} \mu(e) y_e \leq H_n \cdot \text{OPT}
+\end{align*}
+where OPT denotes the cost of the cost of the optimal fractional set cover. \par
+%Set multicover can be reduced to set cover by replacing each element $e$ with $\mu(e)$ duplicates of $e$, and replacing each set $S$ with $\Pi_{e \in S} \mu(e)$ \emph{copies} of $S$, where each copy contains exactly one of the duplicates of each element $e$. Since we have an invariant that $\arg\min \rho(S)$ only changes when $\gamma(e)$ becomes at least $\mu(e)$ for some $e$, the output of the standard greedy algorithm applied to the reduction will be the same as the algorithm given above. \par
+Since the number of elements $e \in U$ such that $\gamma(e) < \mu(e)$ decreases every iteration, the time complexity of the algorithm is $O(|U|)$. \\
+
+
+\noindent{\bf Problem 3: Set Cover over Time (20 points)}.\\
+\emph{Let $U$ be a set of elements with $|U|=n$, and let ${\cal S}$ be a collection of subsets of $U$. 
+For each $S \in {\cal S}$, its cost is given as a function of time, $t\in \{ 1 , 2, \ldots T \}$.
+Each of these cost functions is nonincreasing with time. 
+In addition, for each element in $U$, a coverage requirement is specified, again as a function of time;
+these functions are nondecreasing with time. 
+The problem is to pick sets at a minimum total cost, 
+so that the coverage requirements are satisfied for each element and for each point in time. 
+A set can be picked multiple times; 
+the cost of picking a set depends at the time at which it is picked. 
+Once picked, the set remains in the cover for all future times at no additional cost. 
+Give an $H_n$ approximation factor polynomial time algorithm for this problem. 
+(An $H_{n\times T}$ approximation factor polynomial time algorithm is straightforward.)} \\
+
+Write each element as $I_{it}$ with requirement $r_{i, t}$, and consider a stack of $r(i, t)$ chips labeled $p_{itr}, 1 \leq r \leq r(i, t)$. Define a \emph{line} as a set of chips where $i$ and $r$ are fixed and $t$ varies:
+\begin{align*}
+    L_{ir} = \{ p_{itr} : 1 \leq t \leq T \}.
+\end{align*}
+$L_{ir} \in S_{jt}$ if and only if $t \leq \min\{ t' : p_{it'r \in L_{ir}} \}$. Now define the \emph{potential} of set $S_{jt}$ as the average cost at which the set covers uncovered lines:
+\begin{align*}
+    P(S_{jt}) = c(j, t) / \{ i : \exists L_{ir} \in S_{jt} \text{ and } L_{ir} \text{ is uncovered} \}.
+\end{align*}
+The greedy algorithm is given as follows:
+\begin{algorithm}[H] {\begin{algorithmic}[1]
+        \State set $x(j, t) := 0 \;\; \forall j, t$
+        \State label line $L_{ir} \text{``uncovered''} \;\; \forall i, r$
+        \While {$\exists$ uncovered lines exist}
+            \State set $P(S_{jt}) := |\{ i \mid \exists L_{ir} \in S_{jt} \text{ and } L_{ir} \text{ is uncovered }\}| \;\; \forall j, t$
+            \State for some $S_{j_0 t_0}$ that minimizes $c(j, t) / P(S_{jt})$ set $x(j_0, t_0) := x(j_0, t_0) + 1$
+            \ForAll {i}
+                \If {some uncovered line $L_{ir} \in S_{j_0 t_0}$}
+                    \State label line $L_{ir}$ ``covered'' for exactly one such $r$
+                \EndIf
+                \State set $\text{cost}(L_{ir}) := c(j_0 t_0) / P(S_{j_0 t_0})$
+            \EndFor
+        \EndWhile
+\end{algorithmic}} \end{algorithm}
+The following lemma helps to establish the performance guarantee:
+\begin{lemma}
+    For all sets $S_{jt}$, $\sum_{i \in S_j} \max_{L_{ir} \in S_{jt}} \text{cost}(L_{ir}) \leq \mathcal{H}(k) \cdot c(j, t)$.
+\end{lemma}
+\begin{proof}
+    Assume without loss of generality that:
+    \begin{itemize}[itemsep=0ex]
+        \item
+            $S_j = \{ 1, \cdots, k' \}$.
+        \item
+            for fixed $t$, among all lines $L_{ir} \in S_{jt}$ (as $r$ varies), $L_{ir_i}$ was the last line to be covered by the algorithm.
+        \item
+            for all $1 \leq i' \leq i \leq k'$, $L_{ir_i}$ was covered, at latest, the same iteration of the algorithm as $L_{i'r_{i'}}$.
+    \end{itemize}
+    Then since $S_{jt}$ could have covered $L_{ir}$ at a cost of no more than $c(j, t)/i$, we have
+    \begin{align*}
+        \text{cost}(L_{ir}) \leq \frac{c(j, t)}{i}, 1 \leq i \leq k',
+    \end{align*}
+    and so
+    \begin{align*}
+        \sum_{i \in S_j} \max_{L_{ir} \in S_{jt}} \text{cost}(L_{ir}) &= \sum_{i \in S_j} \text{cost}(L_{ir_i}) \\
+        &\leq \left( \frac{1}{k'} + \frac{1}{k' - 1} + \cdots + 1 \right) c(j, t) \\
+        &\leq \mathcal{H}(k) \cdot c(j, t).
+    \end{align*}
+\end{proof}
+We now assert that the cost of the solution of the algorithm is within a $\mathcal{H}(k)$ multiplicative factor of the cost of any optimal solution. This is shown by first fixing an optimal solution containing $x^*(j, t)$ copies of set $S_{jt}$, and then applying the lemma followed by counting arguments:
+\begin{align*}
+    \mathcal{H}(k) \cdot \text{OPT} &= \mathcal{H}(k) \sum_{t = 1}^T \sum_{j = 1}^m c(j, t) x^*(j, t) \\
+    &\geq \sum_{t = 1}^T \sum_{j = 1}^m x^*(j, t) \sum_{i \in S_j} \max_{L_{ir} \in S_{jt}} \text{cost}(L_{ir}) \\
+    &\geq \sum_{i = 1}^n \sum_{r = 1}^{\max_t r(i, t)} \text{cost}(L_{ir}) \\
+    &= \sum_{t = 1}^T \sum_{j = 1}^m c(j, t) x(j, t).
+\end{align*} \\
+
+
+\noindent{\bf Problem 4: Randomized Rounding (20 points)}.\\
+(a) \emph{Consider the collection of sets, ${\cal C}$, picked by the randomized rounding algorithm.
+Show that, with some constant probability, 
+${\cal C}$ covers at least half the elements at a cost of at most $O( {\rm OPT })$.} \\
+
+Let $\mathcal{C}$ denote the collection of sets picked by the randomized rounding algorithm. If $a$ is an element that occurs in $k$ sets of $S$, then
+\begin{align*}
+    \mathbb{P}[a \text{ is covered by } \mathcal{C}] \geq 1 - \left( 1 - \frac{1}{k} \right)^k \geq 1 - \frac{1}{e}.
+\end{align*}
+Now define the indicator variable
+\begin{align*}
+    X_i = \begin{cases}
+        1 \text{ if } \mathcal{C} \text{ covers element } e_i \\
+        0 \text{ otherwise} 
+    \end{cases}.
+\end{align*}
+Then
+\begin{align*}
+    \mathbb{E}[X_i] = 1 \left( 1 - \frac{1}{e} \right) + 0 \left( \frac{1}{e} \right) \geq 1 - \frac{1}{e}
+\end{align*}
+and by linearity of expectation, the expected number of elements covered is
+\begin{align*}
+    \mathbb{E}[X_1] + \mathbb{E}[X_2] + \cdots + \mathbb{E}[X_n] = n \left( 1 - \frac{1}{e} \right) > \frac{n}{2}.
+\end{align*}
+The expected total cost of $\mathcal{C}$ is
+\begin{align*}
+    \sum_{j = 1}^m \mathbb{P}[S_j \text{ is picked}] \cdot \text{cost}(S_j) = \text{OPT}_{\text{LP}} = O(\text{OPT})
+\end{align*}
+since $\text{OPT}_{\text{LP}} \leq \text{OPT}$. The failure probability is bounded above (using the union bound) by the sum of the probabilities that the cost of $\mathcal{C}$ is not $O(\text{OPT})$ and that $\mathcal{C}$ covers fewer than half the elements:
+\begin{align*}
+    \mathbb{P}[\text{cost}(\mathcal{C}) > c_0 \cdot \text{OPT}] + \mathbb{P}[X_1 + \cdots + X_n < \frac{n}{2}].
+\end{align*}
+Since $\mathbb{E}[\text{cost}(\mathcal{C})] \leq \text{OPT}$, by Markov's inequality, the first term becomes
+\begin{align*}
+    \mathbb{P}[\text{cost}(\mathcal{C}) > c_0 \cdot \text{OPT}] < \frac{1}{c_0}.
+\end{align*}
+Now let $Z$ be the random variable for the number of uncovered elements, $n - (X_1 + \cdots + X_n)$. Then
+\begin{align*}
+    \mathbb{E}[Z] = n - \mathbb{E}[X_1 + \cdots + X_n] = n - n \left( 1 - \frac{1}{e} \right) = \frac{n}{e}
+\end{align*}
+and by Markov's inequality, the second term becomes
+\begin{align*}
+    \mathbb{P}[X_1 + \cdots + X_n < \frac{n}{2}] = \mathbb{P}[Z > \frac{n}{2}] < \frac{2}{e}.
+\end{align*}
+We now have an upper bound of $\frac{1}{c_0} + \frac{2}{e}$ on the failure probability, which is desired to be less than $1$. Solving for $c_0$ gives $c_0 > \frac{1}{1 - 2/e}$, so for any satisfactory $c_0$, we have a lower bound on the probability of success. Overall, then, $\mathcal{C}$ covers at least half the elements at a cost of at most $O(\text{OPT})$ with at least this constant probability. \\
+
+\noindent(b) \emph{Give an $O(\log n )$ factor randomized rounding algorithm for the multiset-multicover problem.} \\
+We will make use of the following Chernoff bound:
+\begin{lemma}
+    Let $X = \sum_{i = 1}^N X_i$ be the sum of $N$ independent random variables which all take values in $[0, U]$ ($U$ some constant), and let $\mu = \mathbb{E}(X)$. Then
+    \begin{align*}
+        \mathbb{P}[X \leq (1 - \epsilon)\mu] < e^{-\mu \epsilon^2 / (2U))}
+    \end{align*}
+    for any $0 < \epsilon < 1$.
+\end{lemma}
+The IP for the multiset multicover problem is given by
+\begin{align*}
+    \min \sum_{S \in \mathcal{S}} &c(S) x_S \\
+    \text{s.t.} \sum_{S : e \in S} &M(S, e) x_S \geq r_e \quad \forall e \in U \\
+    &x_S \in \mathbb{N}_{\geq 0} \quad \forall S \in \mathcal{S}
+\end{align*}
+where $M(S, e)$ is the number of times $e$ appears in the multiset $S$ and $r_e$ is the coverage requirement of $e$; the LP is the same except with $x_S \geq 0$ on the last line. Let $z_S$ for all $S \in \mathcal{S}$ be the optimal solution to this LP, and let $y_S = \lfloor z_S \rfloor$, $p_S = z_S - y_S$, and $r_e' = r_e - \sum_{S : e \in S} y_S$. \par
+Now, apply randomized rounding for set cover with the probabilities $p_S$ a total of $M = 8\log n$ times, obtaining $\mathcal{C}_1, \mathcal{C}_2, \cdots, \mathcal{C}_M$. \par
+Let $\mathcal{C}(y)$ be the multiset containing each element of $S$ $y_S$ times, and construct the multiset $\mathcal{C}'$ by taking two copies of $\mathcal{C}(y)$ as well as $\mathcal{C}_1$ through $\mathcal{C}_M$. \par
+To see that the expected cost of $\mathcal{C}'$ is within $O(\log n)$ of the optimal cost, note that $\text{cost}(\mathcal{C}(y)) \leq \text{OPT}_{LP}$, and that
+\begin{align*}
+    \mathbb{E}[\text{cost}(\mathcal{C}_i)] = \sum_{S \in \mathcal{S}} \mathbb{P}(S \text{ is picked}) c(S) \leq \text{OPT}_{\text{LP}},
+\end{align*}
+so
+\begin{align*}
+    \mathbb{E}[\text{cost}(\mathcal{C}')] \leq 2\text{cost}(\mathcal{C}(y)) + \sum_{i = 1}^M \mathbb{E}[\text{cost}(\mathcal{C}_i)] \leq (2 + M)\text{OPT}_{\text{LP}} = O(\log n) \text{OPT}_{\text{LP}}.
+\end{align*}
+Finally, to see that $\mathcal{C}'$ is a valid multicover with high probability, first consider any element $e$. If $r_e' \leq r_e/2$, then $e$ is already $r_e$ times by the two copies of $\mathcal{C}(y)$. Otherwise, label the multisets covering $e$ by $S_1, \cdots, S_l$, associating with them the probabilities $p_1, \cdots, p_l$. For $1 \leq i \leq l$ and $1 \leq j \leq M$, let
+\begin{align*}
+    X_{ij} = \begin{cases}
+        M(S_i, e) \text{ if $e$ is covered by $S_i$ in $\mathcal{C}_j$} \\
+        0 \text{ otherwise}
+    \end{cases},
+\end{align*}
+(which take values in $[0, r_e]$) and let $X = \sum_{i = 1}^l \sum_{j = 1}^M X_{ij}$, which is the number of times $e$ is covered by $\mathcal{C}_1, \cdots, \mathcal{C}_M$. We also have that $\mu = \mathbb{E}[X] \geq Mr_e'$ by the LP formulation and the definition of $r_e'$. Keeping in mind that $r_e' \geq r_e/2$ and taking advantage of the Chernoff bound, the probability that $e$ is not covered $r_e'$ times is
+\begin{align*}
+    \mathbb{P}(X < r_e') &= \mathbb{P}(X < (1 - (1 - \frac{r_e'}{\mu}))\mu) \\
+    &\leq e^{-\mu(1 - \frac{r_e'}{\mu})^2 / (2r_e)} \\
+    &\leq e^{-Mr_e'(1 - \frac{1}{M})^2 / (2r_e)} \\
+    &\leq e^{(-M + 2 - \frac{1}{M})/4} \\
+    &\leq e^{1/2} e^{-M/4} \\
+    &= \frac{e^{1/2}}{n^2}.
+\end{align*}
+Applying the union bound, the probability that any element is uncovered is bounded above by $\frac{e^{1/2}}{n}$, so we have a lower bound on the probability of success. \\
+
+
+\noindent{\bf Problem 5: Maximum Coverage (20 points)}.\\
+\emph{Given a universe $U$ of $n$ elements, a collection of $m$ subsets of $U$: $S_1 , \ldots , S_m$, 
+and an integer $k$, 
+we want to pick $k$ sets so as to maximize the number of the covered elements. 
+This problem is obviously NP-complete.}
+
+\emph{Show that the obvious algorithm, of greedily picking the best set in each iteration until $k$ sets are picked, 
+achieves an approximation factor of $1-\left( 1- \frac{1}{k} \right)^k > 1 - \frac{1}{e}$.} \par
+
+Let $\mathcal{S}$ denote the collection of $m$ subsets, $S_{x_1}, S_{x_2}, \cdots, S_{x_k}$ be the $k$ sets chosen by the greedy algorithm, and $\mathcal{C}_{\text{OPT}}$ be the subcollection of $k$ subsets with the maximum number of covered elements. We will henceforth consider $\text{OPT} = \sum_{S \in \mathcal{C}_{\text{OPT}}} |S|$, the number of elements covered by $\mathcal{C}_{\text{OPT}}$. Because there exists a subcollection of $k$ subsets covering $\text{OPT}$ elements (with $\mathcal{C}_{\text{OPT}}$ being an example), by the pigeonhole principle, there exists some set in $\mathcal{S}$ with at least $\lceil \text{OPT}/k \rceil > \text{OPT}/k$ elements. From the nature of the greedy algorithm, the subset $S_{x_1}$ chosen on the first iteration will also have at least this many elements. \par
+Thus, on the second iteration, there exists a subcollection of $k$ subsets (not including $S_{x_1}$) covering at most $\text{OPT} - \text{OPT}/k = \text{OPT}(1 - 1/k)$ elements not covered by $S_{x_1}$, so again by the pigeonhole principle, there exists some set in $\mathcal{S}$ with at least $\lceil \text{OPT}(1 - 1/k)/k \rceil > \text{OPT}(1 - 1/k)/k$ uncovered elements, and the chosen subset $S_{x_2}$ has at least this many uncovered elements. Proceeding by induction and using the same reasoning as before, we have that the subset $S_{x_k}$ chosen on the $k$th iteration has at least $\text{OPT}(1 - 1/k)^{k - 1}/k$ uncovered elements, and the number of elements covered by all the chosen sets is at least
+\begin{align*}
+    \left| \bigcup_{i = 1}^k S_{x_i} \right| &= \frac{\text{OPT}}{k} \sum_{i = 1}^k \left( 1 - \frac{1}{k} \right)^{i - 1} \\
+    &= \frac{\text{OPT}}{k} \left[ \sum_{i = 1}^\infty \left( 1 - \frac{1}{k} \right)^{i - 1} - \sum_{i = {k + 1}}^\infty \left( 1 - \frac{1}{k} \right)^{i - 1} \right] \\
+    &= \frac{\text{OPT}}{k} \left[ \frac{1}{1 - (1 - 1/k)} - \frac{(1 - 1/k)^k}{1 - (1 - 1/k)} \right] \\
+    &= \text{OPT} \left[ 1 - \left( 1 - \frac{1}{k} \right)^k \right],
+\end{align*}
+guaranteeing an approximation factor of $1 - \left( 1 - \frac{1}{k} \right)^k$.
+
+\end{document}

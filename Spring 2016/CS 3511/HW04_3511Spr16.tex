@@ -1,0 +1,283 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{amsfonts, amsmath, courier, enumitem}
+
+\textheight=9.5in
+\textwidth=6.5in
+\topmargin=-.8in
+\headsep=0pt
+\oddsidemargin=0truecm
+\evensidemargin=0truecm
+\footskip=20pt
+%\footheight=20pt
+\pretolerance=1600
+\tolerance=1600
+\hbadness=1600
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{problem}[theorem]{Problem}
+
+\begin{document}
+
+\title{
+}
+
+%\author{Assigned 1-13-16 , Due 1-19-16 (in class)
+%}
+
+
+\date{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author's definitions
+
+\newcommand{\DEF}[1]{{\em #1\/}}
+
+\newcommand\chic{\chi_c}
+\newcommand\C{\hbox{${\cal C}$}}
+\newcommand{\RR}{\mbox{$\mathbb R$}}
+\newcommand{\NN}{\mbox{$\mathbb N$}}
+\newcommand{\ZZ}{\mbox{$\mathbb Z$}}
+\newcommand{\eopf}{\raisebox{0.8ex}{\framebox{}}}
+\newcommand{\dist}{\hbox{\rm d}}
+\renewcommand\a{\alpha}
+\renewcommand\b{\beta}
+\renewcommand\c{\gamma}
+\renewcommand\d{\delta}
+\newcommand\D{\Delta}
+\newcommand{\directedchi}{\mbox{$\vec{\chi}$}}
+\newcommand{\directedE}{\mbox{$\vec{E}$}}
+\newcommand{\directedG}{\mbox{$\vec{G}$}}
+\newcommand{\directedK}{\mbox{$\vec{K}$}}
+
+\newenvironment{proof}%
+{\noindent{\bf Proof.}\ }%
+{\hfill\eopf\par\bigskip}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\maketitle
+
+\noindent{\bf  Last Name:} $Lin \quad$
+\noindent{\bf First Name:} $Erick \quad$
+\noindent{\bf Email:}          $elin42@gatech.edu$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 4, 2/19/16 Due 2/26/16 5pm Klaus 2138 $~~$Page 1/5}
+
+\bigskip
+
+\noindent{\bf Problem 1: Testing Bipartiteness, DFS Application (20 points)}\\
+{\bf (a)} An undirected graph $G(V,E)$ is {\em bipartite} if and only if $V$ can be partitioned in to sets $V_A$ and $V_B$
+(that is $V_A \cap V_B=\emptyset$ and $V_A \cup V_B = V$) such that all edges in $E$ have one endpoint in $V_A$ and the other endpoint in $V_B$.
+Give an $O(|V|+|E|)$ algorithm that determines if an undirected graph $G$, given in adjacency list representation,  is bipartite. 
+If the answer is YES then your algorithm should also find a partition $(V_A , V_B)$. 
+If the answer is NO then your algorithm should output a cycle with an odd number of vertices.\\
+{\bf (b)} An undirected graph $G(V,E)$ is {\em near-bipartite} if and only if there exists $e \in E$ such that 
+$G^\prime ( V , E\setminus E^\prime ) $ is bipartite. Give a polynomial time algorithm that determines if
+and undirected graph $G$, given in adjacency list representation, is near-bipartite.\\
+{\bf Answer:}
+\begin{enumerate}[label=(\alph*)]
+    \item
+        We can color some starting vertex $v$ red, and use DFS keeping track of distance from $v$ with an added operation of coloring every vertex of odd distance from $v$ blue, and every vertex of even distance from $v$ red. If at any point an edge is found between two vertices $v$ and $w$ of the same color, then an odd cycle has been found, and the other edges that make up this cycle can be retrieved by traversing the DFS tree path from $w$ to $v$; the algorithm returns NO. Otherwise, the DFS completes successfully and returns YES, and we can return $(V_A, V_B)$ as the set of vertices colored red and the vertices colored blue, respectively. The time complexity is the same as that of DFS.
+
+    \item
+        We can iterate over all $e \in E$ and run (a) on the graph $G'(V, E \setminus e)$. The graph is near-bipartite if the subroutine returns YES for some $e$, and NO otherwise. The time complexity is $O(|E|(|V| + |E|))$ because the subroutine runs $|E|$ times.
+\end{enumerate}
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 4, 2/19/16 Due 2/26/16 5pm Klaus 2138 $~~$Page 2/5}
+
+\bigskip
+
+\noindent{\bf Problem 2: Strongly Connected Components Application (20 points)}\\
+Let $G(V,E)$ be a directed graph. Every vertex $v\in V$  has an associated benefit $b(v) > 0$.
+Let $B(v) = \max \{  b(u): \mbox{there is a path from $v$ to $u$ }    \}$. \\
+{\bf (a)} Give an $O(|V|+|E|)$ algorithm that computes $B(v)$ for all vertices $v\in V$, when $G$ is a DAG.\\
+{\bf (b)} Give an $O(|V|+|E|)$ algorithm that computes $B(v)$  for all vertices $v\in V$, when $G$ is a general directed graph.\\
+{\bf Answer:} \\
+\texttt{computeB$(G(V, E), \; b(1, \cdots, n))$: \\
+\indent initialize $B(1, \cdots, n)$ to $B[i] := b(i)\ \forall i \in \{ 1, \cdots, n \}$ \\
+\indent initialize visited$(1, \cdots, n)$ to visited$[i] := \text{FALSE}\ \forall i \in \{ 1, \cdots, n \}$ \\
+\indent for $i := 1$ to $n$ if visited$[i] = \text{FALSE}$ \\
+\indent \indent $\text{dfs}(i,\; G(V, E),\; B(1, \cdots, n),\; \text{visited}(1, \cdots, n))$ \\
+} \\
+\texttt{dfs$(v,\; G(V, E), \; B(1, \cdots, n), \; \text{visited}(1, \cdots, n))$: \\
+\indent for all children $v'$ of $v$ do \\
+\indent \indent if visited$[v'] = \text{FALSE}$ \\
+\indent \indent \indent $\text{dfs}(v',\; G(V, E),\; B(1, \cdots, n),\; \text{visited}(1, \cdots, n))$ \\
+\indent \indent $B(v) = \max(B(v), B(v'))$ \\
+\indent visited$[v] = \text{TRUE}$
+}
+\begin{enumerate}[label=(\alph*)]
+    \item
+        The algorithm, a modified form of DFS, is given as above. For any vertex $v$, DFS guarantees that the children of $v$ will have their $B$ values finalized before $B(v)$ considers them; thus, $B(v)$ will be the maximum possible out of all of the descendants of $v$. Since only constant time operations are added, the time complexity is that of the DFS, $O(|V| + |E|)$.
+
+    \item
+        We can use an algorithm that finds the strongly connected components in $O(|V| + |E|)$ time, such as Kosaraju's or Tarjan's, and then use (a) on the resultant graph. All vertices $v$ contained in a strongly connected component are given the same value of $B(v)$, which is equal to the maximum benefit of all the vertices contained in the same strongly connected component.
+\end{enumerate}
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 4, 2/19/16 Due 2/26/16 5pm Klaus 2138 $~~$Page 3/5}
+
+\bigskip
+
+\noindent{\bf Problem 3: Biconnectivity  (20 points)}\\
+Problem 3.31 from DPV.\\
+{\bf Answer:}
+\begin{enumerate}[label=(\alph*)]
+    \item
+        $\sim$ is transitive by definition, symmetric because equality and membership in the same cycle are symmetric relations, and transitive because if we let $e \sim e'$ and $e \sim e''$ and consider all the cases in the following order of priority, we have
+        \begin{align*}
+            \text{Case 1: } &e = e' \text{ and } e' = e'' & &\Rightarrow e = e'' \\
+            \text{Case 2: } &e, e' \subset C_1 \text{ and } e' = e'' & &\Rightarrow e, e'' \subset C_1 \\
+            \text{Case 3: } &e = e' \text{ and } e', e'' \subset C_2 & &\Rightarrow e, e'' \subset C_2 \\
+            \text{Case 4: } &e, e' \subset C_1 \text{ and } e', e'' \subset C_1 & &\Rightarrow e, e'' \subset C_1 \\
+            \text{Case 5: } &e, e' \subset C_1 \text{ and } e', e'' \subset C_2 & &\Rightarrow e, e'' \subset C_1 \cup C_2 \setminus (C_1 \cap C_2)
+        \end{align*}
+        where $C_k$ for some $k$ denotes a set of edges that form a cycle. In the last case, we note the fact that the union of two unequal cycles minus their intersection forms a cycle itself.
+
+    \item
+        Component 1: $\{ AB, BN, NO, OA \}$ \\
+        Component 2: $\{ BD \}$ \\
+        Component 3: $\{ CD \}$ \\
+        Component 4: $\{ DM \}$ \\
+        Component 5: $\{ DE, EL, LD \}$ \\
+        Component 6: $\{ FG, GH, HF, FI, IH, IJ, HK, LK, KJ, JL \}$ \\
+        Bridges: $BD, CD, DM$ \\
+        Separating vertices: $B, D, L$
+
+    \item
+        Component 1: $\{ A, B, N, O \}$ \\
+        Component 2: $\{ B, D \}$ \\
+        Component 3: $\{ C, D \}$ \\
+        Component 4: $\{ D, M \}$ \\
+        Component 5: $\{ D, E, L \}$ \\
+        Component 6: $\{ F, G, H, I, J, K, L \}$ \\
+        The only vertices that appear in more than one component are $B$, $D$, and $L$, which are precisely the separating vertices.
+
+    \item
+        Because the number of nodes (including components and separating vertices) is $6 + 3 = 9$ and the resultant graph has $8 = 9 - 1$ edges which connect the nodes together, the resultant graph is a tree.
+
+    \item
+        Any vertex $v$ in the graph can be chosen as the root. \par
+        ($\Rightarrow$) We will prove the contrapositive. If $v$ has no children, then it is already disconnected from the graph and its removal will not influence the connectivity of the remaining graph. If $v$ has only one child $v'$, then from the definition of DFS, all vertices connected to $v$ are also connected to $v'$; thus if $v$ is removed, $v'$ is still connected to the subgraph that contains all the vertices originally connected to $v$. In both of these cases, we have shown that $v$ is not a separating vertex. \par
+        ($\Leftarrow$) If $v$ has more than one child, then from the definition of DFS, its children are connected only by their edges to $v$ (otherwise the children would not be children of $v$ but instead children of its descendants); thus if $v$ is removed, the connected components containing each of its children will no longer be connected to one another, and $v$ is a separating vertex.
+
+    \item
+        ($\Rightarrow$) We will prove the contrapositive. If each child of $v$ in the DFS tree has a descendant with a backedge to some proper ancestor of $v$, then they will remain connected by those backedges to those ancestors if $v$ is removed. Since the removal of $v$ does not influence the connectivity of its children or of its parents (who are connected to the same ancestors as $v$), $v$ is not a separating vertex. \par
+        ($\Leftarrow$) On the other hand, if some child $v'$ of $v$ has no descendant with a backedge to a proper ancestor of $v$, then $v'$ is connected to the ancestors of $v$ only through $v$. Thus, removing $v$ will disconnect $v'$ with all of the ancestors of $v$. Because $v'$ is not connected to the other children of $v$ (from the proof of (e)), $v'$ and its descendants will be disconnected from the rest of the graph; hence, $v$ is a separating vertex.
+
+    \item
+        The \texttt{pre} values can all be computed using DFS in linear time. The DFS functionality will also be augmented to compute \texttt{low} values, which are initially initialized to $\infty$. When $\texttt{pre}(u)$ is computed for some vertex $u$, $\texttt{low}(u)$ is also initialized to this same value if it is greater. Then for all vertices $w$ adjacent to $u$ with $\texttt{low}(w) > \texttt{low}(u)$ (meaning that $\texttt{low}(w)$ is necessarily $\infty$ due to the order of DFS traversal), $\texttt{low}(u)$ is assigned as the new value of $\texttt{low}(w)$. This accounts for all the backedges in the DFS tree, and the new procedure checks each edge once. Thus, the augmented DFS procedure runs in time linear to the number of edges.
+
+    \item
+        The separating vertices are those vertices $v$ with $\texttt{low}(v) = \texttt{pre}(v)$ due to the statement in part (f). Now, DFS can be run using some separating vertex $v$ as the root. In the DFS tree, any path from one separating vertex to another that does not cross any other separating vertices is contained in a single biconnected component. Also, if any tree edge $e$ from a separating vertex is not contained in a path to any other separating vertex, then all of the edges connected to $e$ toward the direction of the tree edge are part of the same biconnected component. With these properties, all of the edges can be collapsed into biconnected components, and this takes linear time if we examine and remove paths starting at each separating vertex in order. Any edge which is connected only to (either one or two) separating vertices is thus considered a bridge.
+\end{enumerate}
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 4, 2/19/16 Due 2/25/16 5pm Klaus 2138 $~~$Page 4/5}
+
+\bigskip
+
+\noindent{\bf Problem 4: Review Dynamic Programming  (20 points)}\\ 
+A subsequence is palindromic if it is the same whether read left to right or right to left. 
+For instance, the sequence ACGTGTCAAAATCG has many palindromic subsequences,
+ including ACGCA and CAAAAC (on the other hand, the subsequence ACT is not palindromic. 
+ Devise a polynomial time algorithm that takes a sequence $x(1, \ldots , n)$
+and returns the (length of the) longest palindromic subsequence.
+Characterise the running times of your algorithm.\\
+{\bf Answer:} \\
+\texttt{longestPalindromeLength$(x(1, \cdots, n))$: \\
+\indent $\text{longest} := 1$ \\
+\indent initialize dp$(1, \cdots, n)$ to dp$[j] := 1 \ \forall j \in \{ 1, \cdots, n \}$ \\
+\indent for $i := 1$ to $n - 1$ \\
+\indent \indent $\text{maxSeen} := 0$ \\
+\indent \indent for $j := n$ to $i + 1$ \\
+\indent \indent \indent if $\text{dp}[j] > \text{maxSeen}$ \\
+\indent \indent \indent \indent $\text{maxSeen} := \text{dp}[j]$ \\
+\indent \indent \indent if $x[i] = x[j]$ \\
+\indent \indent \indent \indent $\text{dp}[j] := \max(\text{dp}[j],\ \text{maxSeen} + 2)$ \\
+\indent \indent \indent \indent $\text{longest} := \max \left( \text{longest},\ \text{dp}[j] + \begin{cases}
+    1, &j > i + 1 \\
+    0, &j = i + 1
+\end{cases} \right)$ \\
+\indent return longest
+} \\\par
+This algorithm was derived in a somewhat complex manner. The main idea is to extend the longest palindromic subsequences (LPSs) of even length whose two middle elements start and end at some specific pair of indices. This is done by inserting subsequences of length $2$, which will be referred to as \textit{middle pairs}, directly between these two middle elements, thus extending the length of the corresponding even-length LPS by $2$. Then $i$ and $j$ represent the indices of the first and second elements of some potential middle pair. \texttt{dp}$[j]$ represents the length of the longest subsequence seen so far whose middle pair consists of a first element whose index is less than the current value of $i$ (during the loop) and a second element that ends at $j$. \texttt{dp}$[j]$ always increases when $i$ increases and when $j$ decreases, which is why the loops were defined in this order. In fact, if an even-length LPS is extended by a middle pair with $j > i + 1$, then any element with index $k$ for some $i + 1 \leq k < j$ will further extend the new LPS by $1$. This accounts for all odd-length LPSs. \par
+The bottleneck of the above algorithm is the doubly nested loop with $(n - 1) + (n - 2) + \cdots + 1 = O(n^2)$ total iterations, so this describes the time complexity.
+
+\pagebreak
+
+\noindent{\bf  Last Name:} $.............................$
+\noindent{\bf First Name:} $..............................$
+\noindent{\bf Email:}          $..............................$\\
+\noindent{\bf CS 3511, Spring 2016, Homework 4, 2/19/16 Due 2/25/16 5pm Klaus 2138 $~~$Page 5/5}
+
+\bigskip
+
+\noindent{\bf Problem 5: Review Recursive Design (20 points)}\\
+Give an algorithm that generates all permutations of the integers $\{ 1 , \ldots , n \}$. 
+The permutations should be written successively in an array $A(1, \ldots, n)$,
+and your algorithm should overall use polynomial space 
+(even though your algorithm will certainly run in superpolynomial time, since there are $n!$ distinct permutations to output.)\\
+{\bf Answer:} \\
+An algorithm utilizing recursion is given as follows: \\
+\texttt{generatePermutations$(A(1, \cdots, n),\ \text{partialPermutation},\ \text{used})$: \\
+\indent if $\text{used} = \{ 1, \cdots, n \}$ \\
+\indent \indent $A(1, \cdots, n) := \text{partialPermutation}$ \\
+\indent else for $\text{nextElement} := 1$ to $n$ \\
+\indent \indent append $\text{nextElement}$ to partialPermutation \\
+\indent \indent $\text{used} := \text{used} \cup \text{nextElement}$ \\
+\indent \indent generatePermutations$(A(1, \cdots, n),\ \text{partialPermutation},\ \text{used})$ \\
+\indent \indent $\text{used} := \text{used} \setminus \text{nextElement}$ \\
+\indent \indent remove the last element from partialPermutation \\
+}
+\noindent
+\texttt{main: \\
+\indent generatePermutations$(\{ 1, \cdots, n \}, \{ \}, \{ \})$
+} \\
+
+\noindent
+This uses a prefix of a permutation as a state and examines all the possible transition steps. Another algorithm which efficiently gives the next permutation in order is given below. \\
+\texttt{nextPermutation$(A(1, \cdots, n))$: \\
+\indent $\text{largestFromEnd} := 1$ \\
+\indent $\text{seenIncreasingPair} := \text{FALSE}$ \\
+\indent $\text{lastIncreasingPair}(1, 2) := \{ \text{INVALID}, 9 \}$ \\
+\indent for $i := n$ to $1$ and $\text{seenIncreasingPair} = \text{FALSE}$ \\
+\indent \indent if $A[i] > \text{largestFromEnd}$ \\
+\indent \indent \indent $\text{largestFromEnd} = A[i]$ \\
+\indent \indent else if $A[i] < \text{largestFromEnd}$ \\
+\indent \indent \indent $\text{seenIncreasingPair} := \text{TRUE}$ \\
+\indent \indent \indent $\text{lastIncreasingPair}[1] := A[i]$ \\
+\indent \indent \indent for $j := n$ to $i + 1$ \\
+\indent \indent \indent \indent $\text{lastIncreasingPair}[2] = \min(\text{lastIncreasingPair}[2],\ A[j])$ \\
+\indent \indent \indent swap $A[\text{lastIncreasingPair}[1]]$ with $A[\text{lastIncreasingPair}[2]]$ \\
+\indent \indent \indent sort $A(i + 1, \cdots, n)$ \\
+\indent if $\text{seenIncreasingPair} = \text{FALSE}$ \\
+\indent \indent signal that this is the last permutation \\
+\indent else \\
+\indent \indent return $A(1, \cdots, n)$
+} \\
+\noindent
+\texttt{main: \\
+\indent $A(1, \cdots, n) := \{ 1, \cdots, n \}$ \\
+\indent for $i := 1$ to $n!$ \\
+\indent \indent $A(1, \cdots, n) := \text{nextPermutation}(A(1, \cdots, n))$
+} \\\par
+The second algorithm relies on the fact that the next permutation in increasing order can be obtained by taking the last appearing sorted pair in the sequence and swapping the two elements, then sorting the subarray following the first element. For both algorithms, the memory requirement is $O(n)$ and the time complexity is $O(n!)$.
+
+\end{document}

@@ -1,0 +1,107 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr, tabularx}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\newcommand{\im}{\text{im}\,}
+
+\begin{document}
+
+\section*{MATH 4107 - HW13 Solutions}
+
+\subsection*{15.2}
+\begin{enumerate}
+    \item[1.]
+        \boldmath
+        \textbf{Let $\alpha$ be a complex root of the polynomial $x^3 - 3x + 4$. Find the inverse of $\alpha^2 + \alpha + 1$ in the form $a + b\alpha + c\alpha^2$, with $a, b, c$ in $\mathbb{Q}$.} \par
+        \unboldmath
+        Because $\alpha$ is algebraic over $\mathbb{Q}$, we know that $\mathbb{Q}[x]/(x^3 - 3x + 4) \to \mathbb{Q}[\alpha]$ is an isomorphism, $\mathbb{Q}[\alpha]$ is a field, and $(1, \alpha, \alpha^2)$ is a basis for $\mathbb{Q}(\alpha)$ as a vector space over $\mathbb{Q}$. In particular, the inverse of $\alpha^2 + \alpha + 1$ can be expressed in terms of this basis, so that $(\alpha^2 + \alpha + 1)(c\alpha^2 + b\alpha + a) = 1$. Expanding the left-hand side and using the fact that $\alpha^3 - 3\alpha + 4 = 0 \Rightarrow \alpha^3 = 3\alpha - 4$, we have
+        \begin{align*}
+            c\alpha^4 + (b + c)\alpha^3 + (a + b + c)\alpha^2 + (a + b + c)\alpha + a &= 1\\
+            c\alpha(3\alpha - 4) + (b + c)(3\alpha - 4) + (a + b + c)\alpha^2 + (a + b + c)\alpha + a &= 1 \\
+            (a + b + 4c)\alpha^2 + (a + 4b)\alpha + (a - 4b - 4c) &= 1.
+        \end{align*}
+        Equating the coefficients, we can deduce that $a + b + 4c = 0, a + 4b = 0, a - 4b - 4c = 1$. Solving this system of equations yields $a = 4/11, b = -1/11, c = -3/44$.
+
+    \item[2.]
+        \boldmath
+        \textbf{Let $f(x) = x^n - a_{n - 1}x^{n - 1} + \cdots + (-1)^n a_0$ be an irreducible polynomial over $F$, and let $\alpha$ be a root of $f$ in an extension field $K$. Determine the element $\alpha^{-1}$ explicitly in terms of $\alpha$ and of the coefficients $a_i$.} \par
+        \unboldmath
+        We know that $(1, \alpha, \cdots, \alpha^{n - 1})$ is a basis for $K(\alpha)$, and in particular, $\alpha^{-1}$ can be expressed in this basis, so that
+        \begin{align} \label{eq:inverse}
+            \alpha(c_{n - 1}\alpha^{n - 1} + c_{n - 2}\alpha^{n - 2} + \cdots + c_0) = 1,
+        \end{align}
+        with $c_0, c_1, \cdots, c_{n - 1} \in \mathbb{Q}$. Since we also know that
+        \begin{gather*}
+            f(\alpha) = \alpha^n - a_{n - 1}\alpha^{n - 1} + \cdots + (-1)^n a_0 = 0 \\
+            \Rightarrow \alpha^n = a_{n - 1}\alpha^{n - 1} + \cdots + (-1)^{n - 1} a_0,
+        \end{gather*}
+        substitution into (\ref{eq:inverse}) gives
+        \begin{align*}
+            c_{n - 1}[a_{n - 1}\alpha^{n - 1} - a_{n - 2}\alpha^{n - 2} + \cdots + (-1)^{n - 1}a_0] + c_{n - 2}\alpha^{n - 1} + \cdots + c_0 \alpha = 1.
+        \end{align*}
+        Equating the coefficients (of terms from lowest to highest order) gives
+        \begin{gather*}
+            (-1)^{n - 1} a_0 c_{n - 1} = 1 \Rightarrow c_{n - 1} = \frac{(-1)^{n - 1}}{a_0} \\
+            (-1)^n a_1 c_{n - 1} + c_0 = 0 \Rightarrow c_0 = (-1)^{n - 1} a_1 \frac{(-1)^{n - 1}}{a_0} = \frac{a_1}{a_0} \\
+            (-1)^{n - 1} a_2 c_{n - 1} + c_1 = 0 \Rightarrow c_1 = (-1)^n a_2 \frac{(-1)^{n - 1}}{a_0} = -\frac{a_2}{a_0} \\
+            \vdots \\
+            c_k = (-1)^k \frac{a_{k + 1}}{a_0}, 1 \leq k \leq n - 2,
+        \end{gather*}
+        so the coefficients of $\alpha^{-1} = c_{n - 1} \alpha^{n - 1} + c_{n - 2} \alpha^{n - 2} + \cdots + c_0$ are determined.
+
+\end{enumerate}
+
+\subsection*{15.3}
+\begin{enumerate}
+    \item[1.]
+        \boldmath
+        \textbf{Let $F$ be a field, and let $\alpha$ be an element that generates a field extension of $F$ of degree 5. Prove that $\alpha^2$ generates the same extension.} \par
+        \unboldmath
+        Since $\alpha^2 \in F(\alpha)$, $F(\alpha^2) \subseteq F(\alpha)$. Then by the multiplicativity property,
+        \begin{align*}
+            5 = [F(\alpha) : F] = [F(\alpha) : F(\alpha^2)] [F(\alpha^2) : F].
+        \end{align*}
+        We know that $F(\alpha^2) \neq F$, because otherwise $\alpha^2 \in F$ would imply that the square root $\alpha$ has degree 2 over $F$, contradicting the fact that $\alpha$ has degree 5 over $F$. Since only 1 and 5 divide $F$, this shows that $[F(\alpha^2) : F] = 5$, and thus $[F(\alpha) : F(\alpha^2)] = 1$. In conclusion, $F(\alpha) = F(\alpha^2)$.
+
+    \item[2.]
+        \boldmath
+        \textbf{Prove that the polynomial $x^4 + 3x + 3$ is irreducible over the field $\mathbb{Q}[\sqrt[3]2]$.} \par
+        \unboldmath
+        By Eisenstein's Criterion with $p = 3$, $x^4 + 3x + 3$ is irreducible over $\mathbb{Q}$ so any root $\delta$ of $x^4 + 3x + 3$ has degree 4 over $\mathbb{Q}$. Also, $\sqrt[3]2$ has degree 3 over $\mathbb{Q}$. Since 4 and 3 are relatively prime, $[\mathbb{Q}(\delta, \sqrt[3]2) : \mathbb{Q}] = 12$. Then by the multiplicative property, $[\mathbb{Q}(\delta, \sqrt[3]2) : \mathbb{Q}(\sqrt[3]2)] = 4$. Since $\delta$ is still a root of the degree-4 polynomial $x^4 + 3x + 3$ in $\mathbb{Q}[\sqrt[3]2]$, $x^4 + 3x + 3$ is its minimal polynomial in that field.
+
+    \item[3.]
+        \boldmath
+        \textbf{Let $\zeta_n = e^{2\pi i/n}$. Prove that $\zeta_5 \notin \mathbb{Q}(\zeta_7)$.} \par
+        \unboldmath
+        For the purpose of contradiction, assume that $\zeta_5 \in \mathbb{Q}(\zeta_7)$, so that $\mathbb{Q}(\zeta_5) \subseteq \mathbb{Q}(\zeta_7)$. By the corollary of Eisenstein's Criterion, the degree of $\zeta_5$ over $\mathbb{Q}$ is $4$, and the degree of $\zeta_7$ over $\mathbb{Q}$ is $6$. By the multiplicative property, the first quantity must divide the second in order for $\mathbb{Q}(\zeta_5) \subseteq \mathbb{Q}(\zeta_7)$ to be true, so the assumption is false.
+
+    \item[6.]
+        \boldmath
+        \textbf{Let $a$ be a positive rational number that is not a square in $\mathbb{Q}$. Prove that $\sqrt[4]a$ has degree 4 over $\mathbb{Q}$.} \par
+        \unboldmath
+        Since $a$ is not a square, $\sqrt{a}$ has degree 2 over $\mathbb{Q}$, since $x^2 - a = 0$. We will now show that $\sqrt[4]{a} \notin \mathbb{Q}(\sqrt{a})$. For if we assume otherwise, then $\sqrt[4]{a} = c_0 + c_1 \sqrt{a}$ for some $c_0, c_1 \in \mathbb{Q}$. Squaring both sides, we have $\sqrt{a} = c_0^2 + 2c_0 c_1 \sqrt{a} + c_1^2 a$, and equating coefficients gives $1 = 2c_0c_1$ and $0 = c_0^2 + c_1^2 a$. However, this requires that $2c_1^2 \sqrt{a}= i$, which is impossible because the left-hand side is real. Thus, $\sqrt[4]{a}$ has degree 2 over $\mathbb{Q}(\sqrt{a})$ since it is the square root of an existing element, and by the multiplicativity property, it has degree 4 over $\mathbb{Q}$.
+
+    \item[8.]
+        \boldmath
+        \textbf{Let $\alpha$ and $\beta$ be complex numbers. Prove that if $\alpha + \beta$ and $\alpha \beta$ are algebraic numbers, then $\alpha$ and $\beta$ are also algebraic numbers.} \par
+        \unboldmath
+        If $F$ denotes an arbitrary field, this implies that $[F(\alpha + \beta, \alpha \beta) : F]$ is finite. Due to the closure property under addition and multiplication, $\alpha + \beta$ and $\alpha \beta$ are contained in $F(\alpha, \beta)$, so we have that $F(\alpha + \beta, \alpha \beta) \subseteq F(\alpha, \beta)$. \par
+        Additionally, since $\alpha, \beta$ are the roots of the polynomial $x^2 - (\alpha + \beta) x + \alpha \beta$ in $F(\alpha + \beta, \alpha \beta)$, the degree of $\alpha, \beta$ over $F(\alpha + \beta, \alpha \beta)$ is at most 2, which is finite. \par
+        The multiplicativity property shows that $[F(\alpha, \beta) : F]$ is hence finite, or equivalently, $\alpha$ and $\beta$ are algebraic over $F$.
+
+    \item[9.]
+        \boldmath
+        \textbf{Let $\alpha$ and $\beta$ be complex roots of irreducible polynomials $f(x)$ and $g(x)$ in $\mathbb{Q}[x]$. Let $K = \mathbb{Q}(\alpha)$ and $L = \mathbb{Q}(\beta)$. Prove that $f(x)$ is irreducible in $L[x]$ if and only if $g(x)$ is irreducible in $K[x]$.} \par
+        \unboldmath
+        Let $m, n$ denote the respective degrees of $f(x), g(x)$, so that the degree of $\alpha$ over $\mathbb{Q}$ is $m$ and the degree of $\beta$ over $\mathbb{Q}$ is $n$. Without loss of generality, assume that $f(x)$ is irreducible in $L[x]$. This means that the degree of $\alpha$ over $L = \mathbb{Q}(\beta)$ is also $m$. By the multiplicativity property, we have that
+        \begin{gather*}
+            [\mathbb{Q}(\alpha, \beta) : \mathbb{Q}] = [\mathbb{Q}(\alpha, \beta) : \mathbb{Q}(\beta)][\mathbb{Q}(\beta) : \mathbb{Q}] = mn \\
+            [\mathbb{Q}(\alpha, \beta) : \mathbb{Q}(\alpha)] = [\mathbb{Q}(\alpha, \beta) : \mathbb{Q}] / [\mathbb{Q}(\alpha) : \mathbb{Q}] = mn/m = n.
+        \end{gather*}
+        Thus, $n$ is the degree of $\beta$ over $K = \mathbb{Q}(\alpha)$, and since $g(x)$ is of this degree, $g(x)$ is irreducible in $K[x]$. Because we invoked generality, the converse is also true.
+\end{enumerate}
+\end{document}

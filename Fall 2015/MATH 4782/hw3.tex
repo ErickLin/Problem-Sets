@@ -1,0 +1,119 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[margin=3.5cm]{geometry}
+\usepackage{amsfonts, amsmath, enumitem, fancyhdr, physics}
+
+\pagestyle{fancy}
+\rhead{Erick Lin}
+\allowdisplaybreaks
+
+\begin{document}
+	
+\section*{MATH/PHYS 4782 - HW3 Solutions}
+
+\begin{enumerate}
+    \item[\textbf{5.1:}]
+        The linear operator $F$ can be written
+        \begin{align*}
+            F &= \frac{1}{\sqrt{N}} \sum_{j, k = 0}^{N - 1} e^{2 \pi ijk / N} \ket{k} \bra{j}.
+        \end{align*}
+        Then
+        \begin{align*}
+            F^\dagger F &= \left( \frac{1}{\sqrt{N}} \sum_{j, k = 0}^{N - 1} e^{-2 \pi ijk / N} \ket{j} \bra{k} \right) \left( \frac{1}{\sqrt{N}} \sum_{j, k = 0}^{N - 1} e^{2 \pi ijk / N} \ket{k} \bra{j} \right) \\
+            &= \frac{1}{N} \sum_{j, k, j', k' = 0}^{N - 1} e^{2 \pi i(jk - j'k') / N} \ket{j'} \braket{k'}{k} \bra{j}
+        \end{align*}
+        Using the Kronecker delta notation, $\braket{k'}{k} = \delta_{k'k}$ (due to the orthogonality of the basis states) and
+        \begin{align*}
+            F^\dagger F &= \frac{1}{N} \sum_{j, k, j', k' = 0}^{N - 1} \delta_{k'k} e^{2 \pi i(jk - j'k') / N} \ket{j'} \bra{j} \\
+            &= \frac{1}{N} \sum_{j, j', k = 0}^{N - 1} e^{2 \pi i(j - j')k / N} \ket{j'} \bra{j}.
+        \end{align*}
+        From the observation that $\frac{1}{N} \sum_{k = 0}^{N - 1} e^{2 \pi i(j - j')k / N} = \delta_{j'j}$,
+        \begin{align*}
+            F^\dagger F &= \sum_{j, j' = 0}^{N - 1} \delta_{j'j} \ket{j'} \bra{j} \\
+            &= \sum_{j = 0}^{N - 1} \ket{j} \bra{j} \\
+            &= I
+        \end{align*}
+        which shows that $F$ is unitary.
+
+    \item[\textbf{5.4:}]
+        The equivalence of the controlled-$R_k$ gate with the circuit of $R_{k + 1}$ and CNOT gates is shown below: \\[1.5in]
+
+    \item[\textbf{5.6:}]
+        The number of gates required for the quantum Fourier transform is $M = n(n + 1) / 2$ plus at most $3n / 2$ for the swap operations, so $M = \Theta(n^2)$, and since the maximum error for each gate is $\Theta(1 / p(n))$, the maximum total error is $\Theta(n^2 / p(n))$.
+
+    \item[\textbf{5.8:}]
+        If $t$ is chosen according to (5.35), then the probability of obtaining $\varphi$ accurate to $n$ bits from the input $\ket{0} \ket{u}$ is at least $1 - \varepsilon$, as justified in the text. From the measurement postulate, the probability that the input $\ket{0} (\sum_u c_u \ket{u})$ is given by $\ket{0} \ket{u}$ is $|c_u|^2$. Since the events are independent, the probability that both events occur is at least $|c_u|^2 (1 - \varepsilon)$.
+
+    \item[\textbf{5.10:}]
+        Since
+        \begin{align*}
+            x &\equiv 5 (\text{mod } 21) \\
+            x^2 &\equiv 4 (\text{mod } 21) \\
+            x^3 &\equiv -1 (\text{mod } 21) \\
+            x^4 &\equiv -5 (\text{mod } 21) \\
+            x^5 &\equiv -4 (\text{mod } 21) \\
+            x^6 &\equiv 1 (\text{mod } 21),
+        \end{align*}
+        the order, or the smallest value of $r$ such that $x^r \equiv 1 (\text{mod} 21)$, is $6$.
+
+    \item[\textbf{5.11:}]
+        If $\text{gcd}(x, N) > 1$, then there exists some $r$ such that $x^r \equiv 0 (\text{mod } N)$, which does not have a multiplicative inverse, and $r$ could potentially be infinite. Therefore, we assume that $x$ and $N$ are coprime. The sequence $1, x, x^2, \cdots, x^N$ contains $N + 1$ elements, so at least two of the elements are equivalent modulo $N$. In other words, there exist $m$, $n$ such that $x^m \equiv x^n (\text{mod } N)$. Because the $x^n$ modulo $N$ are all multiplicatively invertible, $x^{-n} (\text{mod } N)$ exists and can be multiplied with both sides to yield $x^{m - n} \equiv 1 (\text{mod } N)$. Then the order $r$ is at most $m - n$, which in turn is at most $N$.
+
+    \item[\textbf{5.12:}]
+        First, we note that $\{ \ket{y} \}$ forms an orthonormal basis, so it is sufficient to prove the unitarity of $U$ by examining its actions on an arbitrary $\ket{y}$. When $N \leq y \leq 2^L - 1$, $U$ is just the identity matrix, which is unitary because $I^\dagger = I = I^{-1}$. \par
+        Otherwise, when $0 \leq y < N$, we can define an arbitrary $0 \leq z < N$ and derive from the inner product definition of the adjoint that
+        \begin{align*}
+            \braket{y}{(U^\dagger z)} &\equiv \braket{(U \ket{y})}{z} \\
+            &= \braket{xy(\text{mod } N)}{z} \\
+            &= \delta_{xy(\text{mod } N), z}.
+        \end{align*}
+        The left-hand side can be re-written $\bra{y} U^\dagger \ket{z}$. Then we have, if $y \equiv x^{-1} z (\text{mod } N)$,
+        \begin{align*}
+            U^\dagger \ket{z} &= \delta_{xy(\text{mod } N), z} \ket{y} \\
+            &= \ket{x^{-1} z (\text{mod } N)}
+        \end{align*}
+        and $U^\dagger \ket{z} = 0$ otherwise. In the former, we obtain the useful information that
+        \begin{align*}
+            U U^\dagger \ket{z} &= U \ket{x^{-1} z (\text{mod } N)} \\
+            &= \ket{x x^{-1} z (\text{mod } N)} \\
+            &= \ket{z}
+        \end{align*}
+        which shows that $U$ is unitary.
+
+    \item[\textbf{5.13:}]
+        Using the definition of $\ket{u_s}$ from (5.37),
+        \begin{align*}
+            \frac{1}{\sqrt{r}} \sum_{s = 0}^{r - 1} e^{2i \pi sk/r} \ket{u_s} &= \frac{1}{r} \sum_{s = 0}^{r - 1} e^{2i \pi sk/r} \sum_{k' = 0}^{r - 1} e^{-2i \pi sk'/r} \ket{x^{k'} (\text{mod } N)} \\
+            &= \frac{1}{r} \sum_{k' = 0}^{r - 1} \sum_{s = 0}^{r - 1} e^{2i \pi s(k - k')/r} \ket{x^{k'} (\text{mod } N)} \\
+            &= \frac{1}{r} \sum_{k' = 0}^{r - 1} r \delta_{kk'} \ket{x^{k'} (\text{mod } N)} \\
+            &= \ket{x^{k} (\text{mod } N)}.
+        \end{align*}
+        (5.44) is a special case of the above formula for $k = 0$.
+
+    \item[\textbf{5.17:}]
+       \begin{enumerate}[label=(\arabic*)]
+            \item
+                If $a = 1$, then $N = 1$, $L = 1$, and $b = 1$. If $a = 2$, then $b = \log_2 N \leq L$. Otherwise, $b = \log_a N < L$ for $a > 2$.
+
+            \item
+                One algorithm to compute $\log_2 N$ is to find the largest power of $2$ that is at most $N$, which takes at most $L$ operations through repeated squaring. Then the number of operations is $O(L)$. \par
+                If $y$ is taken to be $L$ bits long, then computing $x = y / b$ also takes at most $O(L^2)$ operations through long division. \par
+                If $y = \log_2 N$, then $2^x = 2^{y / b} = \sqrt[b]{N}$. An approximation of the $n$th root can be computed using Newton's method using $O(L^2)$ operations, and the value can then be truncated to obtain $u_1$, with $u_2 = u_1 + 1$.
+
+            \item
+                Exponentiation by squaring requires at most $\log_2 b$ squarings and $\log_2 b$ multiplications, and because each squaring doubles the number of digits and multiplication of two $L$-digit numbers requires $O(L^2)$ operations, computing $u_1^b$ takes
+                \begin{align*}
+                    \sum_{i = 0}^{O(\log_2(b))} (2^i O(\log_2(u_1)))^2 = O((b \log_2(u_1))^2) = O(L^2)
+                \end{align*}
+                operations since $b \leq L$ and $u_1$ is fixed. Comparing $u_1^b$ bitwise with $N$ takes $L$ operations. The argument also applies for $u_2^b$.
+                \iffalse
+                Because $b \leq N$ and any integer at most $N$ can be written as $2^0 c_0 + 2^1 c_1 + \cdots + 2^{L - 1} c_{L - 1}$, where $c_i \in \{0, 1\}$ for all $i$, $u_1^b$ and $u_2^b$ can be computed as products of powers of $2$. The product has $L$ factors and the power of $2$ in each factor takes at most $L$ operations to calculate, so the total complexity is $O(L^2)$.
+                \fi
+
+            \item
+                $b$ can be iterated over values between $1$ and $L$. For a fixed $b$, we can set $y = \log_2 N$, and find the two integers $u_1$ and $u_2$ nearest to $2^{y / b}$. From (2), $\log_2 N$, $y / b$, $u_1$, and $u_2$ can be computed in $O(L^2)$ time. From part (3), it also takes $O(L^2)$ operations to check whether $N = a^b$ when $a = u_1$ or $a = u_2$. The combined number of operations is then $O(L) [O(L^2) + O(L^2)] = O(L^3)$.
+        \end{enumerate}
+
+\end{enumerate}
+
+\end{document}

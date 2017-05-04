@@ -1,0 +1,130 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, fancyhdr, gensymb, physics, siunitx}
+\pagestyle{fancy}
+\rhead{Erick Lin}
+\allowdisplaybreaks
+
+\begin{document}
+
+\section*{PHYS 2213B - HW3}
+
+\begin{enumerate}
+    \item
+        \begin{enumerate}
+            \item
+                Let $\vec{F}_{\text{nucleus}}$ be the Coulomb force between the electron and the nucleus, $\vec{F}_{\text{electron}}$ be the Coulomb force between the opposite electrons, and $\hat{n}$ denote the unit vector whose direction is opposite that of the electron to the nucleus. Then
+                \begin{align*}
+                    \vec{F} &= \vec{F}_{\text{nucleus}} + \vec{F}_{\text{electron}} \\
+                    &= \frac{(-e)(Ze)}{4\pi \varepsilon_0 r^2} \hat{n} + \frac{(-e)(-e)}{4\pi \varepsilon_0 (2r)^2} \hat{n} \\
+                    &= \frac{e^2}{4\pi \varepsilon_0 r^2} \left( -Z + \frac{1}{4} \right) \hat{n}.
+                \end{align*}
+                Because $Z$ is a positive integer, this shows that the direction of the net force is from the electron to the nucleus, and its magnitude is
+                \begin{align*}
+                    |\vec{F}| = \frac{e^2}{4\pi \varepsilon_0 r^2} \left( Z - \frac{1}{4} \right).
+                \end{align*}
+
+            \item
+                This allows us to also use the formula $|\vec{F}| = mv^2 / r$. Substituting into (a) and solving for $v^2$,
+                \begin{align*}
+                    v^2 = \frac{e^2}{4\pi \varepsilon_0 m r} \left( Z - \frac{1}{4} \right).
+                \end{align*}
+
+            \item
+                For a circular orbit, $L = mvr$. Then $mvr = \hbar$ and solving for $r$,
+                \begin{align*}
+                    r &= \frac{\hbar}{mv} \\
+                    &= \frac{h}{2 \pi m} \sqrt{ \frac{4 \pi \varepsilon_0 m r}{e^2} \left( Z - \frac{1}{4} \right)^{-1}} \\
+                    \sqrt{r} &= \sqrt{\frac{\varepsilon_0 h^2}{\pi m e^2} \left( Z - \frac{1}{4} \right)^{-1}} \\
+                    r &= \frac{\varepsilon_0 h^2}{\pi m e^2} \left( Z - \frac{1}{4} \right)^{-1}
+                \end{align*}
+
+            \item
+                For the electrons combined,
+                \begin{align*}
+                    E &= 2 \left( \frac{1}{2}mv^2 + -\int |\vec{F}| dr \right) \\
+                    &= mv^2 - 2\frac{e^2}{4 \pi \varepsilon_0 r} \left( Z - \frac{1}{4} \right) \\
+                    &= \frac{e^2}{4 \pi \varepsilon_0 r} \left( Z - \frac{1}{4} \right) - 2\frac{e^2}{4 \pi \varepsilon_0 r} \left( Z - \frac{1}{4} \right) \\
+                    &= -\frac{e^2}{4 \pi \varepsilon_0 r} \left( Z - \frac{1}{4} \right) \\
+                    &= -\frac{e^2}{4 \pi \varepsilon_0} \left( Z - \frac{1}{4} \right) \left[ \frac{\pi m e^2}{\varepsilon_0 h^2} \left( Z - \frac{1}{4} \right) \right] \\
+                    &= -\frac{me^4}{4 \varepsilon_0^2 h^2} \left( Z - \frac{1}{4} \right)^2.
+                \end{align*}
+
+            \item
+                The values for the constants are
+                \begin{align*}
+                    e &= \SI{1.602e-19}{\coulomb} \\
+                    h &= \SI{6.626e-19}{\J\per\s} \\
+                    m &= \SI{9.109e-31}{\kg} \\
+                    \varepsilon_0 &= \SI{8.854e-12}{\coulomb\squared\s\squared\per\kilogram\per\m\cubed}.
+                \end{align*}
+                For $Z = 2$ the energy required is
+                \begin{align*}
+                    \frac{me^4}{4 \varepsilon_0^2 h^2} \left( 2 - \frac{1}{4} \right)^2 &\approx \SI{1.335e-17}{\J} \approx \SI{83.30}{\eV}
+                \end{align*}
+                and for $Z = 3$ the energy required is
+                \begin{align*}
+                    \frac{me^4}{4 \varepsilon_0^2 h^2} \left( 3 - \frac{1}{4} \right)^2 &\approx \SI{3.296e-17}{\J} \approx \SI{205.7}{\eV}.
+                \end{align*}
+        \end{enumerate}
+
+    \item
+        From Bragg's law,
+        \begin{align*}
+            n \lambda &= 2d \sin\theta \\
+            \theta &= \sin^{-1} \left( \frac{n \lambda}{2d} \right).
+        \end{align*}
+        Then
+        \begin{align*}
+            |\theta_2 - \theta_1| &= \left| \sin^{-1} \left( \frac{2 \lambda}{2 d_{\text{NaCl}}} \right) - \sin^{-1} \left( \frac{1 \lambda}{2 d_{\text{NaCl}}} \right) \right| \\
+            &= \left| \sin^{-1} \left( \frac{0.207}{0.282} \right) - \sin^{-1} \left( \frac{0.207}{2(0.282)} \right) \right| \\
+            &\approx |47.2\degree - 21.5\degree| \\
+            &\approx 25.7\degree
+        \end{align*}
+
+    \item
+        In the former case, $E \approx K_e$ in the electron, and so $p_e = \sqrt{2m_eK_e} \approx \sqrt{2m_eE}$. From the formula for De Broglie wavelength $\lambda = \frac{h}{p}$, two particles share the same momentum if they share the same wavelength. For a photon $E_\gamma = p_\gamma c$, so
+        \begin{align*}
+            E_\gamma \approx \sqrt{2m_eE}c.
+        \end{align*}
+        In the latter case, $E = 2K_e$ in the electron so $p_e = \sqrt{2m_eK_e} = \sqrt{m_eE}$. Then from the same reasoning
+        \begin{align*}
+            E_\gamma = \sqrt{m_eE}c.
+        \end{align*}
+
+    \item
+        $\lambda \leq \SI{0.14}{nm}$, so from the formula for De Broglie wavelength
+        \begin{align*}
+            K_e &= \frac{p_e^2}{2m_e} \\
+            &= \frac{h^2}{2m_e \lambda^2} \\
+            &\geq \SI{1.2e-35}{J}.
+        \end{align*}
+
+    \item
+        The wave function is zero at all points outside the box. From the probability axiom,
+        \begin{gather*}
+            \int_{-\infty}^\infty |\psi(x)|^2 dx = 1 \\
+            \int_0^L A^2 \sin^2 \left( \frac{\pi x}{L} \right) dx = 1 \\
+            A^2 \int_0^L \frac{1 - \cos(\frac{2\pi x}{L})}{2} dx = 1 \\
+            A^2 \left[ \frac{x}{2} - \frac{L}{2\pi} \sin \left( \frac{2 \pi x}{L} \right) \right]_0^L = 1 \\
+            A^2 \left( \frac{L}{2} - 0 - 0 + 0 \right) = 1 \\
+            A = \sqrt{\frac{2}{L}}
+        \end{gather*}
+
+    \item[Q1.]
+        In quantum mechanics, a pure state of a system can be described by a vector in a Hilbert space, and an observable is an operator that maps the Hilbert space to itself. According to the measurement postulate, any measurement of an observable will always yield an eigenvalue of the system with a certain probability, with the sum of the probabilities adding up to 1. Following observation, the system collapses into the corresponding eigenvector (eigenstate) of the value that was just measured. However, prior to observation, the state of the system can be a linear combination or superposition of the eigenstates. Furthermore, it may be a mixed - that is, the state cannot be described by a vector but instead can be described by its density matrix, which is a weighted sum of the outer product of each possible pure state with itself. In conclusion, by observing the system, we gain information but the system loses information in a sense. It can be said that the universe consists mostly of hidden variables.
+
+    \item[Q2.]
+        (d)
+
+    \item[Q3.]
+        (e)
+
+    \item[Q4.]
+        (e)
+
+    \item[Q5.]
+        (a)
+\end{enumerate}
+
+\end{document}

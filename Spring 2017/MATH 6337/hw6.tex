@@ -1,0 +1,237 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr, graphicx}
+\usepackage[margin=1in, includehead, includefoot, heightrounded]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\newcommand*\dist{\mathop{\!\mathrm{d}}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\DeclareMathOperator*{\esssup}{ess\,sup}
+\DeclareMathOperator*{\argmax}{\arg\!\max}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\begin{document}
+
+\section*{MATH 6337 -- HW6 Solutions}
+\begin{enumerate}
+    \item
+        \boldmath\textbf{Show that any function which is monotone on the interval $[a, b]$ is Riemann integrable on $[a, b]$.
+        }\unboldmath \par
+        Suppose $\epsilon > 0$, and let $f : [a, b]$ be an increasing function. Now let $n > (b - a)(f(b) - f(a))/\epsilon$, and define a partition
+        \begin{align*}
+            \Gamma = \{ a = x_0 < x_1 < \cdots < x_n = b \}
+        \end{align*}
+        where $x_k = a + \frac{k}{n}(b - a)$ for all $0 \leq k \leq n$. Then the upper and lower sums are given by
+        \begin{align*}
+            U_\Gamma &= \sum_{k = 1}^n f(x_k) (x_k - x_{k - 1}) = \frac{b - a}{n} \sum_{k = 1}^n f_k \\
+            L_\Gamma &= \sum_{k = 0}^{n - 1} f(x_k) (x_{k + 1} - x_k) = \frac{b - a}{n} \sum_{k = 0}^{n - 1} f_k,
+        \end{align*}
+        and thus
+        \begin{align*}
+            0 \leq U_\Gamma - L_\Gamma = \frac{b - a}{n} (f(b) - f(a)) < \epsilon.
+        \end{align*}
+        By the Cauchy criteron for integrability, $f$ is Riemann integrable. \par
+        If $f$ is decreasing, the argument is similar if we let $n > (b - a)(f(a) - f(b))/\epsilon$; we now have that
+        \begin{align*}
+            U_\Gamma = \frac{b - a}{n} \sum_{k = 0}^{n - 1} f_k \qquad
+            L_\Gamma = \frac{b - a}{n} \sum_{k = 1}^n f_k
+        \end{align*}
+        and hence
+        \begin{align*}
+            0 \leq U_\Gamma - L_\Gamma = \frac{b - a}{n} (f(a) - f(b)) < \epsilon.
+        \end{align*}
+
+    \item[3.5.13.]
+        \boldmath\textbf{Given an integrable function $f$ defined on a measurable set $E \subseteq \mathbb{R}^d$, prove the following statements.
+        }\unboldmath \par
+        \begin{enumerate}[label=(\alph*)]
+            \item
+                \boldmath\textbf{$f = 0$ a.e. if and only if $\int_A f = 0$ for every measurable set $A \subseteq E$.
+                }\unboldmath \par
+                First, we verify the following statement:
+                \begin{lemma}
+                    Let $f : E \to [0, \infty]$ be a measurable, nonnegative function defined on a measurable set $E \subseteq \mathbb{R}^d$. Then $f = 0$ a.e. if and only if $\int_E f = 0$.
+                \end{lemma}
+                \begin{proof}
+                    ($\Rightarrow$) For any simple function $\phi : E \to [0, \infty]$ with standard representation $\sum_{k = 1}^N c_k \chi_{E_k}$ such that $0 \leq \phi \leq f$, we have that $|E_k| = 0$ for all $c_k \neq 0$. Thus,
+                    \begin{align*}
+                        \int_E \phi = \sum_{k = 1}^N c_k |E_k| = 0.
+                    \end{align*}
+                    Since $\phi$ was arbitrary, we have that the supremum $\int_E f = 0$ as well. \par
+                    ($\Leftarrow$) For all $n \in \mathbb{N}$, we have by an application of Tchebyshev's inequality that
+                    \begin{align*}
+                        \left|\left\{ f > \frac{1}{n} \right\}\right| \leq n \int_{\{f > 1/n\}} f = 0,
+                    \end{align*}
+                    which shows that $|\{ f > 0 \}| = 0$; in other words, $f = 0$ a.e.
+                \end{proof}
+                We now proceed to prove part (a): \par
+                ($\Rightarrow$) Since the nonnegative functions $f^+$ and $f^-$ are $0$ wherever $f = 0$, hence a.e., we have that $\int_A f^+ = \int_A f^- = 0$ by the above lemma. Then $\int_A f = \int_A f^+ - \int_A f^- = 0$ also. \par
+                ($\Leftarrow$) %Assume that there exists some set $B \subseteq E$ of nonzero measure on which $f \neq 0$.
+                The measurability of $f$ implies that $\{ f > 0 \}$ and $\{ f < 0 \}$ are measurable sets in particular, and so $\int_{\{ f > 0 \}} f = \int_{\{ f < 0 \}} f = 0$ from the hypothesis. An application of the above lemma gives $f = 0$ a.e. on both the sets $\{ f > 0 \}$ and $\{ f < 0 \}$, which can only be true if these sets are of measure zero. Then $\{ f > 0 \} \cup \{ f < 0 \}$ is of measure zero, and hence $f = 0$ a.e.
+
+            \item
+                \boldmath\textbf{If $\epsilon > 0$, then there is a measurable set $A \subseteq E$ such that $f$ is bounded on $A$ and $\int_{E \setminus A} |f| < \epsilon$.
+                }\unboldmath \par
+                %For all $a \in \mathbb{R}$, $\{ |f| \leq a \} = \{ f \leq a \} \cap \{ f \geq -a \}$ and $\{ |f| \geq a \} = \{ f \geq a \} \cup \{ f \leq -a \}$ are measurable, and $\int_E |f| = \int_{\{ |f| \leq a \}} |f| + \int_{\{ |f| > a \}} |f|$. Since $\int_E |f| < \infty$, $|f|$ is finite a.e., and we can pick $a$ such that $\int_{\{ |f| > a \}} |f| < \epsilon$. Then $\{ |f| \leq a \}$ is the desired set.
+                Let
+                \begin{align*}
+                    f_n(x) = \begin{cases}
+                        |f(x)|, &|f(x)| \leq n \\
+                        0, &|f(x)| > n
+                    \end{cases}.
+                \end{align*}
+                The integrability of $f$ implies that $|f|$ is finite a.e., and so $f_n(x) \nearrow |f|$ pointwise a.e. Since the $f_n$ are nonnegative, the Monotone Convergence Theorem states that $\int_E f_n \nearrow \int_E |f|$, so given $\epsilon > 0$, we can take $n \in \mathbb{N}$ such that
+                \begin{align} \label{eq:monotone}
+                    \int_E |f| - \int_E f_n < \epsilon.
+                \end{align}
+                $f$, and hence $|f|$, is measurable, so $\{ |f| \leq n \}$ and $\{ |f| > n \}$ are measurable sets. We can see that
+                \begin{align*}
+                    \int_E |f| = \int_{\{ |f| \leq n \}} |f| + \int_{\{ |f| > n \}} |f| = \int_E f_n + \int_{\{ |f| > n \}} |f|,
+                \end{align*}
+                and so from (\ref{eq:monotone}) we have $\int_{\{ |f| > n \}} |f| < \epsilon$. Taking $A = \{ |f| \leq n \}$ gives the desired result.
+        \end{enumerate}
+
+    \item[3.5.17.]
+        \boldmath\textbf{Show by example that the hypothesis $|E| < \infty$ is necessary in the Bounded Convergence Theorem (Corollary 3.5.2), even if we explicitly require each function $f_n$ to be integrable on $E$.
+        }\unboldmath \par
+        If we let $E = \mathbb{R}$ (a measurable subset of $\mathbb{R}$) and $f_n = \chi_{(n, n + 1)}$ for all $n \in \mathbb{N}$, then
+        \begin{itemize}
+            \item
+                the $f_n$ are measurable because $\{ f_n > a \}$ is either all of $\mathbb{R}$, an open interval, or the empty set depending on the value of $a$,
+            \item
+                for any point $x \in \mathbb{R}$, $|f(x) - f_n(x)| = 0$ for all $n > x$, so $f_n \to f$ everywhere, and
+            \item
+                $|f_n| \leq 1$ everywhere for all $n$.
+        \end{itemize}
+        However, $\int_\mathbb{R} |f - f_n| = 1|(n, n + 1)| + 0 = 1$ for all $n$, so $f_n \nrightarrow f$ in $L^1$-norm. In summary, the conclusion of the Bounded Convergence Theorem fails to hold if $|E| = \infty$.
+
+    \item[3.5.24.]
+        \boldmath\textbf{This problem will establish a \emph{Generalized Dominated Convergence Theorem}. Let $E$ be a measurable subset of $\mathbb{R}^d$. Assume that:
+        \begin{enumerate}[label=(\alph*)]
+            \item
+                $f_n, g_n, f, g \in L^1(E)$,
+            \item
+                $f_n \to f$ pointwise a.e.,
+            \item
+                $g_n \to g$ pointwise a.e.,
+            \item
+                $|f_n| \leq g_n$ a.e.,
+            \item
+                $\int_E g_n \to \int g$.
+        \end{enumerate}
+        Prove that $\int_E f_n \to \int_E f$ and $\norm{f - f_n}_1 \to 0$.
+        }\unboldmath \par
+        By (b), (c), and (d), $|f| \leq g$ a.e., and so
+        \begin{align*}
+            |f - f_n| \leq |f| + |f_n| \leq g + g_n
+        \end{align*}
+        a.e. for all $n$; in other words, $g + g_n - |f - f_n| \geq 0$ a.e. $g + g_n - |f - f_n|$ is measurable by (a), so we have from Fatou's Lemma that
+        \begin{align}
+            \liminf_{n \to \infty} \int_E (g + g_n - |f - f_n|) \geq \int_E \liminf_{n \to \infty} (g + g_n - |f - f_n|).
+        \end{align}
+        By (e), the left-hand side is equal to
+        \begin{align*}
+            2\int_E g - \limsup_{n \to \infty} |f - f_n|
+        \end{align*}
+        while by (b) and (c), the right-hand side is equal to $2\int_E g$. Putting it together,
+        \begin{align} \label{eq:limsup}
+            \limsup_{n \to \infty} \int_E |f - f_n| \leq 0
+        \end{align}
+        implies that
+        \begin{align*}
+            0 \leq \liminf_{n \to \infty} \int_E |f - f_n| \leq \limsup_{n \to \infty} \int_E |f - f_n| \leq 0
+        \end{align*}
+        which in turn implies equality, so we have that $\lim_{n \to \infty} \int_E |f - f_n|$ exists and equals $0$, or convergence in $L^1$-norm. \par
+        Furthermore, applying Lemma 3.3.3(a) to (\ref{eq:limsup}) gives
+        \begin{align*}
+            0 \leq \liminf_{n \to \infty} \left| \int_E (f - f_n) \right| \leq \limsup_{n \to \infty} \left| \int_E (f - f_n) \right| \leq 0
+        \end{align*}
+        so similarly as before, $\lim_{n \to \infty} \left| \int_E (f - f_n) \right|$ exists and equals $0$, which can be restated as
+        \begin{align*}
+            \lim_{n \to \infty} \int_E f_n = \int_E f.
+        \end{align*}
+
+    \item[3.5.26.]
+        \boldmath\textbf{Suppose that $f$ is a bounded, measurable function on $[0, 1]$ such that $\int_0^1 x^n f(x) dx = 0$ for $n = 0, 1, 2, \cdots$. Show that $f(x) = 0$ a.e.
+        }\unboldmath \par
+        %Because $f$ is measurable, $\{ f < 0 \}$ and $\{ f > 0 \}$ are measurable sets, and we have the constraint that
+        %\begin{align*}
+            %\int_{\{f < 0\}} x^n f(x) dx + \int_{\{f > 0\}} x^n f(x) dx = 0
+        %\end{align*}
+        %for all $n$. \par%Countable additivity of the integral of nonnegative measurable functions.
+        \iffalse
+            Now let $M$ be the upper bound on $f$. Using the fact that $f$ is integrable on $[0, 1]$, Theorem 3.5.11 states that for every $\epsilon > 0$ there exists a really simple function
+            \begin{align*}
+                \phi = \sum_{k = 1}^N c_k \chi_{[a_k, b_k)}
+            \end{align*}
+            such that $\norm{f - \phi}_1 < \epsilon$. Then it is also the case that $\norm{x^n f - x^n \phi}_1 < \epsilon$ for all $n$, since $|x^n f - x^n \phi| = x^n |f - \phi| < |f - \phi|$ everywhere on $[0, 1]$. Take the interval $[a_k, b_k)$ with the largest $b_k$ such that $c_k \neq 0$, assuming for the purpose of contradiction that such an interval exists. If $c_k > 0$ (the case $c_k < 0$ is similar), then we can take $n$ such that
+            \begin{align*}
+                \epsilon + \frac{M a_k^{n + 1}}{n} < \frac{c_k(b_k^{n + 1} - a_k^{n + 1})}{n}
+            \end{align*}
+            (since $b_k^{n + 1}$ grows the fastest), from which we obtain
+            \begin{gather*}
+                \epsilon - \int_{\{f < 0\}} x^n \phi(x) dx \leq \epsilon + \int_0^{a_k} M x^n dx < \int_{a_k}^{b_k} c_k x^n dx < \int_{\{f > 0\}} x^n \phi(x) dx \\
+                \Rightarrow 
+                \int_0^1 x^n \phi(x) dx = \int_{\{f < 0\}} x^n \phi(x) dx + \int_{\{f > 0\}} x^n \phi(x) dx > \epsilon.
+            \end{gather*}
+            However, this conclusion together with the construction of $\phi$ contradicts the hypothesis that $\int_0^1 x^n f(x) dx = 0$. Therefore, any approximation of $f$ by a really simple function must be identically zero, from which we have $\int_0^1 |f| = \norm{f - 0}_1 < \epsilon$ for all $\epsilon > 0$, or $\int_0^1 |f| = 0$; i.e., $f = 0$ a.e.
+        \fi
+        \iffalse
+            Suppose $0 < \epsilon < 1$. $f$ is integrable since it is bounded and measurable, so by Theorem 3.5.7, there exists a function $\theta \in C_c([0, 1])$ such that $\norm{f - \theta}_1 < \frac{\epsilon}{2}$. Then by the Weierstrass Theorem, there exists a polynomial function $p$ on $[0, 1]$ such that
+            \begin{align*}
+                \max_{x \in [0, 1]} |\theta(x) - p(x)| < \sqrt{\frac{\epsilon}{2}}
+            \end{align*}
+            and so
+            \begin{align*}
+                \norm{(\theta - p)^2}_1 = \int_0^1 (\theta(x) - p(x))^2 dx < (1 - 0) \sqrt{\frac{\epsilon}{2}}^2 = \frac{\epsilon}{2}.
+            \end{align*}
+            By the linearity of the integral, we have that
+            \begin{align*}
+                \int_0^1 (f(x) - p(x))^2 dx = \int_0^1 f^2(x) dx - 2\int_0^1 f(x) p(x) dx + \int_0^1 p^2(x) dx.
+            \end{align*}
+            The second term on the right-hand side becomes $0$ because $p(x)$ is a linear combination of the $x^n$ for different values of $n$, resulting in a sum of integrals of the form $\int_0^1 x^n f(x) dx$; the third term is always nonnegative. Thus,
+            \begin{align*}
+                \int_0^1 f^2(x) dx &\leq \int_0^1 (f(x) - p(x))^2 dx \\
+                &\leq \int_0^1 (f(x) - \theta(x) + \epsilon)^2 dx \\
+                &= \int_0^1 (f(x) - \theta(x))^2 dx + 2\epsilon \int_0^1 (f(x) - \theta(x)) dx + \int_0^1 \epsilon^2 dx
+            \end{align*}
+        \fi
+        \iffalse
+            By the Weierstrass theorem, any continuous function $g$ on $[0, 1]$ can be uniformly approximated by polynomial functions, which means that for all $\epsilon > 0$, there exists some polynomial function $p$ on $[0, 1]$ such that
+            \begin{align*}
+                \max_{x \in [0, 1]} |g(x) - p(x)| < \frac{\epsilon}{\left| \int_0^1 f(x) dx \right|}
+            \end{align*}
+            ($f$ is integrable since it is bounded and measurable). Thus,
+            \begin{align*}
+                \left| \int_0^1 f(x) g(x) dx \right| < \left| \int_0^1 f(x) p(x) dx \right| + \max_{x \in [0, 1]} |g(x) - p(x)| \left| \int_0^1 f(x) dx \right| < \epsilon.
+            \end{align*}
+            The first term on the right-hand side vanishes due to $p(x)$ being a linear combination of the $x^n$ for different values of $n$, as well as the linearity of the integral. Since this inequality holds for all $\epsilon$, we have that
+            \begin{align}
+                \int_0^1 f(x) g(x) dx = 0.
+            \end{align}
+            In particular, we can apply this statement to the special cases when $g(x) = \cos(2\pi jx)$ and $g(x) = \sin(2\pi jx)$ for all $j$, from which we obtain the Fourier coefficients
+            \begin{align*}
+                \hat{f}(j) &= \langle f(x), e^{2\pi ijx} \rangle = \int_0^1 f(x) e^{-2\pi ijx} dx \\
+                &= \int_0^1 f(x) \cos(2\pi jx) dx - i \int_0^1 f(x) \sin(2\pi jx) dx \\
+                &= 0.
+            \end{align*}
+            Being integrable, $f$ has a unique representation in the Fourier basis. Then because the Fourier coefficients are all zero, $f = 0$ a.e.
+        \fi
+        Let $\epsilon > 0$. By Theorem 3.5.7, there exists a continuous function $g$ on $[0, 1]$ such that $\norm{f - g}_1 < \epsilon$, and by the Weierstrass theorem, $g$ can be uniformly approximated by polynomial functions, which means that there exists some polynomial function $p$ on $[0, 1]$ such that
+        \begin{align*}
+            \max_{x \in [0, 1]} |g(x) - p(x)| < \epsilon.
+        \end{align*}
+        Then
+        \begin{align*}
+            \int_0^1 |f|^2 &= \int_0^1 \overline{f}(f - g) + \int_0^1 \overline{f} (g - p) + \int_0^1 \overline{f} p \\
+            &\leq M\norm{f - g}_1 + M \int_0^1 |g - p| + 0 < 2M\epsilon
+        \end{align*}
+        where $M$ is the upper bound on $|f|$, and taking $\epsilon \to 0$ yields $f = 0$ a.e.
+\end{enumerate}
+
+\end{document}

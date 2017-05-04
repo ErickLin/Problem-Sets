@@ -1,0 +1,258 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, enumitem, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+    \section*{MATH 4317 - HW5 Solutions}
+    \subsection*{III. Metric Spaces}
+    \begin{enumerate}
+        \item[36.]
+            ($\Rightarrow$) Let $\{ p_i \} \in S$ be an infinite sequence where $S$ is a totally bounded metric space. Then for all $k \in \mathbb{N}^+$, $S$ is the union of a finite number of closed balls of radius $\frac{1}{2k}$. Start with $k = 1$. Of the closed balls of radius $\frac{1}{2}$, at least one contains an infinite number of terms, or a subsequence $\{ p_i^{(1)} \}$, of $\{ p_i \}$. For $k = 2$, at least one of the closed balls of radius $\frac{1}{4}$ contains an infinite number of terms, or a subsequence $\{ p_i^{(2)} \}$, of $\{ p_i^{(1)} \}$ (because $\{ p_i^{(1)} \}$ is covered by a finite number of the closed balls of radius $\frac{1}{4}$). Proceeding inductively, we have that $\{ p_i^{(k)} \}$ is a subsequence of $\{ p_i^{(k - 1)} \}$ that has an infinite number of terms contained in one of the closed balls of radius $\frac{1}{2k}$ whose union covers $S$. Let $q^{(k)}$ be the center of this closed ball. Then from the Triangle Inequality,
+            \begin{align*}
+                d(p_i^{(k)}, p_j^{(k)}) \leq d(p_i^{(k)}, q^{(k)}) + d(q^{(k)}, p_j^{(k)}) \leq \frac{1}{2k} + \frac{1}{2k} = \frac{1}{k}
+            \end{align*}
+            for all $i, j \in \mathbb{N}^+$. Now, if we form a new sequence $\{ p_k^{(k)} \}$ by taking the $k$th element from every subsequence $\{ p_i^{(k)} \}$, $\{ p_k^{(k)} \}$ is a subsequence of the original sequence $\{ p_i \}$ with the property that for all $\varepsilon > 0$, we can take $N > \frac{1}{\varepsilon}$ so that for all $m, n \geq N$, $p_m^{(m)}$ and $p_n^{(n)}$ are both contained in $\{ p_n^{(N)} \}$, thereby guaranteeing that
+            \begin{align*}
+                d(p_m^{(m)}, p_n^{(n)}) \leq \frac{1}{N} < \varepsilon.
+            \end{align*}
+            ($\Leftarrow$) Let $S$ be a metric space. If $S = \emptyset$, then for every $\varepsilon > 0$, $S$ is automatically the union of zero closed balls of radius $\varepsilon$, so we may assume that $S \neq \emptyset$. For all $\varepsilon > 0$, we will construct a finite sequence $\{ q_1, \cdots, q_n \}$ as follows. Choose $q_1 \in S$ arbitrarily, and choose $q_2 \in S$ such that $d(q_1, q_2) \geq \varepsilon$. Proceeding by induction, having chosen $q_1, \cdots, q_k$, if the closed balls with centers $q_i$ for all $i \in \{ 1, \cdots, k\}$ do not cover $S$, then add a point $q_{k + 1}$ such that $d(q_i, q_{k + 1})$ for all $i \in \{ 1, \cdots, k \}$. Then there is some $k = n$ such that the closed balls with centers $q_i$ for all $i \in \{1, \cdots, n\}$ cover $S$, for if this were not the case, there would exist a sequence $\{ q_i : i \in \mathbb{N}^+ \}$ such that $d(q_i, q_j) \geq \varepsilon$ for all $i, j \in \mathbb{N}^+$, a contradiction since this sequence has no Cauchy subsequence.
+    \end{enumerate}
+
+    \subsection*{IV. Continuous Functions}
+    \begin{enumerate}
+        \item[25.]
+            Because $f$ is a continuous function on an interval $[a, b]$ which is closed in $\mathbb{R}$ and therefore compact, $f$ is uniformly continuous. Let $\gamma \in \mathbb{R}$ such that $f(a) \leq \gamma \leq f(b)$. Then we have that, given any $\varepsilon > 0$, if we divide $[a, b]$ into a sufficiently large number of subintervals of equal length, then at least one of the division points $p$ fulfills the property $|f(p) - \gamma| < \varepsilon$. Then we can set $\varepsilon = \frac{1}{n}$ and construct a sequence $\{ p_n \}$ for $n \in \mathbb{N}^+$, which converges to $\gamma$ from the previous statement. Because each point $p_n \in [a, b]$, a compact set, $\{ p_n \}$ has a subsequence $\{ p_{n_i} \}$ that converges to a point $c \in [a, b]$. Finally, from the continuity of $f$ and the statement that the subsequence of a convergent sequence converges to the same limit, $f(c) = f \left( \lim_{i \to \infty} p_{n_i} \right) = \lim_{i \to \infty} f(p_{n_i}) = \gamma$. This proves the Intermediate Value Theorem.
+
+        \item[31.]
+            \begin{enumerate}
+                \item
+                    \iffalse
+                    The complement $S^c$ in $[0, 1]$ consists of all numbers having decimal expansions of the form
+                    \begin{align*}
+                        .a_1 b_1 c_1 d_1 a_2 b_2 c_2 d_2 a_3 b_3 c_3 d_3 \cdots
+                    \end{align*}
+                    with each $d_n \in \{ 1, 2, \cdots, 9 \}$. $S^c$ is open because for any $x \in S^c$, 
+                    \fi
+                    Consider a sequence $\{ x_i \} \subset S$ which converges to a limit $x$. For the purpose of contradiction, suppose that $x \notin S$. Then $x$ has a decimal expansion of the form
+                    \begin{align*}
+                        .a_1 b_1 c_1 d_1 a_2 b_2 c_2 d_2 a_3 b_3 c_3 d_3 \cdots
+                    \end{align*}
+                    with each $d_n \in \{ 1, 2, \cdots, 9 \}$. However, because each $x_i$ has $d_n = 0$, there exists $\varepsilon > 0$ such that $|x_i - x| \geq \varepsilon$ for all $i$. This contradicts $x = \lim_{i \to \infty} x_i$, so it must be that $x \in S$. Because $\{ x_i \}$ was arbitrary and its limit converges to a point in $S$, $S$ must be closed.
+
+                \item
+                    For all $\varepsilon > 0$, if we take $\delta = \varepsilon$ and $x, y \in S$ such that $|x - y| < \delta$, then it is guaranteed that
+                    \begin{align*}
+                        |\varphi_1(x) - \varphi_1(y)| < \varepsilon \qquad 
+                        |\varphi_2(x) - \varphi_2(y)| < \varepsilon \qquad
+                        |\varphi_3(x) - \varphi_3(y)| < \varepsilon
+                    \end{align*}
+                    which shows that $\varphi_1$, $\varphi_2$, and $\varphi_3$ are continuous.
+
+                \item
+                    $f_1$ may be constructed from $\varphi_1$ on the domain $[0, 1]$ by filling in the value $1$ for $x = 1$, and connecting the two nearest points in $S$ with a line segment for each open interval in $S^c$. $f_1$ is unique because each point in $S$ is mapped to only one value by $\varphi$, and so the line segments connecting them must be unique as well; in addition, $x = 1$ is mapped to a unique value. Finally, $f_1$ is continuous because it is constructed in a way such that $f(x) = \lim_{x' \to x} f(x')$ for all $x \in S \cup \{1\}$, and for $x \in S^c$, $x$ is on a line segment which is always continuous. $f_2$ and $f_3$ can be constructed in a similar way from $\varphi_2$ and $\varphi_3$, respectively.
+
+                \item
+                    For all $\varepsilon > 0$, if we take $\delta = \varepsilon / 3$ and $x, y \in [0, 1]$ such that $|x - y| < \delta$, then from the continuity of $f_1$, $f_2$, and $f_3$ and the Triangle Inequality, it is guaranteed that
+                    \begin{align*}
+                        d'(f(x), f(y)) &= d'((f_1(x), f_2(x), f_3(x)), (f_1(y), f_2(y), f_3(y))) \\
+                        &\leq d'((f_1(x), f_2(x), f_3(x)), (f_1(y), f_2(x), f_3(x))) \\
+                        &\qquad+ d'((f_1(x), f_2(x), f_3(x)), (f_1(x), f_2(y), f_3(x))) \\
+                        &\qquad+ d'((f_1(x), f_2(x), f_3(x)), (f_1(x), f_2(x), f_3(y))) \\
+                        &< \frac{\varepsilon}{3} + \frac{\varepsilon}{3} + \frac{\varepsilon}{3} \\
+                        &= \varepsilon.
+                    \end{align*}
+            \end{enumerate}
+
+        \item[34.]
+            \begin{enumerate}
+                \item
+                    $\lim_{n \to \infty} f_n = 0$ uniformly because given $\varepsilon > 0$, if we let $N > \max_{x \in [0, 1]}\{ 1 / (\varepsilon|x|) - 1 / x^2 \}$, then for all $n \geq N$,
+                    \begin{align*}
+                        d'(f_n(x), 0) = \left| \frac{x}{1 + nx^2} - 0 \right| \leq \frac{x}{1 + Nx^2} < \varepsilon.
+                    \end{align*}
+
+                \item
+                    Pointwise,
+                    \begin{align*}
+                        \lim_{n \to \infty} f_n(x) = \begin{cases}
+                            0, &x = 0 \\
+                            \frac{1}{x}, &x \neq 0
+                        \end{cases}
+                    \end{align*}
+                    which is not continuous at $x = 0$ and hence not continuous, so $\{ f_n \}$ does not converge uniformly.
+
+                \item
+                    Pointwise,
+                    \begin{align*}
+                        \lim_{n \to \infty} f_n(x) = 0
+                    \end{align*}
+                    so the sole candidate for the uniform limit of $\{ f_n \}$ if it exists is $f = 0$. However,
+                    \begin{align*}
+                        d'(f_n(x), 0) = \left| \frac{nx}{1 + n^2x^2} - 0 \right| = \frac{nx}{1 + (nx)^2}
+                    \end{align*}
+                    is unbounded on $x \in [0, 1]$ and $n \in \mathbb{N}^+$ (this is easier to see if the substitution $y = nx$ is used). This means that there is no $\varepsilon > 0, \delta > 0$ such that if $x, y \in [0, 1]$ and $|x - y| < \delta$ then $d'(f_n(x), 0) < \varepsilon$; therefore, $\{ f_n \}$ does not converge uniformly.
+
+            \end{enumerate}
+
+        \item[41.]
+            If $E$ is empty then the proposition is trivially true, so assume that $E$ is nonempty. Because $f_1, f_2, f_3, \cdots$ converges pointwise to $f$, we have that for all $\varepsilon > 0$ and $p \in E$, there exists $N_p \in \mathbb{N}^+$ such that if $n \geq N_p$,
+            \begin{align*}
+                d'(f_n(p), f(p)) < \varepsilon.
+            \end{align*}
+            Also, because $E$ is compact and $f, f_1, f_2, f_3, \cdots$ are continuous,
+            \begin{align*}
+                D(f_n, f) \equiv \max_{p \in E} d'(f_n(p), f(p))
+            \end{align*}
+            exists. If we take $N = \max_p (N_p)$, then for all $n \geq N_p$,
+            \begin{align*}
+                D(f_n, f) < \varepsilon
+            \end{align*}
+            which shows that $\inf_n D(f_n, f) = 0$. Finally, because $\{ f_n(p) : n \in \mathbb{N}^+ \}$ is non-decreasing for all $p \in E$, $\{ d'(f_n(p), f(p)) : n \in \mathbb{N}^+ \}$ is non-increasing for all $p \in E$; then $\{ D(f_n, f) : n \in \mathbb{N}^+ \}$ is also non-increasing. From the monotone convergence theorem we have that $\{ D(f_n, f) \}$ converges to its infimum, so
+            \begin{align*}
+                \lim_{n \to \infty} D(f_n, f) = 0
+            \end{align*}
+            and $f_1, f_2, f_3, \cdots$ converges uniformly to $f$.
+    \end{enumerate}
+
+    \subsection*{V. Differentiation}
+    \begin{enumerate}
+        \item[1.]
+            \begin{enumerate}
+                \item
+                    $x$, $\sin x$ and $1/x$ are differentiable at $x \neq 0$, which implies that $f(x)$ is also differentiable at $x \neq 0$ because differentiability at a point is preserved in products and compositions of functions. At $x = 0$, the definition of a derivative gives
+                    \begin{align*}
+                        f'(0) &= \lim_{h \to 0} \frac{f(0 + h) - f(0)}{h} \\
+                        &= \lim_{h \to 0} \frac{f(h) - 0}{h} \\
+                        &= \lim_{h \to 0} \frac{h \sin{\frac{1}{h}}}{h} \\
+                        &= \lim_{h \to 0} \sin{\frac{1}{h}}
+                    \end{align*}
+                    which does not exist ($2/\pi, 2/5\pi, 2/9\pi, \cdots$ and $2/3\pi, 2/7\pi, 2/11\pi, \cdots$ are two examples of sequences which approach $0$ but whose maps approach different values). Thus $f(x)$ is not differentiable at $x = 0$.
+
+                \item
+                    Because $x^2$ is also differentiable at $x \neq 0$, $f(x)$ is still differentiable at $x \neq 0$. In addition, at $x = 0$ the definition of a derivative gives
+                    \begin{align*}
+                        f'(0) &= \lim_{h \to 0} \frac{h^2 \sin{\frac{1}{h}}}{h} \\
+                        &= \lim_{h \to 0} h\sin{\frac{1}{h}} \\
+                        &= 0
+                    \end{align*}
+                    (for all $\varepsilon > 0$, take $\delta = \varepsilon$; then the sequence converges by the Squeeze Theorem) which shows that $f(x)$ is differentiable at all points in $\mathbb{R}$.
+
+                \item
+                    At $x_0 \neq 0$, the definition of a derivative gives
+                    \begin{align*}
+                        f'(x_0) &= \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0} \\
+                        &= \lim_{x \to x_0} \frac{\sqrt{|x|} - \sqrt{|x_0|}}{x - x_0} \\
+                        &= \lim_{x \to x_0} \frac{1}{\sqrt{|x|} + \sqrt{|x_0|}} \\
+                        &= \frac{1}{2\sqrt{|x_0|}}
+                    \end{align*}
+                    which shows that $f(x)$ is differentiable at $x \neq 0$. At $x = 0$, however, we have
+                    \begin{align*}
+                        f'(0) &= \lim_{h \to 0} \frac{f(0 + h) - f(0)}{h} \\
+                        &= \lim_{h \to 0} \frac{f(h) - 0}{h} \\
+                        &= \lim_{h \to 0} \frac{\sqrt{|h|}}{h} \\
+                        &= \lim_{h \to 0} \frac{1}{\sqrt{|h|}}
+                    \end{align*}
+                    which does not exist, so $f(x)$ is not differentiable at $x = 0$.
+            \end{enumerate}
+
+        \item[2.]
+            \begin{enumerate}
+                \item
+                    The definition can be rewritten as
+                    \begin{align*}
+                        f'(x_0) = \lim_{x \to x_0} \frac{f(x_0) - f(x)}{x_0 - x}
+                    \end{align*}
+                    which gives rise to the equivalent definition
+                    \begin{align*}
+                        f'(x_0) = \lim_{h \to 0} \frac{f(x_0) - f(x_0 - h)}{h}.
+                    \end{align*}
+                    Because we also have
+                    \begin{align*}
+                        f'(x_0) = \lim_{h \to 0} \frac{f(x_0 + h) - f(x_0)}{h},
+                    \end{align*}
+                    we can now write, using the algebraic limit theorem,
+                    \begin{align*}
+                        f'(x_0) &= \frac{f'(x_0)}{2} + \frac{f'(x_0)}{2} \\
+                        &= \lim_{h \to 0} \frac{f(x_0 + h) - f(x_0)}{2h} + \lim_{h \to 0} \frac{f(x_0) - f(x_0 - h)}{2h} \\
+                        &= \lim_{h \to 0} \frac{f(x_0 + h) - f(x_0 - h)}{2h}.
+                    \end{align*}
+
+                \item
+                    Because
+                    \begin{align*}
+                        \lim_{h \to 0} \frac{f(x_0 + \alpha h) - f(x_0 + \beta h)}{(\alpha - \beta) h} = f'(x_0),
+                    \end{align*}
+                    we have
+                    \begin{align*}
+                        \lim_{h \to 0} \frac{f(x_0 + \alpha h) - f(x_0 + \beta h)}{h} = (\alpha - \beta) f'(x_0).
+                    \end{align*}
+            \end{enumerate}
+
+        \item[4.]
+            ($\Rightarrow$) $\frac{f(x + h) - f(x)}{h}$ has the same sign as $f(x + h) - f(x)$ for all $h > 0$, so $f'(x) = \lim_{h \to 0} \frac{f(x + h) - f(x)}{h}$ cannot have the opposite sign. \par
+            ($\Leftarrow$) If $a < b$, then from the mean value theorem, there exists $c \in (a, b)$ such that $f(b) - f(a) = (b - a) f'(c)$. $f(b) - f(a)$ shares the same sign as $f'(c)$.
+
+        \item[8.]
+            $F$ is continuous on $[a, b]$, differentiable on $(a, b)$, and fulfills $F(a) = F(b) = 0$. By Rolle's theorem, there exists $c \in (a, b)$ such that
+            \begin{align*}
+                F'(c) = f'(c) \bigl( g(b) - g(a) \bigr) - g'(c) \bigl( f(b) - f(a) \bigr) = 0,
+            \end{align*}
+            thus proving the result.
+
+        \item[9.]
+            \begin{enumerate}
+                \item
+                    Suppose $a$ is the left extremity of $U$, and extend $f$ and $g$ to $[a, b)$ (where $b$ is the right extremity of $U$) such that $f(a) = g(a) = 0$. Now let $\{ x_n \} \to a^+$. By the Cauchy mean value theorem on $[a, x_n]$, there exists $c_n \in (a, x_n)$ such that
+                    \begin{align*}
+                        \frac{f'(c_n)}{g'(c_n)} = \frac{f(x_n) - f(a)}{g(x_n) - g(a)} = \frac{f(x_n)}{g(x_n)}.
+                    \end{align*}
+                    Therefore, $\lim_{c_n \to a^+} \frac{f'(c_n)}{g'(c_n)} = \lim_{x_n \to a^+} \frac{f(x_n)}{g(x_n)}$. \par
+                    Now suppose $a$ is the right extremity of $U$, and $f$ and $g$ are extended to $(b, a]$ (where $b$ is the left extremity of $U$) such that $f(a) = g(a) = 0$. If $\{ x_n \} \to a^-$, then by the Cauchy mean value theorem on $[x_n, a]$, there exists $c_n \in (x_n, a)$ such that
+                    \begin{align*}
+                        \frac{f'(c_n)}{g'(c_n)} = \frac{f(a) - f(x_n)}{g(a) - g(x_n)} = \frac{f(x_n)}{g(x_n)}.
+                    \end{align*}
+                    Therefore, $\lim_{c_n \to a^-} \frac{f'(c_n)}{g'(c_n)} = \lim_{x_n \to a^-} \frac{f(x_n)}{g(x_n)}$. \par
+
+                \item
+                    Suppose that $a$ is the left extremity of $U$. For any $x \in U$ and any $y \in (a, x)$ , we have that, from the Cauchy mean value theorem,
+                    \begin{align*}
+                        \inf_{c \in (a, x)} \frac{f'(c)}{g'(c)} \leq \frac{f(x) - f(y)}{g(x) - g(y)} = \frac{\frac{f(x)}{g(y)} - \frac{f(y)}{g(y)}}{\frac{g(x)}{g(y)} - 1} \leq \sup_{c \in (a, x)} \frac{f'(c)}{g'(c)}.
+                    \end{align*}
+                    As $y \to a$, both $f(x) / g(y)$ and $g(x) / g(y)$ approach zero, and as a result
+                    \begin{align*}
+                        \inf_{c \in (a, x)} \frac{f'(c)}{g'(c)} \leq \liminf_{y \in (a, x)} \frac{f(y)}{g(y)} \leq \limsup_{y \in (a, x)} \frac{f(y)}{g(y)} \leq \sup_{c \in (a, x)} \frac{f'(c)}{g'(c)}
+                    \end{align*}
+                    (the limit inferior and limit superior are used because the existence of the limit has not yet been proved). Taking $\lim_{x \to a}$,
+                    \begin{align*}
+                        \lim_{x \to a} \frac{f'(x)}{g'(x)} \leq \liminf_{x \to a} \frac{f(x)}{g(x)} \leq \limsup_{x \to a} \frac{f(x)}{g(x)} \leq \lim_{x \to a} \frac{f'(x)}{g'(x)}.
+                    \end{align*}
+                    Using the squeeze theorem, we have that
+                    \begin{align*}
+                        \liminf_{x \to a} \frac{f(x)}{g(x)} = \limsup_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)}
+                    \end{align*}
+                    and in conclusion,
+                    \begin{align*}
+                        \lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)}.
+                    \end{align*}
+
+                \item
+                    We can define functions $f_1$ and $g_1$ on the domain $U_1 = (0, 1 / \alpha)$ such that $f_1(x) = f(1 / x)$ and $g_1(x) = g(1 / x)$. These functions are compositions of differentiable functions on $U_1$ and hence differentiable. Then
+                    \begin{align*}
+                        \lim_{x \to \infty} \frac{f(x)}{g(x)} = \lim_{x \to 0} \frac{f_1(x)}{g_1(x)}
+                    \end{align*}
+                    and from (a),
+                    \begin{align*}
+                        \lim_{x \to 0} \frac{f_1(x)}{g_1(x)} &= \lim_{x \to 0} \frac{f_1'(x)}{g_1'(x)} \\
+                        &= \lim_{x \to 0} \frac{f'(1/x) \frac{d}{dx} \left( \frac{1}{x} \right)}{g'(1/x) \frac{d}{dx} \left( \frac{1}{x} \right)} \\
+                        &= \lim_{x \to \infty} \frac{f'(x)}{g'(x)}.
+                    \end{align*}
+
+                \item
+                    The proof is identical to (c), with the exception that the result from (b) is used instead of that of (a).
+            \end{enumerate}
+    \end{enumerate}
+\end{document}

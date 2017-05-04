@@ -1,0 +1,508 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\begin{document}
+
+\section*{MATH 4320 - HW3 Solutions}
+\subsection*{3.30}
+\begin{enumerate}
+    \item[11.]
+        \begin{enumerate}
+            \item
+                $e^z$ tends to $0$ as $x$ tends to $-\infty$.
+
+            \item
+                $e^z = e^x (\cos y + i \sin y)$ oscillates in the region $([-e^x, e^x], [-e^x, e^x])$ in the finite plane.
+        \end{enumerate}
+\end{enumerate}
+
+\subsection*{3.33}
+\begin{enumerate}
+    \item[5.]
+        \begin{enumerate}
+            \item
+                Since $i = e^{i(\pi/2 + 2k\pi)}$,
+                \begin{align*}
+                    i^{1/2} &= 1^{1/2} e^{i(\pi/4 + k\pi)}, \quad k \in \{ 0, 1 \} \\
+                    &= e^{i\pi/4}, e^{i5\pi/4}.
+                \end{align*}
+                We have that
+                \begin{align*}
+                    \log(e^{i\pi/4}) &= i \left( \frac{\pi}{4} + 2k\pi \right) = \left( 2k + \frac{1}{4} \right) \pi i, \quad k \in \mathbb{Z} \\
+                    \log(e^{i5\pi/4}) &= i \left( \frac{5\pi}{4} + 2k\pi \right) = \left[ (2k + 1) + \frac{1}{4} \right] \pi i, \quad k \in \mathbb{Z} \\
+                    \log(i^{1/2}) &= \log(e^{i\pi/4}) \cup \log(e^{i5\pi/4}) = \left( k + \frac{1}{4} \right) \pi i, \quad k \in \mathbb{Z}.
+                \end{align*}
+
+            \item
+                \begin{align*}
+                    \frac{1}{2} \log i = \frac{1}{2} i (\pi/2 + 2k\pi) = i \left( \frac{\pi}{4} + k\pi \right) = \left( k + \frac{1}{4} \right) \pi i = \log(i^{1/2})
+                \end{align*}
+
+        \end{enumerate}
+
+\end{enumerate}
+
+\subsection*{3.34}
+\begin{enumerate}
+    \item[1.]
+        We have that
+        \begin{align*}
+            z_1 = r_1 e^{i \Theta_1} \qquad z_2 = r_2 e^{i \Theta_2}
+        \end{align*}
+        where
+        \begin{align*}
+            -\pi < \Theta_1 \leq \pi \qquad -\pi < \Theta_2 \leq \pi,
+        \end{align*}
+        which means that $-2\pi < \Theta_1 + \Theta_2 \leq 2\pi$. Since the domain is restricted to $(-\pi, \pi]$, the angle $\Theta_1 + \Theta_2$ becomes
+        \begin{gather*}
+            \begin{cases}
+                \Theta_1 + \Theta_2 + 2\pi, &-2\pi < \Theta_1 + \Theta_2 \leq -\pi \\
+                \Theta_1 + \Theta_2, &-\pi < \Theta_1 + \Theta_2 \leq \pi \\
+                \Theta_1 + \Theta_2 - 2\pi, &\pi < \Theta_1 + \Theta_2 \leq 2\pi
+            \end{cases} \\
+            = \Theta_1 + \Theta_2 + 2k\pi, \quad k \in \{ -1, 0, 1 \}.
+        \end{gather*}
+        As a result,
+        \begin{align*}
+            \text{Log}(z_1 z_2) &= \text{Log} \left[ r_1 r_2 e^{i(\Theta_1 + \Theta_2 + 2k\pi)} \right] \\
+            &= \ln(r_1 r_2) + i(\Theta_1 + \Theta_2 + 2k\pi) \\
+            &= (\ln r_1 + i \Theta_1) + (\ln r_2 + i \Theta_2) + 2k\pi i \\
+            &= \text{Log} \left( r_1 e^{i \Theta_1} \right) + \text{Log} \left( r_2 e^{i \Theta_2} \right) + 2k\pi i \\
+            &= \text{Log} z_1 + \text{Log} z_2 + 2k\pi i, \quad k \in \{ -1, 0, 1 \}.
+        \end{align*}
+\end{enumerate}
+
+\subsection*{3.36}
+\begin{enumerate}
+    \item[3.]
+        Since
+        \begin{align*}
+            -1 + \sqrt{3} i = 2e^{i(2\pi/3)},
+        \end{align*}
+        from the definition of the power function we have
+        \begin{align*}
+            (-1 + \sqrt{3} i)^{3/2} &= 2^{3/2} \left[ e^{i(2\pi/3)} \right]^{3/2} \\
+            &= 2\sqrt{2} e^{(3/2) \log \left[ e^{i(2\pi/3)} \right]} \\
+            &= 2\sqrt{2} e^{(3/2) i (2\pi/3 + 2k\pi)}, \quad k \in \mathbb{Z} \\
+            &= 2\sqrt{2} e^{i (\pi + 3k\pi)}, \quad k \in \mathbb{Z} \\
+            &= \pm 2\sqrt{2}.
+        \end{align*}
+\end{enumerate}
+
+\subsection*{3.39}
+\begin{enumerate}
+    \item[4.]
+        From the identities
+        \begin{gather*}
+            \cosh(iz) = \cos z \qquad \sinh(iz) = i \sin z \\
+            \sinh(z_1 + z_2) = \sinh z_1 \cosh z_2 + \cosh z_1 \sinh z_2 \\
+            \cosh(z_1 + z_2) = \cosh z_1 \cosh z_2 + \sinh z_1 \sinh z_2,
+        \end{gather*}
+        we have that
+        \begin{align*}
+            \sinh z &= \sinh(x + iy) \\
+            &= \sinh x \cosh(iy) + \cosh x \sinh(iy) \\
+            &= \sinh x \cos y + i \cosh x \sin y
+        \end{align*}
+        and that
+        \begin{align*}
+            \cosh z &= \cosh(x + iy) \\
+            &= \cosh x \cosh(iy) + \sinh x \sinh(iy) \\
+            &= \cosh x \cos y + i \sinh x \sin y.
+        \end{align*}
+
+    \item[6.]
+        \begin{enumerate}
+            \item
+                Using the identities
+                \begin{gather*}
+                    |\cosh z|^2 = \sinh^2 x + \cos^2 y \\
+                    \cosh^2 x - \sinh^2 x = 1,
+                \end{gather*}
+                we have that
+                \begin{align*}
+                    \sinh^2 x &\leq \sinh^2 x + \cos^2 y = |\cosh z|^2 \\
+                    \Rightarrow |\sinh x| &\leq |\cosh z|.
+                \end{align*}
+                and that
+                \begin{align*}
+                    |\cosh z|^2 &= (\cosh^2 x - 1) + \cos^2 y \leq \cosh^2 x \\
+                    \Rightarrow |\cosh z| &\leq |\cosh x| = \cosh x.
+                \end{align*}
+                Putting it together, we have
+                \begin{align*}
+                    |\sinh x| \leq |\cosh z| \leq \cosh x.
+                \end{align*}
+
+            \item
+                Letting $z' = iz$ and combining the identity
+                \begin{align*}
+                    \cos(z') = \cosh z
+                \end{align*}
+                with the inequality
+                \begin{align*}
+                    |\sinh \Im z'| \leq |\cos z'| \leq \cosh \Im z',
+                \end{align*}
+                we have the result
+                \begin{align*}
+                    |\sinh \Im(iz)| &\leq |\cosh z| \leq \cosh \Im(iz) \\
+                    \Rightarrow |\sinh \Re(z)| &\leq |\cosh z| \leq \cosh \Re(z).
+                \end{align*}
+        \end{enumerate}
+
+    \item[7.]
+        We will make use of the identities
+        \begin{gather*}
+            \sinh(iz) = i\sin z \qquad \cosh(iz) = \cos z.
+        \end{gather*}
+        \begin{enumerate}
+            \item
+                From the identity
+                \begin{gather*}
+                    \sinh(z_1 + z_2) = \sinh z_1 \cosh z_2 + \cosh z_1 \sinh z_2,
+                \end{gather*}
+                we have that
+                \begin{align*}
+                    \sinh(z + \pi i) &= \sinh z \cosh (\pi i) + \cosh z \sinh (\pi i) \\
+                    &= \sinh z \cos \pi + i \cosh z \sin \pi \\
+                    &= -\sinh z.
+                \end{align*}
+
+            \item
+                From the identity
+                \begin{gather*}
+                    \cosh(z_1 + z_2) = \cosh z_1 \cosh z_2 + \sinh z_1 \sinh z_2,
+                \end{gather*}
+                we have that
+                \begin{align*}
+                    \cosh(z + \pi i) &= \cosh z \cosh (\pi i) + \sinh z \sinh (\pi i) \\
+                    &= \cosh z \cos \pi + i \sinh z \sin \pi \\
+                    &= -\cosh z.
+                \end{align*}
+
+            \item
+                From the definition of the hyperbolic tangent function,
+                \begin{align*}
+                    \tanh(z + \pi i) = \frac{\sinh(z + \pi i)}{\cosh(z + \pi i)} = \frac{-\sinh z}{-\cosh z} = \frac{\sinh z}{\cosh z} = \tanh z.
+                \end{align*}
+        \end{enumerate}
+\end{enumerate}
+
+\subsection*{4.42}
+\begin{enumerate}
+    \item[2.]
+        \begin{enumerate}
+            \item
+                \begin{align*}
+                    \int_0^1 (1 + it)^2 dt &= \int_0^1 (1 + 2it - t^2) dt \\
+                    &= \int_0^1 (1 - t^2) dt + i \int_0^1 2t dt \\
+                    &= \left[ t - \frac{t^3}{3} \right]_0^1 + i \left[ t^2 \right]_0^1 \\
+                    &= \frac{2}{3} + i
+                \end{align*}
+
+            \item
+                \begin{align*}
+                    \int_1^2 \left( \frac{1}{t} - i \right)^2 dt &= \int_1^2 \left( \frac{1}{t^2} - \frac{2i}{t} - 1 \right) dt \\
+                    &= \int_1^2 \left( \frac{1}{t^2} - 1 \right) dt - 2i \int_1^2 \frac{1}{t} dt \\
+                    &= \left[ -\frac{1}{t} - t \right]_1^2 - 2i [\ln|t|]_1^2 \\
+                    &= \left( -\frac{1}{2} - 2 + 1 + 1 \right) - 2i \ln \left( \frac{2}{1} \right) \\
+                    &= -\frac{1}{2} - i 2 \ln 2
+                \end{align*}
+
+            \item
+                \begin{align*}
+                    \int_0^{\pi/6} e^{i2t} dt &= \int_0^{\pi/6} \cos 2t dt + i \int_0^{\pi/6} \sin 2t dt \\
+                    &= \left[ \frac{\sin 2t}{2} \right]_0^{\pi/6} + i \left[ -\frac{\cos 2t}{2} \right]_0^{\pi/6} \\
+                    &= \frac{1}{2} \left( \frac{\sqrt{3}}{2} - 0 \right) - i \frac{1}{2} \left[ \frac{1}{2} - 1 \right] \\
+                    &= \frac{\sqrt{3}}{4} + i \frac{1}{4}
+                \end{align*}
+
+            \item
+                If $z = x + iy$,
+                \begin{align}
+                    \int_0^\infty e^{-zt} dt &= \int_0^\infty e^{-xt} [\cos(yt) - i\sin(yt)] dt \\
+                    &= \int_0^\infty e^{-xt} \cos(yt) dt - i \int_0^\infty e^{-xt} \sin(yt) dt. \label{eq:integrate}
+                \end{align}
+                Integrating by parts, we have
+                \begin{align*}
+                    \int_0^\infty e^{-xt} \cos(yt) dt &= \frac{e^{-xt} \sin(yt)}{y} + \frac{x}{y} \int_0^\infty e^{-xt} \sin(yt) dt \\
+                    \int_0^\infty e^{-xt} \sin(yt) dt &= -\frac{e^{-xt} \cos(yt)}{y} - \frac{x}{y} \int_0^\infty e^{-xt} \cos(yt) dt
+                \end{align*}
+                and using the method of substituting for the unknown integral, we obtain
+                \begin{align*}
+                    \int_0^\infty e^{-xt} \cos(yt) dt &= \left[ \frac{ye^{-xt} \sin(yt) - xe^{-xt} \cos(yt)}{x^2 + y^2} \right]_0^\infty = \frac{x}{x^2 + y^2} \\
+                    \int_0^\infty e^{-xt} \sin(yt) dt &= \left[ \frac{-ye^{-xt} \cos(yt) - xe^{-xt} \sin(yt)}{x^2 + y^2} \right]_0^\infty = \frac{y}{x^2 + y^2}
+                \end{align*}
+                Substituting into (\ref{eq:integrate}), we have
+                \begin{align*}
+                    \int_0^\infty e^{-zt} dt = \frac{x}{x^2 + y^2} - i\frac{y}{x^2 + y^2} = \frac{\overline{z}}{z \overline{z}} = \frac{1}{z}.
+                \end{align*}
+        \end{enumerate}
+\end{enumerate}
+
+\subsection*{4.43}
+\begin{enumerate}
+    \item[6.]
+        \begin{enumerate}
+            \item
+                From the squeeze theorem,
+                \begin{gather*}
+                    \lim_{x \to 0} {-x^3} = 0 \leq \lim_{x \to 0} x^3 \sin \left( \frac{\pi}{x} \right) \leq \lim_{x \to 0} x^3 = 0 \\
+                    \Rightarrow \lim_{x \to 0} x^3 \sin \left( \frac{\pi}{x} \right) = 0 = y(0)
+                \end{gather*}
+                which shows that $y(x)$ is continuous at $x = 0$. Since $x^3 \sin(\pi/x)$ is also continuous over $0 < x \leq 1$, we have that $y(x)$ is continuous over the interval $0 \leq x \leq 1$. Because $x$ is also continuous over $0 \leq x \leq 1$, $z$ is an arc. \par
+                The points where $z = x$ (and hence $y(x) = 0$) immediately include $z = x = 0$. Additionally, $x^3 \sin(\pi/x) = 0$ where $\pi/x$ is an integral multiple of $\pi$, or at $z = x = 1/k$ for $k \in \mathbb{Z}^+$.
+
+            \item
+                Differentiating,
+                \begin{align*}
+                    y'(x) = \begin{cases}
+                        3x^2 \sin \left( \frac{\pi}{x} \right) - \pi x \cos \left( \frac{\pi}{x} \right)&\text{ when }0 < x \leq 1, \\
+                        0&\text{ when }x = 0.
+                    \end{cases}
+                \end{align*}
+                and
+                \begin{align*}
+                    z'(x) = 1 + iy'(x).
+                \end{align*}
+                From the squeeze theorem,
+                \begin{gather*}
+                    \lim_{x \to 0} {-3x^2} = 0 \leq \lim_{x \to 0} 3x^2 \sin \left( \frac{\pi}{x} \right) \leq \lim_{x \to 0} 3x^2 = 0 \\
+                    \Rightarrow \lim_{x \to 0} 3x^2 \sin \left( \frac{\pi}{x} \right) = 0
+                \end{gather*}
+                and
+                \begin{gather*}
+                    \lim_{x \to 0} {-\pi x} = 0 \leq \lim_{x \to 0} \pi x \cos \left( \frac{\pi}{x} \right) \leq \lim_{x \to 0} \pi x = 0 \\
+                    \Rightarrow \lim_{x \to 0} \pi x \cos \left( \frac{\pi}{x} \right) = 0
+                \end{gather*}
+                which shows that, from the algebraic limit theorem,
+                \begin{align*}
+                    \lim_{x \to 0} \left[ 3x^2 \sin \left( \frac{\pi}{x} \right) - \pi x \cos \left( \frac{\pi}{x} \right) \right] = 0 = y(0);
+                \end{align*}
+                hence $y'(x)$ is continuous at $x = 0$. Since $3x^2 \sin \left( \frac{\pi}{x} \right) - \pi x \cos \left( \frac{\pi}{x} \right)$ is also continuous over $0 < x \leq 1$, we have that $y'(x)$ is continuous over the interval $0 \leq x \leq 1$. Because $1$ is also continuous over $0 \leq x \leq 1$, $z'(x)$ is continuous over $0 \leq x \leq 1$. Finally, $z'(x)$ is nonzero over $0 \leq x \leq 1$ which shows that $z$ is smooth.
+        \end{enumerate}
+\end{enumerate}
+
+\subsection*{4.46}
+\begin{enumerate}
+    \item[1.]
+        \begin{enumerate}
+            \item
+                \begin{align*}
+                    \int_C f(z) dz &= \int_0^\pi f[z(\theta)] z'(\theta) d\theta
+                    = \int_0^\pi \frac{2e^{i\theta} + 2}{2e^{i\theta}} (2i e^{i\theta}) d\theta \\
+                    &= 2i \int_0^\pi (e^{i\theta} + 1) d\theta
+                    = 2i \left[ \frac{e^{i\theta}}{i} + \theta \right]_0^\pi \\
+                    &= 2i \left( -\frac{1}{i} + \pi - \frac{1}{i} - 0 \right) \\
+                    &= -4 + 2\pi i
+                \end{align*}
+
+            \item
+                \begin{align*}
+                    \int_C f(z) dz &= \int_\pi^{2\pi} f[z(\theta)] z'(\theta) d\theta
+                    = \int_\pi^{2\pi} \frac{2e^{i\theta} + 2}{2e^{i\theta}} (2i e^{i\theta}) d\theta \\
+                    &= 2i \int_\pi^{2\pi} (e^{i\theta} + 1) d\theta
+                    = 2i \left[ \frac{e^{i\theta}}{i} + \theta \right]_\pi^{2\pi} \\
+                    &= 2i \left( \frac{1}{i} + 2\pi + \frac{1}{i} - \pi \right) \\
+                    &= 4 + 2\pi i
+                \end{align*}
+
+            \item
+                From parts (a) and (b),
+                \begin{align*}
+                    \int_C f(z) dz &= \int_0^{2\pi} f[z(\theta)] z'(\theta) d\theta
+                    = \int_0^{2\pi} \frac{2e^{i\theta} + 2}{2e^{i\theta}} (2i e^{i\theta}) d\theta \\
+                    &= \int_0^{\pi} \frac{2e^{i\theta} + 2}{2e^{i\theta}} (2i e^{i\theta}) d\theta + \int_\pi^{2\pi} \frac{2e^{i\theta} + 2}{2e^{i\theta}} (2i e^{i\theta}) d\theta \\
+                    &= (-4 + 2\pi i) + (4 + 2\pi i) = 4\pi i.
+                \end{align*}
+        \end{enumerate}
+
+    \item[7.]
+        \begin{align*}
+            \int_C f(z) dz &= \int_0^{\pi/2} f[z(\theta)] z'(\theta) d\theta
+            = \int_0^{\pi/2} e^{(-1 - 2i) \text{Log} e^{i\theta}} \left( ie^{i \theta} \right) \\
+            &= i \int_0^{\pi/2} e^{(-1 - 2i) i\theta} e^{i\theta} = i \left[ \frac{e^{2\theta}}{2} \right]_0^{\pi/2} \\
+            &= i \frac{e^\pi - 1}{2}
+        \end{align*}
+\end{enumerate}
+
+\subsection*{4.47}
+\begin{enumerate}
+    \item[1.]
+        Let $C$ be the arc of the circle $|z| = 2$ from $z = 2$ to $z = 2i$. The length of the arc is $L \equiv 2\pi(2)/4 = \pi$.
+        \begin{enumerate}
+            \item
+                If $z$ is a point on $C$,
+                \begin{gather*}
+                    |z + 4| \leq |z| + |4| = 2 + 4 = 6 \\
+                    |z^3 - 1| \geq |z^3| - |1| = |z|^3 - 1 = 2^3 - 1 = 7 \\
+                    \Rightarrow \left| \frac{z + 4}{z^3 - 1} \right| = \frac{|z + 4|}{|z^3 - 1|} \leq \frac{6}{7} \\
+                    \left| \int_C \frac{z + 4}{z^3 - 1} dz \right| \leq \frac{6}{7} L = \frac{6}{7} \pi.
+                \end{gather*}
+
+            \item
+                If $z$ is a point on $C$,
+                \begin{gather*}
+                    |z^2 - 1| \geq |z^2| - |1| = |z|^2 - 1 = 2^2 - 1 = 3 \\
+                    \Rightarrow \left| \frac{1}{z^2 - 1} \right| = \frac{1}{|z^2 - 1|} \leq \frac{1}{3} \\
+                    \left| \int_C \frac{dz}{z^2 - 1} \right| \leq \frac{1}{3} L = \frac{\pi}{3}.
+                \end{gather*}
+        \end{enumerate}
+\end{enumerate}
+
+\subsection*{4.49}
+\begin{enumerate}
+    \item[5.]
+        If the principal branch is replaced with a branch that is defined at $z = -1$ and $z = 1$, then
+        \begin{align*}
+            \int_{-1}^1 z^i dz &= \left[ \frac{z^{i + 1}}{i + 1} \right]_{-1}^1
+            = \frac{1^{i + 1} - (-1)^{i + 1}}{i + 1} \\
+            &= \frac{e^{(i + 1) \log 1} - e^{(i + 1) \log(-1)}}{i + 1} \\
+            &= \frac{e^{(i + 1)(\ln 1 + i0)} - e^{(i + 1)(\ln 1 + i\pi)}}{i + 1} \\
+            &= \frac{1 - e^{-\pi} e^{i\pi}}{i + 1}
+            = \frac{1 + e^{-\pi}}{1 + i} \cdot \frac{1 - i}{1 - i} \\
+            &= \frac{1 + e^{-\pi}}{2} (1 - i)
+        \end{align*}
+\end{enumerate}
+
+\subsection*{4.53}
+\begin{enumerate}
+    \item[4.]
+        \begin{enumerate}
+            \item
+                The bottom leg has parametric representation $z = x, -a \leq x \leq a$, and the top leg has parametric representation $z = x + bi, -a \leq x \leq a$. Using symmetry, the sum of the integrals of $e^{-z^2}$ along the horizontal legs is given by
+                \begin{align*}
+                    \int_{-a}^a e^{-x^2} dx - \int_{-a}^a e^{-(x + bi)^2} dx
+                    &= 2 \int_0^a e^{-x^2} dx - e^{b^2} \int_{-a}^a e^{-x^2} e^{-2ibx} dx \\
+                    &= 2 \int_0^a e^{-x^2} dx - e^{b^2} \int_{-a}^a e^{-x^2} \cos(2bx) dx \\
+                    &\qquad+ ie^{b^2} \int_{-a}^a e^{-x^2} \sin(2bx) dx \\
+                    &= 2 \int_0^a e^{-x^2} dx - 2e^{b^2} \int_0^a e^{-x^2} \cos(2bx) dx.
+                \end{align*}
+                The rightmost leg has parametric representation $z = a + iy, 0 \leq y \leq b$, and the leftmost leg has parametric representation $z = -a + iy, 0 \leq y \leq b$. Using symmetry, the sum of the integrals of $e^{-z^2}$ along the vertical legs is given by
+                \begin{align*}
+                    \int_0^b ie^{-(a + iy)^2} dy - \int_0^b ie^{-(-a + iy)^2} dy &= ie^{-a^2} \int_0^b e^{y^2} e^{-2iay} dy \\
+                    &\qquad- ie^{-a^2} \int_0^b e^{y^2} e^{2iay} dy \\
+                    &= 2e^{-a^2} \int_0^b e^{y^2} \sin(2ay) dy.
+                \end{align*}
+                From the Cauchy-Goursat theorem, the sum of the integrals of $e^{-z^2}$ along the rectangular path is then
+                \begin{align*}
+                    2 \int_0^a e^{-x^2} dx - 2e^{b^2} \int_0^a e^{-x^2} \cos(2bx) dx + 2e^{-a^2} \int_0^b e^{y^2} \sin(2ay) dy = 0
+                \end{align*}
+                which, when rearranged, becomes
+                \begin{align}
+                    \int_0^a e^{-x^2} \cos(2bx) dx = e^{-b^2} \int_0^a e^{-x^2} dx + e^{-(a + b)^2} \int_0^b e^{y^2} \sin(2ay) dy. \label{eq:rect}
+                \end{align}
+
+            \item
+                Since
+                \begin{align*}
+                    \lim_{a \to \infty} \left| e^{-(a^2 + b^2)} \int_0^b e^{y^2} \sin(2ay) dy \right| \leq \lim_{a \to \infty} e^{-(a^2 + b^2)} \int_0^b e^{y^2} dy = 0,
+                \end{align*}
+                we have that
+                \begin{align*}
+                    \lim_{a \to \infty} e^{-(a + b)^2} \int_0^b e^{y^2} \sin(2ay) dy = 0
+                \end{align*}
+                and hence, (\ref{eq:rect}) becomes
+                \begin{align*}
+                    \int_0^\infty e^{-x^2} \cos(2bx) dx &= e^{-b^2} \int_0^\infty e^{-x^2} dx + 0 = \frac{\sqrt{\pi}}{2} e^{-b^2}.
+                \end{align*}
+        \end{enumerate}
+
+    \item[5.]
+        $C_1 - C_3$ and $C_2 + C_3$ form simple closed contours, and because $f$ is entire, it is analytic at all points interior to and on these contours. From the Cauchy-Gorsat theorem,
+        \begin{align*}
+            \int_{C_1} f(z) dz - \int_{C_3} f(z) dz = 0 \Rightarrow \int_{C_1} f(z) dz = \int_{C_3} f(z) dz
+        \end{align*}
+        and
+        \begin{align*}
+            \int_{C_2} f(z) dz + \int_{C_3} f(z) dz = 0 \Rightarrow \int_{C_2} f(z) dz = -\int_{C_3} f(z) dz.
+        \end{align*}
+        We can then conclude that
+        \begin{align*}
+            \int_C f(z) dz = \int_{C_1} f(z) dz + \int_{C_2} f(z) dz = \int_{C_3} f(z) dz - \int_{C_3} f(z) dz = 0.
+        \end{align*}
+\end{enumerate}
+
+\subsection*{4.57}
+\begin{enumerate}
+    \item[1.]
+        The Cauchy integral formula is used in the following:
+        \begin{enumerate}
+            \item
+                Since $f(z) = e^{-z}$ is analytic within and on $C$, and $z_0 = \pi i/2$ is interior to $C$,
+                \begin{align*}
+                    \int_C \frac{e^{-z}}{z - \pi i/2} dz = 2\pi i e^{-(\pi i/2)} = 2\pi i(-i) = 2\pi.
+                \end{align*}
+
+            \item
+                Since $f(z) = \cos z / (z^2 + 8)$ is analytic within and on $C$, and $z_0 = 0$ is interior to $C$,
+                \begin{align*}
+                    \int_C \frac{\cos z}{z(z^2 + 8)} dz = \int_C \frac{\cos z / (z^2 + 8)}{z} dz = 2\pi i \frac{\cos 0}{0^2 + 8} = 2\pi i \frac{1}{8} = \frac{\pi i}{4}.
+                \end{align*}
+
+            \item
+                Since $f(z) = z/2$ is analytic within and on $C$, and $z_0 = -1/2$ is interior to $C$,
+                \begin{align*}
+                    \int_C \frac{z}{2z + 1} dz = \int_C \frac{z/2}{z + 1/2} dz = 2\pi i \frac{-1/2}{2} = -\frac{\pi i}{2}.
+                \end{align*}
+
+            \item
+                Since $f(z) = \cosh z$ is analytic within and on $C$, and $z_0 = 0$ is interior to $C$,
+                \begin{align*}
+                    \int_C \frac{\cosh z}{z^4} dz = \frac{2\pi i}{3!} \left[ \frac{d^3}{dz^3} \cosh z \right]_{z = 0} = 0.
+                \end{align*}
+
+            \item
+                Since $f(z) = \tan(z/2)$ is analytic within and on $C$, and $z_0 = x_0$ is interior to $C$,
+                \begin{align*}
+                    \int_C \frac{\tan(z/2)}{(z - x_0)^2} dz = \frac{2\pi i}{1!} \left[ \frac{d}{dz} \tan \left( \frac{z}{2} \right) \right]_{z = x_0} = \pi i \sec^2 \left( \frac{x_0}{2} \right).
+                \end{align*}
+        \end{enumerate}
+
+    \item[7.]
+        Since $f(z) = e^{az}$ is analytic within and on $C$, and $z_0 = 0$ is interior to $C$,
+        \begin{align*}
+            \int_C \frac{e^{az}}{z} dz = 2\pi i e^{a(0)} = 2\pi i.
+        \end{align*}
+        Noting the symmetry of $C$ and that $dz = ie^{i\theta} d\theta$ and performing operations on both sides, we have
+        \begin{gather*}
+            \int_{-\pi}^\pi \frac{e^{ae^{i\theta}}}{e^{i\theta}} ie^{i\theta} d\theta = 2\pi i \\
+            \int_0^\pi e^{ae^{i\theta}} d\theta = \pi \\
+            \int_0^\pi e^{a(\cos\theta + i\sin\theta)} d\theta = \pi \\
+            \int_0^\pi e^{a\cos\theta} [\cos(a\sin\theta) + i\sin(a\sin\theta)] d\theta = \pi.
+        \end{gather*}
+        By equating real and imaginary parts on both sides, we deduce that the imaginary part is zero and hence
+        \begin{gather*}
+            \int_0^\pi e^{a\cos\theta} \cos(a\sin\theta) d\theta = \pi.
+        \end{gather*}
+\end{enumerate}
+
+\subsection*{4.59}
+\begin{enumerate}
+    \item[8.]
+        \begin{enumerate}
+            \item
+                This is an example of a telescoping sum:
+                \begin{align*}
+                    (z - z_0)(z^{k - 1} + z^{k - 2} z_0 + \cdots + z z_0^{k - 2} + z_0^{k - 1}) &= \sum_{m = 0}^{k - 1} (z^{k - m} z_0^m \\
+                    &\qquad- z^{k - m - 1} z_0^{m + 1}) \\
+                    &= z^k - z_0^k.
+                \end{align*}
+
+            \item
+                \begin{align*}
+                    P(z) - P(z_0) &= \left( a_0 + a_1 z + \cdots + a_n z^n \right) - \left( a_0 + a_1 z_0 + \cdots + a_n z_0^n \right) \\
+                    &= a_1(z - z_0) + a_2(z^2 - z_0^2) + \cdots + a_n(z^n - z_0^n) \\
+                    &= (z - z_0)[a_1 + a_2(z + z_0) + \cdots \\
+                    &\qquad+ a_n(z^{n - 1} + z^{n - 2} z_0 + \cdots + z z_0^{n - 2} + z_0^{n - 1})] \\
+                    &\equiv (z - z_0) Q(z)
+                \end{align*}
+        \end{enumerate}
+\end{enumerate}
+
+\end{document}

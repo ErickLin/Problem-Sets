@@ -1,0 +1,122 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr}
+\usepackage[margin=3.5cm]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\renewcommand{\thesubsection}{\arabic{subsection}}
+
+\begin{document}
+
+\section*{MATH 4431 -- HW1 Solutions}
+\begin{enumerate}
+    \item[4.]
+        A basis for the product topology on $\mathbb{R} \times \mathbb{R}$ is given by
+        \begin{align*}
+            \mathcal{B}_p &= \{ U \times V : U, V \text{ open in } \mathbb{R} \} \\
+            &= \{ B_{\epsilon_1}^1(x) \times B_{\epsilon_2}^1(y) : \epsilon_1, \epsilon_2 > 0; x, y \in \mathbb{R} \}
+        \end{align*}
+        where $B_\epsilon^1(x) = \{ p \in \mathbb{R} : |x - p| < \epsilon \}$, and a basis equivalent to the standard topology on $\mathbb{R}^2$ is given by
+        \begin{align*}
+            \mathcal{B}_s = \{ B_\epsilon^2(x) : \epsilon > 0, x \in \mathbb{R}^2 \}
+        \end{align*}
+        where $B_\epsilon^2(x) = \{ p \in \mathbb{R} : \max\{ |x_1 - p_1|, |x_2 - p_2| \} < \epsilon \}$. \par
+        We can prove that the topologies are the same by showing that an element in each basis is a union of elements in the other basis, thus showing that the basis of each topology generates the other. Indeed, an element $B_{\epsilon_1}^1(x) \times B_{\epsilon_2}^1(y) \in \mathcal{B}_p$ can be written as
+        \begin{align*}
+            B_{\epsilon_1}^1(x) \times B_{\epsilon_2}^1(y) = \begin{cases}
+                \bigcup_{x' \in [x - \epsilon_1 + \epsilon_2, x + \epsilon_1 - \epsilon_2]} B_{\epsilon_2}^2(x', y), \epsilon_1 \geq \epsilon_2 \\
+                \bigcup_{y' \in [y - \epsilon_2 + \epsilon_1, y + \epsilon_2 - \epsilon_1]} B_{\epsilon_1}^2(x, y'), \epsilon_1 < \epsilon_2
+            \end{cases}
+        \end{align*}
+        which is a union of elements in $\mathcal{B}_s$, and an element $B_\epsilon^2(x)$ in $\mathcal{B}_s$ can be written as $B_\epsilon^1(x) \times B_\epsilon^1(x)$, which is an element in $\mathcal{B}_p$.
+
+    \item[6.]
+        A basis for the product topology on $X \times Y$ is given by
+        \begin{align*}
+            \mathcal{B}_p &= \{ U \times V : U \text{ open in } X, U \text{ open in } Y \}.
+        \end{align*}
+        ($\Rightarrow$) For any open set $U \subseteq X$, $U \times Y \in \mathcal{B}_p$ and is hence open in $X \times Y$. Then $f^{-1}(U \times Y) = \{ z \in Z : g(z) \in U, h(z) \in Y \} = \{ z \in Z : g(z) \in U \} = g^{-1}(U)$ is open in $Z$ from the assumption, so $g$ is continuous. \par
+        Similarly, for any open set $V \subseteq Y$, $X \times V \in \mathcal{B}_p$ and is hence open in $X \times Y$. Then $f^{-1}(X \times V) = \cdots = h^{-1}(V)$ is open in $Z$ from the assumption, so $h$ is continuous. \par
+        ($\Leftarrow$) Any set $W$ in $X \times Y$ is a union of elements in $\mathcal{B}_p$. Take one such element $U_i \times V_i$. Since $U_i$ is open in $X$ and $V_i$ is open in $Y$, $g^{-1}(U_i)$ and $h^{-1}(V_i)$ are open in $Z$. Then
+        \begin{align*}
+            f^{-1}(U_i \times V_i) = \{ z \in Z: g(z) \in U_i, h(z) \in V_i \} = g^{-1}(U_i) \cap h^{-1}(V_i),
+        \end{align*}
+        being the intersection of two open sets, is also open in $Z$. Thus, $W$, being a union of open sets, must be open also, and so $f$ is continuous.
+        \iffalse
+            Since $f$ is continuous, for any open set $W$ in the product topology on $X \times Y$, $f^{-1}(W)$ is open. \par
+            If $W \in \mathcal{B}_p$, then $W = U \times V$ for some $U$ open in $X$, $V$ open in $Y$, and
+            \begin{align*}
+                f^{-1}(W) &= \{ z \in Z : f(z) \in W \} = \{ z \in Z : g(z) \in U, h(z) \in V \} \\
+                &= g^{-1}(U) \cap h^{-1}(V),
+            \end{align*}
+            so $g^{-1}(U)$ and $h^{-1}(V)$ are open. \par
+            If $W \notin \mathcal{B}_p$, then it is the union
+        \fi
+
+    \item[7.]
+        Let $Z = X \times Y$ where $X$ and $Y$ are Hausdorff. Then for any distinct $(x_1, x_2), (y_1, y_2) \in Z$,
+        \begin{center}
+            $x_1 \in U_1$ and $y_1 \in V_1$ where $U_1 \cap V_1 = \emptyset$, or \\
+            $x_2 \in U_2$ and $y_2 \in V_2$ where $U_2 \cap V_2 = \emptyset$.
+        \end{center}
+        Then we have $(U_1 \times U_2) \cap (V_1 \times V_2) = \emptyset$ also. The fact that $(x_1, x_2) \in U_1 \times U_2$ and $(y_1, y_2) \in V_1 \times V_2$ leads to the conclusion that $Z$ is Hausdorff.
+
+    \item[9.]
+        Let $x \in X$. For any $y \in X$, $x$ and $y$ are contained in disjoint open sets since $X$ is Hausdorff. If we denote such an open set containing $y$ by $U_y$, then $U_y \subseteq X \setminus \{x\}$, and
+        \begin{align*}
+            X \setminus \{x\} = \bigcup_{y \in X \setminus \{x\}} U_y
+        \end{align*}
+        is open, being a union of open sets; hence, $\{x\}$ is closed. Furthermore, finite unions of closed sets are closed. Because $\{x\}$ was arbitrary, any finite subset of $X$, which can be written as a finite union of singletons, is also closed.
+
+    \item[11.]
+        $((1) \Rightarrow (3))$ For any open set $U \subseteq Z$, $f^{-1}(U) \subseteq X$ is by definition a member of the discrete topology, and is hence open. \par
+        $((3) \Rightarrow (2))$ $Y$ is a topological space, and hence (2) is a special case. \par
+        $((2) \Rightarrow (1))$ For any open set $U \subset Y$ and subset $S$ of $X$ where $|S| \geq |U|$, we may choose $f : X \to Y$ such that $f^{-1}(U) = S$. Since $U$ is open and $f$ is continuous, $f^{-1}(U) = S$ is open. The smallest possible cardinality that $U$ may have is $0$ because the empty set is open in $Y$. Thus, all subsets of $X$ of any size are open.
+
+    \item[15.]
+        Let $A$ and $B$ be nonempty closed and bounded sets in $X$.
+        \begin{enumerate}
+            \item
+                Because $(X, \rho)$ is a metric space, $\rho(a, b) \geq 0$ for all $a \in A, b \in B$, and hence $\inf\{ \rho(a, b) \mid a \in A, b \in B\} \geq 0$. It can be deduced from the definitions that $\rho(a, B) \geq 0 \; \forall a \in A \Rightarrow d_A(B) \geq 0 \Rightarrow d(A, B) \geq 0$.
+            \item
+                ($\Rightarrow$) We have that $d_A(B) = 0 \Rightarrow \rho(a, B) = 0 \; \forall a \in A$. Since $B$ is closed and bounded, $\rho(a, B) = \inf\{ \rho(a, b) \mid b \in B \} = 0$ implies that $\rho(a, b) = 0$ for some $b \in B$, which in turn implies $a = b$ since $(X, \rho)$ is a metric space. This shows that $A \subseteq B$. \par
+                Because we also have that $d_B(A) = 0$, a similar argument shows that $B \subseteq A$, so $A = B$. \par
+                ($\Leftarrow$) For all $a \in A$, there exists some $b \in B$ such that $b = a$ and so $\rho(a, b) = 0$. Thus, since $A$ is closed and bounded,
+                \begin{gather*}
+                    \rho(a, B) = \inf\{ \rho(a, b) \mid b \in B \} = 0 \; \forall a \in A \\
+                    \Rightarrow d_B(A) = \sup\{ \rho(a, B) \mid a \in A \} = \sup\{ 0 \} = 0.
+                \end{gather*}
+                A symmetric argument shows that $d_A(B) = 0$, and thus $d(A, B) = 0$.
+            \item
+                $d(A, B) = \max\{ d_A(B), d_B(A) \} = \max\{ d_B(A), d_A(B) \} = d(B, A)$.
+            \item
+                Let $C$ be a nonempty closed and bounded sets in $X$, and let $a \in A$, $b \in B$, and $c' = \arg\inf\{ \rho(b, c) \mid c \in C \}$. Since $(X, \rho)$ is a metric space, we have that
+                \begin{align*}
+                    \rho(a, c') \leq \rho(a, b) + \rho(b, c').
+                \end{align*}
+                From the definitions, $\rho(a, C) \leq \rho(a, c')$ and $\rho(b, c') = \rho(b, C) \leq \sup\{ \rho(b, C) \mid b \in B \} = d_C(B) \leq d(B, C)$. Combining the inequalities gives
+                \begin{align} \label{eq:triangle}
+                    \rho(a, C) \leq \rho(a, b) + d(B, C).
+                \end{align}
+                Because (\ref{eq:triangle}) holds for arbitrary $a \in A$ and $b \in B$, it holds in particular for $b' = \arg\inf\{ \rho(a, b) \mid b \in B \}$ and $a' = \arg\sup\{ \rho(a, C) \mid a \in A \}$, so we have
+                \begin{align*}
+                    d_A(C) \leq \rho(a', B) + d(B, C).
+                \end{align*}
+                From the definitions, $\rho(a', B) \leq \sup\{ \rho(a, B) \mid a \in A \} = d_B(A) \leq d(A, B)$ which gives
+                \begin{align*}
+                    d_A(C) \leq d(A, B) + d(B, C).
+                \end{align*}
+                Because $A$, $B$, and $C$ are arbitrary, a similar argument gives
+                \begin{align*}
+                    d_C(A) \leq d(C, B) + d(B, A),
+                \end{align*}
+                and it can be seen that the right-hand side is equal by (c). Thus,
+                \begin{align*}
+                    d(A, C) = \max\{ d_A(C), d_C(A) \} \leq d(A, B) + d(B, C).
+                \end{align*}
+        \end{enumerate}
+\end{enumerate}
+
+\end{document}

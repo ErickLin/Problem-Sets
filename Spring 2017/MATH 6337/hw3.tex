@@ -1,0 +1,103 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amsfonts, amsmath, amssymb, amsthm, enumitem, fancyhdr, graphicx}
+\usepackage[margin=0.7in, includehead, includefoot, heightrounded]{geometry}
+\allowdisplaybreaks
+\pagestyle{fancy}
+\rhead{Erick Lin}
+
+\newcommand*\dist{\mathop{\!\mathrm{d}}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\begin{document}
+
+\section*{MATH 6337 -- HW3 Solutions}
+\begin{enumerate}
+    \item[1.1.31.]
+        \boldmath\textbf{Show that if $f : \mathbb{R} \to \mathbb{R}$ is continuous, then its graph
+        \begin{align*}
+            \Gamma_f = \{ (x, f(x)) : x \in \mathbb{R} \} \subseteq \mathbb{R}^2
+        \end{align*}
+        has measure zero, i.e., $|\Gamma_f|_e = 0$.
+        }\unboldmath \par
+        Because $f$ is uniformly continuous, we know there exists $\delta > 0$ such that if $|x_1 - x_2| < \delta$, then $|f(x_1) - f(x_2)| < \epsilon$ for all $x_1, x_2 \in \mathbb{R}$. If we fix $\epsilon > 0$ and consider an arbitrary closed interval $[k, k + 1] \subset \mathbb{R}$ with partition $(x_i)_{1 \leq i \leq n}$ such that each subinterval is of size less than $\delta$, then
+        \begin{align*}
+            \bigcup_{i = 1}^n \left( [x_{i - 1}, x_i] \times [\min_{x \in [x_{i - 1}, x_i]} f(x), \max_{x \in [x_{i - 1}, x_i]} f(x)] \right)
+        \end{align*}
+        is a union of boxes covering $\Gamma_f|_{[k, k + 1]}$. The union has measure less than $\epsilon$ by the result of Exercise 1.1.20 since the boxes are nonoverlapping, and so $|\Gamma_f|_{[k, k + 1]}|_e = 0$. Lastly, because $\mathbb{R}$ is a countable union of nonoverlapping closed intervals, $|\Gamma_f|_e$ is at most the sum of the $|\Gamma_f|_{[k, k + 1]}|_e$ over all $k$ by countable subadditivity, and is thus zero.
+
+    \item[1.1.35.]
+        \boldmath\textbf{Prove that the $(d - 1)$-dimensional subspace of $\mathbb{R}^d$ defined by
+        \begin{align*}
+            S = \mathbb{R}^{d - 1} \times \{0\} = \{ (x_1, \cdots, x_{d - 1}, 0) : x_1, \cdots, x_{d - 1} \in \mathbb{R} \}
+        \end{align*}
+        has exterior measure $|S|_e = 0$, and consequently any subset of $S$ has exterior measure zero.
+        }\unboldmath \par
+        \iffalse
+            We will prove this by induction on $d$. The statement is obvious for $d = 1$ since in this case $S$ is finite and hence countable. Now, assuming the statement holds for $d = k - 1$ where $k \geq 2$, we have for $d = k$ that
+            \begin{align*}
+                S = \mathbb{R}^{k - 1} \times \{0\} = \mathbb{R} \times (\mathbb{R}^{k - 2} \times \{0\}),
+            \end{align*}
+        \fi
+        Fix $\epsilon > 0$ and choose a cube $Q \subset \mathbb{R}^{d - 1}$ given by the product of closed intervals $[k_i, k_i + 1]$ for all $1 \leq i \leq d - 1$. Then
+        \begin{align*}
+            \prod_{i = 1}^{d - 1} [k_i, k_i + 1] \times \left[ -\frac{\epsilon}{3}, \frac{\epsilon}{3} \right]
+        \end{align*}
+        is a box of volume less than $\epsilon$ that covers $Q \times \{0\}$, so $|Q \times \{0\}|_e = 0$. \par
+        Since $\mathbb{R}^{d - 1}$ is a countable union of nonoverlapping cubes, $S$ is a countable union of nonoverlapping sets taking the form $Q \times \{0\}$ where $Q$ is a cube, and thus $|S|_e = 0$ by countable subadditivity.
+
+    \item[1.1.38.]
+        \boldmath\textbf{Given a set $E \subseteq \mathbb{R}^d$, show that $|E|_e = 0$ if and only if there exist countably many boxes $Q_k$ such that $\sum \text{vol}(Q_k) < \infty$ and each point $x \in E$ belongs to infinitely many $Q_k$.
+        }\unboldmath \par
+        ($\Leftarrow$) %Because there are only countably many $Q_k$, each must contain all the points in $E$ excluding a countable number in order for the $Q_k$ to cover $E$. If $C_k = Q_k \cap E$, then since $E \setminus C_k$ is countable, we have by countable subadditivity that
+        %\begin{align*}
+            %|E|_e \leq |E \setminus C_k|_e + |C_k|_e \Rightarrow |C_k|_e \geq |E|_e.
+        %\end{align*}
+        %Any cover of $Q_k$ must of course be a cover of $C_k$, which implies that $\text{vol}(Q_k) = |Q_k|_e \geq |E|_e$. But now we can see that if $|E|_e > 0$, then the condition that $\sum \text{vol}(Q_k) < \infty$ does not hold, which means that $|E|_e = 0$ necessarily. \par
+        This can be restated as
+        \begin{align*}
+            E \subseteq \bigcap_{j = 1}^\infty \bigcup_{k = j}^\infty Q_k
+        \end{align*}
+        and so for all $j \geq 1$,
+        \begin{align*}
+            |E|_e \leq \left| \bigcup_{k = j}^\infty Q_k \right|_e \leq \sum_{k = j}^\infty \text{vol}(Q_k) \xrightarrow{j \to \infty} 0.
+        \end{align*}
+        ($\Rightarrow$) Since $|E|_e = 0$, there exists a countable family of boxes $\{ Q_{n, k} \}_{k, n \in \mathbb{N}}$ such that for all $n \in \mathbb{N}$,
+        \begin{align*}
+            E \subset \bigcup_{k = 1}^\infty Q_{n, k} \quad \text{and} \quad \sum_{k = 1}^\infty \text{vol}(Q_{n, k}) \leq 2^{-n}.
+        \end{align*}
+        We can easily see from the second condition that the sum of the volumes of all the boxes is at most $1 < \infty$, and the first condition also implies that
+        \begin{align*}
+            E \subset \bigcap_{n = 1}^\infty \bigcup_{k = 1}^\infty Q_{n, k};
+        \end{align*}
+        in other words, for any $n$, there exists $k(n)$ such that $x \in Q_{n, k(n)}$. $Q_{n, k(n)}$ cannot be the same cube for infinitely many values of $n$; in particular, if we choose $N$ such that $2^{-N} < \text{vol}(Q_{n, k(n)})$, then $N$ is an upper bound on these values of $n$. We conclude then that $x$ belongs to infinitely many $Q_k$.
+
+    \item[1.2.31.]
+        \boldmath\textbf{Suppose that $F$ and $K$ are nonempty, disjoint subsets of $\mathbb{R}^d$ such that $F$ is closed and $K$ is compact. Prove that $\text{dist}(F, K) > 0$. Exhibit nonempty disjoint closed sets $E, F$ such that $\text{dist}(E, F) = 0$.
+        }\unboldmath \par
+        First, fix $k \in K$. If for the purpose of contradiction $\text{dist}(F, \{k\}) = 0$, then for all $\epsilon > 0$, there exists $f \in F$ such that $\norm{f, k} < \epsilon$, which means we can form a sequence $\{f_n\}$ of such points in $F$ using $\epsilon = 1/n$ for each term that converges to $k$ as a limit point. But $F$, being a closed set, must contain $k$, contradicting the fact that $F$ and $K$ are disjoint. We can thus conclude that $\text{dist}(F, \{k\}) > 0$. \par
+        Next, let $\text{dist}(F, K) = 0$ for the purpose of contradiction, meaning that for all $\epsilon > 0$, there exists $k \in K$ such that $\text{dist}(F, \{k\}) < \epsilon$. As before, we can form a sequence $\{k_n\}$ of such points in $K$ using $\epsilon = 1/n$. Because $K$ is compact, $\{k_n\}$ must have a convergent subsequence whose limit $k$ is contained in $K$ and fulfills $\text{dist}(F, \{k\}) = 0$, but this contradicts our previous conclusion. Therefore, $\text{dist}(F, K) = 0$. \par
+        Now let $E = \{ (x, y) \in \mathbb{R}_+ \times \mathbb{R} : y \geq \frac{1}{x} \}, F = \{ (x, y) \in \mathbb{R}_+ \times \mathbb{R} : y \leq 0 \}$, which are disjoint closed sets. For any $\epsilon > 0$, if we take $x \geq 1/\epsilon$, then $(x, 1/x) \in E$ and $(x, 0) \in F$ with $\norm{(x, 1/x), (x, 0)} < \epsilon$; thus, $\text{dist}(E, F) = 0$.
+
+    \item[1.2.32.]
+        \boldmath\textbf{Show that if $A$ and $B$ are any measurable subsets of $\mathbb{R}^d$, then
+        \begin{align*}
+            |A \cup B| + |A \cap B| = |A| + |B|.
+        \end{align*}
+        }\unboldmath \par
+        First, we know that $A \setminus B$, $A \cap B$, and $B \setminus A$ are disjoint, and also that
+        \begin{align*}
+            A \cup B &= (A \setminus B) \cup (A \cap B) \cup (B \setminus A) \\
+            A &= (A \setminus B) \cup (A \cap B) \\
+            B &= (B \setminus A) \cup (B \cap A),
+        \end{align*}
+        all of which are measurable because measurable subsets of $\mathbb{R}^d$ form a $\sigma$-algebra under $\mathbb{R}^d$. Thus, by countable additivity of disjoint measurable sets,
+        \begin{align*}
+            |A \cup B| + |A \cap B| = |A \setminus B| + 2|A \cap B| + |B \setminus A| = |A| + |B|.
+        \end{align*}
+\end{enumerate}
+
+\end{document}
